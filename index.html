@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- SikoChat v3 · lápiz táctil reforzado + zumbido con vibración y sonido en cel -->
+<!-- SikoChat v4 · perfil con foto + stikers/gifs + fotos de galería + tonos configurables -->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -175,7 +175,7 @@ button{font-family:'Montserrat',sans-serif}
 
 /* ============ BARRAS INFERIORES ============ */
 .barraAcciones{
-  display:flex;gap:6px;padding:8px 10px;border-top:1px solid var(--borde);
+  display:flex;flex-wrap:wrap;gap:6px;padding:8px 10px;border-top:1px solid var(--borde);
   background:#0f0f0f;flex-shrink:0;
 }
 .btnAccion{
@@ -204,13 +204,46 @@ button{font-family:'Montserrat',sans-serif}
 
 /* ============ PICKER EMOTICONS ============ */
 #pickerEmotis{
-  position:fixed;bottom:118px;right:16px;width:min(320px,92vw);max-height:260px;overflow-y:auto;
+  position:fixed;bottom:118px;right:16px;width:min(330px,92vw);max-height:290px;overflow-y:auto;
   background:#101010;border:2px solid var(--naranja);border-radius:14px;padding:10px;
-  display:grid;grid-template-columns:repeat(8,1fr);gap:4px;z-index:60;
+  display:block;z-index:60;
   box-shadow:0 10px 40px rgba(0,0,0,.7);
 }
 .emo{background:none;border:none;font-size:20px;padding:6px 0;border-radius:8px;cursor:pointer}
 .emo:hover{background:rgba(245,157,61,.15)}
+
+/* ============ MODALES (PERFIL · FOTOS · TONOS) ============ */
+.overlayModal{position:fixed;inset:0;background:rgba(0,0,0,.93);z-index:85;display:flex;align-items:center;justify-content:center;padding:14px}
+.cajaModal{background:#101010;border:2px solid var(--naranja);border-radius:14px;padding:16px;width:min(92vw,400px);max-height:88vh;overflow-y:auto}
+.modalTitulo{font-size:14px;font-weight:900;color:var(--naranja);letter-spacing:.5px;margin-bottom:12px;text-align:center}
+.modalLabel{display:block;font-size:10.5px;font-weight:800;color:#999;letter-spacing:1px;margin:12px 0 6px}
+.modalInput{width:100%;box-sizing:border-box;background:#000;border:1.5px solid #333;color:#fff;padding:10px 12px;border-radius:9px;font-family:inherit;font-size:14px;font-weight:700}
+.modalInput:focus{outline:none;border-color:var(--naranja)}
+.modalAcc{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
+.perfilFila{display:flex;align-items:center;gap:14px}
+.perfilFoto{width:84px;height:84px;border-radius:50%;background:#000;border:2px solid var(--naranja);display:grid;place-items:center;font-size:38px;flex-shrink:0;background-size:cover;background-position:center;overflow:hidden}
+.perfilFotoAcc{display:flex;flex-direction:column;gap:6px}
+.gridAvPerf{display:grid;grid-template-columns:repeat(8,1fr);gap:4px}
+.gridAvPerf button{background:none;border:none;font-size:19px;padding:4px 0;border-radius:7px;cursor:pointer}
+.gridAvPerf button.sel{background:rgba(245,157,61,.22)}
+.fotoMini{width:24px;height:24px;border-radius:50%;object-fit:cover;flex-shrink:0;display:block}
+.fotoBurbuja{width:20px;height:20px;border-radius:50%;object-fit:cover;vertical-align:-5px;margin-right:3px}
+.tabsEmotis{display:flex;gap:6px;margin-bottom:8px}
+.tabEmotis{flex:1;background:#0a0a0a;border:1px solid #333;color:#aaa;padding:7px 0;border-radius:8px;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit}
+.tabEmotis.activo{border-color:var(--naranja);color:var(--naranja);background:rgba(245,157,61,.12)}
+.gridEmotis{display:grid;grid-template-columns:repeat(8,1fr);gap:4px}
+.gridStikers{display:grid;grid-template-columns:repeat(6,1fr);gap:4px}
+.stkBtn{background:none;border:none;font-size:29px;padding:5px 0;border-radius:9px;cursor:pointer;line-height:1.25}
+.stkBtn:hover{background:rgba(245,157,61,.15)}
+.gridGifs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.gridGifs img{width:100%;border-radius:9px;cursor:pointer;border:1px solid #333;display:block}
+.gridGifs img:hover{border-color:var(--naranja)}
+.gifNota{font-size:10px;color:#777;margin-top:8px;line-height:1.5;text-align:center}
+.stikerBig{font-size:52px;line-height:1.1;display:block}
+#previewFoto{max-width:100%;max-height:44vh;border-radius:10px;border:2px solid var(--naranja);display:block;margin:0 auto}
+.sonidoGrupo{display:flex;flex-wrap:wrap;gap:6px}
+.chipSonido{background:#0a0a0a;border:1px solid #333;color:#ccc;padding:8px 12px;border-radius:999px;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit}
+.chipSonido.activo{border-color:var(--naranja);color:var(--naranja);background:rgba(245,157,61,.14)}
 
 /* ============ PIZARRITA (DIBUJO) ============ */
 #overlayDibujo{
@@ -329,8 +362,10 @@ button{font-family:'Montserrat',sans-serif}
           <button class="btnAccion" id="btnContactos">👥 <span id="cantConectadosMob">0</span></button>
           <button class="btnAccion" id="btnEmotis">😀 Emoticons</button>
           <button class="btnAccion" id="btnDibujar">✏️ Dibujar</button>
+          <button class="btnAccion" id="btnImagen">📷 Foto/GIF</button>
           <button class="btnAccion" id="btnZumbido">📳 Zumbido</button>
           <button class="btnAccion" id="btnSonido">🔔 Sonido</button>
+          <button class="btnAccion" id="btnMusica">🎵 Tonos</button>
         </div>
         <div class="zonaEscritura">
           <textarea id="msj" maxlength="500" placeholder="Escribí tu mensaje… (Enter para mandar)"></textarea>
@@ -342,8 +377,20 @@ button{font-family:'Montserrat',sans-serif}
   </div>
 </div>
 
-<!-- ================= PICKER DE EMOTICONS ================= -->
-<div id="pickerEmotis" class="oculto"></div>
+<!-- ================= PICKER DE EMOTICONS / STIKERS / GIFS ================= -->
+<div id="pickerEmotis" class="oculto">
+  <div class="tabsEmotis">
+    <button class="tabEmotis activo" data-tab="tabEmotis" type="button">😀 Emotis</button>
+    <button class="tabEmotis" data-tab="tabStikers" type="button">🎟️ Stikers</button>
+    <button class="tabEmotis" data-tab="tabGifs" type="button">🎞️ GIFs</button>
+  </div>
+  <div id="tabEmotis" class="gridEmotis"></div>
+  <div id="tabStikers" class="gridStikers oculto"></div>
+  <div id="tabGifs" class="oculto">
+    <div class="gridGifs" id="gridGifs"></div>
+    <p class="gifNota">Stikers animados hechos para Sikodark 🧡 · ¿querés más? Subí tus .gif a la carpeta <b>gifs/</b> del repo</p>
+  </div>
+</div>
 
 <!-- ================= PIZARRITA (LÁPIZ) ================= -->
 <div id="overlayDibujo" class="oculto">
@@ -363,6 +410,57 @@ button{font-family:'Montserrat',sans-serif}
   </div>
 </div>
 
+<!-- ================= MI PERFIL ================= -->
+<div id="overlayPerfil" class="overlayModal oculto">
+  <div class="cajaModal">
+    <div class="modalTitulo">👤 MI PERFIL</div>
+    <div class="perfilFila">
+      <div id="perfilFoto" class="perfilFoto">🙂</div>
+      <div class="perfilFotoAcc">
+        <button class="btnDibujo" id="btnSubirFoto" type="button">📸 Subir foto</button>
+        <button class="btnDibujo oculto" id="btnQuitarFoto" type="button">🗑️ Quitar foto</button>
+      </div>
+    </div>
+    <input type="file" id="inputFotoPerfil" accept="image/*" class="oculto">
+    <label class="modalLabel" for="perfilNombre">TU NOMBRE</label>
+    <input id="perfilNombre" class="modalInput" maxlength="18" placeholder="Como te ven los demás">
+    <label class="modalLabel">O ELEGÍ UN AVATAR</label>
+    <div id="gridAvataresPerfil" class="gridAvPerf"></div>
+    <div class="modalAcc">
+      <button class="btnDibujoGhost" id="btnCerrarPerfil" type="button">Cancelar</button>
+      <button class="btnPrincipal" id="btnGuardarPerfil" type="button">GUARDAR ✓</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= ENVIAR FOTO / GIF DE GALERÍA ================= -->
+<div id="overlayFoto" class="overlayModal oculto">
+  <div class="cajaModal">
+    <div class="modalTitulo">📷 MANDAR AL CHAT</div>
+    <img id="previewFoto" alt="Vista previa">
+    <div class="modalAcc">
+      <button class="btnDibujoGhost" id="btnCancelarFoto" type="button">Cancelar</button>
+      <button class="btnPrincipal" id="btnEnviarFoto" type="button">ENVIAR ➤</button>
+    </div>
+  </div>
+</div>
+<input type="file" id="inputImagen" accept="image/*" class="oculto">
+
+<!-- ================= TONOS DEL CHAT ================= -->
+<div id="overlaySonidos" class="overlayModal oculto">
+  <div class="cajaModal">
+    <div class="modalTitulo">🎵 TONOS DEL CHAT</div>
+    <label class="modalLabel">SONIDO DE NUEVO MENSAJE</label>
+    <div class="sonidoGrupo" id="grupoSonMsj"></div>
+    <label class="modalLabel">SONIDO DEL ZUMBIDO 📳</label>
+    <div class="sonidoGrupo" id="grupoSonZumb"></div>
+    <p class="gifNota">Tocá un tono para escucharlo y dejarlo elegido. El zumbido siempre vibra en el cel, aunque el tono esté en “Nada”.</p>
+    <div class="modalAcc">
+      <button class="btnPrincipal" id="btnCerrarSonidos" type="button">LISTO ✓</button>
+    </div>
+  </div>
+</div>
+
 <!-- ================= LIGHTBOX ================= -->
 <div id="lightbox" class="oculto"><img id="lightboxImg" alt="Dibujo ampliado"></div>
 
@@ -373,8 +471,9 @@ button{font-family:'Montserrat',sans-serif}
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
 /* ============================================================
-   SIKODARK CHAT — ESTILO MSN MESSENGER · v1
+   SIKODARK CHAT — ESTILO MSN MESSENGER · v4
    Sin registro · conectados en vivo · lápiz · zumbido · emotis
+   fotos · gifs · stikers · perfil con foto · tonos elegibles
    Hecho con amor para sikodark radio 🖤🧡
    ============================================================ */
 
@@ -402,6 +501,7 @@ if (!miId) {
 }
 var miNombre = localStorage.getItem('siko_chat_nombre') || '';
 var miAvatar = localStorage.getItem('siko_chat_avatar') || '🙂';
+var miFoto = localStorage.getItem('siko_chat_foto') || '';
 var miFraseTxt = localStorage.getItem('siko_chat_frase') || '';
 var logueado = false;
 var estadoActual = 'online';
@@ -409,6 +509,7 @@ var ultimaActividad = Date.now();
 var sonidoActivo = localStorage.getItem('siko_chat_sonido') !== 'no';
 var yaCargoMsj = false;
 var vistos = {};
+var fotosCache = {};
 var timerEscritura = null;
 var escribiendoAhora = false;
 var ultimoZumbido = 0;
@@ -432,6 +533,13 @@ function escapar(t){
   var d = document.createElement('div');
   d.textContent = (t === undefined || t === null) ? '' : String(t);
   return d.innerHTML;
+}
+function escaparAttr(t){ return escapar(t).replace(/"/g, '&quot;'); }
+function fotoSegura(f){
+  if (!f) return '';
+  f = String(f);
+  if (f.slice(0, 11) === 'data:image/' || f.slice(0, 5) === 'gifs/' || f.slice(0, 8) === 'https://') return f;
+  return '';
 }
 
 var timerToast = null;
@@ -479,7 +587,7 @@ function iniciarSesion(){
   logueado = true;
   $('pantallaLogin').classList.add('oculto');
   $('app').classList.remove('oculto');
-  $('miAvatarBox').textContent = miAvatar;
+  pintarMiAvatar();
   $('miNombreTxt').textContent = miAvatar + ' ' + miNombre;
   $('miFrase').textContent = miFraseTxt || '✍️ Escribí tu mensaje personal…';
   pintarMiEstado();
@@ -498,6 +606,7 @@ function marcarPresencia(){
     id: miId,
     nombre: miNombre,
     avatar: miAvatar,
+    foto: fotoSegura(miFoto),
     frase: miFraseTxt,
     estado: estadoActual,
     escribiendo: escribiendoAhora,
@@ -544,6 +653,8 @@ function escucharUsuarios(){
       var ms = u.ping.toMillis();
       if (ahora - ms > 65000) return; /* sin ping reciente = desconectado */
       u._id = d.id;
+      var fu = fotoSegura(u.foto);
+      if (fu) fotosCache[d.id] = fu;
       lista.push(u);
     });
     lista.sort(function(a, b){
@@ -573,7 +684,7 @@ function pintarContactos(lista){
       fila.className = 'contacto';
       fila.innerHTML =
         '<span class="dot ' + (u.estado === 'online' ? 'online' : 'ausente') + '"></span>' +
-        '<span class="cAvatar">' + escapar(u.avatar || '🙂') + '</span>' +
+        '<span class="cAvatar">' + (fotoSegura(u.foto) ? '<img class="fotoMini" src="' + escaparAttr(u.foto) + '" alt="">' : escapar(u.avatar || '🙂')) + '</span>' +
         '<span class="cInfo">' +
           '<span class="cNombre">' + escapar(u.nombre || 'Anónimo') + (esYo ? ' <b class="chipYo">(vos)</b>' : '') + '</span>' +
           '<span class="cSub">' + (u.escribiendo && u.estado === 'online' && !esYo
@@ -637,8 +748,13 @@ function pintarMensaje(m){
     hora = new Date(m.ts.toMillis()).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
   }
   var cuerpo = '';
-  if (m.tipo === 'dibujo' && m.img && String(m.img).slice(0, 11) === 'data:image') {
-    cuerpo = '<img class="miniDibujo" src="' + m.img + '" alt="Dibujo" data-src="' + m.img + '">';
+  var esImg = (m.tipo === 'dibujo' || m.tipo === 'foto' || m.tipo === 'gif') && m.img &&
+    (String(m.img).slice(0, 11) === 'data:image/' || String(m.img).slice(0, 5) === 'gifs/' || String(m.img).slice(0, 8) === 'https://');
+  if (m.tipo === 'stiker' && m.emo) {
+    cuerpo = '<span class="stikerBig">' + escapar(m.emo) + '</span>';
+  } else if (esImg) {
+    var srcSeg = escaparAttr(String(m.img));
+    cuerpo = '<img class="miniDibujo" src="' + srcSeg + '" alt="Imagen" data-src="' + srcSeg + '">';
   } else {
     cuerpo = escapar(m.texto || '');
     if (cuerpo === '') cuerpo = '…';
@@ -647,7 +763,7 @@ function pintarMensaje(m){
   fila.className = 'fila ' + (esMio ? 'ya' : 'otro');
   fila.innerHTML =
     '<div class="burbuja">' +
-      (esMio ? '' : '<div class="bAutor">' + escapar(m.avatar || '🙂') + ' ' + escapar(m.nombre || 'Anónimo') + '</div>') +
+      (esMio ? '' : '<div class="bAutor">' + (fotoSegura(fotosCache[m.de]) ? '<img class="fotoBurbuja" src="' + escaparAttr(fotosCache[m.de]) + '" alt=""> ' : '') + escapar(m.avatar || '🙂') + ' ' + escapar(m.nombre || 'Anónimo') + '</div>') +
       '<div class="bTexto">' + cuerpo + '</div>' +
       '<div class="bMeta">' + hora + '</div>' +
     '</div>';
@@ -702,10 +818,21 @@ function autoAlto(){
   t.style.height = Math.min(t.scrollHeight, 110) + 'px';
 }
 
-/* ---------- 9 · EMOTICONS ---------- */
+/* ---------- 9 · EMOTICONS · STIKERS · GIFS ---------- */
 var EMOTIS = ['😄','😆','😂','🥳','😉','😎','🤔','🤗','😤','😡','😭','😱','😴','🤪','🙌','👏','👍','👎','🙏','💪','❤️','🖤','🧡','🔥','🎸','🎤','🍺','🍕','⚽','🚀','💀','🤘','🎉','⭐'];
+var STIKERS = ['😂','🤣','😍','😭','😡','🤯','🥳','😎','💀','🙌','👏','💪','🔥','🖤','🧡','🎉','🎸','🎤','🍺','⚽','🚀','👑','☕','🐸'];
+var GIFS = [
+  { n: 'Hola', f: 'gifs/hola.gif' },
+  { n: 'Jajaja', f: 'gifs/jajaja.gif' },
+  { n: 'Corazón', f: 'gifs/corazon.gif' },
+  { n: 'Música', f: 'gifs/musica.gif' },
+  { n: 'Vinilo', f: 'gifs/vinilo.gif' },
+  { n: 'Vamos', f: 'gifs/vamos.gif' },
+  { n: 'Gol', f: 'gifs/gol.gif' },
+  { n: 'Estrellas', f: 'gifs/estrellas.gif' }
+];
 function pintarEmotis(){
-  var p = $('pickerEmotis');
+  var p = $('tabEmotis');
   p.innerHTML = '';
   for (var i = 0; i < EMOTIS.length; i++) {
     (function(e){
@@ -720,6 +847,55 @@ function pintarEmotis(){
       p.appendChild(b);
     })(EMOTIS[i]);
   }
+  var s = $('tabStikers');
+  s.innerHTML = '';
+  for (var j = 0; j < STIKERS.length; j++) {
+    (function(e){
+      var b = document.createElement('button');
+      b.className = 'stkBtn';
+      b.textContent = e;
+      b.onclick = function(ev){
+        ev.stopPropagation();
+        $('pickerEmotis').classList.add('oculto');
+        enviarStiker(e);
+      };
+      s.appendChild(b);
+    })(STIKERS[j]);
+  }
+  var g = $('gridGifs');
+  g.innerHTML = '';
+  for (var h = 0; h < GIFS.length; h++) {
+    (function(gef){
+      var im = document.createElement('img');
+      im.className = 'gifItem';
+      im.src = gef.f;
+      im.alt = gef.n;
+      im.title = gef.n;
+      im.onclick = function(ev){
+        ev.stopPropagation();
+        $('pickerEmotis').classList.add('oculto');
+        enviarGif(gef.f);
+      };
+      g.appendChild(im);
+    })(GIFS[h]);
+  }
+}
+function verTab(id){
+  var tabs = ['tabEmotis', 'tabStikers', 'tabGifs'];
+  for (var i = 0; i < tabs.length; i++) $(tabs[i]).classList.toggle('oculto', tabs[i] !== id);
+  var botones = document.querySelectorAll('.tabEmotis');
+  for (var j = 0; j < botones.length; j++) {
+    botones[j].classList.toggle('activo', botones[j].getAttribute('data-tab') === id);
+  }
+}
+var botonesTab = document.querySelectorAll('.tabEmotis');
+for (var itb = 0; itb < botonesTab.length; itb++) {
+  (function(b){
+    b.onclick = function(ev){
+      ev.stopPropagation();
+      verTab(b.getAttribute('data-tab'));
+    };
+  })(botonesTab[itb]);
 }
 $('btnEmotis').onclick = function(e){
   e.stopPropagation();
@@ -805,13 +981,22 @@ function tono(frec, dur, tipo, cuando, vol){
     o.stop(t0 + dur);
   } catch (e) {}
 }
-function sonidoMsj(){ tono(760, 0.12, 'sine', 0, 0.2); tono(1010, 0.14, 'sine', 0.1, 0.2); }
-function sonidoZumbido(){
-  for (var i = 0; i < 3; i++) {
-    tono(220, 0.18, 'square', i * 0.22, 0.25);
-    tono(165, 0.18, 'sawtooth', i * 0.22, 0.2);
-  }
-}
+var sonidoMsjSel = localStorage.getItem('siko_chat_sonidomsj') || 'clasico';
+var sonidoZumbSel = localStorage.getItem('siko_chat_sonidozumbido') || 'bzz';
+var SONIDOS_MSJ = {
+  clasico: { nom: '🔔 Clásico', fn: function(){ tono(760, 0.12, 'sine', 0, 0.2); tono(1010, 0.14, 'sine', 0.1, 0.2); } },
+  pop: { nom: '🫧 Pop', fn: function(){ tono(520, 0.07, 'square', 0, 0.22); tono(390, 0.09, 'square', 0.08, 0.22); } },
+  campanita: { nom: '🪙 Campanita', fn: function(){ tono(1318, 0.18, 'sine', 0, 0.18); tono(1760, 0.3, 'sine', 0.12, 0.15); } },
+  nada: { nom: '🚫 Nada', fn: function(){} }
+};
+var SONIDOS_ZUM = {
+  bzz: { nom: '📳 Bzz clásico', fn: function(){ for (var i = 0; i < 3; i++) { tono(220, 0.18, 'square', i * 0.22, 0.25); tono(165, 0.18, 'sawtooth', i * 0.22, 0.2); } } },
+  sirena: { nom: '🚨 Sirena', fn: function(){ for (var j = 0; j < 4; j++) { tono(620, 0.12, 'triangle', j * 0.26, 0.24); tono(920, 0.12, 'triangle', j * 0.26 + 0.13, 0.24); } } },
+  alarma: { nom: '⏰ Alarma', fn: function(){ for (var k = 0; k < 6; k++) tono(k % 2 ? 660 : 880, 0.09, 'square', k * 0.11, 0.22); } },
+  nada: { nom: '🚫 Nada', fn: function(){} }
+};
+function sonidoMsj(){ var s = SONIDOS_MSJ[sonidoMsjSel]; if (s && s.fn) s.fn(); }
+function sonidoZumbido(){ var s = SONIDOS_ZUM[sonidoZumbSel]; if (s && s.fn) s.fn(); }
 $('btnSonido').onclick = function(){
   sonidoActivo = !sonidoActivo;
   localStorage.setItem('siko_chat_sonido', sonidoActivo ? 'si' : 'no');
@@ -854,17 +1039,6 @@ $('miFrase').onclick = function(){
   miFraseTxt = f.trim().slice(0, 60);
   localStorage.setItem('siko_chat_frase', miFraseTxt);
   $('miFrase').textContent = miFraseTxt || '✍️ Escribí tu mensaje personal…';
-  marcarPresencia();
-};
-$('miAvatarBox').onclick = function(){
-  var a = prompt('Tu emoji de avatar (podés pegar cualquiera):', miAvatar);
-  if (!a) return;
-  var primero = Array.from(a.trim())[0];
-  if (!primero) return;
-  miAvatar = primero;
-  localStorage.setItem('siko_chat_avatar', miAvatar);
-  $('miAvatarBox').textContent = miAvatar;
-  $('miNombreTxt').textContent = miAvatar + ' ' + miNombre;
   marcarPresencia();
 };
 $('btnContactos').onclick = function(){
@@ -1051,7 +1225,209 @@ $('lightbox').onclick = function(){
   $('lightbox').classList.add('oculto');
 };
 
-/* ---------- 17 · PWA ---------- */
+/* ---------- 17 · MI PERFIL (FOTO + NOMBRE + AVATAR) ---------- */
+function pintarMiAvatar(){
+  var b = $('miAvatarBox');
+  if (miFoto) {
+    b.textContent = '';
+    b.style.backgroundImage = 'url("' + miFoto + '")';
+  } else {
+    b.style.backgroundImage = 'none';
+    b.textContent = miAvatar;
+  }
+}
+var fotoPerfilTmp = '';
+function abrirPerfil(){
+  fotoPerfilTmp = miFoto || '';
+  $('perfilNombre').value = miNombre;
+  pintarPerfilPreview();
+  pintarAvataresPerfil();
+  $('overlayPerfil').classList.remove('oculto');
+}
+function pintarPerfilPreview(){
+  var p = $('perfilFoto');
+  if (fotoPerfilTmp) {
+    p.style.backgroundImage = 'url("' + fotoPerfilTmp + '")';
+    p.textContent = '';
+  } else {
+    p.style.backgroundImage = 'none';
+    p.textContent = miAvatar;
+  }
+  $('btnQuitarFoto').classList.toggle('oculto', !fotoPerfilTmp);
+}
+function pintarAvataresPerfil(){
+  var g = $('gridAvataresPerfil');
+  g.innerHTML = '';
+  for (var i = 0; i < AVATARES.length; i++) {
+    (function(av){
+      var b = document.createElement('button');
+      b.className = (av === miAvatar && !fotoPerfilTmp) ? 'sel' : '';
+      b.textContent = av;
+      b.onclick = function(){ miAvatar = av; fotoPerfilTmp = ''; pintarPerfilPreview(); pintarAvataresPerfil(); };
+      g.appendChild(b);
+    })(AVATARES[i]);
+  }
+}
+$('miAvatarBox').onclick = abrirPerfil;
+$('btnCerrarPerfil').onclick = function(){ $('overlayPerfil').classList.add('oculto'); };
+$('btnSubirFoto').onclick = function(){ $('inputFotoPerfil').value = ''; $('inputFotoPerfil').click(); };
+$('btnQuitarFoto').onclick = function(){ fotoPerfilTmp = ''; pintarPerfilPreview(); };
+$('inputFotoPerfil').onchange = function(){
+  var f = this.files && this.files[0];
+  if (!f) return;
+  achicarImagen(f, 128, 0.8, function(dataUrl){
+    fotoPerfilTmp = dataUrl;
+    pintarPerfilPreview();
+    toast('📷 Foto lista — tocá GUARDAR');
+  });
+};
+$('btnGuardarPerfil').onclick = function(){
+  var n = $('perfilNombre').value.trim().replace(/\s+/g, ' ');
+  if (n.length < 2) { toast('✏️ El nombre necesita al menos 2 letras'); return; }
+  miNombre = n.slice(0, 18);
+  miFoto = fotoPerfilTmp || '';
+  localStorage.setItem('siko_chat_nombre', miNombre);
+  localStorage.setItem('siko_chat_avatar', miAvatar);
+  if (miFoto) localStorage.setItem('siko_chat_foto', miFoto);
+  else localStorage.removeItem('siko_chat_foto');
+  $('miNombreTxt').textContent = miAvatar + ' ' + miNombre;
+  pintarMiAvatar();
+  marcarPresencia();
+  $('overlayPerfil').classList.add('oculto');
+  toast('✅ Perfil actualizado');
+};
+
+/* ---------- 18 · FOTOS Y GIFS DE LA GALERÍA ---------- */
+function achicarImagen(file, maxLado, calidad, cb){
+  var fr = new FileReader();
+  fr.onerror = function(){ toast('❌ No pude leer ese archivo'); };
+  fr.onload = function(){
+    if (file.type === 'image/gif') {
+      if (fr.result.length > 900000) { toast('😬 Ese GIF pesa mucho, probá con uno más chico'); return; }
+      cb(fr.result, true);
+      return;
+    }
+    var im = new Image();
+    im.onerror = function(){ toast('❌ Esa imagen no se pudo leer'); };
+    im.onload = function(){
+      var esc = Math.min(1, maxLado / Math.max(im.width, im.height));
+      var c = document.createElement('canvas');
+      c.width = Math.max(1, Math.round(im.width * esc));
+      c.height = Math.max(1, Math.round(im.height * esc));
+      c.getContext('2d').drawImage(im, 0, 0, c.width, c.height);
+      cb(c.toDataURL('image/jpeg', calidad), false);
+    };
+    im.src = fr.result;
+  };
+  fr.readAsDataURL(file);
+}
+var fotoPendiente = null;
+$('btnImagen').onclick = function(){
+  $('inputImagen').value = '';
+  $('inputImagen').click();
+};
+$('inputImagen').onchange = function(){
+  var f = this.files && this.files[0];
+  if (!f) return;
+  achicarImagen(f, 800, 0.82, function(dataUrl, esGif){
+    fotoPendiente = { data: dataUrl, esGif: esGif };
+    $('previewFoto').src = dataUrl;
+    $('overlayFoto').classList.remove('oculto');
+  });
+};
+$('btnCancelarFoto').onclick = function(){
+  fotoPendiente = null;
+  $('overlayFoto').classList.add('oculto');
+};
+$('btnEnviarFoto').onclick = function(){
+  if (!fotoPendiente) return;
+  if (Date.now() - ultimoMsj < 1200) { toast('⏳ Tranqui, esperá un segundito'); return; }
+  ultimoMsj = Date.now();
+  var tipo = fotoPendiente.esGif ? 'gif' : 'foto';
+  db.collection(COL_MSJ).add({
+    de: miId, nombre: miNombre, avatar: miAvatar,
+    tipo: tipo, img: fotoPendiente.data, texto: '',
+    ts: SERVER_TS()
+  }).then(function(){
+    toast(tipo === 'gif' ? '🎞️ ¡GIF mandado!' : '📷 ¡Foto mandada!');
+  }).catch(function(){
+    toast('❌ No pude mandar la imagen, probá de nuevo');
+  });
+  fotoPendiente = null;
+  $('overlayFoto').classList.add('oculto');
+};
+function enviarStiker(emo){
+  if (Date.now() - ultimoMsj < 1200) { toast('⏳ Tranqui, esperá un segundito'); return; }
+  ultimoMsj = Date.now();
+  db.collection(COL_MSJ).add({
+    de: miId, nombre: miNombre, avatar: miAvatar,
+    tipo: 'stiker', emo: emo, texto: '',
+    ts: SERVER_TS()
+  }).then(function(){ toast('🎟️ ¡Stiker mandado!'); })
+    .catch(function(){ toast('❌ No salió el stiker'); });
+}
+function enviarGif(url){
+  if (Date.now() - ultimoMsj < 1200) { toast('⏳ Tranqui, esperá un segundito'); return; }
+  ultimoMsj = Date.now();
+  db.collection(COL_MSJ).add({
+    de: miId, nombre: miNombre, avatar: miAvatar,
+    tipo: 'gif', img: url, texto: '',
+    ts: SERVER_TS()
+  }).then(function(){ toast('🎞️ ¡GIF mandado!'); })
+    .catch(function(){ toast('❌ No salió el GIF'); });
+}
+
+/* ---------- 19 · CONFIG DE TONOS ---------- */
+function pintarSonidos(){
+  var gm = $('grupoSonMsj');
+  gm.innerHTML = '';
+  var clavesM = Object.keys(SONIDOS_MSJ);
+  for (var i = 0; i < clavesM.length; i++) {
+    (function(k){
+      var b = document.createElement('button');
+      b.className = 'chipSonido' + (k === sonidoMsjSel ? ' activo' : '');
+      b.textContent = SONIDOS_MSJ[k].nom;
+      b.onclick = function(){
+        sonidoMsjSel = k;
+        localStorage.setItem('siko_chat_sonidomsj', k);
+        ctxAudio();
+        SONIDOS_MSJ[k].fn();
+        pintarSonidos();
+      };
+      gm.appendChild(b);
+    })(clavesM[i]);
+  }
+  var gz = $('grupoSonZumb');
+  gz.innerHTML = '';
+  var clavesZ = Object.keys(SONIDOS_ZUM);
+  for (var j = 0; j < clavesZ.length; j++) {
+    (function(k){
+      var b = document.createElement('button');
+      b.className = 'chipSonido' + (k === sonidoZumbSel ? ' activo' : '');
+      b.textContent = SONIDOS_ZUM[k].nom;
+      b.onclick = function(){
+        sonidoZumbSel = k;
+        localStorage.setItem('siko_chat_sonidozumbido', k);
+        ctxAudio();
+        SONIDOS_ZUM[k].fn();
+        vibrar([120, 60, 120]);
+        pintarSonidos();
+      };
+      gz.appendChild(b);
+    })(clavesZ[j]);
+  }
+}
+$('btnMusica').onclick = function(){
+  ctxAudio();
+  pintarSonidos();
+  $('overlaySonidos').classList.remove('oculto');
+};
+$('btnCerrarSonidos').onclick = function(){
+  $('overlaySonidos').classList.add('oculto');
+  toast('🎵 Tonos guardados');
+};
+
+/* ---------- 20 · PWA ---------- */
 if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
   navigator.serviceWorker.register('sw.js').catch(function(){});
 }
@@ -1068,7 +1444,7 @@ $('btnInstalar').onclick = function(){
   $('btnInstalar').classList.add('oculto');
 };
 
-/* ---------- 18 · ARRANQUE ---------- */
+/* ---------- 21 · ARRANQUE ---------- */
 pintarAvatares();
 pintarEmotis();
 if (miNombre) $('inputNombre').value = miNombre;
