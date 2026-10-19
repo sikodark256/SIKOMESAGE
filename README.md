@@ -19,7 +19,7 @@ Chat en vivo **aparte** de sikodark radio, con la estética de siempre (negro + 
 /                        ← raíz del repo
 ├── index.html           ← toda la app (HTML + CSS + JS en un solo archivo)
 ├── manifest.json        ← configuración PWA
-├── sw.js                ← service worker (cache sikodark-chat-v2)
+├── sw.js                ← service worker (cache sikodark-chat-v3)
 ├── icon-192.png         ← ícono PWA
 ├── icon-512.png         ← ícono PWA
 ├── .nojekyll            ← le dice a GitHub Pages que no toque nada
@@ -59,4 +59,4 @@ Si tus reglas de Firestore ya están abiertas (`allow read, write: if true`), no
 - Los sonidos se generan con Web Audio API: cero archivos de audio.
 - Anti-spam: 1 mensaje cada 1,2 s y un zumbido cada 12 s.
 - `.nojekyll` evita que GitHub Pages procese los archivos con Jekyll.
-- Para actualizar el chat: cambiá `index.html` y subí el número de cache en `sw.js` (`sikodark-chat-v2` → `v3`…).
+- Para actualizar el chat: cambiá `index.html` y subí el número de cache en `sw.js` (`sikodark-chat-v3` → `v4`…).

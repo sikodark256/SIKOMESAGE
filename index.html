@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- SikoChat v3 · lápiz táctil reforzado + zumbido con vibración y sonido en cel -->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -93,7 +94,7 @@ button{font-family:'Montserrat',sans-serif}
   60%{transform:translate(6px,-3px) rotate(.6deg)}75%{transform:translate(-3px,2px)}
   100%{transform:none}
 }
-.ventana.temblando{animation:temblor .55s ease}
+.ventana.temblando{animation:temblor .55s ease 2}
 
 .barraTitulo{
   display:flex;align-items:center;gap:8px;padding:8px 12px;flex-shrink:0;
@@ -219,7 +220,8 @@ button{font-family:'Montserrat',sans-serif}
 .dibujoTitulo{font-size:15px;font-weight:900;color:var(--naranja);letter-spacing:.5px}
 #lienzo{
   background:#0a0a0a;border:2px solid var(--naranja);border-radius:12px;
-  width:min(92vw,560px);height:auto;touch-action:none;cursor:crosshair;
+  width:min(92vw,560px);max-width:100%;height:auto;touch-action:none;cursor:crosshair;
+  -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;
 }
 .herrDibujo{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:580px}
 .colorBtn{width:30px;height:30px;border-radius:50%;border:2px solid #333;cursor:pointer;padding:0}
@@ -748,14 +750,29 @@ $('btnZumbido').onclick = function(){
     return;
   }
   ultimoZumbido = ahora;
+  ctxAudio();
   db.collection(COL_MSJ).add({
     de: miId, nombre: miNombre, avatar: miAvatar,
     tipo: 'nudge', ts: SERVER_TS()
+  }).then(function(){
+    toast('📳 ¡Zumbido mandado!');
+    sonidoZumbido();
+    vibrar([120, 60, 120]);
   }).catch(function(){ toast('❌ No salió el zumbido'); });
-  toast('📳 ¡Zumbido mandado!');
 };
+function vibrar(p){
+  try { if (navigator.vibrate) navigator.vibrate(p); } catch (e) {}
+}
+var nudgePendiente = null;
 function zumbidoLocal(nombre){
+  if (document.hidden) {
+    nudgePendiente = nombre || 'Alguien';
+    vibrar([150, 70, 150, 70, 450]);
+    return;
+  }
+  ctxAudio();
   sonidoZumbido();
+  vibrar([150, 70, 150, 70, 450]);
   var v = $('ventana');
   v.classList.remove('temblando');
   void v.offsetWidth;
@@ -788,9 +805,12 @@ function tono(frec, dur, tipo, cuando, vol){
     o.stop(t0 + dur);
   } catch (e) {}
 }
-function sonidoMsj(){ tono(760, 0.12, 'sine', 0); tono(1010, 0.14, 'sine', 0.1); }
+function sonidoMsj(){ tono(760, 0.12, 'sine', 0, 0.2); tono(1010, 0.14, 'sine', 0.1, 0.2); }
 function sonidoZumbido(){
-  for (var i = 0; i < 3; i++) tono(210, 0.16, 'square', i * 0.2, 0.16);
+  for (var i = 0; i < 3; i++) {
+    tono(220, 0.18, 'square', i * 0.22, 0.25);
+    tono(165, 0.18, 'sawtooth', i * 0.22, 0.2);
+  }
 }
 $('btnSonido').onclick = function(){
   sonidoActivo = !sonidoActivo;
@@ -819,6 +839,11 @@ document.addEventListener('visibilitychange', function(){
     timerTitulo = null;
     document.title = TITULO_BASE;
     marcarPresencia();
+    if (nudgePendiente) {
+      var n = nudgePendiente;
+      nudgePendiente = null;
+      setTimeout(function(){ zumbidoLocal(n); }, 250);
+    }
   }
 });
 
@@ -944,23 +969,58 @@ function trazo(x1, y1, x2, y2){
   ctx2.lineTo(x2, y2);
   ctx2.stroke();
 }
-lienzo.addEventListener('pointerdown', function(e){
-  e.preventDefault();
-  pintando = true;
-  try { lienzo.setPointerCapture(e.pointerId); } catch (err) {}
-  var p = posLapiz(e);
-  ultimoX = p.x; ultimoY = p.y;
-  trazo(p.x, p.y, p.x + 0.01, p.y + 0.01);
-});
-lienzo.addEventListener('pointermove', function(e){
-  if (!pintando) return;
-  var p = posLapiz(e);
-  trazo(ultimoX, ultimoY, p.x, p.y);
-  ultimoX = p.x; ultimoY = p.y;
-});
-lienzo.addEventListener('pointerup', function(){ pintando = false; });
-lienzo.addEventListener('pointercancel', function(){ pintando = false; });
-lienzo.addEventListener('pointerleave', function(){ pintando = false; });
+lienzo.addEventListener('contextmenu', function(e){ e.preventDefault(); });
+if (window.PointerEvent) {
+  lienzo.addEventListener('pointerdown', function(e){
+    e.preventDefault();
+    pintando = true;
+    try { lienzo.setPointerCapture(e.pointerId); } catch (err) {}
+    var p = posLapiz(e);
+    ultimoX = p.x; ultimoY = p.y;
+    trazo(p.x, p.y, p.x + 0.01, p.y + 0.01);
+  });
+  lienzo.addEventListener('pointermove', function(e){
+    if (!pintando) return;
+    var p = posLapiz(e);
+    trazo(ultimoX, ultimoY, p.x, p.y);
+    ultimoX = p.x; ultimoY = p.y;
+  });
+  lienzo.addEventListener('pointerup', function(){ pintando = false; });
+  lienzo.addEventListener('pointercancel', function(){ pintando = false; });
+} else {
+  lienzo.addEventListener('mousedown', function(e){
+    e.preventDefault();
+    pintando = true;
+    var p = posLapiz(e);
+    ultimoX = p.x; ultimoY = p.y;
+    trazo(p.x, p.y, p.x + 0.01, p.y + 0.01);
+  });
+  document.addEventListener('mousemove', function(e){
+    if (!pintando) return;
+    var p = posLapiz(e);
+    trazo(ultimoX, ultimoY, p.x, p.y);
+    ultimoX = p.x; ultimoY = p.y;
+  });
+  document.addEventListener('mouseup', function(){ pintando = false; });
+  lienzo.addEventListener('touchstart', function(e){
+    e.preventDefault();
+    pintando = true;
+    var t = e.changedTouches[0];
+    var p = posLapiz(t);
+    ultimoX = p.x; ultimoY = p.y;
+    trazo(p.x, p.y, p.x + 0.01, p.y + 0.01);
+  }, { passive: false });
+  lienzo.addEventListener('touchmove', function(e){
+    if (!pintando) return;
+    e.preventDefault();
+    var t = e.changedTouches[0];
+    var p = posLapiz(t);
+    trazo(ultimoX, ultimoY, p.x, p.y);
+    ultimoX = p.x; ultimoY = p.y;
+  }, { passive: false });
+  lienzo.addEventListener('touchend', function(){ pintando = false; });
+  lienzo.addEventListener('touchcancel', function(){ pintando = false; });
+}
 
 $('btnEnviarDibujo').onclick = function(){
   var img = lienzo.toDataURL('image/jpeg', 0.85);
@@ -1013,7 +1073,19 @@ pintarAvatares();
 pintarEmotis();
 if (miNombre) $('inputNombre').value = miNombre;
 $('btnSonido').textContent = sonidoActivo ? '🔔 Sonido' : '🔕 Mudo';
-document.addEventListener('pointerdown', function(){ ctxAudio(); }, { once: true });
+function desbloquearSonido(){
+  ctxAudio();
+  if (audioCtx && audioCtx.state === 'running') {
+    document.removeEventListener('pointerdown', desbloquearSonido);
+    document.removeEventListener('touchend', desbloquearSonido);
+    document.removeEventListener('click', desbloquearSonido);
+    document.removeEventListener('keydown', desbloquearSonido);
+  }
+}
+document.addEventListener('pointerdown', desbloquearSonido);
+document.addEventListener('touchend', desbloquearSonido);
+document.addEventListener('click', desbloquearSonido);
+document.addEventListener('keydown', desbloquearSonido);
 </script>
 </body>
 </html>
