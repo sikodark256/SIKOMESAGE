@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- SikoChat v6 · perfil con foto + stikers/gifs + fotos de galería + tonos configurables + radio en vivo -->
+<!-- SikoChat v8 · perfil + stikers/gifs/fotos + tonos + radio en vivo + compartir + logo + chat privado 1 a 1 -->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -12,8 +12,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-title" content="SikoChat">
 <link rel="manifest" href="manifest.json">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💬</text></svg>">
-<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -278,6 +278,23 @@ button{font-family:'Montserrat',sans-serif}
   background:linear-gradient(135deg,#f59d3d,#d97f1c);color:#000;font-weight:900;font-size:12px;
 }
 .trBtn:hover{filter:brightness(1.12)}
+
+/* ============ CHAT PRIVADO 1 A 1 ============ */
+#barraPrivado{
+  display:flex;align-items:center;gap:10px;padding:8px 12px;flex-shrink:0;
+  background:linear-gradient(135deg,#0c1723,#0d0d0d);border-bottom:1px solid var(--borde);
+}
+#barraPrivado .cAvatar{font-size:20px}
+.privNombre{font-size:13px;font-weight:900;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.privSub{font-size:10px;color:#4db2e8;font-weight:800;margin-top:1px}
+.contacto.clicable{cursor:pointer}
+.contacto.clicable:hover{background:rgba(245,157,61,.08)}
+.badgePriv{background:#e5484d;color:#fff;font-size:9.5px;font-weight:900;border-radius:999px;padding:2px 6px;margin-left:auto;flex-shrink:0}
+.btnPrivMsj{font-size:14px;flex-shrink:0;opacity:.5}
+.contacto.clicable:hover .btnPrivMsj{opacity:1}
+.barraAcciones.modoPrivado .soloGrupo{display:none}
+.logoAppImg{width:88px;height:88px;border-radius:22px;display:block;margin:0 auto 12px;box-shadow:0 8px 28px rgba(8,148,209,.4)}
+.logoMini{width:16px;height:16px;border-radius:4px;flex-shrink:0;align-self:center;margin-right:2px}
 .stikerBig{font-size:52px;line-height:1.1;display:block}
 #previewFoto{max-width:100%;max-height:44vh;border-radius:10px;border:2px solid var(--naranja);display:block;margin:0 auto}
 .sonidoGrupo{display:flex;flex-wrap:wrap;gap:6px}
@@ -349,6 +366,7 @@ button{font-family:'Montserrat',sans-serif}
 <!-- ================= PANTALLA DE INGRESO (SIN REGISTRO) ================= -->
 <div id="pantallaLogin">
   <div class="loginCaja">
+    <img src="icon-192.png" class="logoAppImg" alt="SiKO CHAT">
     <div class="logoChat">💬 SIKODARK CHAT</div>
     <p class="subLogin">El Messenger de la radio 🖤🧡<br>Sin registro: solo decinos cómo te llamás</p>
     <label class="etiqueta" for="inputNombre">TU NOMBRE EN EL CHAT</label>
@@ -366,7 +384,7 @@ button{font-family:'Montserrat',sans-serif}
   <div class="ventana" id="ventana">
 
     <div class="barraTitulo">
-      <strong>💬 Sikodark Messenger</strong>
+      <img src="icon-192.png" class="logoMini" alt=""><strong>💬 Sikodark Messenger</strong>
       <span class="tituloEstado" id="tituloEstado">— conectando…</span>
       <div style="margin-left:auto;display:flex;gap:5px">
         <div class="btnVent" title="Minimizar">—</div>
@@ -403,15 +421,24 @@ button{font-family:'Montserrat',sans-serif}
           <button id="btnCompartirRadio" class="btnMiniRadio" type="button" title="Compartir la radio en el chat">📨</button>
           <button id="btnCerrarRadio" class="btnMiniRadio" type="button" title="Ocultar barra">✕</button>
         </div>
+        <div id="barraPrivado" class="oculto">
+          <button id="btnVolverGrupo" class="btnMiniRadio" type="button" title="Volver al chat grupal">←</button>
+          <div class="cAvatar" id="privAvatar">🙂</div>
+          <div class="radioInfo">
+            <div class="privNombre" id="privNombre">—</div>
+            <div class="privSub">🔒 chat privado · solo lo ven ustedes dos</div>
+          </div>
+        </div>
         <div class="cintaMsj" id="cintaMsj">
           <div class="lineaSistema">👋 Bienvenido al chat de Sikodark — respetá y pasala lindo 🖤🧡</div>
         </div>
-        <div class="barraAcciones">
-          <button class="btnAccion" id="btnContactos">👥 <span id="cantConectadosMob">0</span></button>
+        <div class="barraAcciones" id="barraAcciones">
+          <button class="btnAccion soloGrupo" id="btnContactos">👥 <span id="cantConectadosMob">0</span></button>
           <button class="btnAccion" id="btnEmotis">😀 Emoticons</button>
           <button class="btnAccion" id="btnDibujar">✏️ Dibujar</button>
           <button class="btnAccion" id="btnImagen">📷 Foto/GIF</button>
-          <button class="btnAccion" id="btnRadio">📻 Radio</button>
+          <button class="btnAccion soloGrupo" id="btnRadio">📻 Radio</button>
+          <button class="btnAccion soloGrupo" id="btnCompartir">📤 Compartir</button>
           <button class="btnAccion" id="btnZumbido">📳 Zumbido</button>
           <button class="btnAccion" id="btnSonido">🔔 Sonido</button>
           <button class="btnAccion" id="btnMusica">🎵 Tonos</button>
@@ -522,7 +549,7 @@ button{font-family:'Montserrat',sans-serif}
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
 /* ============================================================
-   SIKODARK CHAT — ESTILO MSN MESSENGER · v6
+   SIKODARK CHAT — ESTILO MSN MESSENGER · v8
    Sin registro · conectados en vivo · lápiz · zumbido · emotis
    fotos · gifs · stikers · perfil con foto · tonos elegibles
    radio en vivo (stream Zeno + canción al aire)
@@ -561,6 +588,9 @@ var ultimaActividad = Date.now();
 var sonidoActivo = localStorage.getItem('siko_chat_sonido') !== 'no';
 var yaCargoMsj = false;
 var vistos = {};
+var mensajesCache = [];
+var chatPrivadoId = null;
+var noLeidos = {};
 var fotosCache = {};
 var timerEscritura = null;
 var escribiendoAhora = false;
@@ -696,6 +726,8 @@ for (var ia = 0; ia < EV_ACT.length; ia++) {
 }
 
 /* ---------- 5 · PANEL DE CONECTADOS ---------- */
+var usuariosListaActual = [];
+var nombresCache = {};
 function escucharUsuarios(){
   db.collection(COL_USUARIOS).onSnapshot(function(snap){
     var ahora = Date.now(), lista = [];
@@ -720,6 +752,7 @@ function escucharUsuarios(){
 }
 
 function pintarContactos(lista){
+  usuariosListaActual = lista;
   $('cantConectados').textContent = '(' + lista.length + ')';
   $('cantConectadosMob').textContent = lista.length;
   $('tituloEstado').textContent = '— ' + lista.length + (lista.length === 1 ? ' conectado' : ' conectados');
@@ -732,8 +765,10 @@ function pintarContactos(lista){
   for (var i = 0; i < lista.length; i++) {
     (function(u){
       var esYo = u._id === miId;
+      nombresCache[u._id] = { nombre: u.nombre, avatar: u.avatar, foto: u.foto };
+      var pend = (!esYo && noLeidos[u._id]) ? noLeidos[u._id] : 0;
       var fila = document.createElement('div');
-      fila.className = 'contacto';
+      fila.className = 'contacto' + (esYo ? '' : ' clicable');
       fila.innerHTML =
         '<span class="dot ' + (u.estado === 'online' ? 'online' : 'ausente') + '"></span>' +
         '<span class="cAvatar">' + (fotoSegura(u.foto) ? '<img class="fotoMini" src="' + escaparAttr(u.foto) + '" alt="">' : escapar(u.avatar || '🙂')) + '</span>' +
@@ -742,7 +777,10 @@ function pintarContactos(lista){
           '<span class="cSub">' + (u.escribiendo && u.estado === 'online' && !esYo
             ? '<span class="escribiendoTxt">✍️ escribiendo…</span>'
             : (u.estado === 'online' ? 'En línea' : 'Ausente')) + '</span>' +
-        '</span>';
+        '</span>' +
+        (pend ? '<span class="badgePriv">' + (pend > 9 ? '9+' : pend) + '</span>' : '') +
+        (esYo ? '' : '<span class="btnPrivMsj" title="Hablar en privado">💬</span>');
+      if (!esYo) fila.onclick = function(){ abrirPrivado(u._id); };
       cont.appendChild(fila);
     })(lista[i]);
   }
@@ -751,45 +789,112 @@ function pintarContactos(lista){
 /* ---------- 6 · MENSAJES EN TIEMPO REAL ---------- */
 function escucharMensajes(){
   db.collection(COL_MSJ).orderBy('ts', 'asc').limitToLast(80).onSnapshot(function(snap){
-    if (!yaCargoMsj) {
-      var cinta = $('cintaMsj');
-      cinta.innerHTML = '';
-      var bien = document.createElement('div');
-      bien.className = 'lineaSistema';
-      bien.textContent = '👋 Bienvenido al chat de Sikodark — respetá y pasala lindo 🖤🧡';
-      cinta.appendChild(bien);
-      yaCargoMsj = true;
-    }
+    var cambio = false, afectaVista = false;
     snap.docChanges().forEach(function(c){
       if (c.type !== 'added') return;
       var id = c.doc.id;
       if (vistos[id]) return;
       vistos[id] = true;
       var m = c.doc.data();
-      pintarMensaje(m);
+      mensajesCache.push(m);
+      cambio = true;
+      var para = m.para || '';
       var msT = (m.ts && m.ts.toMillis) ? m.ts.toMillis() : 0;
       var fresco = Date.now() - msT < 20000;
       if (m.de !== miId && fresco) {
-        if (m.tipo === 'nudge') {
-          zumbidoLocal(m.nombre);
-        } else if (sonidoActivo) {
-          sonidoMsj();
+        if (para === miId) {
+          /* mensaje privado para mí */
+          if (chatPrivadoId === m.de) {
+            if (m.tipo === 'nudge') zumbidoLocal(m.nombre);
+            else if (sonidoActivo) sonidoMsj();
+          } else {
+            noLeidos[m.de] = (noLeidos[m.de] || 0) + 1;
+            if (m.tipo === 'nudge') zumbidoLocal(m.nombre);
+            else if (sonidoActivo) sonidoMsj();
+            toast('🔒 Mensaje privado de ' + (m.nombre || 'alguien'));
+          }
+          titilarTitulo();
+        } else if (!para) {
+          /* mensaje del grupo */
+          if (m.tipo === 'nudge') zumbidoLocal(m.nombre);
+          else if (sonidoActivo) sonidoMsj();
+          titilarTitulo();
         }
-        titilarTitulo();
+        /* mensaje privado entre otras dos personas: silencio total */
       }
+      if (!para && !chatPrivadoId) afectaVista = true;
+      else if (chatPrivadoId && ((m.de === miId && para === chatPrivadoId) || (m.de === chatPrivadoId && para === miId))) afectaVista = true;
     });
-    scrollAbajo(true);
+    if (mensajesCache.length > 300) mensajesCache = mensajesCache.slice(-200);
+    if (cambio) {
+      renderizarCinta();
+      if (afectaVista) scrollAbajo(true);
+      pintarContactos(usuariosListaActual);
+    }
   }, function(err){
     toast('⚠️ No pude leer el chat: ' + err.code);
   });
 }
 
+/* ---------- 6b · CHAT PRIVADO 1 A 1 ---------- */
+function renderizarCinta(){
+  var cinta = $('cintaMsj');
+  cinta.innerHTML = '';
+  if (chatPrivadoId) {
+    addSistema('🔒 Chat privado con ' + ((nombresCache[chatPrivadoId] || {}).nombre || 'usuario') + ' — solo lo ven ustedes dos');
+  } else {
+    addSistema('👋 Bienvenido al chat de Sikodark — respetá y pasala lindo 🖤🧡');
+  }
+  for (var i = 0; i < mensajesCache.length; i++) {
+    var m = mensajesCache[i];
+    var para = m.para || '';
+    var mostrar;
+    if (chatPrivadoId) mostrar = (m.de === miId && para === chatPrivadoId) || (m.de === chatPrivadoId && para === miId);
+    else mostrar = !para;
+    if (mostrar) pintarMensaje(m);
+  }
+}
+function addSistema(txt){
+  var d = document.createElement('div');
+  d.className = 'lineaSistema';
+  d.textContent = txt;
+  $('cintaMsj').appendChild(d);
+}
+function abrirPrivado(uid){
+  if (uid === miId) { toast('😄 Ese sos vos'); return; }
+  chatPrivadoId = uid;
+  noLeidos[uid] = 0;
+  var info = nombresCache[uid] || {};
+  $('privNombre').textContent = info.nombre || 'Usuario';
+  $('privAvatar').innerHTML = (info.foto && fotoSegura(info.foto))
+    ? '<img class="fotoMini" src="' + escaparAttr(info.foto) + '" alt="">'
+    : escapar(info.avatar || '🙂');
+  $('barraPrivado').classList.remove('oculto');
+  $('barraAcciones').classList.add('modoPrivado');
+  $('panelContactos').classList.remove('abierto');
+  pintarContactos(usuariosListaActual);
+  renderizarCinta();
+  scrollAbajo(true);
+}
+function volverAlGrupo(){
+  chatPrivadoId = null;
+  $('barraPrivado').classList.add('oculto');
+  $('barraAcciones').classList.remove('modoPrivado');
+  pintarContactos(usuariosListaActual);
+  renderizarCinta();
+  scrollAbajo(true);
+}
+$('btnVolverGrupo').onclick = volverAlGrupo;
+
 function pintarMensaje(m){
   var cinta = $('cintaMsj');
   if (m.tipo === 'nudge') {
+    var esMioNudge = m.de === miId;
     var lin = document.createElement('div');
     lin.className = 'lineaSistema';
-    lin.textContent = '📳 ' + (m.nombre || 'Alguien') + ' mandó un ZUMBIDO';
+    lin.textContent = chatPrivadoId
+      ? (esMioNudge ? '📳 Mandaste un ZUMBIDO (privado)' : '📳 ' + (m.nombre || 'Alguien') + ' te mandó un ZUMBIDO (privado)')
+      : (esMioNudge ? '📳 Mandaste un ZUMBIDO' : '📳 ' + (m.nombre || 'Alguien') + ' mandó un ZUMBIDO');
     cinta.appendChild(lin);
     scrollAbajo();
     return;
@@ -849,6 +954,7 @@ function enviarTexto(){
     de: miId,
     nombre: miNombre,
     avatar: miAvatar,
+    para: chatPrivadoId || '',
     texto: txt.slice(0, 500),
     tipo: 'texto',
     ts: SERVER_TS()
@@ -987,6 +1093,7 @@ $('btnZumbido').onclick = function(){
   ctxAudio();
   db.collection(COL_MSJ).add({
     de: miId, nombre: miNombre, avatar: miAvatar,
+    para: chatPrivadoId || '',
     tipo: 'nudge', ts: SERVER_TS()
   }).then(function(){
     toast('📳 ¡Zumbido mandado!');
@@ -1262,6 +1369,7 @@ $('btnEnviarDibujo').onclick = function(){
   }
   db.collection(COL_MSJ).add({
     de: miId, nombre: miNombre, avatar: miAvatar,
+    para: chatPrivadoId || '',
     tipo: 'dibujo', img: img, texto: '',
     ts: SERVER_TS()
   }).then(function(){
@@ -1410,6 +1518,7 @@ $('btnEnviarFoto').onclick = function(){
   var tipo = fotoPendiente.esGif ? 'gif' : 'foto';
   db.collection(COL_MSJ).add({
     de: miId, nombre: miNombre, avatar: miAvatar,
+    para: chatPrivadoId || '',
     tipo: tipo, img: fotoPendiente.data, texto: '',
     ts: SERVER_TS()
   }).then(function(){
@@ -1425,6 +1534,7 @@ function enviarStiker(emo){
   ultimoMsj = Date.now();
   db.collection(COL_MSJ).add({
     de: miId, nombre: miNombre, avatar: miAvatar,
+    para: chatPrivadoId || '',
     tipo: 'stiker', emo: emo, texto: '',
     ts: SERVER_TS()
   }).then(function(){ toast('🎟️ ¡Stiker mandado!'); })
@@ -1435,6 +1545,7 @@ function enviarGif(url){
   ultimoMsj = Date.now();
   db.collection(COL_MSJ).add({
     de: miId, nombre: miNombre, avatar: miAvatar,
+    para: chatPrivadoId || '',
     tipo: 'gif', img: url, texto: '',
     ts: SERVER_TS()
   }).then(function(){ toast('🎞️ ¡GIF mandado!'); })
@@ -1575,6 +1686,7 @@ $('btnRadio').onclick = function(){
 $('btnPlayRadio').onclick = function(){ if (radioSonando) pausarRadio(); else sintonizarRadio(); };
 $('btnCerrarRadio').onclick = function(){ pausarRadio(); $('barraRadio').classList.add('oculto'); };
 $('btnCompartirRadio').onclick = function(){
+  if (chatPrivadoId) { toast('📻 La radio se comparte en el chat grupal'); return; }
   if (Date.now() - ultimoMsj < 1200) { toast('⏳ Tranqui, esperá un segundito'); return; }
   ultimoMsj = Date.now();
   db.collection(COL_MSJ).add({
@@ -1583,6 +1695,17 @@ $('btnCompartirRadio').onclick = function(){
     ts: SERVER_TS()
   }).then(function(){ toast('📻 ¡Radio compartida en el chat!'); })
     .catch(function(){ toast('❌ No pude compartir la radio'); });
+};
+
+/* ---------- COMPARTIR EL CHAT POR WHATSAPP / NATIVO ---------- */
+$('btnCompartir').onclick = function(){
+  var urlChat = location.origin + location.pathname;
+  var texto = '💬 Entrá al SIKO CHAT, el messenger de Sikodark Radio 📻 escuchala en vivo 🖤🧡 ' + urlChat;
+  if (navigator.share) {
+    navigator.share({ title: 'SIKO CHAT — el messenger de la radio', text: texto, url: urlChat }).catch(function(){});
+  } else {
+    window.open('https://wa.me/?text=' + encodeURIComponent(texto), '_blank');
+  }
 };
 
 /* ---------- 21 · PWA ---------- */

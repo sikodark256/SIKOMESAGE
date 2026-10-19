@@ -8,9 +8,12 @@ Chat en vivo **aparte** de sikodark radio, con la estética de siempre (negro + 
 - 😀 34 emoticons + 🎟️ 24 stikers grandes + 🎞️ 8 GIFs animados propios (carpeta `gifs/`)
 - 📷 Mandar **fotos y GIFs de la galería** del cel (se achican solos) — botón 📷 Foto/GIF o botón 📂 dentro de la pestaña GIFs: se abre el explorador, elegís la imagen y la mandás
 - 📻 **Radio en vivo dentro del chat**: botón 📻 Radio con mini-player (play/pausa + la canción que suena al aire) y botón 📨 para **compartir la radio al chat**: aparece una tarjeta y cualquiera toca 🎧 ESCUCHAR y se sintoniza sin salir del chat
+- 📤 **Compartir el chat por WhatsApp** (botón 📤): abre el compartir del celu o WhatsApp directo con el link del chat + la radio
+- 💙 **Logo SiKO CHAT en todo**: favicon, ícono de la web, ícono de la app instalada (PWA) y pantalla de ingreso
 - 👤 **Perfil con foto**: subí tu foto de perfil, cambiá tu nombre y tu avatar (botón/círculo arriba a la izquierda)
 - 🎵 **Tonos configurables**: elegí el sonido de mensajes y del zumbido (botón 🎵 Tonos)
 - 👥 Panel de conectados en vivo con estados (en línea / ausente / escribiendo…)
+- 🔒 **Chat privado 1 a 1**: tocá cualquier usuario del panel (o su 💬) y abrís una conversación aparte que solo ven ustedes dos, con aviso de mensajes sin leer (🔴) y zumbido privado. Botón ← para volver al grupo
 - 📲 PWA instalable (manifest + service worker incluidos)
 
 **🔗 URL del chat:** `https://TU-USUARIO.github.io/NOMBRE-DEL-REPO/` — abre directo, sin buscar archivos.
@@ -23,7 +26,11 @@ Chat en vivo **aparte** de sikodark radio, con la estética de siempre (negro + 
 /                        ← raíz del repo
 ├── index.html           ← toda la app (HTML + CSS + JS en un solo archivo)
 ├── manifest.json        ← configuración PWA
-├── sw.js                ← service worker (cache sikodark-chat-v6)
+├── sw.js                ← service worker (cache sikodark-chat-v8)
+├── favicon.png          ← logo chico de la pestaña del navegador
+├── apple-touch-icon.png ← ícono al agregar a pantalla de inicio en iPhone
+├── icon-maskable-192.png┐
+├── icon-maskable-512.png┘ ← íconos para Android (zona segura del launcher)
 ├── icon-192.png         ← ícono PWA
 ├── icon-512.png         ← ícono PWA
 ├── gifs/                ← stikers animados del chat (podés agregar los tuyos)
@@ -71,6 +78,8 @@ Si tus reglas de Firestore ya están abiertas (`allow read, write: if true`), no
 - Los dibujos y fotos viajan como imagen JPEG base64 (se achican solos a máx 800 px, ~30-100 KB); los GIFs de galería viajan tal cual si pesan menos de ~650 KB.
 - Los sonidos se generan con Web Audio API: cero archivos de audio. Cada usuario elige su tono (se guarda en su cel).
 - La radio del chat usa el stream de Zeno.FM (`stream.zeno.fm/xdkqr4btptutv`) con un `<audio>` propio; la canción al aire llega por metadata SSE de Zeno (con fallback de polling cada 10 s).
+- El botón 📤 usa `navigator.share` (el compartir nativo del celu); si el navegador no lo tiene, abre WhatsApp con el texto listo (`wa.me`).
+- Los chats privados van en la MISMA colección `chat_mensajes` con un campo `para` (el uid del otro). Cada cel solo MUESTRA los suyos. Ojo: como no hay cuentas/login, la privacidad es de la app, no del servidor — privacidad total real necesitaría registro de usuarios.
 - Anti-spam: 1 mensaje/imagen/stiker cada 1,2 s y un zumbido cada 12 s.
 - `.nojekyll` evita que GitHub Pages procese los archivos con Jekyll.
-- Para actualizar el chat: cambiá `index.html` y subí el número de cache en `sw.js` (`sikodark-chat-v6` → `v7`…).
+- Para actualizar el chat: cambiá `index.html` y subí el número de cache en `sw.js` (`sikodark-chat-v8` → `v9`…).
