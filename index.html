@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- SikoChat v4 · perfil con foto + stikers/gifs + fotos de galería + tonos configurables -->
+<!-- SikoChat v6 · perfil con foto + stikers/gifs + fotos de galería + tonos configurables + radio en vivo -->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -239,6 +239,45 @@ button{font-family:'Montserrat',sans-serif}
 .gridGifs img{width:100%;border-radius:9px;cursor:pointer;border:1px solid #333;display:block}
 .gridGifs img:hover{border-color:var(--naranja)}
 .gifNota{font-size:10px;color:#777;margin-top:8px;line-height:1.5;text-align:center}
+.btnExplorador{
+  width:100%;margin-bottom:8px;padding:12px;border-radius:10px;border:2px dashed var(--naranja);
+  background:rgba(245,157,61,.10);color:var(--naranja);font-weight:900;font-size:12.5px;
+  letter-spacing:.3px;cursor:pointer;transition:background .15s;
+}
+.btnExplorador:hover{background:rgba(245,157,61,.22)}
+
+/* ============ RADIO EN VIVO ============ */
+#barraRadio{
+  display:flex;align-items:center;gap:10px;padding:8px 12px;flex-shrink:0;
+  background:linear-gradient(135deg,#181310,#0f0d0a);border-bottom:1px solid var(--borde);
+}
+.btnPlayRadio{
+  width:38px;height:38px;border-radius:50%;border:2px solid var(--naranja);flex-shrink:0;
+  background:rgba(245,157,61,.15);color:var(--naranja);font-size:15px;cursor:pointer;
+  display:grid;place-items:center;font-weight:900;padding:0;
+}
+.btnPlayRadio:hover{background:rgba(245,157,61,.3)}
+.radioInfo{min-width:0;flex:1}
+.radioEnVivo{font-size:10px;font-weight:900;letter-spacing:1px;color:var(--naranja);display:flex;align-items:center;gap:6px}
+.puntoVivo{width:8px;height:8px;border-radius:50%;background:#ff3b3b;display:inline-block;flex-shrink:0;animation:latido 1.2s infinite}
+@keyframes latido{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}
+.radioCancion{font-size:11.5px;color:#ddd;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
+.btnMiniRadio{
+  background:none;border:1px solid #333;color:#ccc;width:32px;height:32px;border-radius:8px;
+  font-size:14px;cursor:pointer;flex-shrink:0;display:grid;place-items:center;padding:0;
+}
+.btnMiniRadio:hover{border-color:var(--naranja);color:var(--naranja)}
+.tarjetaRadio{
+  background:#0d0d0d;border:1px solid var(--naranja);border-radius:12px;padding:10px 12px;
+  min-width:min(210px,64vw);cursor:pointer;
+}
+.trTitulo{font-weight:900;color:var(--naranja);font-size:13px;letter-spacing:.4px}
+.trSub{font-size:10px;color:#bbb;font-weight:700;display:flex;align-items:center;gap:6px;margin:3px 0 8px}
+.trBtn{
+  width:100%;padding:8px;border-radius:9px;border:none;cursor:pointer;
+  background:linear-gradient(135deg,#f59d3d,#d97f1c);color:#000;font-weight:900;font-size:12px;
+}
+.trBtn:hover{filter:brightness(1.12)}
 .stikerBig{font-size:52px;line-height:1.1;display:block}
 #previewFoto{max-width:100%;max-height:44vh;border-radius:10px;border:2px solid var(--naranja);display:block;margin:0 auto}
 .sonidoGrupo{display:flex;flex-wrap:wrap;gap:6px}
@@ -355,6 +394,15 @@ button{font-family:'Montserrat',sans-serif}
       </aside>
 
       <main id="zonaChat">
+        <div id="barraRadio" class="oculto">
+          <button id="btnPlayRadio" class="btnPlayRadio" type="button">▶</button>
+          <div class="radioInfo">
+            <div class="radioEnVivo"><span class="puntoVivo"></span> EN VIVO · SIKODARK RADIO</div>
+            <div class="radioCancion" id="radioCancion">📻 Tocá play para sintonizar</div>
+          </div>
+          <button id="btnCompartirRadio" class="btnMiniRadio" type="button" title="Compartir la radio en el chat">📨</button>
+          <button id="btnCerrarRadio" class="btnMiniRadio" type="button" title="Ocultar barra">✕</button>
+        </div>
         <div class="cintaMsj" id="cintaMsj">
           <div class="lineaSistema">👋 Bienvenido al chat de Sikodark — respetá y pasala lindo 🖤🧡</div>
         </div>
@@ -363,6 +411,7 @@ button{font-family:'Montserrat',sans-serif}
           <button class="btnAccion" id="btnEmotis">😀 Emoticons</button>
           <button class="btnAccion" id="btnDibujar">✏️ Dibujar</button>
           <button class="btnAccion" id="btnImagen">📷 Foto/GIF</button>
+          <button class="btnAccion" id="btnRadio">📻 Radio</button>
           <button class="btnAccion" id="btnZumbido">📳 Zumbido</button>
           <button class="btnAccion" id="btnSonido">🔔 Sonido</button>
           <button class="btnAccion" id="btnMusica">🎵 Tonos</button>
@@ -387,8 +436,9 @@ button{font-family:'Montserrat',sans-serif}
   <div id="tabEmotis" class="gridEmotis"></div>
   <div id="tabStikers" class="gridStikers oculto"></div>
   <div id="tabGifs" class="oculto">
+    <button id="btnGifExplorador" class="btnExplorador" type="button">📂 Buscar foto o GIF en el explorador…</button>
     <div class="gridGifs" id="gridGifs"></div>
-    <p class="gifNota">Stikers animados hechos para Sikodark 🧡 · ¿querés más? Subí tus .gif a la carpeta <b>gifs/</b> del repo</p>
+    <p class="gifNota">Stikers animados hechos para Sikodark 🧡 · para mandar una foto tuya tocá 📂 de arriba o el botón <b>📷 Foto/GIF</b></p>
   </div>
 </div>
 
@@ -445,6 +495,7 @@ button{font-family:'Montserrat',sans-serif}
   </div>
 </div>
 <input type="file" id="inputImagen" accept="image/*" class="oculto">
+<audio id="audioRadio" preload="none"></audio>
 
 <!-- ================= TONOS DEL CHAT ================= -->
 <div id="overlaySonidos" class="overlayModal oculto">
@@ -471,9 +522,10 @@ button{font-family:'Montserrat',sans-serif}
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
 /* ============================================================
-   SIKODARK CHAT — ESTILO MSN MESSENGER · v4
+   SIKODARK CHAT — ESTILO MSN MESSENGER · v6
    Sin registro · conectados en vivo · lápiz · zumbido · emotis
    fotos · gifs · stikers · perfil con foto · tonos elegibles
+   radio en vivo (stream Zeno + canción al aire)
    Hecho con amor para sikodark radio 🖤🧡
    ============================================================ */
 
@@ -752,6 +804,12 @@ function pintarMensaje(m){
     (String(m.img).slice(0, 11) === 'data:image/' || String(m.img).slice(0, 5) === 'gifs/' || String(m.img).slice(0, 8) === 'https://');
   if (m.tipo === 'stiker' && m.emo) {
     cuerpo = '<span class="stikerBig">' + escapar(m.emo) + '</span>';
+  } else if (m.tipo === 'radio') {
+    cuerpo = '<div class="tarjetaRadio" data-accion="radio">' +
+      '<div class="trTitulo">📻 SIKODARK RADIO</div>' +
+      '<div class="trSub"><span class="puntoVivo"></span> EN VIVO · rock, pop y más</div>' +
+      '<button class="trBtn" type="button">🎧 ESCUCHAR AHORA</button>' +
+      '</div>';
   } else if (esImg) {
     var srcSeg = escaparAttr(String(m.img));
     cuerpo = '<img class="miniDibujo" src="' + srcSeg + '" alt="Imagen" data-src="' + srcSeg + '">';
@@ -1216,6 +1274,7 @@ $('btnEnviarDibujo').onclick = function(){
 
 /* ---------- 16 · LIGHTBOX (VER DIBUJOS EN GRANDE) ---------- */
 $('cintaMsj').addEventListener('click', function(e){
+  if (e.target.closest && e.target.closest('.tarjetaRadio')) { sintonizarRadio(); return; }
   var img = e.target.closest ? e.target.closest('img.miniDibujo') : null;
   if (!img) return;
   $('lightboxImg').src = img.getAttribute('data-src') || img.src;
@@ -1326,6 +1385,11 @@ $('btnImagen').onclick = function(){
   $('inputImagen').value = '';
   $('inputImagen').click();
 };
+$('btnGifExplorador').onclick = function(){
+  $('pickerEmotis').classList.add('oculto');
+  $('inputImagen').value = '';
+  $('inputImagen').click();
+};
 $('inputImagen').onchange = function(){
   var f = this.files && this.files[0];
   if (!f) return;
@@ -1427,7 +1491,101 @@ $('btnCerrarSonidos').onclick = function(){
   toast('🎵 Tonos guardados');
 };
 
-/* ---------- 20 · PWA ---------- */
+/* ---------- 20 · RADIO EN VIVO ---------- */
+var URL_RADIO = 'https://stream.zeno.fm/xdkqr4btptutv';
+var URL_META_RADIO = 'https://api.zeno.fm/mounts/metadata/subscribe/xdkqr4btptutv';
+var radioSonando = false;
+var metaRadio = null;
+var metaPoll = null;
+
+function sintonizarRadio(){
+  $('barraRadio').classList.remove('oculto');
+  var a = $('audioRadio');
+  if (!a.src) a.src = URL_RADIO;
+  a.play().then(function(){
+    radioSonando = true;
+    $('btnPlayRadio').textContent = '⏸';
+    if (!$('radioCancion').dataset.tema) $('radioCancion').textContent = '📻 Conectando…';
+    escucharMetaRadio();
+  }).catch(function(){
+    toast('❌ No pude sintonizar la radio, probá otra vez');
+  });
+}
+function pausarRadio(){
+  $('audioRadio').pause();
+  radioSonando = false;
+  $('btnPlayRadio').textContent = '▶';
+  $('radioCancion').textContent = '📻 Pausado';
+  $('radioCancion').removeAttribute('data-tema');
+  if (metaRadio) { metaRadio.close(); metaRadio = null; }
+  if (metaPoll) { clearInterval(metaPoll); metaPoll = null; }
+}
+function ponerTemaRadio(t){
+  var el = $('radioCancion');
+  el.textContent = '🎵 ' + t;
+  el.dataset.tema = '1';
+}
+function extraerTemaRadio(txt){
+  try {
+    var d = JSON.parse(txt);
+    if (d && typeof d.streamTitle === 'string' && d.streamTitle) return d.streamTitle;
+  } catch (e) {}
+  var m = (txt || '').match(/"streamTitle"\s*:\s*"([^"]+)"/);
+  return m ? m[1] : '';
+}
+function escucharMetaRadio(){
+  if (metaRadio || metaPoll) return;
+  var sseFunco = false;
+  try {
+    metaRadio = new EventSource(URL_META_RADIO);
+    metaRadio.onmessage = function(ev){
+      var t = extraerTemaRadio(ev.data);
+      if (t) {
+        sseFunco = true;
+        if (metaPoll) { clearInterval(metaPoll); metaPoll = null; }
+        ponerTemaRadio(t);
+      }
+    };
+    metaRadio.onerror = function(){
+      if (!sseFunco && !metaPoll) {
+        setTimeout(function(){
+          if (!radioSonando) return;
+          metaPoll = setInterval(pollMetaRadio, 10000);
+          pollMetaRadio();
+        }, 3000);
+      }
+    };
+  } catch (e) {
+    metaPoll = setInterval(pollMetaRadio, 10000);
+  }
+}
+function pollMetaRadio(){
+  fetch(URL_META_RADIO, { cache: 'no-store' }).then(function(r){ return r.text(); }).then(function(t){
+    var tema = extraerTemaRadio(t);
+    if (tema) ponerTemaRadio(tema);
+  }).catch(function(){});
+}
+$('btnRadio').onclick = function(){
+  if (radioSonando) {
+    $('barraRadio').classList.remove('oculto');
+    return;
+  }
+  sintonizarRadio();
+};
+$('btnPlayRadio').onclick = function(){ if (radioSonando) pausarRadio(); else sintonizarRadio(); };
+$('btnCerrarRadio').onclick = function(){ pausarRadio(); $('barraRadio').classList.add('oculto'); };
+$('btnCompartirRadio').onclick = function(){
+  if (Date.now() - ultimoMsj < 1200) { toast('⏳ Tranqui, esperá un segundito'); return; }
+  ultimoMsj = Date.now();
+  db.collection(COL_MSJ).add({
+    de: miId, nombre: miNombre, avatar: miAvatar,
+    tipo: 'radio', texto: '',
+    ts: SERVER_TS()
+  }).then(function(){ toast('📻 ¡Radio compartida en el chat!'); })
+    .catch(function(){ toast('❌ No pude compartir la radio'); });
+};
+
+/* ---------- 21 · PWA ---------- */
 if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
   navigator.serviceWorker.register('sw.js').catch(function(){});
 }
@@ -1444,7 +1602,7 @@ $('btnInstalar').onclick = function(){
   $('btnInstalar').classList.add('oculto');
 };
 
-/* ---------- 21 · ARRANQUE ---------- */
+/* ---------- 22 · ARRANQUE ---------- */
 pintarAvatares();
 pintarEmotis();
 if (miNombre) $('inputNombre').value = miNombre;
