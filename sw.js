@@ -1,9 +1,11 @@
 /* ============================================================
-   SERVICE WORKER — SIKODARK CHAT (MSN) · chat-v8
+   SERVICE WORKER — SIKODARK CHAT (MSN) · chat-v10
+   + logo nuevo + modos de diseño (temas)
+   + notificaciones: clic en el aviso → traer el chat al frente
    Subí este número (v5, v6…) cada vez que cambies el index.html
    ============================================================ */
-var CACHE = 'sikodark-chat-v8';
-var ARCHIVOS = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png', './favicon.png', './apple-touch-icon.png', './icon-maskable-192.png', './icon-maskable-512.png'];
+var CACHE = 'sikodark-chat-v10';
+var ARCHIVOS = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png', './favicon.png', './apple-touch-icon.png', './icon-maskable-192.png', './icon-maskable-512.png', './logo-blanco.png', './logo-negro.png', './logo-cara.png'];
 
 self.addEventListener('install', function(e){
   self.skipWaiting();
@@ -22,6 +24,26 @@ self.addEventListener('activate', function(e){
     caches.keys().then(function(keys){
       return Promise.all(keys.filter(function(k){ return k !== CACHE; }).map(function(k){ return caches.delete(k); }));
     }).then(function(){ return self.clients.claim(); })
+  );
+});
+
+/* Clic en una notificación → abrir/enfocar el chat.
+   Si el aviso era de un privado, le paso a quién abrir (data.de) */
+self.addEventListener('notificationclick', function(e){
+  e.notification.close();
+  var data = e.notification.data || {};
+  e.waitUntil(
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(function(lista){
+      for (var i = 0; i < lista.length; i++) {
+        var c = lista[i];
+        if ('focus' in c) {
+          c.focus();
+          if (data && data.de) c.postMessage({ tipo: 'notiPriv', de: data.de });
+          return;
+        }
+      }
+      return self.clients.openPage('./');
+    })
   );
 });
 

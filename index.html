@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- SikoChat v8 · perfil + stikers/gifs/fotos + tonos + radio en vivo + compartir + logo + chat privado 1 a 1 -->
+<!-- SikoChat v10 · logo nuevo en bienvenida/barra + modos de diseño (oscuro/claro + 6 colores) + perfil + stikers/gifs/fotos + tonos + radio en vivo + compartir + chat privado + notificaciones -->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -21,18 +21,62 @@
 :root{
   --naranja:#f59d3d;
   --naranja-osc:#c97a1e;
+  --acento-rgb:245,157,61;
   --negro:#000000;
   --panel:#0b0b0b;
   --panel2:#111111;
   --borde:#222222;
   --gris:#9a9a9a;
+  --fondo:#000000;
+  --caja:#0d0d0d;
+  --barra:#101010;
+  --burb:#181818;
+  --borde2:#333333;
+  --borde3:#2c2c2c;
+  --tx1:#eeeeee;
+  --tx2:#c9c9c9;
+  --tx3:#999999;
+  --tx4:#777777;
+  --contra:#ffffff;
+  --imgborde:rgba(255,255,255,.15);
+  --sombra:rgba(0,0,0,.7);
+  --privA:#0c1723;
+  --privB:#0d0d0d;
 }
+/* ---- MODOS DE DISEÑO: claro + colores (los pisa body.tema-claro / body.color-xxx) ---- */
+body.tema-claro{
+  --fondo:#eef0f4;
+  --panel:#ffffff;
+  --panel2:#f0f1f6;
+  --caja:#ffffff;
+  --barra:#f5f6fa;
+  --burb:#ffffff;
+  --borde:#d9dbe1;
+  --borde2:#c4c7d1;
+  --borde3:#d9dbe1;
+  --tx1:#1b1c1f;
+  --tx2:#43444a;
+  --tx3:#6a6b70;
+  --tx4:#8a8b90;
+  --gris:#6a6b70;
+  --contra:#000000;
+  --imgborde:rgba(0,0,0,.18);
+  --sombra:rgba(31,35,45,.28);
+  --privA:#e3edfa;
+  --privB:#ffffff;
+}
+body.color-verde{--naranja:#2fbf71;--naranja-osc:#1e8f53;--acento-rgb:47,191,113}
+body.color-celeste{--naranja:#38a8e8;--naranja-osc:#1f7fbb;--acento-rgb:56,168,232}
+body.color-violeta{--naranja:#9b6bf3;--naranja-osc:#6f46c2;--acento-rgb:155,107,243}
+body.color-rosa{--naranja:#f563a4;--naranja-osc:#c73d7e;--acento-rgb:245,99,164}
+body.color-rojo{--naranja:#ef5350;--naranja-osc:#c02f2c;--acento-rgb:239,83,80}
+
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;padding:0}
 body{
-  background:#000;
-  background-image:radial-gradient(circle at 50% -10%,rgba(245,157,61,.10),transparent 55%);
-  color:#eee;
+  background:var(--fondo);
+  background-image:radial-gradient(circle at 50% -10%,rgba(var(--acento-rgb),.10),transparent 55%);
+  color:var(--tx1);
   font-family:'Montserrat',sans-serif;
   min-height:100vh;
 }
@@ -40,7 +84,7 @@ body{
 button{font-family:'Montserrat',sans-serif}
 ::-webkit-scrollbar{width:8px;height:8px}
 ::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:#333;border-radius:8px}
+::-webkit-scrollbar-thumb{background:var(--borde2);border-radius:8px}
 ::-webkit-scrollbar-thumb:hover{background:var(--naranja)}
 
 /* ============ PANTALLA DE INGRESO ============ */
@@ -48,27 +92,30 @@ button{font-family:'Montserrat',sans-serif}
   position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:16px;
 }
 .loginCaja{
-  width:min(92vw,420px);background:#0d0d0d;border:2px solid var(--naranja);border-radius:16px;
-  padding:26px 24px;text-align:center;box-shadow:0 0 50px rgba(245,157,61,.22);
+  width:min(92vw,420px);background:var(--caja);border:2px solid var(--naranja);border-radius:16px;
+  padding:26px 24px;text-align:center;box-shadow:0 0 50px rgba(var(--acento-rgb),.22);
 }
-.logoChat{font-weight:900;color:var(--naranja);font-size:26px;letter-spacing:1px}
+.logoBienvenida{width:min(250px,68vw);height:auto;display:block;margin:2px auto 12px}
+body.tema-claro .logoOscuro{display:none}
+.logoClaro{display:none}
+body.tema-claro .logoClaro{display:block}
 .subLogin{color:var(--gris);font-size:12.5px;line-height:1.5;margin:8px 0 4px}
 .etiqueta{display:block;text-align:left;font-size:10px;font-weight:800;color:var(--naranja);letter-spacing:1.2px;margin:16px 0 6px}
 .campo{
-  width:100%;padding:13px;background:#000;border:2px solid #333;border-radius:10px;
-  color:#fff;font-family:'Montserrat',sans-serif;font-weight:700;font-size:15px;
+  width:100%;padding:13px;background:var(--fondo);border:2px solid var(--borde2);border-radius:10px;
+  color:var(--tx1);font-family:'Montserrat',sans-serif;font-weight:700;font-size:15px;
 }
 .campo:focus{outline:none;border-color:var(--naranja)}
 .gridAvatares{display:grid;grid-template-columns:repeat(8,1fr);gap:6px}
 .av{
-  background:#111;border:2px solid transparent;border-radius:10px;font-size:18px;
+  background:var(--panel2);border:2px solid transparent;border-radius:10px;font-size:18px;
   padding:5px 0;cursor:pointer;transition:transform .12s;
 }
 .av:hover{transform:scale(1.12)}
-.av.sel{border-color:var(--naranja);background:rgba(245,157,61,.14)}
+.av.sel{border-color:var(--naranja);background:rgba(var(--acento-rgb),.14)}
 .btnPrincipal{
   width:100%;margin-top:18px;padding:14px;border-radius:10px;border:none;cursor:pointer;
-  background:linear-gradient(135deg,#f59d3d,#d97f1c);color:#000;font-weight:900;font-size:15px;
+  background:linear-gradient(135deg,var(--naranja),var(--naranja-osc));color:#000;font-weight:900;font-size:15px;
   letter-spacing:.5px;transition:filter .15s;
 }
 .btnPrincipal:hover{filter:brightness(1.1)}
@@ -76,7 +123,7 @@ button{font-family:'Montserrat',sans-serif}
   width:100%;margin-top:10px;padding:10px;border-radius:10px;background:transparent;
   border:2px solid var(--naranja);color:var(--naranja);font-weight:800;font-size:12px;cursor:pointer;
 }
-.notaLogin{font-size:10.5px;color:#777;margin:14px 0 0;line-height:1.5}
+.notaLogin{font-size:10.5px;color:var(--tx4);margin:14px 0 0;line-height:1.5}
 
 /* ============ VENTANA ESTILO MSN ============ */
 #app{height:100vh;display:flex;align-items:center;justify-content:center;padding:10px}
@@ -85,7 +132,7 @@ button{font-family:'Montserrat',sans-serif}
   width:min(96vw,960px);height:calc(100vh - 20px);max-height:780px;
   display:flex;flex-direction:column;background:var(--panel);
   border:2px solid var(--naranja);border-radius:14px;overflow:hidden;
-  box-shadow:0 0 60px rgba(245,157,61,.18);
+  box-shadow:0 0 60px rgba(var(--acento-rgb),.18);
 }
 @supports (height:100dvh){.ventana{height:calc(100dvh - 20px)}}
 @keyframes temblor{
@@ -98,7 +145,7 @@ button{font-family:'Montserrat',sans-serif}
 
 .barraTitulo{
   display:flex;align-items:center;gap:8px;padding:8px 12px;flex-shrink:0;
-  background:linear-gradient(90deg,#f59d3d,#a35f0e);color:#000;
+  background:linear-gradient(90deg,var(--naranja),var(--naranja-osc));color:#000;
 }
 .barraTitulo strong{font-size:13px;font-weight:900}
 .tituloEstado{font-size:10.5px;font-weight:800;opacity:.8}
@@ -109,43 +156,43 @@ button{font-family:'Montserrat',sans-serif}
 .btnVent:hover{background:rgba(0,0,0,.18)}
 
 .barraUsuario{
-  display:flex;align-items:center;gap:10px;padding:10px 14px;background:#101010;
+  display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--barra);
   border-bottom:1px solid var(--borde);flex-shrink:0;
 }
 .miAvatar{
-  width:44px;height:44px;border-radius:10px;background:#000;border:2px solid var(--naranja);
+  width:44px;height:44px;border-radius:10px;background:var(--fondo);border:2px solid var(--naranja);
   display:grid;place-items:center;font-size:22px;cursor:pointer;flex-shrink:0;
 }
 .miDatos{min-width:0}
 .miNombre{font-size:14px;font-weight:900;color:var(--naranja);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.miEstado{font-size:11px;color:#bbb;font-weight:700;margin-top:1px}
-.miFrase{font-size:11px;color:#888;font-style:italic;cursor:pointer;margin-top:2px}
+.miEstado{font-size:11px;color:var(--tx2);font-weight:700;margin-top:1px}
+.miFrase{font-size:11px;color:var(--tx3);font-style:italic;cursor:pointer;margin-top:2px}
 .miFrase:hover{text-decoration:underline;color:var(--naranja)}
 
 /* ============ CUERPO ============ */
 .cuerpo{flex:1;display:flex;min-height:0}
 
 #panelContactos{
-  width:250px;flex-shrink:0;background:#0d0d0d;border-right:1px solid var(--borde);
+  width:250px;flex-shrink:0;background:var(--caja);border-right:1px solid var(--borde);
   display:flex;flex-direction:column;
 }
 .cabContactos{
   padding:10px 12px;font-size:10.5px;font-weight:800;letter-spacing:1.2px;
-  color:var(--naranja);border-bottom:1px solid #1e1e1e;
+  color:var(--naranja);border-bottom:1px solid var(--borde);
 }
 .listaContactos{flex:1;overflow-y:auto;padding:6px}
 .contacto{display:flex;align-items:center;gap:8px;padding:7px 8px;border-radius:8px}
-.contacto:hover{background:#161616}
+.contacto:hover{background:var(--panel2)}
 .dot{width:9px;height:9px;border-radius:50%;display:inline-block;flex-shrink:0}
 .dot.online{background:#3ddc84;box-shadow:0 0 6px rgba(61,220,132,.7)}
 .dot.ausente{background:var(--naranja);opacity:.75}
 .cAvatar{font-size:18px;flex-shrink:0}
 .cInfo{min-width:0;display:flex;flex-direction:column}
-.cNombre{font-size:12.5px;font-weight:800;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cNombre{font-size:12.5px;font-weight:800;color:var(--tx1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .chipYo{color:var(--naranja);font-size:9px}
-.cSub{font-size:10px;color:#888}
+.cSub{font-size:10px;color:var(--tx3)}
 .escribiendoTxt{color:var(--naranja);font-weight:700}
-.vacio{color:#777;font-size:12px;text-align:center;padding:22px 10px;line-height:1.6}
+.vacio{color:var(--tx4);font-size:12px;text-align:center;padding:22px 10px;line-height:1.6}
 
 #zonaChat{flex:1;display:flex;flex-direction:column;min-width:0}
 .cintaMsj{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
@@ -154,152 +201,151 @@ button{font-family:'Montserrat',sans-serif}
 .fila.otro{justify-content:flex-start}
 .burbuja{max-width:78%;padding:9px 12px;border-radius:12px;font-size:13.5px;line-height:1.45;overflow-wrap:anywhere}
 .fila.ya .burbuja{
-  background:linear-gradient(135deg,#f59d3d,#cf7f1a);color:#000;font-weight:600;
+  background:linear-gradient(135deg,var(--naranja),var(--naranja-osc));color:#000;font-weight:600;
   border-bottom-right-radius:3px;
 }
 .fila.otro .burbuja{
-  background:#181818;border:1px solid #2c2c2c;border-left:3px solid var(--naranja);
-  color:#eee;border-bottom-left-radius:3px;
+  background:var(--burb);border:1px solid var(--borde3);border-left:3px solid var(--naranja);
+  color:var(--tx1);border-bottom-left-radius:3px;
 }
 .bAutor{font-size:10.5px;font-weight:800;color:var(--naranja);margin-bottom:3px}
 .bMeta{font-size:9.5px;opacity:.7;margin-top:4px;font-weight:700}
 .miniDibujo{
   max-width:min(240px,60vw);border-radius:8px;display:block;cursor:zoom-in;
-  border:1px solid rgba(255,255,255,.15);
+  border:1px solid var(--imgborde);
 }
 .lineaSistema{
   align-self:center;font-size:11px;color:var(--naranja);text-align:center;font-weight:700;
-  background:rgba(245,157,61,.08);border:1px dashed rgba(245,157,61,.4);
+  background:rgba(var(--acento-rgb),.08);border:1px dashed rgba(var(--acento-rgb),.4);
   padding:5px 12px;border-radius:20px;
 }
 
 /* ============ BARRAS INFERIORES ============ */
 .barraAcciones{
   display:flex;flex-wrap:wrap;gap:6px;padding:8px 10px;border-top:1px solid var(--borde);
-  background:#0f0f0f;flex-shrink:0;
+  background:var(--barra);flex-shrink:0;
 }
 .btnAccion{
-  background:#141414;border:1px solid #333;color:#eee;padding:8px 10px;border-radius:9px;
+  background:var(--panel2);border:1px solid var(--borde2);color:var(--tx1);padding:8px 10px;border-radius:9px;
   font-size:12px;font-weight:800;cursor:pointer;display:flex;align-items:center;gap:5px;
   transition:border-color .15s,color .15s;white-space:nowrap;
 }
 .btnAccion:hover{border-color:var(--naranja);color:var(--naranja)}
-.btnAccion.activo{background:rgba(245,157,61,.18);border-color:var(--naranja);color:var(--naranja)}
+.btnAccion.activo{background:rgba(var(--acento-rgb),.18);border-color:var(--naranja);color:var(--naranja)}
 #btnContactos{display:none}
 
 .zonaEscritura{
   display:flex;gap:8px;padding:10px;border-top:1px solid var(--borde);
-  background:#0c0c0c;align-items:flex-end;flex-shrink:0;
+  background:var(--caja);align-items:flex-end;flex-shrink:0;
 }
 #msj{
-  flex:1;resize:none;height:46px;max-height:110px;background:#000;border:2px solid #333;
-  border-radius:10px;color:#fff;padding:11px 12px;font-family:'Montserrat',sans-serif;
+  flex:1;resize:none;height:46px;max-height:110px;background:var(--fondo);border:2px solid var(--borde2);
+  border-radius:10px;color:var(--tx1);padding:11px 12px;font-family:'Montserrat',sans-serif;
   font-weight:600;font-size:13.5px;caret-color:var(--naranja);
 }
 #msj:focus{outline:none;border-color:var(--naranja)}
 #btnEnviar{
   height:46px;padding:0 18px;border-radius:10px;border:none;cursor:pointer;
-  background:linear-gradient(135deg,#f59d3d,#d97f1c);color:#000;font-weight:900;font-size:13px;
+  background:linear-gradient(135deg,var(--naranja),var(--naranja-osc));color:#000;font-weight:900;font-size:13px;
 }
 
 /* ============ PICKER EMOTICONS ============ */
 #pickerEmotis{
   position:fixed;bottom:118px;right:16px;width:min(330px,92vw);max-height:290px;overflow-y:auto;
-  background:#101010;border:2px solid var(--naranja);border-radius:14px;padding:10px;
+  background:var(--caja);border:2px solid var(--naranja);border-radius:14px;padding:10px;
   display:block;z-index:60;
-  box-shadow:0 10px 40px rgba(0,0,0,.7);
+  box-shadow:0 10px 40px var(--sombra);
 }
 .emo{background:none;border:none;font-size:20px;padding:6px 0;border-radius:8px;cursor:pointer}
-.emo:hover{background:rgba(245,157,61,.15)}
+.emo:hover{background:rgba(var(--acento-rgb),.15)}
 
-/* ============ MODALES (PERFIL · FOTOS · TONOS) ============ */
+/* ============ MODALES (PERFIL · FOTOS · TONOS · TEMA) ============ */
 .overlayModal{position:fixed;inset:0;background:rgba(0,0,0,.93);z-index:85;display:flex;align-items:center;justify-content:center;padding:14px}
-.cajaModal{background:#101010;border:2px solid var(--naranja);border-radius:14px;padding:16px;width:min(92vw,400px);max-height:88vh;overflow-y:auto}
+.cajaModal{background:var(--caja);border:2px solid var(--naranja);border-radius:14px;padding:16px;width:min(92vw,400px);max-height:88vh;overflow-y:auto}
 .modalTitulo{font-size:14px;font-weight:900;color:var(--naranja);letter-spacing:.5px;margin-bottom:12px;text-align:center}
-.modalLabel{display:block;font-size:10.5px;font-weight:800;color:#999;letter-spacing:1px;margin:12px 0 6px}
-.modalInput{width:100%;box-sizing:border-box;background:#000;border:1.5px solid #333;color:#fff;padding:10px 12px;border-radius:9px;font-family:inherit;font-size:14px;font-weight:700}
+.modalLabel{display:block;font-size:10.5px;font-weight:800;color:var(--tx3);letter-spacing:1px;margin:12px 0 6px}
+.modalInput{width:100%;box-sizing:border-box;background:var(--fondo);border:1.5px solid var(--borde2);color:var(--tx1);padding:10px 12px;border-radius:9px;font-family:inherit;font-size:14px;font-weight:700}
 .modalInput:focus{outline:none;border-color:var(--naranja)}
 .modalAcc{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
 .perfilFila{display:flex;align-items:center;gap:14px}
-.perfilFoto{width:84px;height:84px;border-radius:50%;background:#000;border:2px solid var(--naranja);display:grid;place-items:center;font-size:38px;flex-shrink:0;background-size:cover;background-position:center;overflow:hidden}
+.perfilFoto{width:84px;height:84px;border-radius:50%;background:var(--fondo);border:2px solid var(--naranja);display:grid;place-items:center;font-size:38px;flex-shrink:0;background-size:cover;background-position:center;overflow:hidden}
 .perfilFotoAcc{display:flex;flex-direction:column;gap:6px}
 .gridAvPerf{display:grid;grid-template-columns:repeat(8,1fr);gap:4px}
 .gridAvPerf button{background:none;border:none;font-size:19px;padding:4px 0;border-radius:7px;cursor:pointer}
-.gridAvPerf button.sel{background:rgba(245,157,61,.22)}
+.gridAvPerf button.sel{background:rgba(var(--acento-rgb),.22)}
 .fotoMini{width:24px;height:24px;border-radius:50%;object-fit:cover;flex-shrink:0;display:block}
 .fotoBurbuja{width:20px;height:20px;border-radius:50%;object-fit:cover;vertical-align:-5px;margin-right:3px}
 .tabsEmotis{display:flex;gap:6px;margin-bottom:8px}
-.tabEmotis{flex:1;background:#0a0a0a;border:1px solid #333;color:#aaa;padding:7px 0;border-radius:8px;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit}
-.tabEmotis.activo{border-color:var(--naranja);color:var(--naranja);background:rgba(245,157,61,.12)}
+.tabEmotis{flex:1;background:var(--fondo);border:1px solid var(--borde2);color:var(--tx2);padding:7px 0;border-radius:8px;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit}
+.tabEmotis.activo{border-color:var(--naranja);color:var(--naranja);background:rgba(var(--acento-rgb),.12)}
 .gridEmotis{display:grid;grid-template-columns:repeat(8,1fr);gap:4px}
 .gridStikers{display:grid;grid-template-columns:repeat(6,1fr);gap:4px}
 .stkBtn{background:none;border:none;font-size:29px;padding:5px 0;border-radius:9px;cursor:pointer;line-height:1.25}
-.stkBtn:hover{background:rgba(245,157,61,.15)}
+.stkBtn:hover{background:rgba(var(--acento-rgb),.15)}
 .gridGifs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
-.gridGifs img{width:100%;border-radius:9px;cursor:pointer;border:1px solid #333;display:block}
+.gridGifs img{width:100%;border-radius:9px;cursor:pointer;border:1px solid var(--borde2);display:block}
 .gridGifs img:hover{border-color:var(--naranja)}
-.gifNota{font-size:10px;color:#777;margin-top:8px;line-height:1.5;text-align:center}
+.gifNota{font-size:10px;color:var(--tx4);margin-top:8px;line-height:1.5;text-align:center}
 .btnExplorador{
   width:100%;margin-bottom:8px;padding:12px;border-radius:10px;border:2px dashed var(--naranja);
-  background:rgba(245,157,61,.10);color:var(--naranja);font-weight:900;font-size:12.5px;
+  background:rgba(var(--acento-rgb),.10);color:var(--naranja);font-weight:900;font-size:12.5px;
   letter-spacing:.3px;cursor:pointer;transition:background .15s;
 }
-.btnExplorador:hover{background:rgba(245,157,61,.22)}
+.btnExplorador:hover{background:rgba(var(--acento-rgb),.22)}
 
 /* ============ RADIO EN VIVO ============ */
 #barraRadio{
   display:flex;align-items:center;gap:10px;padding:8px 12px;flex-shrink:0;
-  background:linear-gradient(135deg,#181310,#0f0d0a);border-bottom:1px solid var(--borde);
+  background:linear-gradient(135deg,var(--panel2),var(--barra));border-bottom:1px solid var(--borde);
 }
 .btnPlayRadio{
   width:38px;height:38px;border-radius:50%;border:2px solid var(--naranja);flex-shrink:0;
-  background:rgba(245,157,61,.15);color:var(--naranja);font-size:15px;cursor:pointer;
+  background:rgba(var(--acento-rgb),.15);color:var(--naranja);font-size:15px;cursor:pointer;
   display:grid;place-items:center;font-weight:900;padding:0;
 }
-.btnPlayRadio:hover{background:rgba(245,157,61,.3)}
+.btnPlayRadio:hover{background:rgba(var(--acento-rgb),.3)}
 .radioInfo{min-width:0;flex:1}
 .radioEnVivo{font-size:10px;font-weight:900;letter-spacing:1px;color:var(--naranja);display:flex;align-items:center;gap:6px}
 .puntoVivo{width:8px;height:8px;border-radius:50%;background:#ff3b3b;display:inline-block;flex-shrink:0;animation:latido 1.2s infinite}
 @keyframes latido{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}
-.radioCancion{font-size:11.5px;color:#ddd;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
+.radioCancion{font-size:11.5px;color:var(--tx2);font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
 .btnMiniRadio{
-  background:none;border:1px solid #333;color:#ccc;width:32px;height:32px;border-radius:8px;
+  background:none;border:1px solid var(--borde2);color:var(--tx2);width:32px;height:32px;border-radius:8px;
   font-size:14px;cursor:pointer;flex-shrink:0;display:grid;place-items:center;padding:0;
 }
 .btnMiniRadio:hover{border-color:var(--naranja);color:var(--naranja)}
 .tarjetaRadio{
-  background:#0d0d0d;border:1px solid var(--naranja);border-radius:12px;padding:10px 12px;
+  background:var(--caja);border:1px solid var(--naranja);border-radius:12px;padding:10px 12px;
   min-width:min(210px,64vw);cursor:pointer;
 }
 .trTitulo{font-weight:900;color:var(--naranja);font-size:13px;letter-spacing:.4px}
-.trSub{font-size:10px;color:#bbb;font-weight:700;display:flex;align-items:center;gap:6px;margin:3px 0 8px}
+.trSub{font-size:10px;color:var(--tx2);font-weight:700;display:flex;align-items:center;gap:6px;margin:3px 0 8px}
 .trBtn{
   width:100%;padding:8px;border-radius:9px;border:none;cursor:pointer;
-  background:linear-gradient(135deg,#f59d3d,#d97f1c);color:#000;font-weight:900;font-size:12px;
+  background:linear-gradient(135deg,var(--naranja),var(--naranja-osc));color:#000;font-weight:900;font-size:12px;
 }
 .trBtn:hover{filter:brightness(1.12)}
 
 /* ============ CHAT PRIVADO 1 A 1 ============ */
 #barraPrivado{
   display:flex;align-items:center;gap:10px;padding:8px 12px;flex-shrink:0;
-  background:linear-gradient(135deg,#0c1723,#0d0d0d);border-bottom:1px solid var(--borde);
+  background:linear-gradient(135deg,var(--privA),var(--privB));border-bottom:1px solid var(--borde);
 }
 #barraPrivado .cAvatar{font-size:20px}
-.privNombre{font-size:13px;font-weight:900;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.privNombre{font-size:13px;font-weight:900;color:var(--tx1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .privSub{font-size:10px;color:#4db2e8;font-weight:800;margin-top:1px}
 .contacto.clicable{cursor:pointer}
-.contacto.clicable:hover{background:rgba(245,157,61,.08)}
+.contacto.clicable:hover{background:rgba(var(--acento-rgb),.08)}
 .badgePriv{background:#e5484d;color:#fff;font-size:9.5px;font-weight:900;border-radius:999px;padding:2px 6px;margin-left:auto;flex-shrink:0}
 .btnPrivMsj{font-size:14px;flex-shrink:0;opacity:.5}
 .contacto.clicable:hover .btnPrivMsj{opacity:1}
 .barraAcciones.modoPrivado .soloGrupo{display:none}
-.logoAppImg{width:88px;height:88px;border-radius:22px;display:block;margin:0 auto 12px;box-shadow:0 8px 28px rgba(8,148,209,.4)}
-.logoMini{width:16px;height:16px;border-radius:4px;flex-shrink:0;align-self:center;margin-right:2px}
+.logoMini{width:17px;height:17px;border-radius:4px;flex-shrink:0;align-self:center;margin-right:2px}
 .stikerBig{font-size:52px;line-height:1.1;display:block}
 #previewFoto{max-width:100%;max-height:44vh;border-radius:10px;border:2px solid var(--naranja);display:block;margin:0 auto}
 .sonidoGrupo{display:flex;flex-wrap:wrap;gap:6px}
-.chipSonido{background:#0a0a0a;border:1px solid #333;color:#ccc;padding:8px 12px;border-radius:999px;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit}
-.chipSonido.activo{border-color:var(--naranja);color:var(--naranja);background:rgba(245,157,61,.14)}
+.chipSonido{background:var(--fondo);border:1px solid var(--borde2);color:var(--tx2);padding:8px 12px;border-radius:999px;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit}
+.chipSonido.activo{border-color:var(--naranja);color:var(--naranja);background:rgba(var(--acento-rgb),.14)}
 
 /* ============ PIZARRITA (DIBUJO) ============ */
 #overlayDibujo{
@@ -313,17 +359,17 @@ button{font-family:'Montserrat',sans-serif}
   -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;
 }
 .herrDibujo{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:580px}
-.colorBtn{width:30px;height:30px;border-radius:50%;border:2px solid #333;cursor:pointer;padding:0}
-.colorBtn.sel{border-color:#fff;transform:scale(1.15)}
+.colorBtn{width:30px;height:30px;border-radius:50%;border:2px solid var(--borde2);cursor:pointer;padding:0}
+.colorBtn.sel{border-color:var(--contra);transform:scale(1.15)}
 .btnDibujo{
-  background:#141414;border:1px solid #333;color:#eee;padding:7px 10px;border-radius:9px;
+  background:var(--panel2);border:1px solid var(--borde2);color:var(--tx1);padding:7px 10px;border-radius:9px;
   font-size:12px;font-weight:800;cursor:pointer;
 }
 .btnDibujo:hover{border-color:var(--naranja)}
-.btnDibujo.activo{background:rgba(245,157,61,.18);border-color:var(--naranja);color:var(--naranja)}
+.btnDibujo.activo{background:rgba(var(--acento-rgb),.18);border-color:var(--naranja);color:var(--naranja)}
 .accionesDibujo{display:flex;gap:8px;align-items:center}
 .btnDibujoGhost{
-  background:transparent;border:2px solid #444;color:#aaa;padding:11px 18px;border-radius:10px;
+  background:transparent;border:2px solid var(--borde2);color:var(--tx2);padding:11px 18px;border-radius:10px;
   font-weight:800;font-size:12px;cursor:pointer;
 }
 .btnDibujoGhost:hover{border-color:var(--naranja);color:var(--naranja)}
@@ -336,8 +382,8 @@ button{font-family:'Montserrat',sans-serif}
 }
 #lightboxImg{max-width:92vw;max-height:82vh;border-radius:10px;border:2px solid var(--naranja)}
 #toast{
-  position:fixed;bottom:18px;left:50%;transform:translate(-50%,14px);background:#1a1a1a;
-  border:1px solid var(--naranja);color:#fff;padding:10px 16px;border-radius:12px;
+  position:fixed;bottom:18px;left:50%;transform:translate(-50%,14px);background:var(--burb);
+  border:1px solid var(--naranja);color:var(--tx1);padding:10px 16px;border-radius:12px;
   font-size:12.5px;font-weight:700;opacity:0;transition:opacity .25s,transform .25s;
   z-index:100;pointer-events:none;max-width:90vw;text-align:center;
 }
@@ -366,8 +412,8 @@ button{font-family:'Montserrat',sans-serif}
 <!-- ================= PANTALLA DE INGRESO (SIN REGISTRO) ================= -->
 <div id="pantallaLogin">
   <div class="loginCaja">
-    <img src="icon-192.png" class="logoAppImg" alt="SiKO CHAT">
-    <div class="logoChat">💬 SIKODARK CHAT</div>
+    <img src="logo-blanco.png" class="logoBienvenida logoOscuro" alt="SiKO CHAT">
+    <img src="logo-negro.png" class="logoBienvenida logoClaro" alt="SiKO CHAT">
     <p class="subLogin">El Messenger de la radio 🖤🧡<br>Sin registro: solo decinos cómo te llamás</p>
     <label class="etiqueta" for="inputNombre">TU NOMBRE EN EL CHAT</label>
     <input id="inputNombre" class="campo" maxlength="18" placeholder="Ej: SikoFan23" autocomplete="off">
@@ -384,9 +430,10 @@ button{font-family:'Montserrat',sans-serif}
   <div class="ventana" id="ventana">
 
     <div class="barraTitulo">
-      <img src="icon-192.png" class="logoMini" alt=""><strong>💬 Sikodark Messenger</strong>
+      <img src="logo-cara.png" class="logoMini" alt=""><strong>💬 Sikodark Messenger</strong>
       <span class="tituloEstado" id="tituloEstado">— conectando…</span>
       <div style="margin-left:auto;display:flex;gap:5px">
+        <div class="btnVent" id="btnNotis" title="Notificaciones">🔔</div>
         <div class="btnVent" title="Minimizar">—</div>
         <div class="btnVent" title="Maximizar">□</div>
         <div class="btnVent" title="Cerrar">✕</div>
@@ -442,6 +489,7 @@ button{font-family:'Montserrat',sans-serif}
           <button class="btnAccion" id="btnZumbido">📳 Zumbido</button>
           <button class="btnAccion" id="btnSonido">🔔 Sonido</button>
           <button class="btnAccion" id="btnMusica">🎵 Tonos</button>
+          <button class="btnAccion" id="btnTema">🎨 Tema</button>
         </div>
         <div class="zonaEscritura">
           <textarea id="msj" maxlength="500" placeholder="Escribí tu mensaje… (Enter para mandar)"></textarea>
@@ -535,6 +583,21 @@ button{font-family:'Montserrat',sans-serif}
     <p class="gifNota">Tocá un tono para escucharlo y dejarlo elegido. El zumbido siempre vibra en el cel, aunque el tono esté en “Nada”.</p>
     <div class="modalAcc">
       <button class="btnPrincipal" id="btnCerrarSonidos" type="button">LISTO ✓</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= MODOS DE DISEÑO (TEMAS) ================= -->
+<div id="overlayTema" class="overlayModal oculto">
+  <div class="cajaModal">
+    <div class="modalTitulo">🎨 MODOS DE DISEÑO</div>
+    <label class="modalLabel">MODO (FONDO)</label>
+    <div class="sonidoGrupo" id="grupoModoTema"></div>
+    <label class="modalLabel">COLOR PRINCIPAL</label>
+    <div class="sonidoGrupo" id="grupoColorTema"></div>
+    <p class="gifNota">Elegí cómo ves el chat: oscuro o claro, y el color que más te guste. Se guarda en tu dispositivo y también se aplica en la pantalla de ingreso.</p>
+    <div class="modalAcc">
+      <button class="btnPrincipal" id="btnCerrarTema" type="button">LISTO ✓</button>
     </div>
   </div>
 </div>
@@ -677,6 +740,7 @@ function iniciarSesion(){
   escucharUsuarios();
   escucharMensajes();
   limpiarViejos();
+  pedirPermisoNotis();
   setInterval(heartbeat, 20000);
   setInterval(revisarInactividad, 30000);
 }
@@ -784,6 +848,7 @@ function pintarContactos(lista){
       cont.appendChild(fila);
     })(lista[i]);
   }
+  detectarConexiones(lista);
 }
 
 /* ---------- 6 · MENSAJES EN TIEMPO REAL ---------- */
@@ -804,6 +869,7 @@ function escucharMensajes(){
       if (m.de !== miId && fresco) {
         if (para === miId) {
           /* mensaje privado para mí */
+          aviso('🔒 Privado · ' + (m.nombre || 'alguien'), textoPreview(m), 'priv-' + m.de, { de: m.de });
           if (chatPrivadoId === m.de) {
             if (m.tipo === 'nudge') zumbidoLocal(m.nombre);
             else if (sonidoActivo) sonidoMsj();
@@ -819,6 +885,7 @@ function escucharMensajes(){
           if (m.tipo === 'nudge') zumbidoLocal(m.nombre);
           else if (sonidoActivo) sonidoMsj();
           titilarTitulo();
+          aviso('💬 ' + (m.nombre || 'Chat'), textoPreview(m), 'grupo', {});
         }
         /* mensaje privado entre otras dos personas: silencio total */
       }
@@ -1196,6 +1263,129 @@ document.addEventListener('visibilitychange', function(){
     }
   }
 });
+
+/* ---------- 12b · NOTIFICACIONES ESTILO WHATSAPP ---------- */
+/* Avisos del sistema cuando el chat está en segundo plano:
+   mensaje nuevo, privado, zumbido y “se conectó alguien”.
+   Tocás el aviso y salta el chat (si era privado, se abre esa conversación). */
+var notisQueridas = localStorage.getItem('siko_chat_notis') !== 'no';
+var conectadosPrev = null; /* null = primera lectura, no avisa para no llenar de carteles */
+
+function pintarEstadoNotis(){
+  var b = $('btnNotis');
+  if (!b) return;
+  if (!('Notification' in window)) {
+    b.textContent = '🔕';
+    b.title = 'Este navegador no soporta notificaciones';
+    return;
+  }
+  if (Notification.permission === 'denied') {
+    b.textContent = '🔕';
+    b.title = 'Notificaciones bloqueadas — desbloquealas en el candado del navegador';
+    return;
+  }
+  var activas = Notification.permission === 'granted' && notisQueridas;
+  b.textContent = activas ? '🔔' : '🔕';
+  b.title = activas ? 'Notificaciones activadas — tocá para apagar' : 'Notificaciones apagadas — tocá para activar';
+}
+
+function pedirPermisoNotis(){
+  if (!('Notification' in window)) { pintarEstadoNotis(); return; }
+  if (Notification.permission === 'default') {
+    try {
+      Notification.requestPermission().then(function(p){
+        pintarEstadoNotis();
+        if (p === 'granted') toast('🔔 Listo: te aviso cuando te escriban o alguien se conecte');
+      }).catch(function(){ pintarEstadoNotis(); });
+    } catch (e) {
+      /* Safari viejo pide con callback en vez de promesa */
+      try { Notification.requestPermission(function(){ pintarEstadoNotis(); }); } catch (e2) {}
+    }
+  } else pintarEstadoNotis();
+}
+
+$('btnNotis').onclick = function(){
+  if (!('Notification' in window)) { toast('😴 Este navegador no soporta notificaciones'); return; }
+  if (Notification.permission === 'denied') {
+    toast('🔕 Las bloqueaste en el navegador: tocá el candado 🔒 junto a la dirección y permití notificaciones');
+    return;
+  }
+  if (Notification.permission === 'default') {
+    notisQueridas = true;
+    localStorage.setItem('siko_chat_notis', 'si');
+    pedirPermisoNotis();
+    return;
+  }
+  notisQueridas = !notisQueridas;
+  localStorage.setItem('siko_chat_notis', notisQueridas ? 'si' : 'no');
+  pintarEstadoNotis();
+  toast(notisQueridas ? '🔔 Notificaciones activadas' : '🔕 Notificaciones apagadas');
+};
+
+function textoPreview(m){
+  if (m.tipo === 'nudge') return '📳 te mandó un ZUMBIDO';
+  if (m.tipo === 'dibujo') return '✏️ te mandó un dibujo';
+  if (m.tipo === 'foto') return '📷 te mandó una foto';
+  if (m.tipo === 'gif') return '🎞️ te mandó un GIF';
+  if (m.tipo === 'stiker') return '🎟️ stiker: ' + (m.emo || '😉');
+  if (m.tipo === 'radio') return '📻 compartió la radio en vivo';
+  return String(m.texto || 'te escribió').slice(0, 90);
+}
+
+function aviso(titulo, cuerpo, tag, data){
+  if (!notisQueridas || !('Notification' in window)) return;
+  if (Notification.permission !== 'granted') return;
+  if (!document.hidden) return; /* si lo estás mirando, no hace falta banner */
+  var op = {
+    body: cuerpo,
+    icon: 'icon-192.png',
+    badge: 'favicon.png',
+    tag: tag || 'siko',
+    renotify: true,
+    /* el zumbido ya vibra por su cuenta: su aviso no suena para no duplicar */
+    silent: !sonidoActivo || cuerpo.indexOf('ZUMBIDO') !== -1,
+    data: data || {}
+  };
+  try {
+    if (navigator.serviceWorker && navigator.serviceWorker.ready) {
+      navigator.serviceWorker.ready.then(function(reg){
+        if (reg && reg.showNotification) reg.showNotification(titulo, op);
+        else notaDirecta(titulo, op);
+      }).catch(function(){ notaDirecta(titulo, op); });
+    } else notaDirecta(titulo, op);
+  } catch (e) { notaDirecta(titulo, op); }
+}
+function notaDirecta(titulo, op){
+  try { new Notification(titulo, op); } catch (e) {}
+}
+
+/* alguien nuevo entra → aviso (banner si está en segundo plano, tostada si lo está mirando) */
+function detectarConexiones(lista){
+  if (!logueado) return;
+  if (conectadosPrev === null) {
+    conectadosPrev = {};
+    for (var i = 0; i < lista.length; i++) conectadosPrev[lista[i]._id] = true;
+    return;
+  }
+  for (var j = 0; j < lista.length; j++) {
+    var u = lista[j];
+    if (u._id === miId || conectadosPrev[u._id]) continue;
+    var nom = u.nombre || 'Alguien';
+    if (document.hidden) aviso('🟢 ' + nom + ' se conectó', 'Entró al chat de Sikodark 🖤🧡', 'conn-' + u._id, {});
+    else toast('🟢 ' + nom + ' se conectó al chat');
+  }
+  conectadosPrev = {};
+  for (var k = 0; k < lista.length; k++) conectadosPrev[lista[k]._id] = true;
+}
+
+/* clic en la notificación → el service worker trae el chat al frente
+   y si era un privado, abre esa conversación sola */
+if (navigator.serviceWorker) {
+  navigator.serviceWorker.addEventListener('message', function(ev){
+    var d = ev.data || {};
+    if (d.tipo === 'notiPriv' && d.de && logueado) abrirPrivado(d.de);
+  });
+}
 
 /* ---------- 13 · EXTRAS ESTILO MSN ---------- */
 $('miFrase').onclick = function(){
@@ -1602,6 +1792,64 @@ $('btnCerrarSonidos').onclick = function(){
   toast('🎵 Tonos guardados');
 };
 
+/* ---------- 19b · MODOS DE DISEÑO (TEMAS) ---------- */
+var temaModo = localStorage.getItem('siko_chat_tema') || 'oscuro';
+var temaColor = localStorage.getItem('siko_chat_color') || 'naranja';
+var COLORES_TEMA = {
+  naranja: { nom: '🧡 Naranja' },
+  verde:   { nom: '💚 Verde' },
+  celeste: { nom: '💙 Celeste' },
+  violeta: { nom: '💜 Violeta' },
+  rosa:    { nom: '💗 Rosa' },
+  rojo:    { nom: '❤️ Rojo' }
+};
+function aplicarTema(){
+  document.body.classList.toggle('tema-claro', temaModo === 'claro');
+  var claves = Object.keys(COLORES_TEMA);
+  for (var i = 0; i < claves.length; i++) document.body.classList.remove('color-' + claves[i]);
+  if (temaColor !== 'naranja') document.body.classList.add('color-' + temaColor);
+  var meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.setAttribute('content', temaModo === 'claro' ? '#eef0f4' : '#000000');
+  localStorage.setItem('siko_chat_tema', temaModo);
+  localStorage.setItem('siko_chat_color', temaColor);
+  pintarTemas();
+}
+function pintarTemas(){
+  var gm = $('grupoModoTema');
+  if (!gm) return;
+  gm.innerHTML = '';
+  var modos = [['oscuro', '🌑 Oscuro'], ['claro', '☀️ Claro']];
+  for (var i = 0; i < modos.length; i++) {
+    (function(m, nom){
+      var b = document.createElement('button');
+      b.className = 'chipSonido' + (temaModo === m ? ' activo' : '');
+      b.textContent = nom;
+      b.onclick = function(){ temaModo = m; aplicarTema(); };
+      gm.appendChild(b);
+    })(modos[i][0], modos[i][1]);
+  }
+  var gc = $('grupoColorTema');
+  gc.innerHTML = '';
+  var claves = Object.keys(COLORES_TEMA);
+  for (var j = 0; j < claves.length; j++) {
+    (function(k){
+      var b = document.createElement('button');
+      b.className = 'chipSonido' + (temaColor === k ? ' activo' : '');
+      b.textContent = COLORES_TEMA[k].nom;
+      b.onclick = function(){ temaColor = k; aplicarTema(); };
+      gc.appendChild(b);
+    })(claves[j]);
+  }
+}
+$('btnTema').onclick = function(){
+  pintarTemas();
+  $('overlayTema').classList.remove('oculto');
+};
+$('btnCerrarTema').onclick = function(){
+  $('overlayTema').classList.add('oculto');
+  toast('🎨 Tema guardado');
+};
+
 /* ---------- 20 · RADIO EN VIVO ---------- */
 var URL_RADIO = 'https://stream.zeno.fm/xdkqr4btptutv';
 var URL_META_RADIO = 'https://api.zeno.fm/mounts/metadata/subscribe/xdkqr4btptutv';
@@ -1730,6 +1978,8 @@ pintarAvatares();
 pintarEmotis();
 if (miNombre) $('inputNombre').value = miNombre;
 $('btnSonido').textContent = sonidoActivo ? '🔔 Sonido' : '🔕 Mudo';
+pintarEstadoNotis();
+aplicarTema();
 function desbloquearSonido(){
   ctxAudio();
   if (audioCtx && audioCtx.state === 'running') {

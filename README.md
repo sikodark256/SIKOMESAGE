@@ -9,11 +9,13 @@ Chat en vivo **aparte** de sikodark radio, con la estética de siempre (negro + 
 - 📷 Mandar **fotos y GIFs de la galería** del cel (se achican solos) — botón 📷 Foto/GIF o botón 📂 dentro de la pestaña GIFs: se abre el explorador, elegís la imagen y la mandás
 - 📻 **Radio en vivo dentro del chat**: botón 📻 Radio con mini-player (play/pausa + la canción que suena al aire) y botón 📨 para **compartir la radio al chat**: aparece una tarjeta y cualquiera toca 🎧 ESCUCHAR y se sintoniza sin salir del chat
 - 📤 **Compartir el chat por WhatsApp** (botón 📤): abre el compartir del celu o WhatsApp directo con el link del chat + la radio
-- 💙 **Logo SiKO CHAT en todo**: favicon, ícono de la web, ícono de la app instalada (PWA) y pantalla de ingreso
+- 🎨 **Modos de diseño**: botón 🎨 Tema para cambiar entre **modo oscuro** y **modo claro**, y elegir el **color principal** (naranja, verde, celeste, violeta, rosa o rojo). Se guarda en cada dispositivo y también pinta la pantalla de ingreso
+- 💙 **Logo SiKO CHAT en todo**: versión transparente en la pantalla de bienvenida (blanca en oscuro, negra en claro) y la carita en la barra de título; íconos de app y favicon
 - 👤 **Perfil con foto**: subí tu foto de perfil, cambiá tu nombre y tu avatar (botón/círculo arriba a la izquierda)
 - 🎵 **Tonos configurables**: elegí el sonido de mensajes y del zumbido (botón 🎵 Tonos)
 - 👥 Panel de conectados en vivo con estados (en línea / ausente / escribiendo…)
 - 🔒 **Chat privado 1 a 1**: tocá cualquier usuario del panel (o su 💬) y abrís una conversación aparte que solo ven ustedes dos, con aviso de mensajes sin leer (🔴) y zumbido privado. Botón ← para volver al grupo
+- 🔔 **Notificaciones estilo WhatsApp**: con el chat en segundo plano (otra app, otra pestaña o el cel bloqueado) te llega el aviso del sistema — mensajes, privados 🔒, zumbidos 📳 y “🟢 Fulano se conectó”. Tocás el aviso y saltás al chat (si era privado, se abre solo esa conversación). La campanita 🔔 de la barra de arriba las enciende o apaga
 - 📲 PWA instalable (manifest + service worker incluidos)
 
 **🔗 URL del chat:** `https://TU-USUARIO.github.io/NOMBRE-DEL-REPO/` — abre directo, sin buscar archivos.
@@ -26,7 +28,10 @@ Chat en vivo **aparte** de sikodark radio, con la estética de siempre (negro + 
 /                        ← raíz del repo
 ├── index.html           ← toda la app (HTML + CSS + JS en un solo archivo)
 ├── manifest.json        ← configuración PWA
-├── sw.js                ← service worker (cache sikodark-chat-v8)
+├── sw.js                ← service worker (cache sikodark-chat-v10)
+├── logo-blanco.png      ← logo SiKO CHAT transparente (se ve en modo oscuro)
+├── logo-negro.png       ← logo para el modo claro
+├── logo-cara.png        ← la carita del logo (barra de título)
 ├── favicon.png          ← logo chico de la pestaña del navegador
 ├── apple-touch-icon.png ← ícono al agregar a pantalla de inicio en iPhone
 ├── icon-maskable-192.png┐
@@ -81,5 +86,7 @@ Si tus reglas de Firestore ya están abiertas (`allow read, write: if true`), no
 - El botón 📤 usa `navigator.share` (el compartir nativo del celu); si el navegador no lo tiene, abre WhatsApp con el texto listo (`wa.me`).
 - Los chats privados van en la MISMA colección `chat_mensajes` con un campo `para` (el uid del otro). Cada cel solo MUESTRA los suyos. Ojo: como no hay cuentas/login, la privacidad es de la app, no del servidor — privacidad total real necesitaría registro de usuarios.
 - Anti-spam: 1 mensaje/imagen/stiker cada 1,2 s y un zumbido cada 12 s.
+- **Modos de diseño**: todo el CSS usa variables (`--naranja`, `--fondo`, `--panel`…). El modo y el color se guardan en el dispositivo (`siko_chat_tema` / `siko_chat_color`) y se aplican cambiando clases en el `body` (`tema-claro`, `color-verde`…). Para agregar otro color alcanza con una línea `body.color-xxx{--naranja:...;--naranja-osc:...;--acento-rgb:...}` + una entrada en `COLORES_TEMA` del index.html.
+- **Notificaciones**: usan la Notification API del navegador + el service worker (sin Firebase Cloud Messaging). Avisan mientras la web del chat está abierta, aunque la tengas en otra app, otra pestaña o con el cel bloqueado. Si el chat está COMPLETAMENTE cerrado no hay aviso (eso necesita un servidor de push — FCM — es el paso siguiente). En iPhone hay que instalar el chat a la pantalla de inicio (botón Compartir → “Agregar a inicio”, iOS 16.4 o más nuevo) para que iOS permita los avisos. La campanita 🔔 de la barra de título enciende/apaga por dispositivo.
 - `.nojekyll` evita que GitHub Pages procese los archivos con Jekyll.
-- Para actualizar el chat: cambiá `index.html` y subí el número de cache en `sw.js` (`sikodark-chat-v8` → `v9`…).
+- Para actualizar el chat: cambiá `index.html` y subí el número de cache en `sw.js` (`sikodark-chat-v10` → `v11`…).
