@@ -2,7 +2,7 @@
   "name": "Sikodark Chat — Estilo MSN",
   "short_name": "SikoChat",
   "description": "Chat estilo MSN Messenger de Sikodark Radio: conectados en vivo, lápiz para dibujar, zumbido y emoticons. Sin registro.",
-  "start_url": "./chat.html",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "any",

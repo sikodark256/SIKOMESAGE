@@ -1,9 +1,9 @@
 /* ============================================================
-   SERVICE WORKER — SIKODARK CHAT (MSN) · chat-v1
-   Subí este número (v2, v3…) cada vez que cambies el chat.html
+   SERVICE WORKER — SIKODARK CHAT (MSN) · chat-v2
+   Subí este número (v3, v4…) cada vez que cambies el index.html
    ============================================================ */
-var CACHE = 'sikodark-chat-v1';
-var ARCHIVOS = ['./', './chat.html', './manifest.json', './icon-192.png', './icon-512.png'];
+var CACHE = 'sikodark-chat-v2';
+var ARCHIVOS = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', function(e){
   self.skipWaiting();
@@ -38,7 +38,7 @@ self.addEventListener('fetch', function(e){
         caches.open(CACHE).then(function(c){ c.put(e.request, cl); });
         return r;
       }).catch(function(){
-        return caches.match(e.request).then(function(x){ return x || caches.match('./chat.html'); });
+        return caches.match(e.request).then(function(x){ return x || caches.match('./index.html'); });
       })
     );
     return;
