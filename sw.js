@@ -1,14 +1,17 @@
 /* ============================================================
-   SERVICE WORKER — SIKODARK CHAT (MSN) · chat-v20
+   SERVICE WORKER — SIKODARK CHAT (MSN) · chat-v23
+   + BANDEJA LIMPIA TIPO WHATSAPP: sin avisos de "se conectó" (llenaban la barra del celu) y los avisos de mensajes llegan limpios — título = solo el nombre del que escribe (sin caritas ni corazones), foto del remitente como imagen y grupo como WhatsApp (💬 CHAT GRUPAL · "juan: mensaje")
+   + EMPUJE REAL: avisos con la app TOTALMENTE cerrada (el servidor de push manda el aviso cifrado acá)
+   + sin duplicado en la lista: tu nombre ya no sale dos veces (tarjeta + fila) y los contadores no te cuentan a vos
    + central de avisos: estado del dispositivo, PROBAR AVISO, ayuda Android/iPhone y 🫀 modo siempre activo (anti-siesta)
    + navegación tipo app en el cel: LISTA a pantalla completa ↔ chat completo con botón 👥 CONTACTOS
    + avisos tipo WhatsApp: botón 🔔 en el inicio + aviso de PRUEBA al activar + avisa aunque estés en otra conversación + nombre y carita en el aviso
-   + panel del cel estilo MSN (mi tarjeta + CHAT GRUPAL grande) + sin contraseña + badge en el ícono
+   + panel del cel estilo MSN + sin contraseña + badge en el ícono
    + todos en la lista (desconectados con "visto hace") + pendientes al entrar + botón CHAT GRUPAL
    + reacciones/me gusta, reenviar, borrar, guardar y favoritos
    Subí este número (v5, v6…) cada vez que cambies el index.html
    ============================================================ */
-var CACHE = 'sikodark-chat-v20';
+var CACHE = 'sikodark-chat-v23';
 var ARCHIVOS = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png', './favicon.png', './apple-touch-icon.png', './icon-maskable-192.png', './icon-maskable-512.png', './logo-blanco.png', './logo-negro.png', './logo-cara.png'];
 
 self.addEventListener('install', function(e){
@@ -47,6 +50,34 @@ self.addEventListener('notificationclick', function(e){
         }
       }
       return self.clients.openPage('./');
+    })
+  );
+});
+
+/* 📨 v22 · EMPUJE (Web Push): alguien escribió y tu chat está CERRADO → el servidor de push
+   manda el aviso cifrado acá. Si el chat está a la vista, se lo pasamos a la página (que sabe
+   si estás justo en esa conversación y no molesta); si no, mostramos el aviso directo. */
+self.addEventListener('push', function(e){
+  var d = {};
+  try { d = e.data.json(); }
+  catch (err) { try { if (e.data) d = { titulo: '💬 Sikodark Chat', cuerpo: e.data.text() }; } catch (e2) {} }
+  e.waitUntil(
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(function(lista){
+      var visibles = lista.filter(function(c){ return c.visibilityState === 'visible'; });
+      if (visibles.length) {
+        lista.forEach(function(c){ c.postMessage({ tipo: 'pushExt', data: d }); });
+        return;
+      }
+      return self.registration.showNotification(d.titulo || '💬 SikoChat', {
+        body: d.cuerpo || '',
+        icon: d.icono || 'icon-192.png', /* v23: si el que escribe tiene foto, esa es la imagen del aviso (como WhatsApp) */
+        badge: 'favicon.png',
+        tag: d.tag || 'siko-push',
+        renotify: true,
+        silent: String(d.cuerpo || '').indexOf('ZUMBIDO') !== -1,
+        vibrate: [90, 50, 90],
+        data: { de: d.de || null }
+      });
     })
   );
 });

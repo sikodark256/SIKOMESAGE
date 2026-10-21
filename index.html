@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- SikoChat v20 · CENTRAL DE AVISOS: botón 🔔 Avisos en la barra — muestra el estado real en tu dispositivo (permiso, campanita, motor de avisos y aviso de prueba), un botón PROBAR AVISO AHORA, ayuda paso a paso para Android e iPhone y el 🫀 MODO SIEMPRE ACTIVO (un tono inaudible evita que Chrome duerma el chat en segundo plano: los avisos siguen llegando aunque estés en otra app) · + envío de avisos más robusto (si el service worker falla, reintenta) · + NAVEGACIÓN TIPO APP EN EL CEL: lista de contactos a pantalla completa ↔ chat completo con botón 👥 CONTACTOS · + AVISOS TIPO WHATSAPP con nombre y carita · + PANEL DEL CEL ESTILO MSN · SIN contraseña (opcional) · badge de no leídos · PIZARRITA PAINT · TODOS en la lista con visto hace · reacciones ❤️ reenviar ↪️ borrar 🗑️ favoritos ⭐ · emotis/stikers/gifs/fotos · tonos · radio · temas · perfil · privado · instalar como app -->
+<!-- SikoChat v23 · BANDEJA LIMPIA TIPO WHATSAPP: se eliminó el aviso de "se conectó" (llenaba la barra de notificaciones del celu — WhatsApp tampoco avisa cuando alguien entra), los avisos de mensajes quedaron limpios — el título es SOLO el nombre del que escribe (sin caritas ni corazones), la foto del remitente es la imagen del aviso, y el grupo llega como WhatsApp (💬 CHAT GRUPAL con "juan: mensaje"); ojo: el rótulo de la dirección (github.io) que aparece en cada aviso lo pinta el NAVEGADOR por seguridad y no se puede sacar por código — si instalás la app, Chrome puede mostrar "SikoChat" en su lugar · + v22 PUSH REAL CON LA APP CERRADA: cada cel se suscribe al empuje (Web Push con llaves VAPID) y cuando alguien escribe un servidorcito (gratis, Cloudflare — pasos en el README) manda el aviso cifrado aunque la PWA esté totalmente cerrada; la CENTRAL DE AVISOS ahora muestra el estado del empuje 📲 y PROBAR AVISO también prueba el push · + SIN DUPLICADO EN LA LISTA: tu nombre aparece UNA sola vez (sin fila "(vos)" ni tarjeta repetida) y los contadores ya no te cuentan a vos · + CENTRAL DE AVISOS: botón 🔔 Avisos en la barra — estado real del dispositivo (permiso, campanita, motor, prueba), PROBAR AVISO AHORA, ayuda Android/iPhone y 🫀 MODO SIEMPRE ACTIVO · + envío de avisos más robusto · + NAVEGACIÓN TIPO APP EN EL CEL: lista a pantalla completa ↔ chat con botón 👥 CONTACTOS · + AVISOS TIPO WHATSAPP · + PANEL DEL CEL ESTILO MSN · SIN contraseña (opcional) · badge de no leídos · PIZARRITA PAINT · TODOS en la lista con visto hace · reacciones ❤️ reenviar ↪️ borrar 🗑️ favoritos ⭐ · emotis/stikers/gifs/fotos · tonos · radio · temas · perfil · privado · instalar como app -->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -576,7 +576,9 @@ body.tema-claro .logoClaro{display:block}
   .cAvatar{font-size:22px}
   .cNombre{font-size:14px}
   .cSub{font-size:11px}
-  .tarjetaYo{padding:13px 12px}
+  /* v21: la tarjetaYo del panel quedó DUPLICADA — la barra de usuario (arriba) ya muestra
+     lo mismo (carita + nombre + En línea + tu frase), así que se retira: tu nombre aparece UNA vez */
+  .tarjetaYo{display:none}
 }
 </style>
 </head>
@@ -817,6 +819,7 @@ body.tema-claro .logoClaro{display:block}
     <div class="avFila" id="avPermiso"><span class="avChip">—</span><span class="avTxt">permiso del navegador</span></div>
     <div class="avFila" id="avCampanita"><span class="avChip">—</span><span class="avTxt">avisos del chat</span></div>
     <div class="avFila" id="avSW"><span class="avChip">—</span><span class="avTxt">motor de avisos (service worker)</span></div>
+    <div class="avFila" id="avPush"><span class="avChip">—</span><span class="avTxt">avisos con la app cerrada (push)</span></div>
     <div class="avFila" id="avPrueba"><span class="avChip">—</span><span class="avTxt">aviso de prueba</span></div>
     <div class="modalAcc" style="margin-top:10px">
       <button class="btnDibujo" id="btnPedirPermiso" type="button">🔓 PERMITIR AVISOS EN ESTE CEL</button>
@@ -828,7 +831,7 @@ body.tema-claro .logoClaro{display:block}
     <label class="modalLabel">SI NO LLEGA NI EL AVISO DE PRUEBA</label>
     <p class="gifNota" id="avAyudaAndroid">📱 <b>ANDROID:</b> 1) Tocá el candado 🔒 junto a la dirección → Notificaciones → <b>Permitir</b>. 2) Ajustes del cel → Aplicaciones → <b>Chrome</b> → Notificaciones → activadas. 3) El chat tiene que estar abierto (aunque esté en otra app). 4) Probá con otro dispositivo escribiéndote.</p>
     <p class="gifNota oculto" id="avAyudaIPhone">📱 <b>IPHONE:</b> primero <b>instalá el chat como app</b>: botón Compartir ⬆️ → “Agregar a pantalla de inicio” y entrá desde el ícono nuevo (iOS 16.4 o más nuevo). Sin instalarlo, iOS no deja que lleguen avisos.</p>
-    <p class="gifNota">Con el chat COMPLETAMENTE cerrado todavía no hay aviso (eso necesita un servidor de push — próximo paso). Con el chat abierto y el Modo Siempre Activo prendido, llegan aunque estés en otra app 🧡</p>
+    <p class="gifNota">Con el chat abierto y el Modo Siempre Activo prendido, llegan aunque estés en otra app. Y con el <b>empuje</b> 📲 activo (fila de arriba), los avisos llegan <b>incluso con el chat totalmente cerrado</b> 🧡</p>
     <div class="modalAcc">
       <button class="btnPrincipal" id="btnCerrarAvisos" type="button">LISTO ✓</button>
     </div>
@@ -890,6 +893,30 @@ var SERVER_TS = firebase.firestore.FieldValue.serverTimestamp;
 
 var COL_USUARIOS = 'chat_usuarios';
 var COL_MSJ = 'chat_mensajes';
+var COL_PUSH = 'chat_push_subs'; /* v22: suscripciones de empuje (una por dispositivo) */
+
+/* ---------- 📨 v22 · AVISOS CON LA APP TOTALMENTE CERRADA (PUSH REAL) ----------
+   El chat ya deja TODO listo: cada dispositivo se suscribe al empuje y los
+   mensajes disparan el aviso por el servidor de push.
+   Solo falta UNA cosa: pegar acá la URL de tu servidor de push.
+
+   PASOS (5 minutos, gratis, todo desde el navegador):
+   1) En la carpeta del chat está el archivo PUSH-servidor-cloudflare.js
+   2) Creá una cuenta gratis en dash.cloudflare.com → Workers & Pages →
+      Create Worker → Edit code → pegá el archivo completo → Deploy
+   3) Te da una URL tipo https://sikodark-push.TU-CUENTA.workers.dev
+   4) Pegala acá abajo entre las comillas:
+        var PUSH_URL = 'https://sikodark-push.TU-CUENTA.workers.dev';
+   5) Subí el index.html al repo — y listo 🎉
+
+   Mientras PUSH_URL esté vacío el chat funciona igual que siempre
+   (los avisos llegan con el chat abierto, aunque esté en segundo plano). */
+var PUSH_URL = '';
+var PUSH_CLAVE = 'sikodark-push-2026'; /* tiene que ser igual a CLAVE en el servidor de push */
+
+/* Llave pública VAPID (identifica al chat ante el servicio de push del navegador).
+   Va de la mano con el archivo PUSH-servidor-cloudflare.js — si lo regenerás, cambiá las dos. */
+var VAPID_PUB = 'BIoCuSouVQoW3N4QuFeXiCDjHHItZSxs80A8XzLq7hpF3R2Gja1ippl7HC25vBFC2OM_z1RoYWYuA5tyO1Iczw0';
 
 function $(id){ return document.getElementById(id); }
 
@@ -1041,6 +1068,7 @@ function iniciarSesion(){
   limpiarViejos();
   pedirPermisoNotis();
   vigiliaAplicar(); /* v20: si el Modo Siempre Activo quedó prendido, lo retomo */
+  activarPush(); /* v22: suscribir este cel al empuje (avisos con la app cerrada) */
   setTimeout(guiaAvisos, 2600); /* v20: guía según cómo esté el permiso en este dispositivo */
   setInterval(heartbeat, 20000);
   setInterval(revisarInactividad, 30000);
@@ -1168,8 +1196,14 @@ function escucharUsuarios(){
 function pintarContactos(lista){
   usuariosListaActual = lista;
   /* v14: conectado = ping fresco; los demás TAMBIÉN entran a la lista (con "visto hace") */
-  var conect = 0, ic;
-  for (ic = 0; ic < lista.length; ic++) if (lista[ic]._fresco !== false) conect++;
+  /* v21: YO no cuento ni salgo en la lista — mi tarjeta (tarjetaYo / barra de usuario) ya me muestra,
+     así mi nombre no aparece DOS veces (marcado como repetido en el cel) */
+  var conect = 0, ic, otrosTot = 0;
+  for (ic = 0; ic < lista.length; ic++) {
+    if (lista[ic]._id === miId) continue;
+    otrosTot++;
+    if (lista[ic]._fresco !== false) conect++;
+  }
   $('cantConectados').textContent = '(' + conect + ')';
   $('cantConectadosMob').textContent = conect;
   $('tituloEstado').textContent = '— ' + conect + (conect === 1 ? ' conectado' : ' conectados');
@@ -1220,7 +1254,7 @@ function pintarContactos(lista){
   fg.innerHTML = '💬 CHAT GRUPAL <span class="fgSub">· la sala de todos</span>';
   fg.onclick = volverAlGrupo;
   cont.appendChild(fg);
-  if (!lista.length) {
+  if (!otrosTot) { /* v21: si no hay NADIE más (aunque yo esté), avisá — antes mi propia fila lo tapaba */
     var pv = document.createElement('p');
     pv.className = 'vacio';
     pv.innerHTML = 'Nadie más por acá… 😴<br>¡Invitá a la banda a entrar!';
@@ -1230,33 +1264,33 @@ function pintarContactos(lista){
   var divPuesto = false;
   for (var i = 0; i < lista.length; i++) {
     (function(u){
-      var esYo = u._id === miId;
+      nombresCache[u._id] = { nombre: u.nombre, avatar: u.avatar, foto: u.foto }; /* v21: cacheo TODOS, yo incluido (tooltips de reacciones) */
+      if (u._id === miId) return; /* v21: mi fila ya no va — la tarjeta de arriba soy yo (no se repite más) */
       var fresco = u._fresco !== false;
-      nombresCache[u._id] = { nombre: u.nombre, avatar: u.avatar, foto: u.foto };
-      if (!fresco && !divPuesto && !esYo) {
+      if (!fresco && !divPuesto) {
         divPuesto = true;
         var dv = document.createElement('div');
         dv.className = 'divisorContactos';
         dv.textContent = '— desconectados —';
         cont.appendChild(dv);
       }
-      var pend = (!esYo && noLeidos[u._id]) ? noLeidos[u._id] : 0;
+      var pend = noLeidos[u._id] ? noLeidos[u._id] : 0;
       var fila = document.createElement('div');
-      fila.className = 'contacto' + (esYo ? '' : ' clicable');
+      fila.className = 'contacto clicable';
       fila.innerHTML =
         '<span class="dot ' + (fresco ? (u.estado === 'online' ? 'online' : 'ausente') : 'offline') + '"></span>' +
         '<span class="cAvatar">' + (fotoSegura(u.foto) ? '<img class="fotoMini" src="' + escaparAttr(u.foto) + '" alt="">' : escapar(u.avatar || '🙂')) + '</span>' +
         '<span class="cInfo">' +
-          '<span class="cNombre">' + escapar(u.nombre || 'Anónimo') + (esYo ? ' <b class="chipYo">(vos)</b>' : '') + '</span>' +
+          '<span class="cNombre">' + escapar(u.nombre || 'Anónimo') + '</span>' +
           '<span class="cSub">' + (!fresco
             ? '<span class="cVisto">⚪ Visto ' + vistoHace(u._ms) + '</span>'
-            : (u.escribiendo && u.estado === 'online' && !esYo
+            : (u.escribiendo && u.estado === 'online'
               ? '<span class="escribiendoTxt">✍️ escribiendo…</span>'
               : (u.estado === 'online' ? 'En línea' : 'Ausente'))) + '</span>' +
         '</span>' +
         (pend ? '<span class="badgePriv">' + (pend > 9 ? '9+' : pend) + '</span>' : '') +
-        (esYo ? '' : '<span class="btnPrivMsj" title="Hablar en privado">💬</span>');
-      if (!esYo) fila.onclick = function(){ abrirPrivado(u._id); };
+        '<span class="btnPrivMsj" title="Hablar en privado">💬</span>';
+      fila.onclick = function(){ abrirPrivado(u._id); };
       cont.appendChild(fila);
     })(lista[i]);
   }
@@ -1295,11 +1329,11 @@ function escucharMensajes(){
       var fresco = Date.now() - msT < 20000;
       if (m.de !== miId && fresco) {
         if (para === miId) {
-          /* mensaje privado para mí — v17: aviso tipo WhatsApp (nombre + carita) aunque estés mirando otra conversación */
+          /* mensaje privado para mí — v23: aviso limpio tipo WhatsApp: el título es SOLO el nombre
+             del que escribe (sin caritas ni corazones) y si tiene foto, esa es la imagen del aviso */
           var infP = nombresCache[m.de] || {};
           var nomP = m.nombre || infP.nombre || 'alguien';
-          var caraP = (infP.avatar && !infP.foto) ? infP.avatar + ' ' : '';
-          aviso(caraP + nomP, textoPreview(m), 'priv-' + m.de, { de: m.de }, chatPrivadoId === m.de);
+          aviso(nomP, textoPreview(m), 'priv-' + m.de, { de: m.de, icono: infP.foto || null }, chatPrivadoId === m.de);
           if (chatPrivadoId === m.de) {
             vistoConv[m.de] = Date.now(); guardarVistos(); /* v14: lo estoy leyendo ahora */
             if (m.tipo === 'nudge') zumbidoLocal(m.nombre);
@@ -1316,7 +1350,8 @@ function escucharMensajes(){
           if (m.tipo === 'nudge') zumbidoLocal(m.nombre);
           else if (sonidoActivo) sonidoMsj();
           titilarTitulo();
-          aviso('💬 GRUPO · ' + (m.nombre || 'Chat'), textoPreview(m), 'grupo', {}, !chatPrivadoId && !enListaCel()); /* v19: si estás en la lista del cel, el grupo también avisa */
+          /* v23: el grupo llega como WhatsApp — arriba el nombre del grupo, abajo "quién: qué dijo" */
+          aviso('💬 CHAT GRUPAL', (m.nombre || 'alguien') + ': ' + textoPreview(m), 'grupo', {}, !chatPrivadoId && !enListaCel()); /* v19: si estás en la lista del cel, el grupo también avisa */
         }
         /* mensaje privado entre otras dos personas: silencio total */
       }
@@ -1503,7 +1538,7 @@ function enviarTexto(){
   caja.value = '';
   autoAlto();
   pararEscritura();
-  db.collection(COL_MSJ).add({
+  mandarMsj({
     de: miId,
     nombre: miNombre,
     avatar: miAvatar,
@@ -1645,7 +1680,7 @@ $('btnZumbido').onclick = function(){
   }
   ultimoZumbido = ahora;
   ctxAudio();
-  db.collection(COL_MSJ).add({
+  mandarMsj({
     de: miId, nombre: miNombre, avatar: miAvatar,
     para: chatPrivadoId || '',
     tipo: 'nudge', ts: SERVER_TS()
@@ -1799,11 +1834,11 @@ function pedirPermisoNotis(){
       Notification.requestPermission().then(function(p){
         pintarEstadoNotis();
         pintarAvisosLogin();
-        if (p === 'granted') { toast('🔔 Listo: te aviso cuando te escriban o alguien se conecte'); avisoPrueba(); }
+        if (p === 'granted') { toast('🔔 Listo: te aviso cuando te escriban o alguien se conecte'); avisoPrueba(); activarPush(); }
       }).catch(function(){ pintarEstadoNotis(); pintarAvisosLogin(); });
     } catch (e) {
       /* Safari viejo pide con callback en vez de promesa */
-      try { Notification.requestPermission(function(p){ pintarEstadoNotis(); pintarAvisosLogin(); if (p === 'granted') avisoPrueba(); }); } catch (e2) {}
+      try { Notification.requestPermission(function(p){ pintarEstadoNotis(); pintarAvisosLogin(); if (p === 'granted') { avisoPrueba(); activarPush(); } }); } catch (e2) {}
     }
   } else pintarEstadoNotis();
 }
@@ -1824,7 +1859,7 @@ $('btnNotis').onclick = function(){
   localStorage.setItem('siko_chat_notis', notisQueridas ? 'si' : 'no');
   pintarEstadoNotis();
   toast(notisQueridas ? '🔔 Notificaciones activadas' : '🔕 Notificaciones apagadas');
-  if (notisQueridas) avisoPrueba(); /* v18: al encender la campanita, mandá uno de prueba */
+  if (notisQueridas) { avisoPrueba(); activarPush(); } /* v18: al encender la campanita, mandá uno de prueba · v22: y suscribí al empuje */
 };
 
 function textoPreview(m){
@@ -1843,9 +1878,16 @@ function aviso(titulo, cuerpo, tag, data, enVista){
   /* v17 tipo WhatsApp: si la conversación que lo mandó está abierta en pantalla, no molesta.
      Si te escriben de OTRA conversación (o el chat quedó en segundo plano) → aviso al cel. */
   if (enVista) return;
+  /* v22: dedupe — el mismo aviso puede llegar por DOS caminos (el de siempre + el empuje reenviado al SW) */
+  var llave = (tag || 'siko') + '|' + titulo + '|' + cuerpo;
+  if (avisosRecientes[llave] && Date.now() - avisosRecientes[llave] < 2500) return;
+  avisosRecientes[llave] = Date.now();
+  /* v22: con servidor de push, cuando la pestaña está EN SEGUNDO PLANO el aviso lo manda el empuje
+     (llega igual y no duplica). Sin servidor configurado, sigue andando como siempre. */
+  if (PUSH_URL && document.hidden) return;
   var op = {
     body: cuerpo,
-    icon: 'icon-192.png',
+    icon: (data && data.icono) || 'icon-192.png', /* v23: si el que escribe tiene foto, esa es la imagen del aviso (como WhatsApp) */
     badge: 'favicon.png',
     tag: tag || 'siko',
     renotify: true,
@@ -1869,6 +1911,135 @@ function aviso(titulo, cuerpo, tag, data, enVista){
 }
 function notaDirecta(titulo, op){
   try { new Notification(titulo, op); } catch (e) {}
+}
+
+/* ============ 📨 v22 · EMPUJE REAL (Web Push) — avisos con la app TOTALMENTE cerrada ============
+   Cada dispositivo se SUSCRIBE al push del navegador (con la llave VAPID del chat) y la
+   suscripción queda guardada en Firestore (chat_push_subs). Cuando alguien manda un mensaje,
+   el chat avisa al SERVIDOR DE PUSH (var PUSH_URL, arriba en la configuración) y ese servidor
+   manda el aviso cifrado a cada cel — aunque la PWA esté totalmente cerrada.
+   Sin servidor configurado, el chat sigue funcionando igual que siempre. */
+
+var pushSubActiva = null; /* la suscripción de empuje de ESTE dispositivo */
+var avisosRecientes = {}; /* dedupe de avisos (local + empuje reenviado, ventaja de 2,5s) */
+
+function urlB64ToUint8Array(b64){
+  var pad = '', len = b64.length % 4;
+  if (len === 2) pad = '=='; else if (len === 3) pad = '='; else if (len === 1) pad = '===';
+  var base64 = (b64 + pad).replace(/-/g, '+').replace(/_/g, '/');
+  var raw = atob(base64);
+  var out = new Uint8Array(raw.length);
+  for (var i = 0; i < raw.length; i++) out[i] = raw.charCodeAt(i);
+  return out;
+}
+function hashStr(s){
+  var h = 0, i;
+  for (i = 0; i < s.length; i++) h = ((h << 5) - h + s.charCodeAt(i)) | 0;
+  return (h >>> 0).toString(36);
+}
+function bufABtoB64u(ab){
+  var b = new Uint8Array(ab), s = '', i;
+  for (i = 0; i < b.length; i++) s += String.fromCharCode(b[i]);
+  return btoa(s).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+/* suscribir este dispositivo al empuje y guardar la suscripción en Firestore */
+function activarPush(){
+  if (!PUSH_URL) return; /* sin servidor no hace falta suscribirse */
+  if (!('serviceWorker' in navigator) || !('PushManager' in window)) return;
+  if (!logueado || !notisQueridas) return;
+  if (!('Notification' in window) || Notification.permission !== 'granted') return;
+  navigator.serviceWorker.ready.then(function(reg){
+    if (!reg.pushManager) return;
+    return reg.pushManager.getSubscription().then(function(sub){
+      if (sub) return sub;
+      return reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: urlB64ToUint8Array(VAPID_PUB) });
+    });
+  }).then(function(sub){
+    if (!sub) return;
+    var keys = null;
+    try {
+      var j = sub.toJSON ? sub.toJSON() : null;
+      if (j && j.keys) keys = j.keys;
+    } catch (e) {}
+    if (!keys && sub.getKey) {
+      try {
+        keys = { p256dh: bufABtoB64u(sub.getKey('p256dh')), auth: bufABtoB64u(sub.getKey('auth')) };
+      } catch (e2) { keys = null; }
+    }
+    if (!keys || !keys.p256dh || !keys.auth) return;
+    pushSubActiva = { endpoint: sub.endpoint, keys: keys };
+    guardarPushSub(sub.endpoint, keys);
+  }).catch(function(err){ try { console.log('push: no pude suscribir', err); } catch (e) {} });
+}
+function guardarPushSub(endpoint, keys){
+  try {
+    var id = (miId + '-' + hashStr(endpoint)).slice(0, 40);
+    db.collection(COL_PUSH).doc(id).set({
+      uid: miId,
+      nombre: miNombre || 'Anónimo',
+      avatar: miAvatar || '🙂',
+      endpoint: endpoint,
+      p256dh: keys.p256dh,
+      auth: keys.auth,
+      ts: SERVER_TS()
+    }).catch(function(){});
+  } catch (e) {}
+}
+
+/* aviso al servidor de push → manda el aviso cifrado a los demás dispositivos */
+function mandarPush(m){
+  if (!PUSH_URL || !logueado) return;
+  if (typeof fetch !== 'function') return;
+  var cuerpo = textoPreview(m);
+  /* v23 estilo WhatsApp: título = solo el nombre del que escribe (sin caritas), grupo = "quién: qué dijo" */
+  var titulo = m.para ? (m.nombre || 'alguien') : '💬 CHAT GRUPAL';
+  var cuerpoFin = m.para ? cuerpo : ((m.nombre || 'alguien') + ': ' + cuerpo);
+  try {
+    fetch(PUSH_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        clave: PUSH_CLAVE,
+        de: miId,
+        para: m.para || null,
+        nombre: m.nombre || 'alguien',
+        titulo: titulo,
+        cuerpo: cuerpoFin,
+        icono: miFoto || null,
+        tag: m.para ? 'priv-' + miId : 'grupo',
+        tipo: m.tipo || 'texto'
+      })
+    }).catch(function(){});
+  } catch (e) {}
+}
+
+/* prueba del empuje completo: me mando a MÍ mismo por el servidor */
+function probarPush(){
+  if (!PUSH_URL || !pushSubActiva) return;
+  try {
+    fetch(PUSH_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        clave: PUSH_CLAVE,
+        de: null,
+        para: miId,
+        nombre: miNombre || 'yo',
+        titulo: '🚀 Push de prueba (app cerrada)',
+        cuerpo: 'Si leés esto con el chat CERRADO, el empuje funciona ✓',
+        tag: 'push-prueba',
+        tipo: 'prueba'
+      })
+    }).catch(function(){});
+  } catch (e) {}
+}
+
+/* v22: un solo lugar para mandar mensajes — después de grabar, dispara el empuje */
+function mandarMsj(obj){
+  return db.collection(COL_MSJ).add(obj).then(function(){
+    try { mandarPush(obj); } catch (e) {}
+  });
 }
 
 /* v18: aviso de PRUEBA al activar los avisos — te llega al instante para que veas cómo va a ser.
@@ -1974,6 +2145,12 @@ function pintarCentral(){
 
   fila('avSW', swListo ? '✅' : '⏳', swListo ? 'ok' : 'medio', swListo ? 'motor listo para mostrar avisos en el cel' : 'cargando el motor de avisos…');
 
+  /* v22: estado del EMPUJE (avisos con la app totalmente cerrada) */
+  if (!('PushManager' in window)) fila('avPush', '❌', 'mal', 'este navegador no soporta empuje — avisos solo con el chat abierto');
+  else if (!PUSH_URL) fila('avPush', '⚠️', 'medio', 'sin servidor de empuje: los avisos llegan solo con el chat abierto — armá el servidor gratis en 5 min (README, sección PUSH)');
+  else if (pushSubActiva) fila('avPush', '✅', 'ok', 'empuje ACTIVO — te avisan aunque tengas el chat cerrado (probalo con PROBAR AVISO y cerrando el chat)');
+  else fila('avPush', '⏳', 'medio', 'conectando con el servidor de empuje…');
+
   var probada = false;
   try { probada = localStorage.getItem('siko_chat_prueba') === 'si'; } catch (e) {}
   fila('avPrueba', probada ? '✅' : '—', probada ? 'ok' : 'medio', probada ? 'enviada — si no la viste en la entrada del cel, revisá la ayuda de abajo' : 'no probada todavía — tocá PROBAR AVISO');
@@ -2009,7 +2186,10 @@ $('btnProbarAviso').onclick = function(){
   notisQueridas = true;
   localStorage.setItem('siko_chat_notis', 'si');
   avisoPrueba();
-  toast('📤 Mandado — mirá la entrada del cel. ¿No apareció? Leé la ayuda de abajo', 4500);
+  probarPush(); /* v22: si hay servidor de empuje, mandá también el 🚀 push de prueba */
+  toast(PUSH_URL && pushSubActiva
+    ? '📤 Mandado. Ahora CERRÁ el chat del todo: si te llega el 🚀 Push de prueba, el empuje anda ✓'
+    : '📤 Mandado — mirá la entrada del cel. ¿No apareció? Leé la ayuda de abajo', 4500);
   setTimeout(pintarCentral, 600);
 };
 $('btnToggleVigilia').onclick = function(){
@@ -2029,8 +2209,11 @@ function guiaAvisos(){
   else if (Notification.permission === 'default') toast('🔔 Tocá el botón 🔔 Avisos de la barra para activar los avisos al cel', 5500);
 }
 
-/* alguien nuevo entra → aviso (banner si está en segundo plano, tostada si lo está mirando)
-   v14: solo cuenta como "se conectó" si AHORA tiene ping fresco (la lista ahora incluye desconectados) */
+/* alguien nuevo entra → tostada adentro del chat
+   v14: solo cuenta como "se conectó" si AHORA tiene ping fresco (la lista ahora incluye desconectados)
+   v23: YA NO avisa en la barra de notificaciones del cel (WhatsApp tampoco avisa cuando alguien
+   entra) — esos avisos llenaban la bandeja con "X se conectó" y los corazones 🖤🧡. Si el chat
+   está a la vista, queda el aviso chico de siempre adentro. */
 function detectarConexiones(lista){
   if (!logueado) return;
   var frescos = {};
@@ -2040,8 +2223,7 @@ function detectarConexiones(lista){
     var u = lista[j];
     if (u._fresco === false || u._id === miId || conectadosPrev[u._id]) continue;
     var nom = u.nombre || 'Alguien';
-    if (document.hidden) aviso('🟢 ' + nom + ' se conectó', 'Entró al chat de Sikodark 🖤🧡', 'conn-' + u._id, {});
-    else toast('🟢 ' + nom + ' se conectó al chat');
+    if (!document.hidden) toast('🟢 ' + nom + ' se conectó al chat');
   }
   conectadosPrev = frescos;
 }
@@ -2052,6 +2234,13 @@ if (navigator.serviceWorker) {
   navigator.serviceWorker.addEventListener('message', function(ev){
     var d = ev.data || {};
     if (d.tipo === 'notiPriv' && d.de && logueado) abrirPrivado(d.de);
+    /* v22: el empuje llegó mientras el chat estaba a la vista → el SW lo pasa acá
+       y lo mostramos con la lógica de siempre (no molesta si estás en esa conversación) */
+    if (d.tipo === 'pushExt' && d.data) {
+      var pd = d.data;
+      var enV = pd.de ? (chatPrivadoId === pd.de) : (!chatPrivadoId && !enListaCel());
+      aviso(pd.titulo || '💬 SikoChat', pd.cuerpo || '', pd.tag || 'siko-push', { de: pd.de || null, icono: pd.icono || null }, enV);
+    }
   });
 }
 
@@ -2321,7 +2510,7 @@ $('btnEnviarDibujo').onclick = function(){
     toast('😬 El dibujo quedó muy pesado, probá con menos detalle');
     return;
   }
-  db.collection(COL_MSJ).add({
+  mandarMsj({
     de: miId, nombre: miNombre, avatar: miAvatar,
     para: chatPrivadoId || '',
     tipo: 'dibujo', img: img, texto: '',
@@ -2523,7 +2712,7 @@ function ejecutarReenvio(para){
   };
   if (m.img) nuevo.img = m.img;
   if (m.emo) nuevo.emo = m.emo;
-  db.collection(COL_MSJ).add(nuevo).then(function(){
+  mandarMsj(nuevo).then(function(){
     toast(para ? '↪️ Reenviado en privado' : '↪️ Reenviado al grupo');
   }).catch(function(){ toast('❌ No pude reenviar'); });
   msjReenvio = null;
@@ -2760,7 +2949,7 @@ $('btnEnviarFoto').onclick = function(){
   if (Date.now() - ultimoMsj < 1200) { toast('⏳ Tranqui, esperá un segundito'); return; }
   ultimoMsj = Date.now();
   var tipo = fotoPendiente.esGif ? 'gif' : 'foto';
-  db.collection(COL_MSJ).add({
+  mandarMsj({
     de: miId, nombre: miNombre, avatar: miAvatar,
     para: chatPrivadoId || '',
     tipo: tipo, img: fotoPendiente.data, texto: '',
@@ -2776,7 +2965,7 @@ $('btnEnviarFoto').onclick = function(){
 function enviarStiker(emo){
   if (Date.now() - ultimoMsj < 1200) { toast('⏳ Tranqui, esperá un segundito'); return; }
   ultimoMsj = Date.now();
-  db.collection(COL_MSJ).add({
+  mandarMsj({
     de: miId, nombre: miNombre, avatar: miAvatar,
     para: chatPrivadoId || '',
     tipo: 'stiker', emo: emo, texto: '',
@@ -2787,7 +2976,7 @@ function enviarStiker(emo){
 function enviarGif(url){
   if (Date.now() - ultimoMsj < 1200) { toast('⏳ Tranqui, esperá un segundito'); return; }
   ultimoMsj = Date.now();
-  db.collection(COL_MSJ).add({
+  mandarMsj({
     de: miId, nombre: miNombre, avatar: miAvatar,
     para: chatPrivadoId || '',
     tipo: 'gif', img: url, texto: '',
@@ -2991,7 +3180,7 @@ $('btnCompartirRadio').onclick = function(){
   if (chatPrivadoId) { toast('📻 La radio se comparte en el chat grupal'); return; }
   if (Date.now() - ultimoMsj < 1200) { toast('⏳ Tranqui, esperá un segundito'); return; }
   ultimoMsj = Date.now();
-  db.collection(COL_MSJ).add({
+  mandarMsj({
     de: miId, nombre: miNombre, avatar: miAvatar,
     tipo: 'radio', texto: '',
     ts: SERVER_TS()
