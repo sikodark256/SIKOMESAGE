@@ -1,11 +1,14 @@
 # 💬 Sikodark Chat — Estilo MSN Messenger
 
-Chat en vivo **aparte** de sikodark radio, con la estética de siempre (negro + naranja `#f59d3d` + Montserrat). Entra con tu nombre + la **clave de la casa**.
+Chat en vivo **aparte** de sikodark radio, con la estética de siempre (negro + naranja `#f59d3d` + Montserrat). Entras solo con tu **nombre + tu carita** (la clave es opcional, más abajo te digo cómo activarla).
 
-- 🖤🧡 Hecho para la comunidad de la radio
-- 🔑 **Contraseña de entrada**: nadie entra sin la clave de la casa (por defecto `siko123`). Se guarda en cada dispositivo, con botoncito 👁 para verla. **Cómo cambiarla** más abajo
-- 📲 **Instalar como app**: en Android/PC aparece solo el botón 📥 INSTALAR (cartelito oficial del navegador). En iPhone el botón te da la receta: Compartir ⬆️ → “Agregar a pantalla de inicio”. Queda como app con su ícono, sin barra del navegador
 - 🎨 **Pizarrita Paint (v15)**: igual que el Paint de siempre — ✏️ lápiz, 🖌️ pincel grueso, 🪣 **bote de pintura** (tocás una mancha y se rellena entera del color elegido), 🧽 goma y ↩️ **deshacer** por si se equivoca. 14 colores y 3 grosores con botones más grandes, pensada para que los peques dibujen, pinten y manden su obra al chat
+- 🖤🧡 Hecho para la comunidad de la radio
+- 🚪 **Entrada sin registro**: poné tu nombre, elegí tu carita y adentro. **Sin contraseña** desde la v16 (queda opcional por si la querés de vuelta)
+- 📲 **Instalar como app**: en Android/PC aparece solo el botón 📥 INSTALAR (cartelito oficial del navegador). En iPhone el botón te da la receta: Compartir ⬆️ → “Agregar a pantalla de inicio”. Queda como app con su ícono, sin barra del navegador
+- 📱 **Panel del cel estilo MSN (v16)**: al abrir 👥 en el cel se ve como la ventana de contactos de siempre — **tu tarjeta arriba** (carita, nombre con ★, En línea/Ausente y tu mensaje personal “hola”, tocás la tarjeta y editás tu perfil), el botón grande **💬 CHAT GRUPAL**, los conectados con su estado y la sección **DESCONECTADOS** con “visto hace”. En PC/TV el panel queda exactamente como estaba
+- 🚪 **Sin contraseña (v16)**: entrás solo con tu nombre y tu carita — más fácil para todos. La clave quedó **opcional**: si algún día la querés de vuelta, en `index.html` poné una clave en `CLAVE_CHAT` y el campo reaparece solo
+- 📲 **Puntito de mensajes sin leer en el ícono (v16)**: con el chat instalado como app, el ícono muestra el **número de privados sin leer** mientras la app está viva en segundo plano (Android/PC con Chrome). Los avisos ahora salen por el service worker: más confiables en la PWA instalada
 - 📳 Zumbido (timbre) con sacudida de pantalla, sonido y **vibración del cel**
 - 😀 34 emoticons + 🎟️ 24 stikers grandes + 🎞️ 8 GIFs animados propios (carpeta `gifs/`)
 - 📷 Mandar **fotos y GIFs de la galería** del cel (se achican solos) — botón 📷 Foto/GIF o botón 📂 dentro de la pestaña GIFs: se abre el explorador, elegís la imagen y la mandás
@@ -39,7 +42,7 @@ Chat en vivo **aparte** de sikodark radio, con la estética de siempre (negro + 
 /                        ← raíz del repo
 ├── index.html           ← toda la app (HTML + CSS + JS en un solo archivo)
 ├── manifest.json        ← configuración PWA
-├── sw.js                ← service worker (cache sikodark-chat-v15)
+├── sw.js                ← service worker (cache sikodark-chat-v16)
 ├── logo-blanco.png      ← logo SiKO CHAT transparente (se ve en modo oscuro)
 ├── logo-negro.png       ← logo para el modo claro
 ├── logo-cara.png        ← la carita del logo (barra de título)
@@ -57,13 +60,15 @@ Chat en vivo **aparte** de sikodark radio, con la estética de siempre (negro + 
 └── firestore-reglas.txt ← reglas a pegar en Firebase si usás reglas cerradas
 ```
 
-### 🔑 ¿Cómo cambio la contraseña?
+### 🔑 ¿Cómo cambio la contraseña? (es OPCIONAL)
 
-1. Abrí `index.html`, buscá con Ctrl+F la palabra `CLAVE_CHAT` (está cerca del inicio del `<script>`, con un cartelito 🔑).
-2. Cambiá la línea `var CLAVE_CHAT = 'siko123';` y poné tu clave entre las comillas. Ej: `var CLAVE_CHAT = 'sikolaplata2026';`
-3. Commit y listo: la próxima vez que alguien entre le va a pedir la nueva (los que ya la tenían guardada también, así que avisale a la banda).
+Desde la **v16 el chat entra SIN clave** (solo nombre + carita). Si la querés de vuelta:
 
-> Ojo: es una puerta para que entre solo la gente invitada, no una cuenta por persona. La clave viaja en el código de la página, así que alguien muy mañoso podría verla — para cuentas individuales con baneos está el **panel de administración** (próximo paso).
+1. Abrí `index.html`, buscá con Ctrl+F la palabra `CLAVE_CHAT` (está cerca del inicio del `<script>`, con el cartelito 🔑).
+2. Cambiá la línea `var CLAVE_CHAT = '';` y poné tu clave entre las comillas. Ej: `var CLAVE_CHAT = 'sikolaplata2026';`
+3. Commit y listo: el campo de contraseña reaparece solo y nadie entra sin la clave (avisale a la banda, los que ya la tenían guardada también tienen que ponerla).
+
+> Sobre el cartelito rojo **“No es seguro”** del navegador: no tiene nada que ver con la clave del chat — avisa que la página la abriste por `http://` (sin candado). Entrá siempre por `https://sikodark256.github.io/SIKOMESAGE/` (con https delante) y el cartel desaparece.
 
 ### 🎞️ ¿Cómo agrego más GIFs?
 
@@ -110,9 +115,12 @@ Si tus reglas de Firestore ya están abiertas (`allow read, write: if true`), no
 - **Modos de diseño**: todo el CSS usa variables (`--naranja`, `--fondo`, `--panel`…). El modo y el color se guardan en el dispositivo (`siko_chat_tema` / `siko_chat_color`) y se aplican cambiando clases en el `body` (`tema-claro`, `color-verde`…). Para agregar otro color alcanza con una línea `body.color-xxx{--naranja:...;--naranja-osc:...;--acento-rgb:...}` + una entrada en `COLORES_TEMA` del index.html.
 - **Notificaciones**: usan la Notification API del navegador + el service worker (sin Firebase Cloud Messaging). Avisan mientras la web del chat está abierta, aunque la tengas en otra app, otra pestaña o con el cel bloqueado. Si el chat está COMPLETAMENTE cerrado no hay aviso (eso necesita un servidor de push — FCM — es el paso siguiente). En iPhone hay que instalar el chat a la pantalla de inicio (botón Compartir → “Agregar a inicio”, iOS 16.4 o más nuevo) para que iOS permita los avisos. La campanita 🔔 de la barra de título enciende/apaga por dispositivo.
 - **Conectados en el cel**: en pantallas de menos de 620 px el panel lateral se convierte en cajón deslizable, y arriba del chat hay una **franja de chips** que se arma sola con los conectados (misma lista que pinta el panel, reutiliza `pintarContactos`). Fix importante: el botón 👥 está dentro de `#zonaChat`, y el clic que lo cierra al tocar el chat **burbujeaba** y cerraba el cajón al instante — por eso en vertical nunca se veían los conectados. Ahora el guard ignora los clics que vienen del botón.
+- **Panel del cel estilo MSN (v16)**: dentro de `#panelContactos` va una `.tarjetaYo` (carita + nombre + estado + frase) que solo se muestra en pantallas ≤ 620 px (`@media (min-width:621px)` la oculta, así el panel de PC/TV queda intacto). Se llena con `pintarTarjetaYo()` (llamada desde `iniciarSesion`, `pintarMiEstado` y al cambiar la frase) y al tocarla abre el mismo modal **MI PERFIL**. El cajón pasó a 84vw (máx 320px) y las filas/grupal crecieron solo en cel. No cambia el modelo de datos: la frase ya viajaba en el campo `frase` de `chat_usuarios`.
+- **Sin contraseña (v16)**: `CLAVE_CHAT = ''` → `SIN_CLAVE` oculta el campo en la portada y `entrar()` se salta la validación. La clave sigue existiendo: basta llenar la variable para que todo vuelva. El “No es seguro” del navegador es HTTPS, no la clave.
+- **Puntito en el ícono (v16)**: `actualizarBadgeApp()` usa `navigator.setAppBadge`/`clearAppBadge` (Badge API) con la suma de `noLeidos` — se llama en `pintarContactos` y `abrirPrivado`. Solo funciona con la app instalada y mientras el proceso está vivo; con la app TOTALMENTE cerrada ningún aviso llega sin un servidor de push (FCM/OneSignal — próximo paso).
 - **Contactos completos (v14)**: el panel ya no filtra por ping fresco — escucha TODA la colección `chat_usuarios` (los fantasmas se borran a las 24 h, ahí sí desaparecen). Estado: conectado = ping ≤ 65 s (verde/naranja), desconectado = gris con “Visto hace X”. Los mensajes pendientes se calculan con `localStorage siko_chat_visto` (uid → cuándo leíste esa conversación por última vez): al entrar, los privados para vos más nuevos que esa marca cuentan como sin leer y avisan con una tostada. Al abrir la conversación se marca leído. Sin colecciones ni reglas nuevas de Firestore. El aviso “🟢 se conectó” ahora solo salta cuando alguien pasa de desconectado a conectado de verdad.
 - **Pizarrita Paint (v15)**: herramientas ✏️ lápiz, 🖌️ pincel (grosor ×3), 🪣 **bote de pintura** (rellena la mancha tocada con un flood-fill scanline propio con tolerancia 42, sin librerías), 🧽 goma (×4 pintando del color del fondo) y ↩️ deshacer (hasta 12 fotos del lienzo con `getImageData`/`putImageData`). Paleta de 14 colores, botones más grandes para dedos chicos. Todo corre en el dispositivo: no toca Firebase ni agrega colecciones.
 - **Portada limpia (v13)**: se sacaron los carteles de la pantalla de ingreso (“El Messenger de la radio”, “Tu nombre, la clave de la casa…”, el 💡 de “se guarda tu nombre…” y el de “la clave la comparte la banda”) y el logo de bienvenida bajó de 250 px a 200 px (`min(200px,55vw)`). Solo HTML/CSS: no toca Firebase ni reglas.
 - **Reacciones, reenviar y borrar (v12)**: viven dentro del MISMO documento de `chat_mensajes` — las reacciones se guardan en un campo `reacc` (mapa emoji → lista de uids) con `update()`, el borrado marca `borrado:true` y vacía el contenido (queda la lápida para todos). **No hay colecciones ni reglas nuevas de Firestore.** El listener ahora también atiende cambios `modified` (antes solo `added`) y re-pinta manteniendo tu lugar de lectura. El botón ⋯, los chips de reacción y el menú usan delegación de clic en `cintaMsj` (funciona con mensajes viejos nuevos). Favoritos: localStorage `siko_chat_favs` (máx 40, por dispositivo).
 - `.nojekyll` evita que GitHub Pages procese los archivos con Jekyll.
-- Para actualizar el chat: cambiá `index.html` y subí el número de cache en `sw.js` (`sikodark-chat-v15` → `v16`…).
+- Para actualizar el chat: cambiá `index.html` y subí el número de cache en `sw.js` (`sikodark-chat-v16` → `v17`…).

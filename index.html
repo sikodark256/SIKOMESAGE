@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- SikoChat v15 · PIZARRITA PAINT: bote de pintura 🪣 + pincel 🖌️ + deshacer ↩️ + 14 colores para los peques · + TODOS en la lista (desconectados con visto hace) + avisos de pendientes al entrar + botón CHAT GRUPAL · + portada limpia + reacciones ❤️ + reenviar ↪️ + borrar 🗑️ + favoritos ⭐ + conectados en cel + logo + contraseña + instalar + temas + perfil + stikers/gifs/fotos + tonos + radio + privado + notificaciones -->
+<!-- SikoChat v16 · PANEL DEL CEL ESTILO MSN: tu tarjeta arriba (carita + nombre + En línea + tu frase) + CHAT GRUPAL grande · SIN contraseña (opcional: CLAVE_CHAT vacía) · puntito de no leídos en el ícono del PWA · + PIZARRITA PAINT: bote de pintura 🪣 + pincel 🖌️ + deshacer ↩️ · + TODOS en la lista (desconectados con visto hace) + avisos de pendientes al entrar + botón CHAT GRUPAL · + portada limpia + reacciones ❤️ + reenviar ↪️ + borrar 🗑️ + favoritos ⭐ + conectados en cel + logo + instalar + temas + perfil + stikers/gifs/fotos + tonos + radio + privado + notificaciones -->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -205,6 +205,16 @@ body.tema-claro .logoClaro{display:block}
 .filaGrupal:hover{background:rgba(var(--acento-rgb),.18)}
 .escribiendoTxt{color:var(--naranja);font-weight:700}
 .vacio{color:var(--tx4);font-size:12px;text-align:center;padding:22px 10px;line-height:1.6}
+/* v16: mi tarjeta estilo MSN arriba del panel (solo se ve en el cel; en PC el panel queda como estaba) */
+.tarjetaYo{display:flex;align-items:center;gap:10px;padding:12px;border-bottom:1px solid var(--borde);cursor:pointer}
+.tarjetaYo:active{background:var(--panel2)}
+.tyAvatar{width:42px;height:42px;border-radius:50%;background:var(--fondo);border:2px solid var(--naranja);display:grid;place-items:center;font-size:21px;overflow:hidden;flex-shrink:0}
+.tyDatos{min-width:0;display:flex;flex-direction:column}
+.tyNombre{font-size:14px;font-weight:900;color:var(--tx1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tyStar{color:var(--naranja);font-size:11px}
+.tyEstado{font-size:10.5px;color:var(--tx3);display:flex;align-items:center;gap:5px;margin-top:2px}
+.tyFrase{font-size:11px;color:var(--tx3);font-style:italic;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:150px}
+@media (min-width:621px){ .tarjetaYo{display:none} }
 
 /* ============ FRANJA DE CONECTADOS (SIEMPRE VISIBLE EN CEL VERTICAL) ============ */
 #franjaConectados{
@@ -527,6 +537,15 @@ body.tema-claro .logoClaro{display:block}
   #msj{height:42px}
   #btnEnviar{padding:0 14px;font-size:12px}
   .burbuja{max-width:86%}
+  /* v16: panel del cel con onda MSN (como la captura de referencia) */
+  #panelContactos{width:84vw;max-width:320px}
+  .tarjetaYo{padding:14px 14px 12px}
+  .cabContactos{padding:12px 14px;font-size:11.5px;text-align:center}
+  .filaGrupal{justify-content:center;padding:14px 12px;margin:8px 10px 10px;font-size:13.5px;border-width:2px;border-radius:12px}
+  .contacto{padding:11px 10px}
+  .cAvatar{font-size:22px}
+  .cNombre{font-size:14px}
+  .cSub{font-size:11px}
 }
 </style>
 </head>
@@ -578,6 +597,14 @@ body.tema-claro .logoClaro{display:block}
     <div class="cuerpo">
 
       <aside id="panelContactos">
+        <div class="tarjetaYo" id="tarjetaYo" title="Tocá para editar tu perfil">
+          <div class="tyAvatar" id="tyAvatar">🙂</div>
+          <div class="tyDatos">
+            <div class="tyNombre" id="tyNombre">—</div>
+            <div class="tyEstado" id="tyEstado"><span class="dot online"></span> En línea</div>
+            <div class="tyFrase" id="tyFrase">✍️ Escribí tu mensaje personal…</div>
+          </div>
+        </div>
         <div class="cabContactos">👥 CONTACTOS <span id="cantConectados">(0)</span></div>
         <div class="listaContactos" id="listaContactos">
           <p class="vacio">Buscando gente… 📡</p>
@@ -868,11 +895,19 @@ function toast(msg, ms){
 /* ---------- 3 · LOGIN (CONTRASEÑA DE LA CASA + NOMBRE) ---------- */
 
 /* 🔑 ============================================ 🔑
-   CONTRASEÑA DEL CHAT — CAMBIALA ACÁ ↓
-   Poné entre comillas la clave que quieras y
-   avisale a la banda. Ej: 'siko123' o 'laplata2026'
+   CONTRASEÑA DEL CHAT — OPCIONAL DESDE v16
+   Va VACÍA = se entra SIN clave (solo nombre + carita).
+   Si la querés de vuelta, poné algo entre las comillas
+   (ej: 'siko123') y el campo reaparece solo. Avisale a la banda.
    🔑 ============================================ 🔑 */
-var CLAVE_CHAT = 'siko123';
+var CLAVE_CHAT = '';
+var SIN_CLAVE = !String(CLAVE_CHAT).trim();
+if (SIN_CLAVE) {
+  var etClave = document.querySelector('.etiqueta[for="inputClave"]');
+  var cajaClv = document.querySelector('.cajaClave');
+  if (etClave) etClave.style.display = 'none';
+  if (cajaClv) cajaClv.style.display = 'none';
+}
 
 function pintarAvatares(){
   var g = $('gridAvatares');
@@ -901,18 +936,20 @@ $('btnVerClave').onclick = function(){
 };
 
 function entrar(){
-  var clave = ($('inputClave').value || '').trim();
-  if (clave.toLowerCase() !== String(CLAVE_CHAT).trim().toLowerCase()) {
-    toast('❌ Clave incorrecta — te la pasó quien te invitó al chat');
-    var caja = document.querySelector('.loginCaja');
-    caja.classList.remove('temblando');
-    void caja.offsetWidth;
-    caja.classList.add('temblando');
-    $('inputClave').focus();
-    $('inputClave').select();
-    return;
+  if (!SIN_CLAVE) {
+    var clave = ($('inputClave').value || '').trim();
+    if (clave.toLowerCase() !== String(CLAVE_CHAT).trim().toLowerCase()) {
+      toast('❌ Clave incorrecta — te la pasó quien te invitó al chat');
+      var caja = document.querySelector('.loginCaja');
+      caja.classList.remove('temblando');
+      void caja.offsetWidth;
+      caja.classList.add('temblando');
+      $('inputClave').focus();
+      $('inputClave').select();
+      return;
+    }
+    localStorage.setItem('siko_chat_clave', clave);
   }
-  localStorage.setItem('siko_chat_clave', clave);
   var nombre = $('inputNombre').value.trim().replace(/\s+/g, ' ');
   if (nombre.length < 2) {
     toast('✏️ Poné un nombre de al menos 2 letras, che');
@@ -934,6 +971,7 @@ function iniciarSesion(){
   $('miNombreTxt').textContent = miAvatar + ' ' + miNombre;
   $('miFrase').textContent = miFraseTxt || '✍️ Escribí tu mensaje personal…';
   pintarMiEstado();
+  pintarTarjetaYo();
   marcarPresencia();
   escucharUsuarios();
   escucharMensajes();
@@ -973,6 +1011,30 @@ function pintarMiEstado(){
   $('miEstadoTxt').innerHTML = estadoActual === 'online'
     ? '<span class="dot online"></span> En línea'
     : '<span class="dot ausente"></span> Ausente';
+  pintarTarjetaYo();
+}
+
+/* v16: mi tarjeta estilo MSN dentro del panel (se ve en el cel; en PC el panel queda como estaba) */
+function pintarTarjetaYo(){
+  if (!$('tarjetaYo')) return;
+  $('tyAvatar').innerHTML = fotoSegura(miFoto)
+    ? '<img class="fotoMini" src="' + escaparAttr(miFoto) + '" alt="">'
+    : escapar(miAvatar || '🙂');
+  $('tyNombre').innerHTML = escapar(miNombre || '—') + ' <span class="tyStar">★</span>';
+  $('tyEstado').innerHTML = estadoActual === 'online'
+    ? '<span class="dot online"></span> En línea'
+    : '<span class="dot ausente"></span> Ausente';
+  $('tyFrase').textContent = miFraseTxt || '✍️ Escribí tu mensaje personal…';
+}
+
+/* v16: número de mensajes sin leer en el ícono de la app instalada (Android/PC con Chrome) */
+function actualizarBadgeApp(){
+  try {
+    var total = 0, k;
+    for (k in noLeidos) { if (noLeidos.hasOwnProperty(k)) total += noLeidos[k] || 0; }
+    if (total > 0) { if (navigator.setAppBadge) navigator.setAppBadge(Math.min(total, 99)); }
+    else if (navigator.clearAppBadge) navigator.clearAppBadge();
+  } catch (e) {}
 }
 
 var EV_ACT = ['mousemove','keydown','touchstart','click'];
@@ -1132,6 +1194,7 @@ function pintarContactos(lista){
       cont.appendChild(fila);
     })(lista[i]);
   }
+  actualizarBadgeApp();
   detectarConexiones(lista);
 }
 
@@ -1254,6 +1317,7 @@ function abrirPrivado(uid){
   if (uid === miId) { toast('😄 Ese sos vos'); return; }
   chatPrivadoId = uid;
   noLeidos[uid] = 0;
+  actualizarBadgeApp();
   vistoConv[uid] = Date.now(); guardarVistos(); /* v14: leído hasta acá */
   var info = nombresCache[uid] || {};
   $('privNombre').textContent = info.nombre || 'Usuario';
@@ -1694,6 +1758,7 @@ function aviso(titulo, cuerpo, tag, data){
     renotify: true,
     /* el zumbido ya vibra por su cuenta: su aviso no suena para no duplicar */
     silent: !sonidoActivo || cuerpo.indexOf('ZUMBIDO') !== -1,
+    vibrate: [90, 50, 90],
     data: data || {}
   };
   try {
@@ -1743,6 +1808,7 @@ $('miFrase').onclick = function(){
   localStorage.setItem('siko_chat_frase', miFraseTxt);
   $('miFrase').textContent = miFraseTxt || '✍️ Escribí tu mensaje personal…';
   marcarPresencia();
+  pintarTarjetaYo();
 };
 /* v11: cajón de conectados con velo oscuro — se cierra tocando afuera */
 function cerrarDrawer(){
@@ -2344,6 +2410,7 @@ function pintarAvataresPerfil(){
   }
 }
 $('miAvatarBox').onclick = abrirPerfil;
+$('tarjetaYo').onclick = abrirPerfil; /* v16: la tarjeta del panel también abre el perfil */
 $('btnCerrarPerfil').onclick = function(){ $('overlayPerfil').classList.add('oculto'); };
 $('btnSubirFoto').onclick = function(){ $('inputFotoPerfil').value = ''; $('inputFotoPerfil').click(); };
 $('btnQuitarFoto').onclick = function(){ fotoPerfilTmp = ''; pintarPerfilPreview(); };
