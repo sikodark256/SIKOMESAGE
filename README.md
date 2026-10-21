@@ -1,20 +1,31 @@
 # 💬 Sikodark Chat — Estilo MSN Messenger
 
-Chat en vivo **aparte** de sikodark radio, con la estética de siempre (negro + naranja `#f59d3d` + Montserrat). Sin registro: entrás solo con tu nombre.
+Chat en vivo **aparte** de sikodark radio, con la estética de siempre (negro + naranja `#f59d3d` + Montserrat). Entra con tu nombre + la **clave de la casa**.
 
 - 🖤🧡 Hecho para la comunidad de la radio
-- ✏️ Pizarrita con lápiz para dibujar y mandar dibujos
+- 🔑 **Contraseña de entrada**: nadie entra sin la clave de la casa (por defecto `siko123`). Se guarda en cada dispositivo, con botoncito 👁 para verla. **Cómo cambiarla** más abajo
+- 📲 **Instalar como app**: en Android/PC aparece solo el botón 📥 INSTALAR (cartelito oficial del navegador). En iPhone el botón te da la receta: Compartir ⬆️ → “Agregar a pantalla de inicio”. Queda como app con su ícono, sin barra del navegador
+- 🎨 **Pizarrita Paint (v15)**: igual que el Paint de siempre — ✏️ lápiz, 🖌️ pincel grueso, 🪣 **bote de pintura** (tocás una mancha y se rellena entera del color elegido), 🧽 goma y ↩️ **deshacer** por si se equivoca. 14 colores y 3 grosores con botones más grandes, pensada para que los peques dibujen, pinten y manden su obra al chat
 - 📳 Zumbido (timbre) con sacudida de pantalla, sonido y **vibración del cel**
 - 😀 34 emoticons + 🎟️ 24 stikers grandes + 🎞️ 8 GIFs animados propios (carpeta `gifs/`)
 - 📷 Mandar **fotos y GIFs de la galería** del cel (se achican solos) — botón 📷 Foto/GIF o botón 📂 dentro de la pestaña GIFs: se abre el explorador, elegís la imagen y la mandás
 - 📻 **Radio en vivo dentro del chat**: botón 📻 Radio con mini-player (play/pausa + la canción que suena al aire) y botón 📨 para **compartir la radio al chat**: aparece una tarjeta y cualquiera toca 🎧 ESCUCHAR y se sintoniza sin salir del chat
 - 📤 **Compartir el chat por WhatsApp** (botón 📤): abre el compartir del celu o WhatsApp directo con el link del chat + la radio
 - 🎨 **Modos de diseño**: botón 🎨 Tema para cambiar entre **modo oscuro** y **modo claro**, y elegir el **color principal** (naranja, verde, celeste, violeta, rosa o rojo). Se guarda en cada dispositivo y también pinta la pantalla de ingreso
-- 💙 **Logo SiKO CHAT en todo**: versión transparente en la pantalla de bienvenida (blanca en oscuro, negra en claro) y la carita en la barra de título; íconos de app y favicon
-- 👤 **Perfil con foto**: subí tu foto de perfil, cambiá tu nombre y tu avatar (botón/círculo arriba a la izquierda)
+- 💙 **Logo SiKO CHAT en todo**: versión transparente **naranja** en la pantalla de bienvenida (como en la referencia), versión oscura para el modo claro y la carita en la barra de título; íconos de app y favicon
+- 🧹 **Portada limpia (v13)**: la pantalla de ingreso quedó sin carteles de más — solo el logo, tu nombre, la clave y tu carita. Y el logo ahora se ve **un poco más chico** para que todo entre mejor en pantalla
+- 👤 **Perfil con foto**: subí tu foto de perfil y **se ajusta sola a la ventanita** (recorte cuadrado, sin estirarse ni repetirse), cambiá tu nombre y tu avatar (botón/círculo arriba a la izquierda)
 - 🎵 **Tonos configurables**: elegí el sonido de mensajes y del zumbido (botón 🎵 Tonos)
 - 👥 Panel de conectados en vivo con estados (en línea / ausente / escribiendo…)
-- 🔒 **Chat privado 1 a 1**: tocá cualquier usuario del panel (o su 💬) y abrís una conversación aparte que solo ven ustedes dos, con aviso de mensajes sin leer (🔴) y zumbido privado. Botón ← para volver al grupo
+- 📱 **Conectados siempre a la vista en el cel**: en vertical una franja arriba del chat muestra chips con quien está conectado (punto verde/naranja, carita y 🔴 de mensajes sin leer); tocás un chip y abrís su privado. El botón 👥 abre la lista completa como cajón con velo oscuro (se cierra tocando afuera). En horizontal y en PC el panel queda fijo como siempre
+- ❤️ **Reacciones estilo WhatsApp (¡me gusta!)**: tocá el botón **⋯** junto a cualquier mensaje (foto, comentario, dibujo, stiker o GIF) y elegí ❤️ 😂 😮 😢 👍 o 🔥. Debajo de la burbuja aparecen los chips con la cuenta (❤️ 2) y quién reaccionó — tocás tu chip y la quitás
+- ↪️ **Reenviar**: en el mismo menú ⋯ mandás el mensaje **al grupo o en privado** a cualquiera conectado. Lo reenviado marca “↪️ reenviado”
+- 🗑️ **Borrar**: borrás **tus propios** mensajes para todos; queda el cartel “🚫 Este mensaje fue eliminado” como en WhatsApp
+- 💾 **Guardar imágenes**: fotos, dibujos y GIFs se descargan a tu dispositivo (botón 💾 del menú ⋯ o de la imagen ampliada). En iPhone: mantener apretada la imagen → Guardar
+- ⭐ **Guardar en favoritos**: los stikers y GIFs que mandan otros los guardás con ⋯ → ⭐ y quedan en la pestaña **⭐ Guardados** del picker para usarlos vos también
+- 👻 **Todos en la lista (v14)**: los usuarios aparecen **aunque estén desconectados** — el panel los muestra abajo con “⚪ Visto hace X”. Le escribís igual y cuando entre le salta el aviso “💬 N mensajes nuevos” + el 🔴 en tu nombre. Si tiene el chat abierto en segundo plano, le llega la notificación al toque
+- 💬 **Botón CHAT GRUPAL (v14)**: para volver de un privado a la sala de todos hay un botón grande **← CHAT GRUPAL** arriba, un chip **💬 GRUPO** primero en la franja del cel y una fila **💬 CHAT GRUPAL** arriba del panel de contactos. Se acabó la flechita chiquita que no se veía. Y si le hablás a alguien desconectado, la barra te avisa “⚪ desconectado — le llega cuando entre”
+- 🔒 **Chat privado 1 a 1**: tocá cualquier usuario del panel (o su 💬) y abrís una conversación aparte que solo ven ustedes dos, con aviso de mensajes sin leer (🔴) y zumbido privado. Botón **← CHAT GRUPAL** para volver a la sala de todos
 - 🔔 **Notificaciones estilo WhatsApp**: con el chat en segundo plano (otra app, otra pestaña o el cel bloqueado) te llega el aviso del sistema — mensajes, privados 🔒, zumbidos 📳 y “🟢 Fulano se conectó”. Tocás el aviso y saltás al chat (si era privado, se abre solo esa conversación). La campanita 🔔 de la barra de arriba las enciende o apaga
 - 📲 PWA instalable (manifest + service worker incluidos)
 
@@ -28,7 +39,7 @@ Chat en vivo **aparte** de sikodark radio, con la estética de siempre (negro + 
 /                        ← raíz del repo
 ├── index.html           ← toda la app (HTML + CSS + JS en un solo archivo)
 ├── manifest.json        ← configuración PWA
-├── sw.js                ← service worker (cache sikodark-chat-v10)
+├── sw.js                ← service worker (cache sikodark-chat-v15)
 ├── logo-blanco.png      ← logo SiKO CHAT transparente (se ve en modo oscuro)
 ├── logo-negro.png       ← logo para el modo claro
 ├── logo-cara.png        ← la carita del logo (barra de título)
@@ -45,6 +56,14 @@ Chat en vivo **aparte** de sikodark radio, con la estética de siempre (negro + 
 ├── README.md            ← este archivo
 └── firestore-reglas.txt ← reglas a pegar en Firebase si usás reglas cerradas
 ```
+
+### 🔑 ¿Cómo cambio la contraseña?
+
+1. Abrí `index.html`, buscá con Ctrl+F la palabra `CLAVE_CHAT` (está cerca del inicio del `<script>`, con un cartelito 🔑).
+2. Cambiá la línea `var CLAVE_CHAT = 'siko123';` y poné tu clave entre las comillas. Ej: `var CLAVE_CHAT = 'sikolaplata2026';`
+3. Commit y listo: la próxima vez que alguien entre le va a pedir la nueva (los que ya la tenían guardada también, así que avisale a la banda).
+
+> Ojo: es una puerta para que entre solo la gente invitada, no una cuenta por persona. La clave viaja en el código de la página, así que alguien muy mañoso podría verla — para cuentas individuales con baneos está el **panel de administración** (próximo paso).
 
 ### 🎞️ ¿Cómo agrego más GIFs?
 
@@ -86,7 +105,14 @@ Si tus reglas de Firestore ya están abiertas (`allow read, write: if true`), no
 - El botón 📤 usa `navigator.share` (el compartir nativo del celu); si el navegador no lo tiene, abre WhatsApp con el texto listo (`wa.me`).
 - Los chats privados van en la MISMA colección `chat_mensajes` con un campo `para` (el uid del otro). Cada cel solo MUESTRA los suyos. Ojo: como no hay cuentas/login, la privacidad es de la app, no del servidor — privacidad total real necesitaría registro de usuarios.
 - Anti-spam: 1 mensaje/imagen/stiker cada 1,2 s y un zumbido cada 12 s.
+- **Contraseña**: se valida en el dispositivo comparando con `CLAVE_CHAT` (sin distinguir mayúsculas). Se guarda en `localStorage` (`siko_chat_clave`) y se precarga la próxima vez. No consume Firebase ni reglas nuevas.
+- **Instalar app**: usa el evento `beforeinstallprompt` (Chrome/Edge/Samsung: botón nativo de instalación) y `appinstalled` para avisar. En iOS no existe ese evento: el botón muestra la receta de Safari. Si ya está instalada (modo standalone) el botón no aparece.
 - **Modos de diseño**: todo el CSS usa variables (`--naranja`, `--fondo`, `--panel`…). El modo y el color se guardan en el dispositivo (`siko_chat_tema` / `siko_chat_color`) y se aplican cambiando clases en el `body` (`tema-claro`, `color-verde`…). Para agregar otro color alcanza con una línea `body.color-xxx{--naranja:...;--naranja-osc:...;--acento-rgb:...}` + una entrada en `COLORES_TEMA` del index.html.
 - **Notificaciones**: usan la Notification API del navegador + el service worker (sin Firebase Cloud Messaging). Avisan mientras la web del chat está abierta, aunque la tengas en otra app, otra pestaña o con el cel bloqueado. Si el chat está COMPLETAMENTE cerrado no hay aviso (eso necesita un servidor de push — FCM — es el paso siguiente). En iPhone hay que instalar el chat a la pantalla de inicio (botón Compartir → “Agregar a inicio”, iOS 16.4 o más nuevo) para que iOS permita los avisos. La campanita 🔔 de la barra de título enciende/apaga por dispositivo.
+- **Conectados en el cel**: en pantallas de menos de 620 px el panel lateral se convierte en cajón deslizable, y arriba del chat hay una **franja de chips** que se arma sola con los conectados (misma lista que pinta el panel, reutiliza `pintarContactos`). Fix importante: el botón 👥 está dentro de `#zonaChat`, y el clic que lo cierra al tocar el chat **burbujeaba** y cerraba el cajón al instante — por eso en vertical nunca se veían los conectados. Ahora el guard ignora los clics que vienen del botón.
+- **Contactos completos (v14)**: el panel ya no filtra por ping fresco — escucha TODA la colección `chat_usuarios` (los fantasmas se borran a las 24 h, ahí sí desaparecen). Estado: conectado = ping ≤ 65 s (verde/naranja), desconectado = gris con “Visto hace X”. Los mensajes pendientes se calculan con `localStorage siko_chat_visto` (uid → cuándo leíste esa conversación por última vez): al entrar, los privados para vos más nuevos que esa marca cuentan como sin leer y avisan con una tostada. Al abrir la conversación se marca leído. Sin colecciones ni reglas nuevas de Firestore. El aviso “🟢 se conectó” ahora solo salta cuando alguien pasa de desconectado a conectado de verdad.
+- **Pizarrita Paint (v15)**: herramientas ✏️ lápiz, 🖌️ pincel (grosor ×3), 🪣 **bote de pintura** (rellena la mancha tocada con un flood-fill scanline propio con tolerancia 42, sin librerías), 🧽 goma (×4 pintando del color del fondo) y ↩️ deshacer (hasta 12 fotos del lienzo con `getImageData`/`putImageData`). Paleta de 14 colores, botones más grandes para dedos chicos. Todo corre en el dispositivo: no toca Firebase ni agrega colecciones.
+- **Portada limpia (v13)**: se sacaron los carteles de la pantalla de ingreso (“El Messenger de la radio”, “Tu nombre, la clave de la casa…”, el 💡 de “se guarda tu nombre…” y el de “la clave la comparte la banda”) y el logo de bienvenida bajó de 250 px a 200 px (`min(200px,55vw)`). Solo HTML/CSS: no toca Firebase ni reglas.
+- **Reacciones, reenviar y borrar (v12)**: viven dentro del MISMO documento de `chat_mensajes` — las reacciones se guardan en un campo `reacc` (mapa emoji → lista de uids) con `update()`, el borrado marca `borrado:true` y vacía el contenido (queda la lápida para todos). **No hay colecciones ni reglas nuevas de Firestore.** El listener ahora también atiende cambios `modified` (antes solo `added`) y re-pinta manteniendo tu lugar de lectura. El botón ⋯, los chips de reacción y el menú usan delegación de clic en `cintaMsj` (funciona con mensajes viejos nuevos). Favoritos: localStorage `siko_chat_favs` (máx 40, por dispositivo).
 - `.nojekyll` evita que GitHub Pages procese los archivos con Jekyll.
-- Para actualizar el chat: cambiá `index.html` y subí el número de cache en `sw.js` (`sikodark-chat-v10` → `v11`…).
+- Para actualizar el chat: cambiá `index.html` y subí el número de cache en `sw.js` (`sikodark-chat-v15` → `v16`…).

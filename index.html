@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- SikoChat v10 · logo nuevo en bienvenida/barra + modos de diseño (oscuro/claro + 6 colores) + perfil + stikers/gifs/fotos + tonos + radio en vivo + compartir + chat privado + notificaciones -->
+<!-- SikoChat v15 · PIZARRITA PAINT: bote de pintura 🪣 + pincel 🖌️ + deshacer ↩️ + 14 colores para los peques · + TODOS en la lista (desconectados con visto hace) + avisos de pendientes al entrar + botón CHAT GRUPAL · + portada limpia + reacciones ❤️ + reenviar ↪️ + borrar 🗑️ + favoritos ⭐ + conectados en cel + logo + contraseña + instalar + temas + perfil + stikers/gifs/fotos + tonos + radio + privado + notificaciones -->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -95,7 +95,7 @@ button{font-family:'Montserrat',sans-serif}
   width:min(92vw,420px);background:var(--caja);border:2px solid var(--naranja);border-radius:16px;
   padding:26px 24px;text-align:center;box-shadow:0 0 50px rgba(var(--acento-rgb),.22);
 }
-.logoBienvenida{width:min(250px,68vw);height:auto;display:block;margin:2px auto 12px}
+.logoBienvenida{width:min(200px,55vw);height:auto;display:block;margin:6px auto 14px}
 body.tema-claro .logoOscuro{display:none}
 .logoClaro{display:none}
 body.tema-claro .logoClaro{display:block}
@@ -106,6 +106,11 @@ body.tema-claro .logoClaro{display:block}
   color:var(--tx1);font-family:'Montserrat',sans-serif;font-weight:700;font-size:15px;
 }
 .campo:focus{outline:none;border-color:var(--naranja)}
+.cajaClave{position:relative}
+.cajaClave .campo{padding-right:48px;letter-spacing:2px}
+.btnVerClave{position:absolute;right:5px;top:50%;transform:translateY(-50%);background:none;border:none;font-size:17px;cursor:pointer;padding:6px;line-height:1;opacity:.7;font-family:inherit}
+.btnVerClave:hover{opacity:1}
+.loginCaja.temblando{animation:temblor .55s ease 2}
 .gridAvatares{display:grid;grid-template-columns:repeat(8,1fr);gap:6px}
 .av{
   background:var(--panel2);border:2px solid transparent;border-radius:10px;font-size:18px;
@@ -161,7 +166,9 @@ body.tema-claro .logoClaro{display:block}
 }
 .miAvatar{
   width:44px;height:44px;border-radius:10px;background:var(--fondo);border:2px solid var(--naranja);
+  background-size:cover;background-position:center;background-repeat:no-repeat;
   display:grid;place-items:center;font-size:22px;cursor:pointer;flex-shrink:0;
+  overflow:hidden;
 }
 .miDatos{min-width:0}
 .miNombre{font-size:14px;font-weight:900;color:var(--naranja);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -186,13 +193,61 @@ body.tema-claro .logoClaro{display:block}
 .dot{width:9px;height:9px;border-radius:50%;display:inline-block;flex-shrink:0}
 .dot.online{background:#3ddc84;box-shadow:0 0 6px rgba(61,220,132,.7)}
 .dot.ausente{background:var(--naranja);opacity:.75}
+.dot.offline{background:#7a7a7a;opacity:.85}
 .cAvatar{font-size:18px;flex-shrink:0}
 .cInfo{min-width:0;display:flex;flex-direction:column}
 .cNombre{font-size:12.5px;font-weight:800;color:var(--tx1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .chipYo{color:var(--naranja);font-size:9px}
 .cSub{font-size:10px;color:var(--tx3)}
+.cVisto{color:var(--tx4)}
+.divisorContactos{font-size:9px;font-weight:800;color:var(--tx4);letter-spacing:1.5px;padding:12px 8px 4px;text-transform:uppercase}
+.filaGrupal{display:flex;align-items:center;gap:8px;padding:9px 10px;margin:4px 6px 8px;border:1.5px solid var(--naranja);border-radius:10px;cursor:pointer;font-weight:800;color:var(--naranja);background:rgba(var(--acento-rgb),.07);font-size:12px}
+.filaGrupal:hover{background:rgba(var(--acento-rgb),.18)}
 .escribiendoTxt{color:var(--naranja);font-weight:700}
 .vacio{color:var(--tx4);font-size:12px;text-align:center;padding:22px 10px;line-height:1.6}
+
+/* ============ FRANJA DE CONECTADOS (SIEMPRE VISIBLE EN CEL VERTICAL) ============ */
+#franjaConectados{
+  display:none;align-items:center;gap:8px;padding:7px 10px;flex-shrink:0;
+  background:var(--barra);border-bottom:1px solid var(--borde);
+}
+.franjaTitulo{
+  font-size:10px;font-weight:900;letter-spacing:1px;color:var(--naranja);
+  display:flex;align-items:center;gap:4px;flex-shrink:0;
+}
+.franjaChips{
+  display:flex;gap:7px;overflow-x:auto;min-width:0;
+  -webkit-overflow-scrolling:touch;scrollbar-width:thin;
+}
+.chipConectado{
+  display:flex;align-items:center;gap:6px;padding:4px 10px 4px 5px;border-radius:20px;
+  background:var(--panel2);border:1px solid var(--borde2);cursor:pointer;flex-shrink:0;
+  font-family:inherit;
+}
+.chipConectado:active{border-color:var(--naranja);background:rgba(var(--acento-rgb),.12)}
+.chipAvatar{
+  width:26px;height:26px;border-radius:50%;background:var(--fondo);
+  border:1.5px solid var(--borde3);display:grid;place-items:center;font-size:14px;
+  overflow:hidden;flex-shrink:0;
+}
+.chipNombre{
+  font-size:11px;font-weight:800;color:var(--tx1);max-width:86px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.chipPunto{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.chipPunto.online{background:#3ddc84;box-shadow:0 0 5px rgba(61,220,132,.7)}
+.chipPunto.ausente{background:var(--naranja);opacity:.75}
+.chipPunto.offline{background:#7a7a7a;opacity:.85}
+.chipGrupo{border:1.5px solid var(--naranja);color:var(--naranja);font-weight:800}
+.chipBadge{
+  background:#e53935;color:#fff;font-size:9px;font-weight:900;
+  min-width:16px;height:16px;border-radius:8px;display:grid;place-items:center;padding:0 4px;
+}
+.franjaVacio{font-size:10.5px;color:var(--tx4);font-weight:700;white-space:nowrap}
+
+/* velo oscuro detrás del panel cuando se abre como cajón en el cel */
+#veloDrawer{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:54}
+#veloDrawer.ver{display:block}
 
 #zonaChat{flex:1;display:flex;flex-direction:column;min-width:0}
 .cintaMsj{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
@@ -334,6 +389,9 @@ body.tema-claro .logoClaro{display:block}
 #barraPrivado .cAvatar{font-size:20px}
 .privNombre{font-size:13px;font-weight:900;color:var(--tx1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .privSub{font-size:10px;color:#4db2e8;font-weight:800;margin-top:1px}
+.btnGrupo{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:9px;border:2px solid var(--naranja);background:rgba(var(--acento-rgb),.12);color:var(--naranja);font-family:inherit;font-weight:800;font-size:11px;cursor:pointer;white-space:nowrap;flex-shrink:0}
+.btnGrupo:hover{background:rgba(var(--acento-rgb),.28)}
+.fgSub{font-size:10px;font-weight:600;color:var(--tx4)}
 .contacto.clicable{cursor:pointer}
 .contacto.clicable:hover{background:rgba(var(--acento-rgb),.08)}
 .badgePriv{background:#e5484d;color:#fff;font-size:9.5px;font-weight:900;border-radius:999px;padding:2px 6px;margin-left:auto;flex-shrink:0}
@@ -359,11 +417,11 @@ body.tema-claro .logoClaro{display:block}
   -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;
 }
 .herrDibujo{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:580px}
-.colorBtn{width:30px;height:30px;border-radius:50%;border:2px solid var(--borde2);cursor:pointer;padding:0}
+.colorBtn{width:34px;height:34px;border-radius:50%;border:2px solid var(--borde2);cursor:pointer;padding:0}
 .colorBtn.sel{border-color:var(--contra);transform:scale(1.15)}
 .btnDibujo{
-  background:var(--panel2);border:1px solid var(--borde2);color:var(--tx1);padding:7px 10px;border-radius:9px;
-  font-size:12px;font-weight:800;cursor:pointer;
+  background:var(--panel2);border:1px solid var(--borde2);color:var(--tx1);padding:9px 12px;border-radius:9px;
+  font-size:13px;font-weight:800;cursor:pointer;
 }
 .btnDibujo:hover{border-color:var(--naranja)}
 .btnDibujo.activo{background:rgba(var(--acento-rgb),.18);border-color:var(--naranja);color:var(--naranja)}
@@ -377,7 +435,8 @@ body.tema-claro .logoClaro{display:block}
 
 /* ============ LIGHTBOX + TOAST ============ */
 #lightbox{
-  position:fixed;inset:0;background:rgba(0,0,0,.94);z-index:90;display:grid;place-items:center;
+  position:fixed;inset:0;background:rgba(0,0,0,.94);z-index:90;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
   cursor:zoom-out;
 }
 #lightboxImg{max-width:92vw;max-height:82vh;border-radius:10px;border:2px solid var(--naranja)}
@@ -389,17 +448,81 @@ body.tema-claro .logoClaro{display:block}
 }
 #toast.visible{opacity:1;transform:translate(-50%,0)}
 
+/* ============ REACCIONES + MENÚ DE MENSAJE (v12) ============ */
+.fila{display:flex;gap:6px}
+.msjCol{max-width:78%;min-width:0;display:flex;flex-direction:column;gap:4px}
+.msjCol .burbuja{max-width:100%}
+@media (max-width:620px){ .msjCol{max-width:86%} }
+.btnMsjMenu{
+  width:27px;height:27px;border-radius:50%;background:var(--panel2);border:1px solid var(--borde2);
+  color:var(--tx3);font-size:14px;cursor:pointer;align-self:center;flex-shrink:0;
+  line-height:1;padding:0;font-family:inherit;font-weight:900;
+}
+.btnMsjMenu:hover{border-color:var(--naranja);color:var(--naranja)}
+.reaccFila{display:flex;flex-wrap:wrap;gap:4px;padding:0 4px}
+.chipReacc{
+  background:var(--burb);border:1px solid var(--borde2);border-radius:12px;padding:2px 8px;
+  font-size:11.5px;font-weight:800;color:var(--tx2);cursor:pointer;
+  display:flex;align-items:center;gap:3px;font-family:inherit;
+}
+.chipReacc .reN{font-size:10px}
+.chipReacc.mia{border-color:var(--naranja);background:rgba(var(--acento-rgb),.16);color:var(--tx1)}
+.fila .burbujaBorrada{
+  background:var(--panel2)!important;border:1px dashed var(--borde2)!important;
+  color:var(--tx3)!important;font-style:italic;border-radius:12px;
+}
+#sheetMsj{
+  position:fixed;inset:0;background:rgba(0,0,0,.62);z-index:88;
+  display:flex;align-items:flex-end;justify-content:center;padding:10px;
+}
+@media (min-width:621px){ #sheetMsj{align-items:center} }
+.sheetCaja{
+  background:var(--caja);border:2px solid var(--naranja);border-radius:16px;padding:12px;
+  width:min(94vw,340px);box-shadow:0 14px 50px rgba(0,0,0,.6);
+}
+.sheetTitulo{font-size:11px;font-weight:800;color:var(--tx3);margin-bottom:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sheetReacc{display:flex;justify-content:space-between;gap:4px;margin-bottom:10px}
+.shReaccBtn{
+  font-size:24px;background:none;border:1.5px solid transparent;border-radius:12px;
+  cursor:pointer;padding:6px 7px;line-height:1;font-family:inherit;
+}
+.shReaccBtn.mia{border-color:var(--naranja);background:rgba(var(--acento-rgb),.16)}
+.sheetAcc{display:flex;flex-direction:column;gap:6px;margin-bottom:8px}
+.sheetAcc button{
+  display:flex;align-items:center;gap:9px;background:var(--panel2);border:1px solid var(--borde2);
+  color:var(--tx1);padding:11px 12px;border-radius:10px;font-family:inherit;font-size:13px;
+  font-weight:800;cursor:pointer;text-align:left;
+}
+.sheetAcc button:hover{border-color:var(--naranja)}
+.sheetAcc button.peligro{color:#ff6b6b}
+.sheetAcc button.oculto{display:none}
+.sheetCancelar{width:100%;background:none;border:none;color:var(--tx3);font-family:inherit;font-weight:800;font-size:12.5px;padding:8px;cursor:pointer}
+.listaReenvio{display:flex;flex-direction:column;gap:6px;max-height:300px;overflow-y:auto}
+.filaReenvio{
+  display:flex;align-items:center;gap:10px;background:var(--panel2);border:1px solid var(--borde2);
+  border-radius:10px;padding:10px 12px;cursor:pointer;font-family:inherit;color:var(--tx1);
+}
+.filaReenvio:hover{border-color:var(--naranja)}
+.favItem{position:relative;display:inline-block}
+.favQuitar{
+  position:absolute;top:-5px;right:-5px;width:17px;height:17px;border-radius:50%;
+  background:#e53935;color:#fff;font-size:9px;font-weight:900;border:none;cursor:pointer;
+  display:grid;place-items:center;padding:0;line-height:1;
+}
+
 /* ============ MÓVIL ============ */
 @media (max-width:620px){
   #app{padding:0}
   .ventana{width:100vw;height:100vh;max-height:none;border-radius:0;border:none}
   @supports (height:100dvh){.ventana{height:100dvh}}
+  #franjaConectados{display:flex}
   #panelContactos{
     position:fixed;left:0;top:0;bottom:0;z-index:55;transform:translateX(-105%);
     transition:transform .25s ease;box-shadow:8px 0 30px rgba(0,0,0,.65);
   }
   #panelContactos.abierto{transform:none}
   #btnContactos{display:flex}
+  .barraAcciones{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
   .btnAccion{padding:7px 8px;font-size:11px}
   #msj{height:42px}
   #btnEnviar{padding:0 14px;font-size:12px}
@@ -414,14 +537,17 @@ body.tema-claro .logoClaro{display:block}
   <div class="loginCaja">
     <img src="logo-blanco.png" class="logoBienvenida logoOscuro" alt="SiKO CHAT">
     <img src="logo-negro.png" class="logoBienvenida logoClaro" alt="SiKO CHAT">
-    <p class="subLogin">El Messenger de la radio 🖤🧡<br>Sin registro: solo decinos cómo te llamás</p>
     <label class="etiqueta" for="inputNombre">TU NOMBRE EN EL CHAT</label>
     <input id="inputNombre" class="campo" maxlength="18" placeholder="Ej: SikoFan23" autocomplete="off">
+    <label class="etiqueta" for="inputClave">CONTRASEÑA DEL CHAT 🔑</label>
+    <div class="cajaClave">
+      <input id="inputClave" type="password" class="campo" placeholder="La clave que te pasó el admin" autocomplete="off">
+      <button id="btnVerClave" type="button" class="btnVerClave" title="Mostrar u ocultar la clave">👁</button>
+    </div>
     <label class="etiqueta">ELEGÍ TU CARITA</label>
     <div id="gridAvatares" class="gridAvatares"></div>
     <button id="btnEntrar" class="btnPrincipal">ENTRAR AL CHAT ▶</button>
     <button id="btnInstalar" class="btnSec oculto">📥 INSTALAR COMO APP</button>
-    <p class="notaLogin">💡 Se guarda tu nombre en este dispositivo nomás.<br>Nada de contraseñas, nada de registros.</p>
   </div>
 </div>
 
@@ -452,13 +578,18 @@ body.tema-claro .logoClaro{display:block}
     <div class="cuerpo">
 
       <aside id="panelContactos">
-        <div class="cabContactos">👥 CONECTADOS <span id="cantConectados">(0)</span></div>
+        <div class="cabContactos">👥 CONTACTOS <span id="cantConectados">(0)</span></div>
         <div class="listaContactos" id="listaContactos">
           <p class="vacio">Buscando gente… 📡</p>
         </div>
       </aside>
 
       <main id="zonaChat">
+        <!-- v11: franja de conectados siempre visible en el cel (vertical) -->
+        <div id="franjaConectados">
+          <span class="franjaTitulo">👥 <span id="cantFranja">0</span></span>
+          <div class="franjaChips" id="franjaChips"><span class="franjaVacio">Buscando gente… 📡</span></div>
+        </div>
         <div id="barraRadio" class="oculto">
           <button id="btnPlayRadio" class="btnPlayRadio" type="button">▶</button>
           <div class="radioInfo">
@@ -469,11 +600,11 @@ body.tema-claro .logoClaro{display:block}
           <button id="btnCerrarRadio" class="btnMiniRadio" type="button" title="Ocultar barra">✕</button>
         </div>
         <div id="barraPrivado" class="oculto">
-          <button id="btnVolverGrupo" class="btnMiniRadio" type="button" title="Volver al chat grupal">←</button>
+          <button id="btnVolverGrupo" class="btnGrupo" type="button" title="Volver al chat grupal">← CHAT GRUPAL</button>
           <div class="cAvatar" id="privAvatar">🙂</div>
           <div class="radioInfo">
             <div class="privNombre" id="privNombre">—</div>
-            <div class="privSub">🔒 chat privado · solo lo ven ustedes dos</div>
+            <div class="privSub" id="privSub">🔒 chat privado · solo lo ven ustedes dos</div>
           </div>
         </div>
         <div class="cintaMsj" id="cintaMsj">
@@ -499,6 +630,7 @@ body.tema-claro .logoClaro{display:block}
 
     </div>
   </div>
+  <div id="veloDrawer"></div>
 </div>
 
 <!-- ================= PICKER DE EMOTICONS / STIKERS / GIFS ================= -->
@@ -507,6 +639,7 @@ body.tema-claro .logoClaro{display:block}
     <button class="tabEmotis activo" data-tab="tabEmotis" type="button">😀 Emotis</button>
     <button class="tabEmotis" data-tab="tabStikers" type="button">🎟️ Stikers</button>
     <button class="tabEmotis" data-tab="tabGifs" type="button">🎞️ GIFs</button>
+    <button class="tabEmotis" data-tab="tabFavs" type="button">⭐ Guardados</button>
   </div>
   <div id="tabEmotis" class="gridEmotis"></div>
   <div id="tabStikers" class="gridStikers oculto"></div>
@@ -515,20 +648,31 @@ body.tema-claro .logoClaro{display:block}
     <div class="gridGifs" id="gridGifs"></div>
     <p class="gifNota">Stikers animados hechos para Sikodark 🧡 · para mandar una foto tuya tocá 📂 de arriba o el botón <b>📷 Foto/GIF</b></p>
   </div>
+  <div id="tabFavs" class="oculto">
+    <p class="gifNota oculto" id="favsNota"></p>
+    <div id="gridFavsStk" class="gridStikers"></div>
+    <div id="gridFavsGif" class="gridGifs"></div>
+  </div>
 </div>
 
-<!-- ================= PIZARRITA (LÁPIZ) ================= -->
+<!-- ================= PIZARRITA PAINT (LÁPIZ · PINCEL · BOTE) ================= -->
 <div id="overlayDibujo" class="oculto">
-  <div class="dibujoTitulo">✏️ PIZARRITA — dibujá con el lápiz y mandalo</div>
+  <div class="dibujoTitulo">🎨 PIZARRITA — dibujá, pintá y mandalo</div>
   <canvas id="lienzo" width="480" height="360"></canvas>
-  <div class="herrDibujo" id="herrColores"></div>
-  <div class="herrDibujo">
-    <button class="btnDibujo btnGrosor activo" data-grosor="3">✏️ Fino</button>
-    <button class="btnDibujo btnGrosor" data-grosor="5">🖊️ Medio</button>
-    <button class="btnDibujo btnGrosor" data-grosor="10">🖌️ Grueso</button>
-    <button class="btnDibujo" id="btnGoma">🧽 Goma</button>
-    <button class="btnDibujo" id="btnLimpiarDibujo">🗑️ Limpiar</button>
+  <div class="herrDibujo" id="herrHerram">
+    <button class="btnDibujo btnHerr activo" data-herr="lapiz" type="button">✏️ Lápiz</button>
+    <button class="btnDibujo btnHerr" data-herr="pincel" type="button">🖌️ Pincel</button>
+    <button class="btnDibujo btnHerr" data-herr="bote" type="button">🪣 Bote</button>
+    <button class="btnDibujo btnHerr" data-herr="goma" type="button">🧽 Goma</button>
+    <button class="btnDibujo" id="btnDeshacer" type="button">↩️ Deshacer</button>
+    <button class="btnDibujo" id="btnLimpiarDibujo" type="button">🗑️ Limpiar</button>
   </div>
+  <div class="herrDibujo" id="herrGrosor">
+    <button class="btnDibujo btnGrosor activo" data-grosor="3" type="button">✏️ Fino</button>
+    <button class="btnDibujo btnGrosor" data-grosor="5" type="button">🖊️ Medio</button>
+    <button class="btnDibujo btnGrosor" data-grosor="10" type="button">🖌️ Grueso</button>
+  </div>
+  <div class="herrDibujo" id="herrColores"></div>
   <div class="accionesDibujo">
     <button class="btnDibujoGhost" id="btnCancelarDibujo">Cancelar</button>
     <button class="btnPrincipal" id="btnEnviarDibujo">ENVIAR DIBUJO 🎨</button>
@@ -603,7 +747,31 @@ body.tema-claro .logoClaro{display:block}
 </div>
 
 <!-- ================= LIGHTBOX ================= -->
-<div id="lightbox" class="oculto"><img id="lightboxImg" alt="Dibujo ampliado"></div>
+<div id="lightbox" class="oculto"><img id="lightboxImg" alt="Dibujo ampliado"><button id="btnGuardarLightbox" class="btnSec" type="button" onclick="event.stopPropagation()">💾 Guardar imagen</button></div>
+
+<!-- v12: menú de mensaje (reacciones · reenviar · guardar · borrar) -->
+<div id="sheetMsj" class="oculto">
+  <div class="sheetCaja">
+    <div class="sheetTitulo" id="sheetTitulo">⋯</div>
+    <div class="sheetReacc" id="sheetReacc"></div>
+    <div class="sheetAcc">
+      <button id="shReenviar" type="button">↪️ Reenviar</button>
+      <button id="shGuardar" type="button">💾 Guardar imagen</button>
+      <button id="shFavorito" type="button">⭐ Guardar en favoritos</button>
+      <button id="shBorrar" type="button" class="peligro">🗑️ Borrar para todos</button>
+    </div>
+    <button id="shCancelar" type="button" class="sheetCancelar">Cancelar</button>
+  </div>
+</div>
+
+<!-- v12: elegir a quién reenviar -->
+<div id="modalReenviar" class="overlayModal oculto">
+  <div class="cajaModal">
+    <div class="modalTitulo">↪️ REENVIAR A…</div>
+    <div id="listaReenvio" class="listaReenvio"></div>
+    <div class="modalAcc"><button id="btnCerrarReenvio" class="btnSec" type="button">Cancelar</button></div>
+  </div>
+</div>
 
 <!-- ================= TOAST ================= -->
 <div id="toast"></div>
@@ -612,10 +780,11 @@ body.tema-claro .logoClaro{display:block}
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
 /* ============================================================
-   SIKODARK CHAT — ESTILO MSN MESSENGER · v8
-   Sin registro · conectados en vivo · lápiz · zumbido · emotis
-   fotos · gifs · stikers · perfil con foto · tonos elegibles
-   radio en vivo (stream Zeno + canción al aire)
+   SIKODARK CHAT — ESTILO MSN MESSENGER · v10
+   Contraseña de entrada · instalar como app · conectados en vivo
+   lápiz · zumbido · emotis · fotos · gifs · stikers · perfil
+   tonos · temas (oscuro/claro + colores) · radio en vivo
+   notificaciones · chat privado
    Hecho con amor para sikodark radio 🖤🧡
    ============================================================ */
 
@@ -688,15 +857,23 @@ function fotoSegura(f){
 }
 
 var timerToast = null;
-function toast(msg){
+function toast(msg, ms){
   var t = $('toast');
   t.textContent = msg;
   t.classList.add('visible');
   clearTimeout(timerToast);
-  timerToast = setTimeout(function(){ t.classList.remove('visible'); }, 2600);
+  timerToast = setTimeout(function(){ t.classList.remove('visible'); }, ms || 2600);
 }
 
-/* ---------- 3 · LOGIN (SIN REGISTRO, SOLO NOMBRE) ---------- */
+/* ---------- 3 · LOGIN (CONTRASEÑA DE LA CASA + NOMBRE) ---------- */
+
+/* 🔑 ============================================ 🔑
+   CONTRASEÑA DEL CHAT — CAMBIALA ACÁ ↓
+   Poné entre comillas la clave que quieras y
+   avisale a la banda. Ej: 'siko123' o 'laplata2026'
+   🔑 ============================================ 🔑 */
+var CLAVE_CHAT = 'siko123';
+
 function pintarAvatares(){
   var g = $('gridAvatares');
   g.innerHTML = '';
@@ -713,8 +890,29 @@ function pintarAvatares(){
 
 $('btnEntrar').onclick = entrar;
 $('inputNombre').addEventListener('keydown', function(e){ if (e.key === 'Enter') entrar(); });
+$('inputClave').addEventListener('keydown', function(e){ if (e.key === 'Enter') entrar(); });
+
+/* 👁 mostrar / ocultar la clave */
+$('btnVerClave').onclick = function(){
+  var c = $('inputClave');
+  var ver = c.type === 'password';
+  c.type = ver ? 'text' : 'password';
+  this.textContent = ver ? '🙈' : '👁';
+};
 
 function entrar(){
+  var clave = ($('inputClave').value || '').trim();
+  if (clave.toLowerCase() !== String(CLAVE_CHAT).trim().toLowerCase()) {
+    toast('❌ Clave incorrecta — te la pasó quien te invitó al chat');
+    var caja = document.querySelector('.loginCaja');
+    caja.classList.remove('temblando');
+    void caja.offsetWidth;
+    caja.classList.add('temblando');
+    $('inputClave').focus();
+    $('inputClave').select();
+    return;
+  }
+  localStorage.setItem('siko_chat_clave', clave);
   var nombre = $('inputNombre').value.trim().replace(/\s+/g, ' ');
   if (nombre.length < 2) {
     toast('✏️ Poné un nombre de al menos 2 letras, che');
@@ -789,9 +987,28 @@ for (var ia = 0; ia < EV_ACT.length; ia++) {
   }, { passive: true });
 }
 
-/* ---------- 5 · PANEL DE CONECTADOS ---------- */
+/* ---------- 5 · PANEL DE CONTACTOS (v14: conectados + desconectados con "visto hace") ---------- */
 var usuariosListaActual = [];
+var usuariosPorId = {};
 var nombresCache = {};
+/* v14: hasta cuándo leí cada conversación → mensajes pendientes cuando entrás */
+var vistoConv = {};
+try { vistoConv = JSON.parse(localStorage.getItem('siko_chat_visto') || '{}') || {}; } catch (e) { vistoConv = {}; }
+function guardarVistos(){ try { localStorage.setItem('siko_chat_visto', JSON.stringify(vistoConv)); } catch (e) {} }
+var backfillHecho = false;
+var avisosPendientes = {};
+var nombresPend = {};
+function vistoHace(ms){
+  if (!ms) return 'hace mucho';
+  var s = Math.floor((Date.now() - ms) / 1000);
+  if (s < 90) return 'hace un rato';
+  var m2 = Math.floor(s / 60);
+  if (m2 < 60) return 'hace ' + m2 + ' min';
+  var h2 = Math.floor(m2 / 60);
+  if (h2 < 24) return 'hace ' + h2 + (h2 === 1 ? ' hora' : ' horas');
+  var d2 = Math.floor(h2 / 24);
+  return 'hace ' + d2 + (d2 === 1 ? ' día' : ' días');
+}
 function escucharUsuarios(){
   db.collection(COL_USUARIOS).onSnapshot(function(snap){
     var ahora = Date.now(), lista = [];
@@ -799,48 +1016,115 @@ function escucharUsuarios(){
       var u = d.data();
       if (!u.ping || !u.ping.toMillis) return;
       var ms = u.ping.toMillis();
-      if (ahora - ms > 65000) return; /* sin ping reciente = desconectado */
       u._id = d.id;
+      u._ms = ms;
+      u._fresco = (ahora - ms) <= 65000; /* v14: ¿conectado ahora? — los que no TAMBIÉN entran a la lista */
       var fu = fotoSegura(u.foto);
       if (fu) fotosCache[d.id] = fu;
       lista.push(u);
     });
+    /* v14: conectados arriba (online → ausente), después desconectados por visto hace */
     lista.sort(function(a, b){
-      if (a.estado !== b.estado) return a.estado === 'online' ? -1 : 1;
-      return String(a.nombre || '').localeCompare(String(b.nombre || ''));
+      if (a._fresco !== b._fresco) return a._fresco ? -1 : 1;
+      if (a._fresco && a.estado !== b.estado) return a.estado === 'online' ? -1 : 1;
+      return b._ms - a._ms;
     });
+    usuariosPorId = {};
+    for (var iu = 0; iu < lista.length; iu++) usuariosPorId[lista[iu]._id] = lista[iu];
     pintarContactos(lista);
   }, function(err){
-    toast('⚠️ No pude leer los conectados: ' + err.code);
+    toast('⚠️ No pude leer los contactos: ' + err.code);
   });
 }
 
 function pintarContactos(lista){
   usuariosListaActual = lista;
-  $('cantConectados').textContent = '(' + lista.length + ')';
-  $('cantConectadosMob').textContent = lista.length;
-  $('tituloEstado').textContent = '— ' + lista.length + (lista.length === 1 ? ' conectado' : ' conectados');
+  /* v14: conectado = ping fresco; los demás TAMBIÉN entran a la lista (con "visto hace") */
+  var conect = 0, ic;
+  for (ic = 0; ic < lista.length; ic++) if (lista[ic]._fresco !== false) conect++;
+  $('cantConectados').textContent = '(' + conect + ')';
+  $('cantConectadosMob').textContent = conect;
+  $('tituloEstado').textContent = '— ' + conect + (conect === 1 ? ' conectado' : ' conectados');
+
+  /* v11: franja de chips con los conectados — siempre visible en el cel vertical
+     (antes había que tocar 👥 o girar la pantalla para verlos) */
+  $('cantFranja').textContent = conect;
+  var franja = $('franjaChips');
+  franja.innerHTML = '';
+  /* v14: chip GRUPO siempre primero — un toque y volvés a la sala de todos */
+  var chipG = document.createElement('button');
+  chipG.type = 'button';
+  chipG.className = 'chipConectado chipGrupo';
+  chipG.innerHTML = '<span class="chipAvatar">💬</span><span class="chipNombre">GRUPO</span>';
+  chipG.onclick = volverAlGrupo;
+  franja.appendChild(chipG);
+  var otrosN = 0;
+  for (var fc = 0; fc < lista.length; fc++) {
+    (function(uc){
+      if (uc._id === miId) return; /* yo no salgo como chip */
+      if (uc._fresco === false) return; /* v14: en la franja solo los conectados */
+      otrosN++;
+      var pendF = noLeidos[uc._id] || 0;
+      var chip = document.createElement('button');
+      chip.type = 'button';
+      chip.className = 'chipConectado';
+      chip.innerHTML =
+        '<span class="chipPunto ' + (uc.estado === 'online' ? 'online' : 'ausente') + '"></span>' +
+        '<span class="chipAvatar">' + (fotoSegura(uc.foto) ? '<img class="fotoMini" src="' + escaparAttr(uc.foto) + '" alt="">' : escapar(uc.avatar || '🙂')) + '</span>' +
+        '<span class="chipNombre">' + escapar(uc.nombre || 'Anónimo') + '</span>' +
+        (pendF ? '<span class="chipBadge">' + (pendF > 9 ? '9+' : pendF) + '</span>' : '');
+      chip.onclick = function(){ abrirPrivado(uc._id); };
+      franja.appendChild(chip);
+    })(lista[fc]);
+  }
+  if (!otrosN) {
+    var fv = document.createElement('span');
+    fv.className = 'franjaVacio';
+    fv.textContent = 'Nadie más conectado 😴';
+    franja.appendChild(fv);
+  }
+
   var cont = $('listaContactos');
   cont.innerHTML = '';
+  /* v14: botón CHAT GRUPAL bien visible arriba de todo (adiós a la flechita que no se veía) */
+  var fg = document.createElement('div');
+  fg.className = 'filaGrupal';
+  fg.innerHTML = '💬 CHAT GRUPAL <span class="fgSub">· la sala de todos</span>';
+  fg.onclick = volverAlGrupo;
+  cont.appendChild(fg);
   if (!lista.length) {
-    cont.innerHTML = '<p class="vacio">Nadie más por acá… 😴<br>¡Invitá a la banda a entrar!</p>';
+    var pv = document.createElement('p');
+    pv.className = 'vacio';
+    pv.innerHTML = 'Nadie más por acá… 😴<br>¡Invitá a la banda a entrar!';
+    cont.appendChild(pv);
     return;
   }
+  var divPuesto = false;
   for (var i = 0; i < lista.length; i++) {
     (function(u){
       var esYo = u._id === miId;
+      var fresco = u._fresco !== false;
       nombresCache[u._id] = { nombre: u.nombre, avatar: u.avatar, foto: u.foto };
+      if (!fresco && !divPuesto && !esYo) {
+        divPuesto = true;
+        var dv = document.createElement('div');
+        dv.className = 'divisorContactos';
+        dv.textContent = '— desconectados —';
+        cont.appendChild(dv);
+      }
       var pend = (!esYo && noLeidos[u._id]) ? noLeidos[u._id] : 0;
       var fila = document.createElement('div');
       fila.className = 'contacto' + (esYo ? '' : ' clicable');
       fila.innerHTML =
-        '<span class="dot ' + (u.estado === 'online' ? 'online' : 'ausente') + '"></span>' +
+        '<span class="dot ' + (fresco ? (u.estado === 'online' ? 'online' : 'ausente') : 'offline') + '"></span>' +
         '<span class="cAvatar">' + (fotoSegura(u.foto) ? '<img class="fotoMini" src="' + escaparAttr(u.foto) + '" alt="">' : escapar(u.avatar || '🙂')) + '</span>' +
         '<span class="cInfo">' +
           '<span class="cNombre">' + escapar(u.nombre || 'Anónimo') + (esYo ? ' <b class="chipYo">(vos)</b>' : '') + '</span>' +
-          '<span class="cSub">' + (u.escribiendo && u.estado === 'online' && !esYo
-            ? '<span class="escribiendoTxt">✍️ escribiendo…</span>'
-            : (u.estado === 'online' ? 'En línea' : 'Ausente')) + '</span>' +
+          '<span class="cSub">' + (!fresco
+            ? '<span class="cVisto">⚪ Visto ' + vistoHace(u._ms) + '</span>'
+            : (u.escribiendo && u.estado === 'online' && !esYo
+              ? '<span class="escribiendoTxt">✍️ escribiendo…</span>'
+              : (u.estado === 'online' ? 'En línea' : 'Ausente'))) + '</span>' +
         '</span>' +
         (pend ? '<span class="badgePriv">' + (pend > 9 ? '9+' : pend) + '</span>' : '') +
         (esYo ? '' : '<span class="btnPrivMsj" title="Hablar en privado">💬</span>');
@@ -854,15 +1138,29 @@ function pintarContactos(lista){
 /* ---------- 6 · MENSAJES EN TIEMPO REAL ---------- */
 function escucharMensajes(){
   db.collection(COL_MSJ).orderBy('ts', 'asc').limitToLast(80).onSnapshot(function(snap){
-    var cambio = false, afectaVista = false;
+    var cambio = false, afectaVista = false, huboAdded = false;
     snap.docChanges().forEach(function(c){
-      if (c.type !== 'added') return;
       var id = c.doc.id;
+      /* v12: reacciones/borrado/reenvío llegan como 'modified' → actualizo el cache */
+      if (c.type === 'modified') {
+        for (var q = 0; q < mensajesCache.length; q++) {
+          if (mensajesCache[q]._id === id) {
+            var nm = c.doc.data();
+            nm._id = id;
+            mensajesCache[q] = nm;
+            cambio = true;
+          }
+        }
+        return;
+      }
+      if (c.type !== 'added') return;
       if (vistos[id]) return;
       vistos[id] = true;
       var m = c.doc.data();
+      m._id = id;
       mensajesCache.push(m);
       cambio = true;
+      huboAdded = true;
       var para = m.para || '';
       var msT = (m.ts && m.ts.toMillis) ? m.ts.toMillis() : 0;
       var fresco = Date.now() - msT < 20000;
@@ -871,6 +1169,7 @@ function escucharMensajes(){
           /* mensaje privado para mí */
           aviso('🔒 Privado · ' + (m.nombre || 'alguien'), textoPreview(m), 'priv-' + m.de, { de: m.de });
           if (chatPrivadoId === m.de) {
+            vistoConv[m.de] = Date.now(); guardarVistos(); /* v14: lo estoy leyendo ahora */
             if (m.tipo === 'nudge') zumbidoLocal(m.nombre);
             else if (sonidoActivo) sonidoMsj();
           } else {
@@ -889,14 +1188,38 @@ function escucharMensajes(){
         }
         /* mensaje privado entre otras dos personas: silencio total */
       }
+      /* v14: mensajes privados que me escribieron mientras no estaba → pendientes con aviso al entrar */
+      if (para === miId && m.de !== miId && !backfillHecho && !fresco) {
+        if (msT > (vistoConv[m.de] || 0)) {
+          avisosPendientes[m.de] = (avisosPendientes[m.de] || 0) + 1;
+          nombresPend[m.de] = m.nombre || nombresPend[m.de] || 'alguien';
+          noLeidos[m.de] = (noLeidos[m.de] || 0) + 1;
+        }
+      }
       if (!para && !chatPrivadoId) afectaVista = true;
       else if (chatPrivadoId && ((m.de === miId && para === chatPrivadoId) || (m.de === chatPrivadoId && para === miId))) afectaVista = true;
     });
+    /* v14: primer paquete procesado → tostadas agregadas con lo que me escribieron ausente */
+    if (!backfillHecho) {
+      backfillHecho = true;
+      for (var ap in avisosPendientes) {
+        if (!avisosPendientes.hasOwnProperty(ap)) continue;
+        var nomAp = nombresPend[ap] || (nombresCache[ap] || {}).nombre || 'alguien';
+        toast('💬 ' + avisosPendientes[ap] + (avisosPendientes[ap] === 1 ? ' mensaje nuevo' : ' mensajes nuevos') + ' de ' + nomAp, 4500);
+      }
+    }
     if (mensajesCache.length > 300) mensajesCache = mensajesCache.slice(-200);
     if (cambio) {
+      var cintaEl = $('cintaMsj');
+      var st0 = cintaEl.scrollTop, sh0 = cintaEl.scrollHeight;
       renderizarCinta();
-      if (afectaVista) scrollAbajo(true);
-      pintarContactos(usuariosListaActual);
+      if (huboAdded) {
+        if (afectaVista) scrollAbajo(true);
+        pintarContactos(usuariosListaActual);
+      } else {
+        /* v12: solo cambiaron reacciones/borrado — mantengo dónde estaba leyendo */
+        cintaEl.scrollTop = cintaEl.scrollHeight - (sh0 - st0);
+      }
     }
   }, function(err){
     toast('⚠️ No pude leer el chat: ' + err.code);
@@ -931,14 +1254,22 @@ function abrirPrivado(uid){
   if (uid === miId) { toast('😄 Ese sos vos'); return; }
   chatPrivadoId = uid;
   noLeidos[uid] = 0;
+  vistoConv[uid] = Date.now(); guardarVistos(); /* v14: leído hasta acá */
   var info = nombresCache[uid] || {};
   $('privNombre').textContent = info.nombre || 'Usuario';
   $('privAvatar').innerHTML = (info.foto && fotoSegura(info.foto))
     ? '<img class="fotoMini" src="' + escaparAttr(info.foto) + '" alt="">'
     : escapar(info.avatar || '🙂');
+  /* v14: aviso claro cuando el otro está desconectado */
+  var inf = usuariosPorId[uid];
+  var descon = !inf || inf._fresco === false;
+  $('privSub').textContent = descon
+    ? '⚪ desconectado — le llega cuando entre 👋'
+    : '🔒 chat privado · solo lo ven ustedes dos';
+  if (descon) toast('📭 ' + (info.nombre || 'Ese usuario') + ' está desconectado — le avisa cuando entre', 3800);
   $('barraPrivado').classList.remove('oculto');
   $('barraAcciones').classList.add('modoPrivado');
-  $('panelContactos').classList.remove('abierto');
+  cerrarDrawer();
   pintarContactos(usuariosListaActual);
   renderizarCinta();
   scrollAbajo(true);
@@ -947,6 +1278,7 @@ function volverAlGrupo(){
   chatPrivadoId = null;
   $('barraPrivado').classList.add('oculto');
   $('barraAcciones').classList.remove('modoPrivado');
+  $('privSub').textContent = '🔒 chat privado · solo lo ven ustedes dos';
   pintarContactos(usuariosListaActual);
   renderizarCinta();
   scrollAbajo(true);
@@ -971,6 +1303,14 @@ function pintarMensaje(m){
   if (m.ts && m.ts.toMillis) {
     hora = new Date(m.ts.toMillis()).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
   }
+  if (m.borrado) {
+    var filaB = document.createElement('div');
+    filaB.className = 'fila ' + (esMio ? 'ya' : 'otro');
+    filaB.innerHTML = '<div class="burbuja burbujaBorrada">🚫 Este mensaje fue eliminado<div class="bMeta">' + hora + '</div></div>';
+    cinta.appendChild(filaB);
+    scrollAbajo();
+    return;
+  }
   var cuerpo = '';
   var esImg = (m.tipo === 'dibujo' || m.tipo === 'foto' || m.tipo === 'gif') && m.img &&
     (String(m.img).slice(0, 11) === 'data:image/' || String(m.img).slice(0, 5) === 'gifs/' || String(m.img).slice(0, 8) === 'https://');
@@ -989,14 +1329,23 @@ function pintarMensaje(m){
     cuerpo = escapar(m.texto || '');
     if (cuerpo === '') cuerpo = '…';
   }
+  var mid = m._id || '';
+  var menuBtn = mid
+    ? '<button class="btnMsjMenu" type="button" data-mid="' + escaparAttr(mid) + '" title="Reaccionar, reenviar, guardar o borrar">⋯</button>'
+    : '';
   var fila = document.createElement('div');
   fila.className = 'fila ' + (esMio ? 'ya' : 'otro');
   fila.innerHTML =
-    '<div class="burbuja">' +
-      (esMio ? '' : '<div class="bAutor">' + (fotoSegura(fotosCache[m.de]) ? '<img class="fotoBurbuja" src="' + escaparAttr(fotosCache[m.de]) + '" alt=""> ' : '') + escapar(m.avatar || '🙂') + ' ' + escapar(m.nombre || 'Anónimo') + '</div>') +
-      '<div class="bTexto">' + cuerpo + '</div>' +
-      '<div class="bMeta">' + hora + '</div>' +
-    '</div>';
+    (esMio ? menuBtn : '') +
+    '<div class="msjCol">' +
+      '<div class="burbuja">' +
+        (esMio ? '' : '<div class="bAutor">' + (fotoSegura(fotosCache[m.de]) ? '<img class="fotoBurbuja" src="' + escaparAttr(fotosCache[m.de]) + '" alt=""> ' : '') + escapar(m.avatar || '🙂') + ' ' + escapar(m.nombre || 'Anónimo') + '</div>') +
+        '<div class="bTexto">' + cuerpo + '</div>' +
+        '<div class="bMeta">' + (m.reenv ? '↪️ reenviado · ' : '') + hora + '</div>' +
+      '</div>' +
+      pintarReacc(m) +
+    '</div>' +
+    (esMio ? '' : menuBtn);
   cinta.appendChild(fila);
   scrollAbajo();
 }
@@ -1112,7 +1461,7 @@ function pintarEmotis(){
   }
 }
 function verTab(id){
-  var tabs = ['tabEmotis', 'tabStikers', 'tabGifs'];
+  var tabs = ['tabEmotis', 'tabStikers', 'tabGifs', 'tabFavs'];
   for (var i = 0; i < tabs.length; i++) $(tabs[i]).classList.toggle('oculto', tabs[i] !== id);
   var botones = document.querySelectorAll('.tabEmotis');
   for (var j = 0; j < botones.length; j++) {
@@ -1130,6 +1479,7 @@ for (var itb = 0; itb < botonesTab.length; itb++) {
 }
 $('btnEmotis').onclick = function(e){
   e.stopPropagation();
+  pintarFavoritos();
   $('pickerEmotis').classList.toggle('oculto');
 };
 function insertarEnMsj(txt){
@@ -1359,23 +1709,21 @@ function notaDirecta(titulo, op){
   try { new Notification(titulo, op); } catch (e) {}
 }
 
-/* alguien nuevo entra → aviso (banner si está en segundo plano, tostada si lo está mirando) */
+/* alguien nuevo entra → aviso (banner si está en segundo plano, tostada si lo está mirando)
+   v14: solo cuenta como "se conectó" si AHORA tiene ping fresco (la lista ahora incluye desconectados) */
 function detectarConexiones(lista){
   if (!logueado) return;
-  if (conectadosPrev === null) {
-    conectadosPrev = {};
-    for (var i = 0; i < lista.length; i++) conectadosPrev[lista[i]._id] = true;
-    return;
-  }
+  var frescos = {};
+  for (var i = 0; i < lista.length; i++) if (lista[i]._fresco !== false) frescos[lista[i]._id] = true;
+  if (conectadosPrev === null) { conectadosPrev = frescos; return; }
   for (var j = 0; j < lista.length; j++) {
     var u = lista[j];
-    if (u._id === miId || conectadosPrev[u._id]) continue;
+    if (u._fresco === false || u._id === miId || conectadosPrev[u._id]) continue;
     var nom = u.nombre || 'Alguien';
     if (document.hidden) aviso('🟢 ' + nom + ' se conectó', 'Entró al chat de Sikodark 🖤🧡', 'conn-' + u._id, {});
     else toast('🟢 ' + nom + ' se conectó al chat');
   }
-  conectadosPrev = {};
-  for (var k = 0; k < lista.length; k++) conectadosPrev[lista[k]._id] = true;
+  conectadosPrev = frescos;
 }
 
 /* clic en la notificación → el service worker trae el chat al frente
@@ -1396,11 +1744,22 @@ $('miFrase').onclick = function(){
   $('miFrase').textContent = miFraseTxt || '✍️ Escribí tu mensaje personal…';
   marcarPresencia();
 };
-$('btnContactos').onclick = function(){
-  $('panelContactos').classList.toggle('abierto');
-};
-$('zonaChat').addEventListener('click', function(){
+/* v11: cajón de conectados con velo oscuro — se cierra tocando afuera */
+function cerrarDrawer(){
   $('panelContactos').classList.remove('abierto');
+  $('veloDrawer').classList.remove('ver');
+}
+$('btnContactos').onclick = function(){
+  var abrio = $('panelContactos').classList.toggle('abierto');
+  $('veloDrawer').classList.toggle('ver', abrio);
+};
+$('veloDrawer').onclick = cerrarDrawer;
+/* FIX v11: el botón 👥 vive DENTRO de #zonaChat — sin este guard, el clic
+   burbujeaba y cerraba el cajón al instante (por eso en vertical no se veían
+   nunca los conectados, solo al girar la pantalla) */
+$('zonaChat').addEventListener('click', function(e){
+  if (e.target.closest && e.target.closest('#btnContactos')) return;
+  cerrarDrawer();
 });
 var botonesVent = document.querySelectorAll('.btnVent');
 for (var ib = 0; ib < botonesVent.length; ib++) {
@@ -1420,41 +1779,59 @@ function limpiarViejos(){
   }).catch(function(){});
 }
 
-/* ---------- 15 · PIZARRITA (DIBUJAR CON LÁPIZ) ---------- */
+/* ---------- 15 · PIZARRITA PAINT (LÁPIZ · PINCEL · BOTE DE PINTURA · GOMA · DESHACER) ---------- */
 var lienzo = $('lienzo');
 var ctx2 = lienzo.getContext('2d');
-var COLORES = ['#f59d3d', '#ffffff', '#ff4d4d', '#4dd964', '#4dc3ff', '#ff7ab8', '#ffe14d', '#9b59ff'];
+var COLORES = ['#f59d3d', '#ffffff', '#ff4d4d', '#4dd964', '#4dc3ff', '#ff7ab8', '#ffe14d', '#9b59ff', '#b8ff4d', '#4dffe0', '#ff4dd2', '#4d6bff', '#b06a3c', '#b0b6bd'];
 var colorAct = '#f59d3d';
 var grosorAct = 3;
-var gomaActiva = false;
+var herrAct = 'lapiz';
 var pintando = false;
 var ultimoX = 0, ultimoY = 0;
 var FONDO_LIENZO = '#0a0a0a';
+var pilaUndo = [];
 
+function hexRgb(h){
+  return { r: parseInt(h.slice(1, 3), 16), g: parseInt(h.slice(3, 5), 16), b: parseInt(h.slice(5, 7), 16) };
+}
+/* ↩️ Deshacer: guardo la foto del lienzo antes de cada trazo / relleno / limpieza */
+function guardarUndo(){
+  try {
+    if (pilaUndo.length >= 12) pilaUndo.shift();
+    pilaUndo.push(ctx2.getImageData(0, 0, lienzo.width, lienzo.height));
+  } catch (e) {}
+}
+function deshacer(){
+  if (!pilaUndo.length) { toast('🤷 No hay nada para deshacer'); return; }
+  ctx2.putImageData(pilaUndo.pop(), 0, 0);
+}
 function pintarColores(){
   var hc = $('herrColores');
   hc.innerHTML = '';
   for (var i = 0; i < COLORES.length; i++) {
     (function(c){
       var b = document.createElement('button');
-      b.className = 'colorBtn' + (c === colorAct && !gomaActiva ? ' sel' : '');
+      b.className = 'colorBtn' + (c === colorAct ? ' sel' : '');
       b.style.background = c;
-      b.onclick = function(){
-        colorAct = c;
-        gomaActiva = false;
-        $('btnGoma').classList.remove('activo');
-        pintarColores();
-      };
+      b.onclick = function(){ colorAct = c; pintarColores(); };
       hc.appendChild(b);
     })(COLORES[i]);
   }
 }
 function prepararLienzo(){
+  guardarUndo();
   ctx2.fillStyle = FONDO_LIENZO;
   ctx2.fillRect(0, 0, lienzo.width, lienzo.height);
 }
+function elegirHerr(h){
+  herrAct = h;
+  var bs = document.querySelectorAll('.btnHerr');
+  for (var i = 0; i < bs.length; i++) bs[i].classList.toggle('activo', bs[i].getAttribute('data-herr') === h);
+  lienzo.style.cursor = h === 'bote' ? 'pointer' : 'crosshair';
+}
 function abrirDibujo(){
   $('overlayDibujo').classList.remove('oculto');
+  pilaUndo = [];
   prepararLienzo();
   pintarColores();
 }
@@ -1463,23 +1840,26 @@ function cerrarDibujo(){ $('overlayDibujo').classList.add('oculto'); }
 $('btnDibujar').onclick = abrirDibujo;
 $('btnCancelarDibujo').onclick = cerrarDibujo;
 $('btnLimpiarDibujo').onclick = prepararLienzo;
+$('btnDeshacer').onclick = deshacer;
+
+var botonesHerr = document.querySelectorAll('.btnHerr');
+for (var ih = 0; ih < botonesHerr.length; ih++) {
+  (function(b){
+    b.onclick = function(){ elegirHerr(b.getAttribute('data-herr')); };
+  })(botonesHerr[ih]);
+}
+elegirHerr('lapiz');
 
 var botonesGrosor = document.querySelectorAll('.btnGrosor');
 for (var ig = 0; ig < botonesGrosor.length; ig++) {
   (function(b){
     b.onclick = function(){
       grosorAct = parseInt(b.getAttribute('data-grosor'), 10);
-      gomaActiva = false;
-      $('btnGoma').classList.remove('activo');
       for (var j = 0; j < botonesGrosor.length; j++) botonesGrosor[j].classList.remove('activo');
       b.classList.add('activo');
     };
   })(botonesGrosor[ig]);
 }
-$('btnGoma').onclick = function(){
-  gomaActiva = !gomaActiva;
-  $('btnGoma').classList.toggle('activo', gomaActiva);
-};
 
 function posLapiz(e){
   var r = lienzo.getBoundingClientRect();
@@ -1488,9 +1868,14 @@ function posLapiz(e){
     y: (e.clientY - r.top) * (lienzo.height / r.height)
   };
 }
+function anchoTrazo(){
+  if (herrAct === 'goma') return grosorAct * 4;
+  if (herrAct === 'pincel') return grosorAct * 3;
+  return grosorAct;
+}
 function trazo(x1, y1, x2, y2){
-  ctx2.strokeStyle = gomaActiva ? FONDO_LIENZO : colorAct;
-  ctx2.lineWidth = gomaActiva ? grosorAct * 4 : grosorAct;
+  ctx2.strokeStyle = herrAct === 'goma' ? FONDO_LIENZO : colorAct;
+  ctx2.lineWidth = anchoTrazo();
   ctx2.lineCap = 'round';
   ctx2.lineJoin = 'round';
   ctx2.beginPath();
@@ -1498,54 +1883,99 @@ function trazo(x1, y1, x2, y2){
   ctx2.lineTo(x2, y2);
   ctx2.stroke();
 }
+/* 🪣 BOTE DE PINTURA: tocás una mancha y la rellena entera del color elegido (estilo Paint) */
+function rellenar(px, py){
+  var W = lienzo.width, H = lienzo.height;
+  var x = Math.floor(px), y = Math.floor(py);
+  if (x < 0 || y < 0 || x >= W || y >= H) return;
+  var c = hexRgb(colorAct);
+  var img = ctx2.getImageData(0, 0, W, H);
+  var d = img.data;
+  var i0 = (y * W + x) * 4;
+  var tR = d[i0], tG = d[i0 + 1], tB = d[i0 + 2];
+  if (Math.abs(tR - c.r) <= 6 && Math.abs(tG - c.g) <= 6 && Math.abs(tB - c.b) <= 6) return;
+  var TOL = 42;
+  var visit = new Uint8Array(W * H);
+  var pila = [[x, y]];
+  while (pila.length) {
+    var s = pila.pop();
+    var cx = s[0], cy = s[1];
+    while (cx >= 0) {
+      var pi = cy * W + cx;
+      if (visit[pi]) break;
+      var i4 = pi * 4;
+      if (Math.abs(d[i4] - tR) > TOL || Math.abs(d[i4 + 1] - tG) > TOL || Math.abs(d[i4 + 2] - tB) > TOL) break;
+      cx--;
+    }
+    cx++;
+    var subio = false, bajo = false;
+    while (cx < W) {
+      var pi2 = cy * W + cx;
+      if (visit[pi2]) break;
+      var j4 = pi2 * 4;
+      if (Math.abs(d[j4] - tR) > TOL || Math.abs(d[j4 + 1] - tG) > TOL || Math.abs(d[j4 + 2] - tB) > TOL) break;
+      d[j4] = c.r; d[j4 + 1] = c.g; d[j4 + 2] = c.b; d[j4 + 3] = 255;
+      visit[pi2] = 1;
+      if (cy > 0) {
+        var vA = (cy - 1) * W + cx;
+        if (!visit[vA] && Math.abs(d[vA * 4] - tR) <= TOL && Math.abs(d[vA * 4 + 1] - tG) <= TOL && Math.abs(d[vA * 4 + 2] - tB) <= TOL) {
+          if (!subio) { pila.push([cx, cy - 1]); subio = true; }
+        } else { subio = false; }
+      }
+      if (cy < H - 1) {
+        var vB = (cy + 1) * W + cx;
+        if (!visit[vB] && Math.abs(d[vB * 4] - tR) <= TOL && Math.abs(d[vB * 4 + 1] - tG) <= TOL && Math.abs(d[vB * 4 + 2] - tB) <= TOL) {
+          if (!bajo) { pila.push([cx, cy + 1]); bajo = true; }
+        } else { bajo = false; }
+      }
+      cx++;
+    }
+  }
+  ctx2.putImageData(img, 0, 0);
+}
 lienzo.addEventListener('contextmenu', function(e){ e.preventDefault(); });
+function alBajar(p){
+  guardarUndo();
+  if (herrAct === 'bote') { rellenar(p.x, p.y); return; }
+  pintando = true;
+  ultimoX = p.x; ultimoY = p.y;
+  trazo(p.x, p.y, p.x + 0.01, p.y + 0.01);
+}
+function alMover(p){
+  if (!pintando || herrAct === 'bote') return;
+  trazo(ultimoX, ultimoY, p.x, p.y);
+  ultimoX = p.x; ultimoY = p.y;
+}
 if (window.PointerEvent) {
   lienzo.addEventListener('pointerdown', function(e){
     e.preventDefault();
-    pintando = true;
     try { lienzo.setPointerCapture(e.pointerId); } catch (err) {}
-    var p = posLapiz(e);
-    ultimoX = p.x; ultimoY = p.y;
-    trazo(p.x, p.y, p.x + 0.01, p.y + 0.01);
+    alBajar(posLapiz(e));
   });
   lienzo.addEventListener('pointermove', function(e){
     if (!pintando) return;
-    var p = posLapiz(e);
-    trazo(ultimoX, ultimoY, p.x, p.y);
-    ultimoX = p.x; ultimoY = p.y;
+    alMover(posLapiz(e));
   });
   lienzo.addEventListener('pointerup', function(){ pintando = false; });
   lienzo.addEventListener('pointercancel', function(){ pintando = false; });
 } else {
   lienzo.addEventListener('mousedown', function(e){
     e.preventDefault();
-    pintando = true;
-    var p = posLapiz(e);
-    ultimoX = p.x; ultimoY = p.y;
-    trazo(p.x, p.y, p.x + 0.01, p.y + 0.01);
+    alBajar(posLapiz(e));
   });
   document.addEventListener('mousemove', function(e){
     if (!pintando) return;
-    var p = posLapiz(e);
-    trazo(ultimoX, ultimoY, p.x, p.y);
-    ultimoX = p.x; ultimoY = p.y;
+    alMover(posLapiz(e));
   });
   document.addEventListener('mouseup', function(){ pintando = false; });
   lienzo.addEventListener('touchstart', function(e){
     e.preventDefault();
-    pintando = true;
-    var t = e.changedTouches[0];
-    var p = posLapiz(t);
-    ultimoX = p.x; ultimoY = p.y;
-    trazo(p.x, p.y, p.x + 0.01, p.y + 0.01);
+    alBajar(posLapiz(e.changedTouches[0]));
   }, { passive: false });
   lienzo.addEventListener('touchmove', function(e){
     if (!pintando) return;
     e.preventDefault();
-    var t = e.changedTouches[0];
-    var p = posLapiz(t);
-    trazo(ultimoX, ultimoY, p.x, p.y);
-    ultimoX = p.x; ultimoY = p.y;
+    alMover(posLapiz(e.changedTouches[0]));
   }, { passive: false });
   lienzo.addEventListener('touchend', function(){ pintando = false; });
   lienzo.addEventListener('touchcancel', function(){ pintando = false; });
@@ -1572,15 +2002,303 @@ $('btnEnviarDibujo').onclick = function(){
 
 /* ---------- 16 · LIGHTBOX (VER DIBUJOS EN GRANDE) ---------- */
 $('cintaMsj').addEventListener('click', function(e){
+  var bm = e.target.closest ? e.target.closest('.btnMsjMenu') : null;
+  if (bm) { abrirMenuMsj(bm.getAttribute('data-mid')); return; }
+  var cr = e.target.closest ? e.target.closest('.chipReacc') : null;
+  if (cr) { reaccionar(cr.getAttribute('data-mid'), cr.getAttribute('data-emo')); return; }
   if (e.target.closest && e.target.closest('.tarjetaRadio')) { sintonizarRadio(); return; }
   var img = e.target.closest ? e.target.closest('img.miniDibujo') : null;
   if (!img) return;
-  $('lightboxImg').src = img.getAttribute('data-src') || img.src;
+  var srcAb = img.getAttribute('data-src') || img.src;
+  $('lightboxImg').src = srcAb;
+  var guardable = String(srcAb).slice(0, 11) === 'data:image/' || String(srcAb).slice(0, 5) === 'gifs/' || String(srcAb).slice(0, 8) === 'https://';
+  $('btnGuardarLightbox').classList.toggle('oculto', !guardable);
   $('lightbox').classList.remove('oculto');
 });
 $('lightbox').onclick = function(){
   $('lightbox').classList.add('oculto');
 };
+
+/* ---------- 16b · REACCIONES · REENVIAR · BORRAR · GUARDAR (v12) ---------- */
+var REACC = ['❤️','😂','😮','😢','👍','🔥'];
+
+function msjPorId(mid){
+  for (var i = 0; i < mensajesCache.length; i++) {
+    if (mensajesCache[i]._id === mid) return mensajesCache[i];
+  }
+  return null;
+}
+
+function pintarReacc(m){
+  if (!m.reacc || m.borrado) return '';
+  var out = '', hay = false;
+  for (var r = 0; r < REACC.length; r++) {
+    var emo = REACC[r];
+    var arr = m.reacc[emo];
+    if (!arr || !arr.length) continue;
+    hay = true;
+    var mia = arr.indexOf(miId) >= 0;
+    var nombres = [];
+    for (var q = 0; q < arr.length; q++) nombres.push((nombresCache[arr[q]] || {}).nombre || 'alguien');
+    out += '<button class="chipReacc' + (mia ? ' mia' : '') + '" type="button" data-mid="' + escaparAttr(m._id || '') + '" data-emo="' + emo + '" title="' + escaparAttr(emo + ' ' + nombres.join(', ')) + '">' + emo + (arr.length > 1 ? '<span class="reN">' + arr.length + '</span>' : '') + '</button>';
+  }
+  return hay ? '<div class="reaccFila">' + out + '</div>' : '';
+}
+
+/* reaccionar: suma/quita mi uid en el mapa reacc del mensaje (campo reacc del doc) */
+function reaccionar(mid, emo){
+  var m = msjPorId(mid);
+  if (!m || m.borrado) return;
+  var mapa = {};
+  if (m.reacc) {
+    for (var k in m.reacc) {
+      if (m.reacc.hasOwnProperty(k) && m.reacc[k] && m.reacc[k].length) mapa[k] = m.reacc[k].slice();
+    }
+  }
+  var arr = (mapa[emo] || []).slice();
+  var pos = arr.indexOf(miId);
+  if (pos >= 0) arr.splice(pos, 1); else arr.push(miId);
+  if (arr.length) mapa[emo] = arr; else delete mapa[emo];
+  var vacio = true;
+  for (var k2 in mapa) { vacio = false; break; }
+  var upd = vacio ? { reacc: firebase.firestore.FieldValue.delete() } : { reacc: mapa };
+  db.collection(COL_MSJ).doc(mid).update(upd)
+    .catch(function(){ toast('❌ No pude reaccionar, probá de nuevo'); });
+  cerrarMenuMsj();
+}
+
+/* menú de acciones por mensaje (hoja estilo WhatsApp) */
+var msjMenuId = null;
+function abrirMenuMsj(mid){
+  var m = msjPorId(mid);
+  if (!m || m.borrado) return;
+  msjMenuId = mid;
+  var prev = textoPreview(m);
+  if (prev.length > 46) prev = prev.slice(0, 46) + '…';
+  $('sheetTitulo').textContent = (m.nombre || 'Alguien') + ' · ' + prev;
+  var sr = $('sheetReacc');
+  sr.innerHTML = '';
+  for (var i = 0; i < REACC.length; i++) {
+    (function(emo){
+      var b = document.createElement('button');
+      b.type = 'button';
+      var mia = m.reacc && m.reacc[emo] && m.reacc[emo].indexOf(miId) >= 0;
+      b.className = 'shReaccBtn' + (mia ? ' mia' : '');
+      b.textContent = emo;
+      b.onclick = function(){ reaccionar(msjMenuId, emo); };
+      sr.appendChild(b);
+    })(REACC[i]);
+  }
+  var reenviables = ['texto', 'foto', 'gif', 'stiker', 'dibujo'];
+  $('shReenviar').classList.toggle('oculto', reenviables.indexOf(m.tipo) < 0);
+  var esIm = m.img && (String(m.img).slice(0, 11) === 'data:image/' || String(m.img).slice(0, 5) === 'gifs/' || String(m.img).slice(0, 8) === 'https://');
+  $('shGuardar').classList.toggle('oculto', !esIm);
+  var esFav = (m.tipo === 'stiker' || m.tipo === 'gif');
+  $('shFavorito').classList.toggle('oculto', !esFav);
+  if (esFav) $('shFavorito').textContent = esFavorito(m) ? '💔 Quitar de favoritos' : '⭐ Guardar en favoritos';
+  $('shBorrar').classList.toggle('oculto', m.de !== miId);
+  $('sheetMsj').classList.remove('oculto');
+}
+function cerrarMenuMsj(){
+  msjMenuId = null;
+  $('sheetMsj').classList.add('oculto');
+}
+$('shCancelar').onclick = cerrarMenuMsj;
+$('sheetMsj').addEventListener('click', function(e){
+  if (e.target === $('sheetMsj')) cerrarMenuMsj();
+});
+
+/* borrar mi mensaje: queda el cartel "🚫 Este mensaje fue eliminado" para todos */
+$('shBorrar').onclick = function(){
+  if (!msjMenuId) return;
+  if (!confirm('¿Borrás este mensaje para todos?')) return;
+  var mid = msjMenuId;
+  cerrarMenuMsj();
+  db.collection(COL_MSJ).doc(mid).update({
+    borrado: true, texto: '', img: '', emo: '',
+    reacc: firebase.firestore.FieldValue.delete()
+  }).then(function(){ toast('🗑️ Mensaje borrado para todos'); })
+    .catch(function(){ toast('❌ No pude borrar'); });
+};
+
+/* guardar imagen en el dispositivo */
+function guardarImagen(src){
+  if (!src) return;
+  try {
+    var a = document.createElement('a');
+    a.href = src;
+    var esG = String(src).indexOf('image/gif') !== -1 || /\.gif(\?|$)/.test(String(src));
+    a.download = 'sikochat-' + Date.now() + (esG ? '.gif' : '.jpg');
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    toast('💾 Guardando… si no arranca, mantené apretada la imagen → “Guardar”', 6000);
+  } catch (e) { toast('❌ No pude guardar esta imagen'); }
+}
+$('shGuardar').onclick = function(){
+  var m = msjPorId(msjMenuId);
+  cerrarMenuMsj();
+  if (m && m.img) guardarImagen(m.img);
+};
+$('btnGuardarLightbox').onclick = function(){
+  guardarImagen($('lightboxImg').src);
+};
+
+/* reenviar a un usuario o al grupo */
+var msjReenvio = null;
+$('shReenviar').onclick = function(){
+  var m = msjPorId(msjMenuId);
+  if (!m) return;
+  msjReenvio = m;
+  cerrarMenuMsj();
+  pintarListaReenvio();
+  $('modalReenviar').classList.remove('oculto');
+};
+function pintarListaReenvio(){
+  var l = $('listaReenvio');
+  l.innerHTML = '';
+  var bG = document.createElement('button');
+  bG.type = 'button';
+  bG.className = 'filaReenvio';
+  bG.innerHTML = '<span class="cAvatar">👥</span><span class="cNombre">Todo el grupo</span>';
+  bG.onclick = function(){ ejecutarReenvio(''); };
+  l.appendChild(bG);
+  var lista = usuariosListaActual || [];
+  for (var i = 0; i < lista.length; i++) {
+    (function(u){
+      if (u._id === miId) return;
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'filaReenvio';
+      b.innerHTML = '<span class="cAvatar">' + (fotoSegura(u.foto) ? '<img class="fotoMini" src="' + escaparAttr(u.foto) + '" alt="">' : escapar(u.avatar || '🙂')) + '</span><span class="cNombre">' + escapar(u.nombre || 'Anónimo') + '</span>';
+      b.onclick = function(){ ejecutarReenvio(u._id); };
+      l.appendChild(b);
+    })(lista[i]);
+  }
+}
+function ejecutarReenvio(para){
+  var m = msjReenvio;
+  if (!m) return;
+  if (Date.now() - ultimoMsj < 1200) { toast('⏳ Tranqui, esperá un segundito'); return; }
+  ultimoMsj = Date.now();
+  var nuevo = {
+    de: miId, nombre: miNombre, avatar: miAvatar,
+    para: para || '',
+    tipo: m.tipo, texto: m.texto || '',
+    reenv: 1, ts: SERVER_TS()
+  };
+  if (m.img) nuevo.img = m.img;
+  if (m.emo) nuevo.emo = m.emo;
+  db.collection(COL_MSJ).add(nuevo).then(function(){
+    toast(para ? '↪️ Reenviado en privado' : '↪️ Reenviado al grupo');
+  }).catch(function(){ toast('❌ No pude reenviar'); });
+  msjReenvio = null;
+  $('modalReenviar').classList.add('oculto');
+}
+$('btnCerrarReenvio').onclick = function(){ $('modalReenviar').classList.add('oculto'); msjReenvio = null; };
+$('modalReenviar').addEventListener('click', function(e){
+  if (e.target === $('modalReenviar')) { $('modalReenviar').classList.add('oculto'); msjReenvio = null; }
+});
+
+/* favoritos: guardar stikers y GIFs que mandan para usarlos vos también */
+var favs = [];
+try { favs = JSON.parse(localStorage.getItem('siko_chat_favs') || '[]') || []; } catch (e) { favs = []; }
+function guardarFavs(){
+  try { localStorage.setItem('siko_chat_favs', JSON.stringify(favs.slice(0, 40))); } catch (e) {}
+}
+function esFavorito(m){
+  for (var i = 0; i < favs.length; i++) {
+    if (m.tipo === 'stiker' && favs[i].tipo === 'stiker' && favs[i].emo === m.emo) return true;
+    if (m.tipo === 'gif' && favs[i].tipo === 'gif' && favs[i].f === m.img) return true;
+  }
+  return false;
+}
+function gifNombre(f){
+  for (var i = 0; i < GIFS.length; i++) if (GIFS[i].f === f) return GIFS[i].n;
+  return 'GIF';
+}
+$('shFavorito').onclick = function(){
+  var m = msjPorId(msjMenuId);
+  if (!m) return;
+  if (esFavorito(m)) {
+    favs = favs.filter(function(f){
+      if (m.tipo === 'stiker') return !(f.tipo === 'stiker' && f.emo === m.emo);
+      return !(f.tipo === 'gif' && f.f === m.img);
+    });
+    guardarFavs();
+    pintarFavoritos();
+    toast('💔 Quitado de favoritos');
+  } else {
+    if (m.tipo === 'stiker') favs.unshift({ tipo: 'stiker', emo: m.emo });
+    else favs.unshift({ tipo: 'gif', n: gifNombre(m.img), f: m.img });
+    guardarFavs();
+    pintarFavoritos();
+    toast('⭐ ¡Guardado! Está en 😀 Emoticons → ⭐ Guardados');
+  }
+  cerrarMenuMsj();
+};
+function quitarFav(i){
+  favs.splice(i, 1);
+  guardarFavs();
+  pintarFavoritos();
+}
+function pintarFavoritos(){
+  var gs = $('gridFavsStk'), gg = $('gridFavsGif'), nota = $('favsNota');
+  gs.innerHTML = '';
+  gg.innerHTML = '';
+  var hay = false;
+  for (var i = 0; i < favs.length; i++) {
+    (function(f, idx){
+      hay = true;
+      if (f.tipo === 'stiker') {
+        var w = document.createElement('span');
+        w.className = 'favItem';
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'stkBtn';
+        b.textContent = f.emo;
+        b.onclick = function(ev){
+          ev.stopPropagation();
+          $('pickerEmotis').classList.add('oculto');
+          enviarStiker(f.emo);
+        };
+        var x = document.createElement('button');
+        x.type = 'button';
+        x.className = 'favQuitar';
+        x.textContent = '✕';
+        x.title = 'Quitar de favoritos';
+        x.onclick = function(ev){ ev.stopPropagation(); quitarFav(idx); };
+        w.appendChild(b);
+        w.appendChild(x);
+        gs.appendChild(w);
+      } else {
+        var w2 = document.createElement('span');
+        w2.className = 'favItem';
+        var im = document.createElement('img');
+        im.className = 'gifItem';
+        im.src = f.f;
+        im.alt = f.n || 'GIF';
+        im.title = f.n || 'GIF';
+        im.onclick = function(ev){
+          ev.stopPropagation();
+          $('pickerEmotis').classList.add('oculto');
+          enviarGif(f.f);
+        };
+        var x2 = document.createElement('button');
+        x2.type = 'button';
+        x2.className = 'favQuitar';
+        x2.textContent = '✕';
+        x2.title = 'Quitar de favoritos';
+        x2.onclick = function(ev){ ev.stopPropagation(); quitarFav(idx); };
+        w2.appendChild(im);
+        w2.appendChild(x2);
+        gg.appendChild(w2);
+      }
+    })(favs[i], i);
+  }
+  nota.classList.toggle('oculto', hay);
+  if (!hay) nota.textContent = 'Todavía no guardaste nada — tocá ⋯ junto a un stiker o GIF del chat y elegí ⭐ Guardar';
+}
 
 /* ---------- 17 · MI PERFIL (FOTO + NOMBRE + AVATAR) ---------- */
 function pintarMiAvatar(){
@@ -1956,27 +2674,61 @@ $('btnCompartir').onclick = function(){
   }
 };
 
-/* ---------- 21 · PWA ---------- */
+/* ---------- 21 · PWA (INSTALAR COMO APP) ---------- */
 if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
   navigator.serviceWorker.register('sw.js').catch(function(){});
 }
 var eventoInstall = null;
+var esIOS = /iphone|ipad|ipod/i.test(navigator.userAgent || '');
+function appYaInstalada(){
+  return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true;
+}
 window.addEventListener('beforeinstallprompt', function(e){
   e.preventDefault();
   eventoInstall = e;
   $('btnInstalar').classList.remove('oculto');
 });
-$('btnInstalar').onclick = function(){
-  if (!eventoInstall) return;
-  eventoInstall.prompt();
+/* iPhone/iPad: no existe el cartelito automático → muestro el botón con la receta */
+if (!appYaInstalada() && esIOS) {
+  $('btnInstalar').classList.remove('oculto');
+  $('btnInstalar').textContent = '📥 INSTALAR EN IPHONE';
+}
+window.addEventListener('appinstalled', function(){
   eventoInstall = null;
   $('btnInstalar').classList.add('oculto');
+  toast('📲 ¡SikoChat instalada! Aparece entre tus apps', 5000);
+});
+$('btnInstalar').onclick = function(){
+  if (eventoInstall) {
+    var ev = eventoInstall;
+    eventoInstall = null;
+    ev.prompt();
+    ev.userChoice.then(function(r){
+      if (r && r.outcome === 'accepted') {
+        $('btnInstalar').classList.add('oculto');
+      } else {
+        eventoInstall = ev; /* cerró el cartelito: dejo el botón para reintentar */
+      }
+    });
+    return;
+  }
+  if (esIOS) {
+    toast('📱 En Safari: tocá Compartir ⬆️ (abajo) y después “Agregar a pantalla de inicio”', 8000);
+    return;
+  }
+  if (appYaInstalada()) {
+    toast('😆 Ya la tenés instalada');
+  } else {
+    toast('📲 Buscá “Instalar app” en el menú ⋮ o el ícono ⬇️ de la barra del navegador', 7000);
+  }
 };
 
 /* ---------- 22 · ARRANQUE ---------- */
 pintarAvatares();
 pintarEmotis();
+pintarFavoritos();
 if (miNombre) $('inputNombre').value = miNombre;
+$('inputClave').value = localStorage.getItem('siko_chat_clave') || '';
 $('btnSonido').textContent = sonidoActivo ? '🔔 Sonido' : '🔕 Mudo';
 pintarEstadoNotis();
 aplicarTema();

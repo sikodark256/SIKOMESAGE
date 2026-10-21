@@ -1,10 +1,13 @@
 /* ============================================================
-   SERVICE WORKER — SIKODARK CHAT (MSN) · chat-v10
-   + logo nuevo + modos de diseño (temas)
-   + notificaciones: clic en el aviso → traer el chat al frente
+   SERVICE WORKER — SIKODARK CHAT (MSN) · chat-v15
+   + pizarrita Paint: bote de pintura 🪣, pincel 🖌️, deshacer ↩️ y 14 colores
+   + todos en la lista (desconectados con "visto hace") + pendientes al entrar + botón CHAT GRUPAL
+   + portada limpia y logo más chico
+   + reacciones/me gusta, reenviar, borrar, guardar y favoritos
+   + conectados siempre visibles en el cel vertical
    Subí este número (v5, v6…) cada vez que cambies el index.html
    ============================================================ */
-var CACHE = 'sikodark-chat-v10';
+var CACHE = 'sikodark-chat-v15';
 var ARCHIVOS = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png', './favicon.png', './apple-touch-icon.png', './icon-maskable-192.png', './icon-maskable-512.png', './logo-blanco.png', './logo-negro.png', './logo-cara.png'];
 
 self.addEventListener('install', function(e){
