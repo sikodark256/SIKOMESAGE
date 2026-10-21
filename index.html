@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- SikoChat v17 · AVISOS TIPO WHATSAPP: botón 🔔 AVISOS AL CEL en el inicio (un toque pide permiso) + te avisa aunque estés mirando otra conversación + el aviso muestra nombre y carita de quien te escribe y al tocarlo se abre esa conversación · + PANEL DEL CEL ESTILO MSN: tu tarjeta arriba (carita + nombre + En línea + tu frase) + CHAT GRUPAL grande · SIN contraseña (opcional: CLAVE_CHAT vacía) · puntito de no leídos en el ícono del PWA · + PIZARRITA PAINT: bote de pintura 🪣 + pincel 🖌️ + deshacer ↩️ · + TODOS en la lista (desconectados con visto hace) + avisos de pendientes al entrar + botón CHAT GRUPAL · + portada limpia + reacciones ❤️ + reenviar ↪️ + borrar 🗑️ + favoritos ⭐ + conectados en cel + logo + instalar + temas + perfil + stikers/gifs/fotos + tonos + radio + privado + notificaciones -->
+<!-- SikoChat v20 · CENTRAL DE AVISOS: botón 🔔 Avisos en la barra — muestra el estado real en tu dispositivo (permiso, campanita, motor de avisos y aviso de prueba), un botón PROBAR AVISO AHORA, ayuda paso a paso para Android e iPhone y el 🫀 MODO SIEMPRE ACTIVO (un tono inaudible evita que Chrome duerma el chat en segundo plano: los avisos siguen llegando aunque estés en otra app) · + envío de avisos más robusto (si el service worker falla, reintenta) · + NAVEGACIÓN TIPO APP EN EL CEL: lista de contactos a pantalla completa ↔ chat completo con botón 👥 CONTACTOS · + AVISOS TIPO WHATSAPP con nombre y carita · + PANEL DEL CEL ESTILO MSN · SIN contraseña (opcional) · badge de no leídos · PIZARRITA PAINT · TODOS en la lista con visto hace · reacciones ❤️ reenviar ↪️ borrar 🗑️ favoritos ⭐ · emotis/stikers/gifs/fotos · tonos · radio · temas · perfil · privado · instalar como app -->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -204,17 +204,23 @@ body.tema-claro .logoClaro{display:block}
 .filaGrupal{display:flex;align-items:center;gap:8px;padding:9px 10px;margin:4px 6px 8px;border:1.5px solid var(--naranja);border-radius:10px;cursor:pointer;font-weight:800;color:var(--naranja);background:rgba(var(--acento-rgb),.07);font-size:12px}
 .filaGrupal:hover{background:rgba(var(--acento-rgb),.18)}
 .escribiendoTxt{color:var(--naranja);font-weight:700}
-.vacio{color:var(--tx4);font-size:12px;text-align:center;padding:22px 10px;line-height:1.6}
-/* v16: mi tarjeta estilo MSN arriba del panel (solo se ve en el cel; en PC el panel queda como estaba) */
-.tarjetaYo{display:flex;align-items:center;gap:10px;padding:12px;border-bottom:1px solid var(--borde);cursor:pointer}
-.tarjetaYo:active{background:var(--panel2)}
-.tyAvatar{width:42px;height:42px;border-radius:50%;background:var(--fondo);border:2px solid var(--naranja);display:grid;place-items:center;font-size:21px;overflow:hidden;flex-shrink:0}
-.tyDatos{min-width:0;display:flex;flex-direction:column}
-.tyNombre{font-size:14px;font-weight:900;color:var(--tx1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.tyStar{color:var(--naranja);font-size:11px}
-.tyEstado{font-size:10.5px;color:var(--tx3);display:flex;align-items:center;gap:5px;margin-top:2px}
-.tyFrase{font-size:11px;color:var(--tx3);font-style:italic;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:150px}
+/* ===== v16: MI TARJETA arriba del panel del cel (estilo ventana de contactos de MSN) ===== */
+.tarjetaYo{
+  display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:2px solid var(--borde);
+  cursor:pointer;background:var(--caja);
+}
+.tarjetaYo:hover{background:var(--panel2)}
+.tyAvatar{
+  width:42px;height:42px;border-radius:50%;background:var(--panel2);border:2px solid var(--naranja);
+  display:grid;place-items:center;font-size:20px;flex-shrink:0;overflow:hidden;
+}
+.tyInfo{display:flex;flex-direction:column;gap:1px;min-width:0}
+.tyNombre{font-size:13.5px;font-weight:900;color:var(--tx1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tyEstado{font-size:11px;color:var(--tx3);display:flex;align-items:center;gap:4px}
+.tyFrase{font-size:11px;color:var(--tx3);font-style:italic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* en PC/TV el panel queda como siempre: la tarjeta solo existe en el cel */
 @media (min-width:621px){ .tarjetaYo{display:none} }
+.vacio{color:var(--tx4);font-size:12px;text-align:center;padding:22px 10px;line-height:1.6}
 
 /* ============ FRANJA DE CONECTADOS (SIEMPRE VISIBLE EN CEL VERTICAL) ============ */
 #franjaConectados{
@@ -520,32 +526,57 @@ body.tema-claro .logoClaro{display:block}
   display:grid;place-items:center;padding:0;line-height:1;
 }
 
+/* ===== v20: CENTRAL DE AVISOS — filas de estado ===== */
+.avFila{
+  display:flex;align-items:center;gap:9px;padding:7px 2px;
+  border-bottom:1px dashed var(--borde2);
+}
+.avFila:last-of-type{border-bottom:none}
+.avChip{
+  flex-shrink:0;min-width:34px;text-align:center;padding:4px 8px;border-radius:10px;
+  font-size:11px;font-weight:900;letter-spacing:.5px;
+  background:var(--panel2);color:var(--tx3);border:1px solid var(--borde2);
+}
+.avChip.ok{background:rgba(61,220,132,.14);color:#3ddc84;border-color:rgba(61,220,132,.5)}
+.avChip.mal{background:rgba(255,107,107,.12);color:#ff6b6b;border-color:rgba(255,107,107,.5)}
+.avChip.medio{background:rgba(var(--acento-rgb),.14);color:var(--naranja);border-color:var(--naranja)}
+.avTxt{font-size:12px;color:var(--tx2);font-weight:700;line-height:1.35}
+
 /* ============ MÓVIL ============ */
 @media (max-width:620px){
   #app{padding:0}
   .ventana{width:100vw;height:100vh;max-height:none;border-radius:0;border:none}
   @supports (height:100dvh){.ventana{height:100dvh}}
   #franjaConectados{display:flex}
+  /* ===== v19: NAVEGACIÓN TIPO APP — LISTA a pantalla completa ↔ CHAT a pantalla completa.
+     En el cel arrancás viendo los CONTACTOS (como WhatsApp). Tocás alguien → la conversación
+     ocupa toda la pantalla. El botón 👥 CONTACTOS de la barra te devuelve a la lista.
+     En PC nada de esto tiene efecto (body.celLista solo actúa dentro de este @media). ===== */
   #panelContactos{
-    position:fixed;left:0;top:0;bottom:0;z-index:55;transform:translateX(-105%);
-    transition:transform .25s ease;box-shadow:8px 0 30px rgba(0,0,0,.65);
+    position:static;transform:none;transition:none;z-index:auto;
+    width:100%;max-width:none;box-shadow:none;border-right:none;
+    display:none;
   }
-  #panelContactos.abierto{transform:none}
-  #btnContactos{display:flex}
+  body.celLista #panelContactos{display:flex;flex-direction:column}
+  #zonaChat{display:none}
+  body:not(.celLista) #zonaChat{display:flex}
+  #btnContactos{
+    display:flex;flex-shrink:0;border:2px solid var(--naranja);
+    color:var(--naranja);font-weight:900;
+  }
   .barraAcciones{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
   .btnAccion{padding:7px 8px;font-size:11px}
   #msj{height:42px}
   #btnEnviar{padding:0 14px;font-size:12px}
   .burbuja{max-width:86%}
-  /* v16: panel del cel con onda MSN (como la captura de referencia) */
-  #panelContactos{width:84vw;max-width:320px}
-  .tarjetaYo{padding:14px 14px 12px}
-  .cabContactos{padding:12px 14px;font-size:11.5px;text-align:center}
-  .filaGrupal{justify-content:center;padding:14px 12px;margin:8px 10px 10px;font-size:13.5px;border-width:2px;border-radius:12px}
-  .contacto{padding:11px 10px}
+  /* ===== v16: la lista del cel con la forma de la ventana de contactos de MSN ===== */
+  .cabContactos{text-align:center;letter-spacing:2px;padding:12px}
+  .filaGrupal{justify-content:center;padding:14px 10px;border-width:2px;font-size:13px;margin:6px 8px 10px}
+  .contacto{padding:11px 8px}
   .cAvatar{font-size:22px}
   .cNombre{font-size:14px}
   .cSub{font-size:11px}
+  .tarjetaYo{padding:13px 12px}
 }
 </style>
 </head>
@@ -598,15 +629,16 @@ body.tema-claro .logoClaro{display:block}
     <div class="cuerpo">
 
       <aside id="panelContactos">
-        <div class="tarjetaYo" id="tarjetaYo" title="Tocá para editar tu perfil">
-          <div class="tyAvatar" id="tyAvatar">🙂</div>
-          <div class="tyDatos">
-            <div class="tyNombre" id="tyNombre">—</div>
-            <div class="tyEstado" id="tyEstado"><span class="dot online"></span> En línea</div>
-            <div class="tyFrase" id="tyFrase">✍️ Escribí tu mensaje personal…</div>
-          </div>
-        </div>
         <div class="cabContactos">👥 CONTACTOS <span id="cantConectados">(0)</span></div>
+        <!-- v16: MI TARJETA estilo MSN (carita + nombre ★ + En línea + tu frase) — solo cel, tocarla abre MI PERFIL -->
+        <div class="tarjetaYo" id="tarjetaYo" title="Tocá para editar tu perfil">
+          <span class="tyAvatar" id="tyAvatar">🙂</span>
+          <span class="tyInfo">
+            <span class="tyNombre" id="tyNombre">—</span>
+            <span class="tyEstado" id="tyEstado">—</span>
+            <span class="tyFrase" id="tyFrase">✍️ tu mensaje personal…</span>
+          </span>
+        </div>
         <div class="listaContactos" id="listaContactos">
           <p class="vacio">Buscando gente… 📡</p>
         </div>
@@ -639,7 +671,10 @@ body.tema-claro .logoClaro{display:block}
           <div class="lineaSistema">👋 Bienvenido al chat de Sikodark — respetá y pasala lindo 🖤🧡</div>
         </div>
         <div class="barraAcciones" id="barraAcciones">
-          <button class="btnAccion soloGrupo" id="btnContactos">👥 <span id="cantConectadosMob">0</span></button>
+          <!-- v19: 👥 CONTACTOS vuelve a la lista en el cel — visible en grupo Y en privados -->
+          <button class="btnAccion" id="btnContactos">👥 <span id="cantConectadosMob">0</span></button>
+          <!-- v20: CENTRAL DE AVISOS — diagnóstico y prueba de notificaciones al toque -->
+          <button class="btnAccion" id="btnCentral">🔔 Avisos</button>
           <button class="btnAccion" id="btnEmotis">😀 Emoticons</button>
           <button class="btnAccion" id="btnDibujar">✏️ Dibujar</button>
           <button class="btnAccion" id="btnImagen">📷 Foto/GIF</button>
@@ -774,6 +809,32 @@ body.tema-claro .logoClaro{display:block}
   </div>
 </div>
 
+<!-- ================= CENTRAL DE AVISOS (v20) ================= -->
+<div id="overlayAvisos" class="overlayModal oculto">
+  <div class="cajaModal">
+    <div class="modalTitulo">🔔 CENTRAL DE AVISOS</div>
+    <label class="modalLabel">ESTADO EN ESTE DISPOSITIVO</label>
+    <div class="avFila" id="avPermiso"><span class="avChip">—</span><span class="avTxt">permiso del navegador</span></div>
+    <div class="avFila" id="avCampanita"><span class="avChip">—</span><span class="avTxt">avisos del chat</span></div>
+    <div class="avFila" id="avSW"><span class="avChip">—</span><span class="avTxt">motor de avisos (service worker)</span></div>
+    <div class="avFila" id="avPrueba"><span class="avChip">—</span><span class="avTxt">aviso de prueba</span></div>
+    <div class="modalAcc" style="margin-top:10px">
+      <button class="btnDibujo" id="btnPedirPermiso" type="button">🔓 PERMITIR AVISOS EN ESTE CEL</button>
+      <button class="btnPrincipal" id="btnProbarAviso" type="button">🔔 PROBAR AVISO AHORA</button>
+    </div>
+    <label class="modalLabel">PARA QUE NO SE DUERMA EN SEGUNDO PLANO</label>
+    <button class="btnDibujo" id="btnToggleVigilia" type="button" style="width:100%">🫀 MODO SIEMPRE ACTIVO: APAGADO</button>
+    <p class="gifNota" id="avVigiliaNota">Chrome manda a “dormir” el chat cuando lo cambiás por otra app y ahí no llegan avisos. Con este modo prendido, el chat hace un ruido ultra chiquito (no se escucha) y se queda despierto: los avisos siguen llegando. Gasta un poquito más de batería.</p>
+    <label class="modalLabel">SI NO LLEGA NI EL AVISO DE PRUEBA</label>
+    <p class="gifNota" id="avAyudaAndroid">📱 <b>ANDROID:</b> 1) Tocá el candado 🔒 junto a la dirección → Notificaciones → <b>Permitir</b>. 2) Ajustes del cel → Aplicaciones → <b>Chrome</b> → Notificaciones → activadas. 3) El chat tiene que estar abierto (aunque esté en otra app). 4) Probá con otro dispositivo escribiéndote.</p>
+    <p class="gifNota oculto" id="avAyudaIPhone">📱 <b>IPHONE:</b> primero <b>instalá el chat como app</b>: botón Compartir ⬆️ → “Agregar a pantalla de inicio” y entrá desde el ícono nuevo (iOS 16.4 o más nuevo). Sin instalarlo, iOS no deja que lleguen avisos.</p>
+    <p class="gifNota">Con el chat COMPLETAMENTE cerrado todavía no hay aviso (eso necesita un servidor de push — próximo paso). Con el chat abierto y el Modo Siempre Activo prendido, llegan aunque estés en otra app 🧡</p>
+    <div class="modalAcc">
+      <button class="btnPrincipal" id="btnCerrarAvisos" type="button">LISTO ✓</button>
+    </div>
+  </div>
+</div>
+
 <!-- ================= LIGHTBOX ================= -->
 <div id="lightbox" class="oculto"><img id="lightboxImg" alt="Dibujo ampliado"><button id="btnGuardarLightbox" class="btnSec" type="button" onclick="event.stopPropagation()">💾 Guardar imagen</button></div>
 
@@ -896,10 +957,10 @@ function toast(msg, ms){
 /* ---------- 3 · LOGIN (CONTRASEÑA DE LA CASA + NOMBRE) ---------- */
 
 /* 🔑 ============================================ 🔑
-   CONTRASEÑA DEL CHAT — OPCIONAL DESDE v16
-   Va VACÍA = se entra SIN clave (solo nombre + carita).
-   Si la querés de vuelta, poné algo entre las comillas
-   (ej: 'siko123') y el campo reaparece solo. Avisale a la banda.
+   CONTRASEÑA DEL CHAT — OPCIONAL (v16)
+   Dejala vacía ('') para entrar solo con nombre + carita.
+   Si algún día la querés de vuelta, poné la clave acá ↓
+   (ej: 'siko123') y el campo reaparece solo en la portada.
    🔑 ============================================ 🔑 */
 var CLAVE_CHAT = '';
 var SIN_CLAVE = !String(CLAVE_CHAT).trim();
@@ -972,12 +1033,15 @@ function iniciarSesion(){
   $('miNombreTxt').textContent = miAvatar + ' ' + miNombre;
   $('miFrase').textContent = miFraseTxt || '✍️ Escribí tu mensaje personal…';
   pintarMiEstado();
-  pintarTarjetaYo();
+  pintarTarjetaYo(); /* v16: mi tarjeta estilo MSN en el panel del cel */
+  aplicarVistaCel(); /* v19: en el cel arrancá viendo la LISTA de contactos */
   marcarPresencia();
   escucharUsuarios();
   escucharMensajes();
   limpiarViejos();
   pedirPermisoNotis();
+  vigiliaAplicar(); /* v20: si el Modo Siempre Activo quedó prendido, lo retomo */
+  setTimeout(guiaAvisos, 2600); /* v20: guía según cómo esté el permiso en este dispositivo */
   setInterval(heartbeat, 20000);
   setInterval(revisarInactividad, 30000);
 }
@@ -1012,27 +1076,28 @@ function pintarMiEstado(){
   $('miEstadoTxt').innerHTML = estadoActual === 'online'
     ? '<span class="dot online"></span> En línea'
     : '<span class="dot ausente"></span> Ausente';
-  pintarTarjetaYo();
+  pintarTarjetaYo(); /* v16 */
 }
 
-/* v16: mi tarjeta estilo MSN dentro del panel (se ve en el cel; en PC el panel queda como estaba) */
+/* ===== v16: MI TARJETA del panel del cel (estilo ventana de contactos de MSN) ===== */
 function pintarTarjetaYo(){
-  if (!$('tarjetaYo')) return;
-  $('tyAvatar').innerHTML = fotoSegura(miFoto)
+  var av = $('tyAvatar');
+  if (!av) return; /* por si el HTML viejo no tiene la tarjeta */
+  av.innerHTML = (miFoto && fotoSegura(miFoto))
     ? '<img class="fotoMini" src="' + escaparAttr(miFoto) + '" alt="">'
     : escapar(miAvatar || '🙂');
-  $('tyNombre').innerHTML = escapar(miNombre || '—') + ' <span class="tyStar">★</span>';
+  $('tyNombre').textContent = (miNombre || '—') + ' ★';
   $('tyEstado').innerHTML = estadoActual === 'online'
     ? '<span class="dot online"></span> En línea'
     : '<span class="dot ausente"></span> Ausente';
-  $('tyFrase').textContent = miFraseTxt || '✍️ Escribí tu mensaje personal…';
+  $('tyFrase').textContent = miFraseTxt || '✍️ tu mensaje personal…';
 }
 
-/* v16: número de mensajes sin leer en el ícono de la app instalada (Android/PC con Chrome) */
+/* ===== v16: puntito con el número de privados sin leer en el ícono del PWA (Badge API) ===== */
 function actualizarBadgeApp(){
   try {
-    var total = 0, k;
-    for (k in noLeidos) { if (noLeidos.hasOwnProperty(k)) total += noLeidos[k] || 0; }
+    var total = 0;
+    for (var k in noLeidos) if (noLeidos.hasOwnProperty(k)) total += noLeidos[k] || 0;
     if (total > 0) { if (navigator.setAppBadge) navigator.setAppBadge(Math.min(total, 99)); }
     else if (navigator.clearAppBadge) navigator.clearAppBadge();
   } catch (e) {}
@@ -1195,7 +1260,7 @@ function pintarContactos(lista){
       cont.appendChild(fila);
     })(lista[i]);
   }
-  actualizarBadgeApp();
+  actualizarBadgeApp(); /* v16: puntito de privados sin leer en el ícono */
   detectarConexiones(lista);
 }
 
@@ -1251,7 +1316,7 @@ function escucharMensajes(){
           if (m.tipo === 'nudge') zumbidoLocal(m.nombre);
           else if (sonidoActivo) sonidoMsj();
           titilarTitulo();
-          aviso('💬 GRUPO · ' + (m.nombre || 'Chat'), textoPreview(m), 'grupo', {}, !chatPrivadoId);
+          aviso('💬 GRUPO · ' + (m.nombre || 'Chat'), textoPreview(m), 'grupo', {}, !chatPrivadoId && !enListaCel()); /* v19: si estás en la lista del cel, el grupo también avisa */
         }
         /* mensaje privado entre otras dos personas: silencio total */
       }
@@ -1321,7 +1386,7 @@ function abrirPrivado(uid){
   if (uid === miId) { toast('😄 Ese sos vos'); return; }
   chatPrivadoId = uid;
   noLeidos[uid] = 0;
-  actualizarBadgeApp();
+  actualizarBadgeApp(); /* v16 */
   vistoConv[uid] = Date.now(); guardarVistos(); /* v14: leído hasta acá */
   var info = nombresCache[uid] || {};
   $('privNombre').textContent = info.nombre || 'Usuario';
@@ -1337,19 +1402,23 @@ function abrirPrivado(uid){
   if (descon) toast('📭 ' + (info.nombre || 'Ese usuario') + ' está desconectado — le avisa cuando entre', 3800);
   $('barraPrivado').classList.remove('oculto');
   $('barraAcciones').classList.add('modoPrivado');
-  cerrarDrawer();
+  irAChat(); /* v19: en el cel la conversación ocupa toda la pantalla (en PC no cambia nada) */
   pintarContactos(usuariosListaActual);
   renderizarCinta();
   scrollAbajo(true);
 }
-function volverAlGrupo(){
+function cerrarPrivado(){ /* v19: apaga la barra del privado sin tocar la vista */
   chatPrivadoId = null;
   $('barraPrivado').classList.add('oculto');
   $('barraAcciones').classList.remove('modoPrivado');
   $('privSub').textContent = '🔒 chat privado · solo lo ven ustedes dos';
   pintarContactos(usuariosListaActual);
   renderizarCinta();
+}
+function volverAlGrupo(){
+  cerrarPrivado();
   scrollAbajo(true);
+  irAChat(); /* v19: tocar CHAT GRUPAL (o el chip 💬) abre la pantalla del chat en el cel */
 }
 $('btnVolverGrupo').onclick = volverAlGrupo;
 
@@ -1730,11 +1799,11 @@ function pedirPermisoNotis(){
       Notification.requestPermission().then(function(p){
         pintarEstadoNotis();
         pintarAvisosLogin();
-        if (p === 'granted') toast('🔔 Listo: te aviso cuando te escriban o alguien se conecte');
+        if (p === 'granted') { toast('🔔 Listo: te aviso cuando te escriban o alguien se conecte'); avisoPrueba(); }
       }).catch(function(){ pintarEstadoNotis(); pintarAvisosLogin(); });
     } catch (e) {
       /* Safari viejo pide con callback en vez de promesa */
-      try { Notification.requestPermission(function(){ pintarEstadoNotis(); pintarAvisosLogin(); }); } catch (e2) {}
+      try { Notification.requestPermission(function(p){ pintarEstadoNotis(); pintarAvisosLogin(); if (p === 'granted') avisoPrueba(); }); } catch (e2) {}
     }
   } else pintarEstadoNotis();
 }
@@ -1755,6 +1824,7 @@ $('btnNotis').onclick = function(){
   localStorage.setItem('siko_chat_notis', notisQueridas ? 'si' : 'no');
   pintarEstadoNotis();
   toast(notisQueridas ? '🔔 Notificaciones activadas' : '🔕 Notificaciones apagadas');
+  if (notisQueridas) avisoPrueba(); /* v18: al encender la campanita, mandá uno de prueba */
 };
 
 function textoPreview(m){
@@ -1787,7 +1857,11 @@ function aviso(titulo, cuerpo, tag, data, enVista){
   try {
     if (navigator.serviceWorker && navigator.serviceWorker.ready) {
       navigator.serviceWorker.ready.then(function(reg){
-        if (reg && reg.showNotification) reg.showNotification(titulo, op);
+        if (reg && reg.showNotification) {
+          var pr = reg.showNotification(titulo, op);
+          /* v20: si el SW traga el aviso en silencio (fallo al mostrar), reintento directo mientras la pantalla esté a la vista */
+          if (pr && pr.catch) pr.catch(function(){ if (!document.hidden) notaDirecta(titulo, op); });
+        }
         else notaDirecta(titulo, op);
       }).catch(function(){ notaDirecta(titulo, op); });
     } else notaDirecta(titulo, op);
@@ -1795,6 +1869,164 @@ function aviso(titulo, cuerpo, tag, data, enVista){
 }
 function notaDirecta(titulo, op){
   try { new Notification(titulo, op); } catch (e) {}
+}
+
+/* v18: aviso de PRUEBA al activar los avisos — te llega al instante para que veas cómo va a ser.
+   Si este aviso NO llega, el bloqueo está en el navegador o en el cel (permisos del sistema). */
+function avisoPrueba(){
+  var titulo = '🔔 Avisos activados ✅';
+  var op = {
+    body: 'Así te va a llegar cuando alguien te escriba 💬',
+    icon: 'icon-192.png',
+    badge: 'favicon.png',
+    tag: 'prueba-' + Date.now(),
+    vibrate: [90, 50, 90],
+    data: {}
+  };
+  var mandada = false;
+  function porSW(reg){
+    if (mandada) return;
+    mandada = true;
+    try { localStorage.setItem('siko_chat_prueba', 'si'); } catch (e) {}
+    try { pintarCentral(); } catch (e) {} /* v20: refrescar el estado de la central */
+    if (reg && reg.showNotification) {
+      var pr = reg.showNotification(titulo, op);
+      if (pr && pr.catch) pr.catch(function(){ if (!mandada) { mandada = true; try { localStorage.setItem('siko_chat_prueba', 'si'); } catch (e2) {} notaDirecta(titulo, op); } });
+    }
+    else { try { localStorage.setItem('siko_chat_prueba', 'si'); } catch (e2) {} notaDirecta(titulo, op); }
+  }
+  try {
+    if (navigator.serviceWorker && navigator.serviceWorker.ready) {
+      navigator.serviceWorker.ready.then(porSW).catch(function(){ if (!mandada) { mandada = true; try { localStorage.setItem('siko_chat_prueba', 'si'); } catch (e2) {} notaDirecta(titulo, op); } });
+      /* si el service worker no responde en 1.5 s, la mando directo para que no te quedes esperando */
+      setTimeout(function(){ if (!mandada) { mandada = true; try { localStorage.setItem('siko_chat_prueba', 'si'); } catch (e2) {} notaDirecta(titulo, op); } }, 1500);
+    } else { try { localStorage.setItem('siko_chat_prueba', 'si'); } catch (e2) {} notaDirecta(titulo, op); }
+  } catch (e) { try { localStorage.setItem('siko_chat_prueba', 'si'); } catch (e2) {} notaDirecta(titulo, op); }
+}
+
+/* ============================================================
+   v20 · CENTRAL DE AVISOS + MODO SIEMPRE ACTIVO (anti-siesta)
+   ============================================================ */
+var swListo = false; /* v20: ¿el service worker ya está listo para mostrar avisos? */
+if (navigator.serviceWorker && navigator.serviceWorker.ready) {
+  navigator.serviceWorker.ready.then(function(){ swListo = true; try { pintarCentral(); } catch (e) {} }).catch(function(){});
+}
+function esIPhone(){ return /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); }
+function esStandalone(){
+  return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true;
+}
+
+/* --- 🫀 MODO SIEMPRE ACTIVO: Chrome "duerme" las pestañas en segundo plano y ahí muere todo.
+   Un tono ultra chiquito (inaudible) mantiene la pestaña "audible" → Chrome no la congela
+   y los avisos siguen llegando mientras cambiás de app. La radio sonando también lo logra. --- */
+var vigiliaActiva = localStorage.getItem('siko_chat_vigilia') === 'si';
+var vigiliaCtx = null, vigiliaOsc = null;
+function vigiliaIniciar(){
+  try {
+    if (vigiliaOsc) { if (vigiliaCtx && vigiliaCtx.state === 'suspended' && vigiliaCtx.resume) vigiliaCtx.resume().catch(function(){}); return; }
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return;
+    vigiliaCtx = new AC();
+    vigiliaOsc = vigiliaCtx.createOscillator();
+    var g = vigiliaCtx.createGain();
+    vigiliaOsc.frequency.value = 55;
+    g.gain.value = 0.0015; /* inaudible para humanos, pero mantiene la pestaña "con audio" */
+    vigiliaOsc.connect(g);
+    g.connect(vigiliaCtx.destination);
+    vigiliaOsc.start();
+  } catch (e) {}
+}
+function vigiliaParar(){
+  try { if (vigiliaOsc) { vigiliaOsc.stop(); vigiliaOsc = null; } } catch (e) {}
+  try { if (vigiliaCtx) { vigiliaCtx.close(); vigiliaCtx = null; } } catch (e) {}
+}
+function vigiliaAplicar(){
+  if (vigiliaActiva && logueado) vigiliaIniciar(); else vigiliaParar();
+  try { pintarCentral(); } catch (e) {}
+}
+/* al volver a tocar la pantalla (gesto del navegador) se reactiva si quedó suspendida */
+document.addEventListener('pointerdown', function(){ if (vigiliaActiva && logueado) vigiliaIniciar(); }, { passive: true });
+
+/* --- 🔔 CENTRAL: diagnóstico completo del dispositivo + prueba al toque --- */
+function abrirCentral(){ pintarCentral(); $('overlayAvisos').classList.remove('oculto'); }
+function pintarCentral(){
+  var soporta = ('Notification' in window);
+  var p = soporta ? Notification.permission : 'no-soporta';
+  var ios = esIPhone();
+  var iosOk = ios && esStandalone();
+
+  function fila(id, chipTxt, chipCls, txt){
+    var f = $(id);
+    if (!f) return;
+    var c = f.querySelector('.avChip');
+    if (c) { c.textContent = chipTxt; c.className = 'avChip ' + chipCls; }
+    var t = f.querySelector('.avTxt');
+    if (t) t.textContent = txt;
+  }
+  if (!soporta) fila('avPermiso', 'NO', 'mal', ios && !iosOk ? 'iPhone sin instalar la app: iOS no permite avisos (instalá el chat a la pantalla de inicio)' : 'este navegador no soporta notificaciones');
+  else if (p === 'granted') fila('avPermiso', '✅', 'ok', ios && !iosOk ? 'concedido — pero en iPhone hace falta instalar la app para que lleguen' : 'concedido');
+  else if (p === 'denied') fila('avPermiso', '⛔', 'mal', 'BLOQUEADO — tocá el candado 🔒 junto a la dirección → Notificaciones → Permitir');
+  else fila('avPermiso', '❓', 'medio', 'todavía no diste permiso — tocá PERMITIR abajo');
+
+  if (!soporta) fila('avCampanita', '🔕', 'mal', 'los avisos del chat no funcionan acá');
+  else if (notisQueridas) fila('avCampanita', '✅', 'ok', 'encendidos (campanita 🔔 activa)');
+  else fila('avCampanita', '🔕', 'mal', 'apagados — tocá la campanita 🔔 de la barra para encenderlos');
+
+  fila('avSW', swListo ? '✅' : '⏳', swListo ? 'ok' : 'medio', swListo ? 'motor listo para mostrar avisos en el cel' : 'cargando el motor de avisos…');
+
+  var probada = false;
+  try { probada = localStorage.getItem('siko_chat_prueba') === 'si'; } catch (e) {}
+  fila('avPrueba', probada ? '✅' : '—', probada ? 'ok' : 'medio', probada ? 'enviada — si no la viste en la entrada del cel, revisá la ayuda de abajo' : 'no probada todavía — tocá PROBAR AVISO');
+
+  /* botones y ayuda según el caso */
+  var bPer = $('btnPedirPermiso');
+  if (bPer) bPer.classList.toggle('oculto', !soporta || p !== 'default');
+  var aA = $('avAyudaAndroid'), aI = $('avAyudaIPhone');
+  if (aA) aA.classList.toggle('oculto', ios);
+  if (aI) aI.classList.toggle('oculto', !ios);
+
+  var bV = $('btnToggleVigilia');
+  if (bV) bV.textContent = vigiliaActiva ? '🫀 MODO SIEMPRE ACTIVO: PRENDIDO ✅ (tocá para apagar)' : '🫀 MODO SIEMPRE ACTIVO: APAGADO (tocá para prender)';
+}
+$('btnCentral').onclick = abrirCentral;
+$('btnCerrarAvisos').onclick = function(){ $('overlayAvisos').classList.add('oculto'); };
+$('btnPedirPermiso').onclick = function(){
+  notisQueridas = true;
+  localStorage.setItem('siko_chat_notis', 'si');
+  pedirPermisoNotis();
+  setTimeout(pintarCentral, 500);
+};
+$('btnProbarAviso').onclick = function(){
+  if (!('Notification' in window)) { toast(esIPhone() ? '📱 En iPhone instalá el chat como app (Compartir ⬆️ → Agregar a inicio)' : '😴 Este navegador no soporta notificaciones', 4200); return; }
+  if (Notification.permission === 'denied') { toast('⛔ Están bloqueadas: candado 🔒 → Notificaciones → Permitir', 4500); return; }
+  if (Notification.permission === 'default') {
+    notisQueridas = true;
+    localStorage.setItem('siko_chat_notis', 'si');
+    pedirPermisoNotis();
+    setTimeout(pintarCentral, 500);
+    return;
+  }
+  notisQueridas = true;
+  localStorage.setItem('siko_chat_notis', 'si');
+  avisoPrueba();
+  toast('📤 Mandado — mirá la entrada del cel. ¿No apareció? Leé la ayuda de abajo', 4500);
+  setTimeout(pintarCentral, 600);
+};
+$('btnToggleVigilia').onclick = function(){
+  vigiliaActiva = !vigiliaActiva;
+  localStorage.setItem('siko_chat_vigilia', vigiliaActiva ? 'si' : 'no');
+  vigiliaAplicar();
+  toast(vigiliaActiva ? '🫀 Listo: el chat no se duerme en segundo plano' : '😴 Modo siempre activo apagado');
+};
+
+/* v20: guía automática apenas entrás, según cómo esté el permiso en el dispositivo */
+function guiaAvisos(){
+  if (!('Notification' in window)) {
+    if (esIPhone() && !esStandalone()) toast('📱 En iPhone: Compartir ⬆️ → Agregar a inicio, y entrá desde el ícono', 5500);
+    return;
+  }
+  if (Notification.permission === 'denied') toast('🔕 Avisos bloqueados en este navegador — tocá 🔔 Avisos (abajo) para arreglarlo', 5500);
+  else if (Notification.permission === 'default') toast('🔔 Tocá el botón 🔔 Avisos de la barra para activar los avisos al cel', 5500);
 }
 
 /* alguien nuevo entra → aviso (banner si está en segundo plano, tostada si lo está mirando)
@@ -1831,25 +2063,37 @@ $('miFrase').onclick = function(){
   localStorage.setItem('siko_chat_frase', miFraseTxt);
   $('miFrase').textContent = miFraseTxt || '✍️ Escribí tu mensaje personal…';
   marcarPresencia();
-  pintarTarjetaYo();
+  pintarTarjetaYo(); /* v16: refrescar la frase en mi tarjeta */
 };
-/* v11: cajón de conectados con velo oscuro — se cierra tocando afuera */
+/* v11: cajón viejo de conectados — el velo quedó como compatibilidad, ya no se usa */
 function cerrarDrawer(){
   $('panelContactos').classList.remove('abierto');
   $('veloDrawer').classList.remove('ver');
 }
-$('btnContactos').onclick = function(){
-  var abrio = $('panelContactos').classList.toggle('abierto');
-  $('veloDrawer').classList.toggle('ver', abrio);
-};
-$('veloDrawer').onclick = cerrarDrawer;
-/* FIX v11: el botón 👥 vive DENTRO de #zonaChat — sin este guard, el clic
-   burbujeaba y cerraba el cajón al instante (por eso en vertical no se veían
-   nunca los conectados, solo al girar la pantalla) */
-$('zonaChat').addEventListener('click', function(e){
-  if (e.target.closest && e.target.closest('#btnContactos')) return;
+/* ===== v19: NAVEGACIÓN DEL CEL — LISTA completa ↔ CHAT completo (como WhatsApp) =====
+   En el cel arrancás viendo los contactos: tocás alguien y el chat ocupa toda la pantalla;
+   tocás 👥 CONTACTOS y volvés a la lista. En PC estas funciones no cambian nada. */
+var vistaCel = 'lista'; /* en qué pantalla está el cel: 'lista' o 'chat' */
+function enCel(){ return window.matchMedia('(max-width:620px)').matches; }
+function enListaCel(){ return document.body.classList.contains('celLista'); }
+function aplicarVistaCel(){
+  if (!enCel()) { document.body.classList.remove('celLista'); return; }
+  document.body.classList.toggle('celLista', vistaCel === 'lista');
+}
+function irALista(){
+  vistaCel = 'lista';
+  if (logueado) cerrarPrivado(); /* volvés a la lista → ya no hay conversación "abierta": te avisan todas */
+  scrollAbajo(true);
+  aplicarVistaCel();
   cerrarDrawer();
-});
+}
+function irAChat(){
+  vistaCel = 'chat';
+  aplicarVistaCel();
+  cerrarDrawer();
+}
+$('btnContactos').onclick = irALista; /* v19: 👥 te lleva a la lista a pantalla completa */
+window.addEventListener('resize', aplicarVistaCel); /* girar el cel: horizontal = vista PC, vertical = lista/chat */
 var botonesVent = document.querySelectorAll('.btnVent');
 for (var ib = 0; ib < botonesVent.length; ib++) {
   if (botonesVent[ib].id === 'btnNotis') continue; /* v17: la campanita 🔔 tiene su propio trabajo (antes este loop la pisaba) */
@@ -2434,7 +2678,7 @@ function pintarAvataresPerfil(){
   }
 }
 $('miAvatarBox').onclick = abrirPerfil;
-$('tarjetaYo').onclick = abrirPerfil; /* v16: la tarjeta del panel también abre el perfil */
+$('tarjetaYo').onclick = abrirPerfil; /* v16: tocar mi tarjeta del panel abre MI PERFIL */
 $('btnCerrarPerfil').onclick = function(){ $('overlayPerfil').classList.add('oculto'); };
 $('btnSubirFoto').onclick = function(){ $('inputFotoPerfil').value = ''; $('inputFotoPerfil').click(); };
 $('btnQuitarFoto').onclick = function(){ fotoPerfilTmp = ''; pintarPerfilPreview(); };
@@ -2458,6 +2702,7 @@ $('btnGuardarPerfil').onclick = function(){
   else localStorage.removeItem('siko_chat_foto');
   $('miNombreTxt').textContent = miAvatar + ' ' + miNombre;
   pintarMiAvatar();
+  pintarTarjetaYo(); /* v16: refrescar mi tarjeta */
   marcarPresencia();
   $('overlayPerfil').classList.add('oculto');
   toast('✅ Perfil actualizado');
@@ -2767,7 +3012,7 @@ $('btnCompartir').onclick = function(){
 
 /* ---------- 21 · PWA (INSTALAR COMO APP) ---------- */
 if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
-  navigator.serviceWorker.register('sw.js').catch(function(){});
+  navigator.serviceWorker.register('sw.js').then(function(){ swListo = true; try { pintarCentral(); } catch (e) {} }).catch(function(){});
 }
 var eventoInstall = null;
 var esIOS = /iphone|ipad|ipod/i.test(navigator.userAgent || '');

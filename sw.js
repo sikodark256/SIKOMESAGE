@@ -1,15 +1,14 @@
 /* ============================================================
-   SERVICE WORKER — SIKODARK CHAT (MSN) · chat-v17
-   + avisos tipo WhatsApp: botón 🔔 en el inicio + avisa aunque estés en otra conversación + nombre y carita en el aviso
+   SERVICE WORKER — SIKODARK CHAT (MSN) · chat-v20
+   + central de avisos: estado del dispositivo, PROBAR AVISO, ayuda Android/iPhone y 🫀 modo siempre activo (anti-siesta)
+   + navegación tipo app en el cel: LISTA a pantalla completa ↔ chat completo con botón 👥 CONTACTOS
+   + avisos tipo WhatsApp: botón 🔔 en el inicio + aviso de PRUEBA al activar + avisa aunque estés en otra conversación + nombre y carita en el aviso
    + panel del cel estilo MSN (mi tarjeta + CHAT GRUPAL grande) + sin contraseña + badge en el ícono
-   + pizarrita Paint: bote de pintura 🪣, pincel 🖌️, deshacer ↩️ y 14 colores
    + todos en la lista (desconectados con "visto hace") + pendientes al entrar + botón CHAT GRUPAL
-   + portada limpia y logo más chico
    + reacciones/me gusta, reenviar, borrar, guardar y favoritos
-   + conectados siempre visibles en el cel vertical
    Subí este número (v5, v6…) cada vez que cambies el index.html
    ============================================================ */
-var CACHE = 'sikodark-chat-v17';
+var CACHE = 'sikodark-chat-v20';
 var ARCHIVOS = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png', './favicon.png', './apple-touch-icon.png', './icon-maskable-192.png', './icon-maskable-512.png', './logo-blanco.png', './logo-negro.png', './logo-cara.png'];
 
 self.addEventListener('install', function(e){

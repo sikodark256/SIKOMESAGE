@@ -1,7 +1,7 @@
 {
   "name": "Sikodark Chat — Estilo MSN",
   "short_name": "SikoChat",
-  "description": "Chat estilo MSN Messenger de Sikodark Radio: sin registro, chat grupal y privado, pizarrita para pintar, radio en vivo, zumbido y avisos.",
+  "description": "Chat estilo MSN Messenger de Sikodark Radio: conectados en vivo, avisos al cel tipo WhatsApp, pizarrita para dibujar, zumbido y emoticons.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
