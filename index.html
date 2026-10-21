@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- SikoChat v16 · PANEL DEL CEL ESTILO MSN: tu tarjeta arriba (carita + nombre + En línea + tu frase) + CHAT GRUPAL grande · SIN contraseña (opcional: CLAVE_CHAT vacía) · puntito de no leídos en el ícono del PWA · + PIZARRITA PAINT: bote de pintura 🪣 + pincel 🖌️ + deshacer ↩️ · + TODOS en la lista (desconectados con visto hace) + avisos de pendientes al entrar + botón CHAT GRUPAL · + portada limpia + reacciones ❤️ + reenviar ↪️ + borrar 🗑️ + favoritos ⭐ + conectados en cel + logo + instalar + temas + perfil + stikers/gifs/fotos + tonos + radio + privado + notificaciones -->
+<!-- SikoChat v17 · AVISOS TIPO WHATSAPP: botón 🔔 AVISOS AL CEL en el inicio (un toque pide permiso) + te avisa aunque estés mirando otra conversación + el aviso muestra nombre y carita de quien te escribe y al tocarlo se abre esa conversación · + PANEL DEL CEL ESTILO MSN: tu tarjeta arriba (carita + nombre + En línea + tu frase) + CHAT GRUPAL grande · SIN contraseña (opcional: CLAVE_CHAT vacía) · puntito de no leídos en el ícono del PWA · + PIZARRITA PAINT: bote de pintura 🪣 + pincel 🖌️ + deshacer ↩️ · + TODOS en la lista (desconectados con visto hace) + avisos de pendientes al entrar + botón CHAT GRUPAL · + portada limpia + reacciones ❤️ + reenviar ↪️ + borrar 🗑️ + favoritos ⭐ + conectados en cel + logo + instalar + temas + perfil + stikers/gifs/fotos + tonos + radio + privado + notificaciones -->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -566,6 +566,7 @@ body.tema-claro .logoClaro{display:block}
     <label class="etiqueta">ELEGÍ TU CARITA</label>
     <div id="gridAvatares" class="gridAvatares"></div>
     <button id="btnEntrar" class="btnPrincipal">ENTRAR AL CHAT ▶</button>
+    <button id="btnAvisosLogin" class="btnSec oculto">🔔 ACTIVAR AVISOS AL CEL (tipo WhatsApp)</button>
     <button id="btnInstalar" class="btnSec oculto">📥 INSTALAR COMO APP</button>
   </div>
 </div>
@@ -1229,8 +1230,11 @@ function escucharMensajes(){
       var fresco = Date.now() - msT < 20000;
       if (m.de !== miId && fresco) {
         if (para === miId) {
-          /* mensaje privado para mí */
-          aviso('🔒 Privado · ' + (m.nombre || 'alguien'), textoPreview(m), 'priv-' + m.de, { de: m.de });
+          /* mensaje privado para mí — v17: aviso tipo WhatsApp (nombre + carita) aunque estés mirando otra conversación */
+          var infP = nombresCache[m.de] || {};
+          var nomP = m.nombre || infP.nombre || 'alguien';
+          var caraP = (infP.avatar && !infP.foto) ? infP.avatar + ' ' : '';
+          aviso(caraP + nomP, textoPreview(m), 'priv-' + m.de, { de: m.de }, chatPrivadoId === m.de);
           if (chatPrivadoId === m.de) {
             vistoConv[m.de] = Date.now(); guardarVistos(); /* v14: lo estoy leyendo ahora */
             if (m.tipo === 'nudge') zumbidoLocal(m.nombre);
@@ -1247,7 +1251,7 @@ function escucharMensajes(){
           if (m.tipo === 'nudge') zumbidoLocal(m.nombre);
           else if (sonidoActivo) sonidoMsj();
           titilarTitulo();
-          aviso('💬 ' + (m.nombre || 'Chat'), textoPreview(m), 'grupo', {});
+          aviso('💬 GRUPO · ' + (m.nombre || 'Chat'), textoPreview(m), 'grupo', {}, !chatPrivadoId);
         }
         /* mensaje privado entre otras dos personas: silencio total */
       }
@@ -1685,6 +1689,22 @@ document.addEventListener('visibilitychange', function(){
 var notisQueridas = localStorage.getItem('siko_chat_notis') !== 'no';
 var conectadosPrev = null; /* null = primera lectura, no avisa para no llenar de carteles */
 
+/* v17: botón de avisos en la PORTADA (el inicio) — un toque y el cel empieza a avisar tipo WhatsApp.
+   Solo se muestra si el navegador soporta notificaciones y todavía no diste permiso. */
+var btnAvisosLogin = $('btnAvisosLogin');
+function pintarAvisosLogin(){
+  if (!btnAvisosLogin) return;
+  var falta = ('Notification' in window) && Notification.permission === 'default';
+  btnAvisosLogin.classList.toggle('oculto', !falta);
+}
+if (btnAvisosLogin) btnAvisosLogin.onclick = function(){
+  notisQueridas = true;
+  localStorage.setItem('siko_chat_notis', 'si');
+  btnAvisosLogin.classList.add('oculto');
+  pedirPermisoNotis();
+};
+pintarAvisosLogin();
+
 function pintarEstadoNotis(){
   var b = $('btnNotis');
   if (!b) return;
@@ -1709,11 +1729,12 @@ function pedirPermisoNotis(){
     try {
       Notification.requestPermission().then(function(p){
         pintarEstadoNotis();
+        pintarAvisosLogin();
         if (p === 'granted') toast('🔔 Listo: te aviso cuando te escriban o alguien se conecte');
-      }).catch(function(){ pintarEstadoNotis(); });
+      }).catch(function(){ pintarEstadoNotis(); pintarAvisosLogin(); });
     } catch (e) {
       /* Safari viejo pide con callback en vez de promesa */
-      try { Notification.requestPermission(function(){ pintarEstadoNotis(); }); } catch (e2) {}
+      try { Notification.requestPermission(function(){ pintarEstadoNotis(); pintarAvisosLogin(); }); } catch (e2) {}
     }
   } else pintarEstadoNotis();
 }
@@ -1746,10 +1767,12 @@ function textoPreview(m){
   return String(m.texto || 'te escribió').slice(0, 90);
 }
 
-function aviso(titulo, cuerpo, tag, data){
+function aviso(titulo, cuerpo, tag, data, enVista){
   if (!notisQueridas || !('Notification' in window)) return;
   if (Notification.permission !== 'granted') return;
-  if (!document.hidden) return; /* si lo estás mirando, no hace falta banner */
+  /* v17 tipo WhatsApp: si la conversación que lo mandó está abierta en pantalla, no molesta.
+     Si te escriben de OTRA conversación (o el chat quedó en segundo plano) → aviso al cel. */
+  if (enVista) return;
   var op = {
     body: cuerpo,
     icon: 'icon-192.png',
@@ -1829,6 +1852,7 @@ $('zonaChat').addEventListener('click', function(e){
 });
 var botonesVent = document.querySelectorAll('.btnVent');
 for (var ib = 0; ib < botonesVent.length; ib++) {
+  if (botonesVent[ib].id === 'btnNotis') continue; /* v17: la campanita 🔔 tiene su propio trabajo (antes este loop la pisaba) */
   botonesVent[ib].onclick = function(){ toast('😉 Acá no se cierra nadie, seguí chateando'); };
 }
 
