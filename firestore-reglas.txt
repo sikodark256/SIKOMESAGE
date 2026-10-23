@@ -1,7 +1,13 @@
 # ============================================================
 # SIKODARK CHAT — Reglas de Firestore (solo la parte del chat)
-# Pegá estos dos bloques dentro del bloque match /databases/{database}/documents {
+# Pegá estos TRES bloques dentro del bloque match /databases/{database}/documents {
 # Si tus reglas ya están abiertas (allow read, write: if true), no hace falta.
+#
+# v26: los JUEGOS usan una colección nueva: chat_juegos — agregá su bloque
+# abajo, si no las invitaciones y las jugadas no van a salir.
+# v24: el push YA NO usa una colección aparte — las suscripciones de cada cel
+# viven en chat_usuarios/{uid}, campo "push", y la URL del servidor queda en
+# chat_usuarios/__config__. Con el bloque de chat_usuarios ya alcanza.
 # ============================================================
 
     match /chat_usuarios/{doc} {
@@ -9,5 +15,9 @@
     }
 
     match /chat_mensajes/{doc} {
+      allow read, write: if true;
+    }
+
+    match /chat_juegos/{doc} {
       allow read, write: if true;
     }

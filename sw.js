@@ -1,8 +1,11 @@
 /* ============================================================
-   SERVICE WORKER — SIKODARK CHAT (MSN) · chat-v23
-   + BANDEJA LIMPIA TIPO WHATSAPP: sin avisos de "se conectó" (llenaban la barra del celu) y los avisos de mensajes llegan limpios — título = solo el nombre del que escribe (sin caritas ni corazones), foto del remitente como imagen y grupo como WhatsApp (💬 CHAT GRUPAL · "juan: mensaje")
+   SERVICE WORKER — SIKODARK CHAT (MSN) · chat-v26
+   + v26: 🎮 JUEGOS EN LÍNEA DE 2 — damas, ajedrez, ta-te-ti, conecta 4 y piedra-papel-tijera: invitás desde el privado o la lista, juegan en vivo cada uno en su pantalla (colección chat_juegos)
+   + v25: botón ← INICIO arriba para volver a los contactos (grupo y privados, cel) y VOLUMEN de sonidos en 🎵 Tonos
+   + PUSH ACTIVABLE DESDE EL CHAT: el servidor se configura adentro (🔔 Avisos → 📲 ACTIVAR PUSH) y queda guardado para todos en Firestore; las suscripciones viven en chat_usuarios/{uid}.push (sin colección nueva)
+   + BANDEJA LIMPIA TIPO WHATSAPP: sin avisos de "se conectó" y los avisos de mensajes llegan limpios — título = solo el nombre del que escribe, foto del remitente como imagen y grupo como WhatsApp (💬 CHAT GRUPAL · "juan: mensaje")
    + EMPUJE REAL: avisos con la app TOTALMENTE cerrada (el servidor de push manda el aviso cifrado acá)
-   + sin duplicado en la lista: tu nombre ya no sale dos veces (tarjeta + fila) y los contadores no te cuentan a vos
+   + sin duplicado en la lista: tu nombre ya no sale dos veces y los contadores no te cuentan a vos
    + central de avisos: estado del dispositivo, PROBAR AVISO, ayuda Android/iPhone y 🫀 modo siempre activo (anti-siesta)
    + navegación tipo app en el cel: LISTA a pantalla completa ↔ chat completo con botón 👥 CONTACTOS
    + avisos tipo WhatsApp: botón 🔔 en el inicio + aviso de PRUEBA al activar + avisa aunque estés en otra conversación + nombre y carita en el aviso
@@ -11,7 +14,7 @@
    + reacciones/me gusta, reenviar, borrar, guardar y favoritos
    Subí este número (v5, v6…) cada vez que cambies el index.html
    ============================================================ */
-var CACHE = 'sikodark-chat-v23';
+var CACHE = 'sikodark-chat-v26';
 var ARCHIVOS = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png', './favicon.png', './apple-touch-icon.png', './icon-maskable-192.png', './icon-maskable-512.png', './logo-blanco.png', './logo-negro.png', './logo-cara.png'];
 
 self.addEventListener('install', function(e){

@@ -1,23 +1,17 @@
 /* ============================================================
-   📨 SERVIDOR DE PUSH — SIKODARK CHAT (v22)
+   📨 SERVIDOR DE PUSH — SIKODARK CHAT (v24)
    ============================================================
    ESTE ES EL SERVIDOR QUE MANDA LOS AVISOS CUANDO EL CHAT ESTÁ CERRADO.
 
-   CÓMO INSTALARLO (5 minutos, todo desde el navegador, gratis):
-   1) Entrá a https://dash.cloudflare.com y creá una cuenta (gratis)
-   2) Menú izquierdo → Workers & Pages → Create → Create Worker
-   3) Ponle un nombre (ej: sikodark-push) → Deploy → Edit code
-   4) Borrá TODO lo que trae y PEGÁ este archivo entero
-   5) Deploy (botón arriba a la derecha) → te da una URL como:
-        https://sikodark-push.TU-CUENTA.workers.dev
-   6) Copiá esa URL y pegala en index.html, en la línea:
-        var PUSH_URL = 'https://sikodark-push.TU-CUENTA.workers.dev';
-      (buscá PUSH_URL con Ctrl+F, está arriba cerca de la configuración de Firebase)
-   7) Subí el index.html al repo → listo: los avisos llegan aunque
-      la PWA esté totalmente cerrada 🎉
+   ⚠️ V24: se activa DENTRO del chat → 🔔 Avisos → 📲 ACTIVAR PUSH.
+   Copiá este código desde ahí (botón COPIAR). Pasos de siempre:
+   dash.cloudflare.com → Workers & Pages → Create Worker → Deploy →
+   Edit code → pegá ESTO ENTERO → Deploy otra vez.
+   Si ya tenías un worker viejo: pegale este código y Deploy de nuevo.
 
-   NO NECESITA NADA MÁS: lee las suscripciones de tu Firestore con la
-   misma clave pública del chat y manda los avisos cifrados a cada cel.
+   NO NECESITA NADA MÁS: lee las suscripciones guardadas en tu Firestore
+   (colección chat_usuarios, campo push de cada usuario — las mismas reglas
+   de siempre) y manda el aviso cifrado a cada cel. Sin colecciones nuevas.
    ============================================================ */
 
 /* ---- CONFIGURACIÓN (ya viene lista, no toques nada) ---- */
@@ -25,10 +19,11 @@ const VAPID_PUB  = 'BIoCuSouVQoW3N4QuFeXiCDjHHItZSxs80A8XzLq7hpF3R2Gja1ippl7HC25
 const VAPID_PRIV = 'MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgfIvPk261fEZUCERcmrqk7EHphrnWavPL1xcmwu_GP4ChRANCAASKArkqLlUKFtzeELhXl4gg4xxyLWUsbPNAPF8y6u4aRd0dho2tYqaZexwtubwRQtjjP89UaGFmLgObcjtSHM8N';
 const FIREBASE_PROJECT = 'sikodarkradio-26a07';
 const FIREBASE_API_KEY = 'AIzaSyC9Q9N1TTqWRUpeh2lo7tGuG8lwTrvbHrA';
-const SUBS_COL = 'chat_push_subs';
-const CLAVE = 'sikodark-push-2026';              /* tiene que ser igual a PUSH_CLAVE en index.html */
-const MAILTO = 'mailto:sikodark-chat@push.local'; /* contacto VAPID (obligatorio, no se muestra) */
-const TTL = '2419200';                            /* 28 días de vida del aviso */
+const USU_COL = 'chat_usuarios';                   /* las suscripciones viven acá: chat_usuarios/{uid}.push */
+const CLAVE = 'sikodark-push-2026';                /* tiene que ser igual a PUSH_CLAVE en index.html */
+const MAILTO = 'mailto:sikodark-chat@push.local';  /* contacto VAPID (obligatorio, no se muestra) */
+const TTL = '2419200';                             /* 28 días de vida del aviso */
+const VERSION = 24;
 
 /* ---- utilidades base64url ---- */
 function b64uDecode(s){
@@ -122,30 +117,30 @@ async function encryptWebPush(payloadStr, sub){
   return concat(header, cipher);
 }
 
-/* ---- leer suscripciones de Firestore (REST, clave pública web) ---- */
+/* ---- leer suscripciones de Firestore (REST, clave pública web) ----
+   v24: viven en chat_usuarios/{uid}, campo "push" = lista de
+   { endpoint, p256dh, auth } (una por dispositivo). Sin colección nueva. */
 async function leerSubs(){
   const url = 'https://firestore.googleapis.com/v1/projects/' + FIREBASE_PROJECT +
-              '/databases/(default)/documents/' + SUBS_COL + '?pageSize=500&key=' + FIREBASE_API_KEY;
+              '/databases/(default)/documents/' + USU_COL + '?pageSize=300&key=' + FIREBASE_API_KEY;
   const r = await fetch(url);
-  if (!r.ok) throw new Error('Firestore ' + r.status + ' (¿faltan las reglas de ' + SUBS_COL + '?)');
+  if (!r.ok) throw new Error('Firestore ' + r.status + ' (revisá las reglas de ' + USU_COL + ')');
   const j = await r.json();
   const out = [];
   (j.documents || []).forEach(d => {
-    const f = d.fields || {};
-    const sv = x => (f[x] && f[x].stringValue) || '';
-    const ep = sv('endpoint');
-    const p256dh = sv('p256dh');
-    const auth = sv('auth');
-    if (ep && p256dh && auth) out.push({ id: d.name.split('/').pop(), uid: sv('uid'), endpoint: ep, p256dh: p256dh, auth: auth });
+    const uid = d.name.split('/').pop();
+    if (uid.indexOf('__') === 0) return; /* docs internos (config) afuera */
+    const vals = (d.fields && d.fields.push && d.fields.push.arrayValue &&
+                  d.fields.push.arrayValue.values) || [];
+    vals.forEach(it => {
+      const g = it.mapValue && it.mapValue.fields;
+      if (!g) return;
+      const sv = x => (g[x] && g[x].stringValue) || '';
+      const ep = sv('endpoint'), p256dh = sv('p256dh'), auth = sv('auth');
+      if (ep && p256dh && auth) out.push({ uid: uid, endpoint: ep, p256dh: p256dh, auth: auth });
+    });
   });
   return out;
-}
-async function borrarSub(id){
-  try {
-    await fetch('https://firestore.googleapis.com/v1/projects/' + FIREBASE_PROJECT +
-      '/databases/(default)/documents/' + SUBS_COL + '/' + id + '?key=' + FIREBASE_API_KEY,
-      { method: 'DELETE' });
-  } catch (e) {}
 }
 
 /* ---- enviar un push a una suscripción ---- */
@@ -182,13 +177,14 @@ export default {
     if (req.method === 'OPTIONS') return new Response(null, { status: 204, headers: CORS });
 
     if (req.method === 'GET') {
-      /* panel chico para probar que está vivo */
+      /* panel chico para probar que está vivo (el chat lo muestra al guardar la URL) */
       let cuantas = -1;
       try { cuantas = (await leerSubs()).length; } catch (e) {}
       return json({
         servicio: 'push de SikoChat ✅',
+        version: VERSION,
         suscripciones: cuantas,
-        firestore: cuantas < 0 ? '❌ no pude leer (revisá las reglas)' : 'ok'
+        firestore: cuantas < 0 ? '❌ no pude leer (revisá las reglas de chat_usuarios)' : 'ok'
       });
     }
 
@@ -203,28 +199,27 @@ export default {
     try { subs = await leerSubs(); }
     catch (e) { return json({ error: String(e.message || e) }, 500); }
 
-    /* privado → solo ese usuario · grupo → todos menos el que manda */
-    const destino = subs.filter(s => m.para ? s.uid === m.para : s.uid !== m.de);
+    /* privado → todos los dispositivos de ese usuario · grupo → todos menos el que manda */
+    const destino = subs.filter(s => m.para ? s.uid === m.para : (s.uid !== m.de && s.uid.indexOf('__') !== 0));
     if (!destino.length) return json({ ok: true, enviados: 0, nota: 'nadie subscripto todavía' });
 
     const payload = {
       titulo: m.titulo,
       cuerpo: m.cuerpo || '',
       tag: m.tag || 'siko-push',
-      de: m.de || null
+      de: m.de || null,
+      icono: m.icono || null  /* v24: la foto del que escribe viaja hasta el aviso (como WhatsApp) */
     };
 
-    let ok = 0, muertas = [];
+    let ok = 0, fallas = 0;
     await Promise.all(destino.map(async s => {
       try {
         const st = await enviarUno(s, payload);
-        if (st >= 200 && st < 300) ok++;
-        else if (st === 404 || st === 410) muertas.push(s.id);
-      } catch (e) {}
+        if (st >= 200 && st < 300) ok++; else fallas++;
+      } catch (e) { fallas++; }
     }));
-    for (const id of muertas) await borrarSub(id); /* suscripciones muertas afuera */
 
-    return json({ ok: true, enviados: ok, total: destino.length, limpiadas: muertas.length });
+    return json({ ok: true, enviados: ok, total: destino.length, fallas: fallas });
   }
 };
 

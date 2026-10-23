@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- SikoChat v23 · BANDEJA LIMPIA TIPO WHATSAPP: se eliminó el aviso de "se conectó" (llenaba la barra de notificaciones del celu — WhatsApp tampoco avisa cuando alguien entra), los avisos de mensajes quedaron limpios — el título es SOLO el nombre del que escribe (sin caritas ni corazones), la foto del remitente es la imagen del aviso, y el grupo llega como WhatsApp (💬 CHAT GRUPAL con "juan: mensaje"); ojo: el rótulo de la dirección (github.io) que aparece en cada aviso lo pinta el NAVEGADOR por seguridad y no se puede sacar por código — si instalás la app, Chrome puede mostrar "SikoChat" en su lugar · + v22 PUSH REAL CON LA APP CERRADA: cada cel se suscribe al empuje (Web Push con llaves VAPID) y cuando alguien escribe un servidorcito (gratis, Cloudflare — pasos en el README) manda el aviso cifrado aunque la PWA esté totalmente cerrada; la CENTRAL DE AVISOS ahora muestra el estado del empuje 📲 y PROBAR AVISO también prueba el push · + SIN DUPLICADO EN LA LISTA: tu nombre aparece UNA sola vez (sin fila "(vos)" ni tarjeta repetida) y los contadores ya no te cuentan a vos · + CENTRAL DE AVISOS: botón 🔔 Avisos en la barra — estado real del dispositivo (permiso, campanita, motor, prueba), PROBAR AVISO AHORA, ayuda Android/iPhone y 🫀 MODO SIEMPRE ACTIVO · + envío de avisos más robusto · + NAVEGACIÓN TIPO APP EN EL CEL: lista a pantalla completa ↔ chat con botón 👥 CONTACTOS · + AVISOS TIPO WHATSAPP · + PANEL DEL CEL ESTILO MSN · SIN contraseña (opcional) · badge de no leídos · PIZARRITA PAINT · TODOS en la lista con visto hace · reacciones ❤️ reenviar ↪️ borrar 🗑️ favoritos ⭐ · emotis/stikers/gifs/fotos · tonos · radio · temas · perfil · privado · instalar como app -->
+<!-- SikoChat v26 · 🎮 JUEGOS EN LÍNEA DE 2: damas · ajedrez · ta-te-ti · conecta 4 · piedra-papel-tijera — invitás desde el chat privado o la lista de contactos, al otro le salta la invitación tipo llamada, juegan en vivo cada uno desde su pantalla (sincronizado con Firestore, colección chat_juegos), con marcador, revancha y recuperación de partidas · + v25 · ← INICIO ARRIBA: botón para VOLVER a los contactos cuando entrás al grupo o a un privado (arriba a la izquierda, como WhatsApp; en el cel) · VOLUMEN: en 🎵 Tonos ahora hay un slider de volumen (0–100%) para los sonidos y avisos del chat, se guarda en tu dispositivo y en 0 queda todo mudo · + v24 PUSH ACTIVABLE DESDE EL CHAT: el servidor de empuje se configura ADENTRO (🔔 Avisos → 📲 ACTIVAR PUSH: copiar código → crear el worker gratis en Cloudflare → pegar la URL → GUARDAR Y PROBAR); la URL queda guardada en Firestore (chat_usuarios/__config__) y sirve para TODOS — ya no hay que editar el código ni volver a subir archivos por esto; las suscripciones de cada cel ahora se guardan en chat_usuarios/{uid}.push (sin colección nueva ni reglas extra) y el servidor es verificado en vivo desde la Central (estado: OK / viejo / caído, con detalle) · + v23 BANDEJA LIMPIA TIPO WHATSAPP: sin avisos de "se conectó", título = SOLO el nombre del que escribe, foto del remitente como imagen, grupo = 💬 CHAT GRUPAL con "juan: mensaje"; el rótulo de la dirección (github.io) lo pinta el NAVEGADOR por seguridad y no se puede sacar por código — con la app instalada Chrome puede mostrar "SikoChat" · + v22 PUSH REAL: cada cel se suscribe al empuje (Web Push con llaves VAPID) y el servidor manda el aviso cifrado aunque la PWA esté totalmente cerrada · + SIN DUPLICADO EN LA LISTA: tu nombre aparece UNA sola vez y los contadores ya no te cuentan a vos · + CENTRAL DE AVISOS: estado real del dispositivo, PROBAR AVISO AHORA, ayuda Android/iPhone y 🫀 MODO SIEMPRE ACTIVO · + NAVEGACIÓN TIPO APP EN EL CEL: lista ↔ chat con botón 👥 CONTACTOS · + PANEL DEL CEL ESTILO MSN · SIN contraseña (opcional) · badge de no leídos · PIZARRITA PAINT · TODOS en la lista con visto hace · reacciones ❤️ reenviar ↪️ borrar 🗑️ favoritos ⭐ · emotis/stikers/gifs/fotos · tonos · radio · temas · perfil · privado · instalar como app -->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -407,6 +407,9 @@ body.tema-claro .logoClaro{display:block}
 .privSub{font-size:10px;color:#4db2e8;font-weight:800;margin-top:1px}
 .btnGrupo{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:9px;border:2px solid var(--naranja);background:rgba(var(--acento-rgb),.12);color:var(--naranja);font-family:inherit;font-weight:800;font-size:11px;cursor:pointer;white-space:nowrap;flex-shrink:0}
 .btnGrupo:hover{background:rgba(var(--acento-rgb),.28)}
+/* v25: botón ← INICIO — volvé a los CONTACTOS desde el grupo o un privado (solo se ve en el cel) */
+.btnInicioCel{display:none;align-items:center;gap:4px;padding:7px 10px;border-radius:9px;border:2px solid var(--naranja);background:rgba(var(--acento-rgb),.12);color:var(--naranja);font-family:inherit;font-weight:900;font-size:11px;cursor:pointer;white-space:nowrap;flex-shrink:0}
+.btnInicioCel:active{background:rgba(var(--acento-rgb),.28)}
 .fgSub{font-size:10px;font-weight:600;color:var(--tx4)}
 .contacto.clicable{cursor:pointer}
 .contacto.clicable:hover{background:rgba(var(--acento-rgb),.08)}
@@ -418,6 +421,14 @@ body.tema-claro .logoClaro{display:block}
 .stikerBig{font-size:52px;line-height:1.1;display:block}
 #previewFoto{max-width:100%;max-height:44vh;border-radius:10px;border:2px solid var(--naranja);display:block;margin:0 auto}
 .sonidoGrupo{display:flex;flex-wrap:wrap;gap:6px}
+/* v25: control de VOLUMEN (en 🎵 Tonos) */
+.volFila{display:flex;align-items:center;gap:8px;background:var(--panel2);border:1px solid var(--borde2);border-radius:10px;padding:9px 10px}
+.volBtn{width:30px;height:30px;border-radius:8px;border:1.5px solid var(--borde3);background:var(--panel);color:var(--tx1);font-family:inherit;font-size:16px;font-weight:900;cursor:pointer;flex-shrink:0;line-height:1;display:grid;place-items:center}
+.volBtn:active{border-color:var(--naranja);color:var(--naranja)}
+.volTxt{font-size:11px;font-weight:900;color:var(--naranja);min-width:38px;text-align:right;flex-shrink:0}
+#sliderVol{-webkit-appearance:none;appearance:none;flex:1;min-width:0;height:6px;border-radius:4px;background:var(--borde2);outline:none;cursor:pointer}
+#sliderVol::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:20px;border-radius:50%;background:var(--naranja);border:2px solid var(--fondo);cursor:pointer}
+#sliderVol::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--naranja);border:2px solid var(--fondo);cursor:pointer}
 .chipSonido{background:var(--fondo);border:1px solid var(--borde2);color:var(--tx2);padding:8px 12px;border-radius:999px;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit}
 .chipSonido.activo{border-color:var(--naranja);color:var(--naranja);background:rgba(var(--acento-rgb),.14)}
 
@@ -542,6 +553,101 @@ body.tema-claro .logoClaro{display:block}
 .avChip.medio{background:rgba(var(--acento-rgb),.14);color:var(--naranja);border-color:var(--naranja)}
 .avTxt{font-size:12px;color:var(--tx2);font-weight:700;line-height:1.35}
 
+/* ===== v24: ACTIVAR PUSH — campo para la URL del servidor ===== */
+#inputPushUrl{
+  width:100%;box-sizing:border-box;padding:12px 13px;margin:2px 0 4px;
+  border-radius:12px;border:2px solid var(--borde2);background:var(--panel2);
+  color:var(--tx1);font-size:14px;font-weight:600;font-family:inherit;
+}
+#inputPushUrl:focus{outline:none;border-color:var(--naranja)}
+#inputPushUrl::placeholder{color:var(--tx3);font-weight:500}
+
+/* ===== v26: JUEGOS EN LÍNEA DE 2 JUGADORES ===== */
+.btnJugarPriv{
+  margin-left:auto;width:36px;height:36px;border-radius:10px;flex-shrink:0;padding:0;
+  border:2px solid var(--naranja);background:rgba(var(--acento-rgb),.12);color:var(--naranja);
+  font-size:16px;cursor:pointer;display:grid;place-items:center;line-height:1;
+}
+.btnJugarPriv:active{background:rgba(var(--acento-rgb),.3)}
+.btnPrivJugar{cursor:pointer}
+.listaJuegos{display:flex;flex-direction:column;gap:8px}
+.btnJuegoGrande{
+  display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:12px;text-align:left;
+  border:2px solid var(--borde2);background:var(--panel2);cursor:pointer;font-family:inherit;
+}
+.btnJuegoGrande:hover{border-color:var(--naranja)}
+.jgEmoGrande{font-size:25px;flex-shrink:0;line-height:1}
+.jgNomGrande{display:block;font-weight:900;font-size:13px;color:var(--tx1)}
+.jgDescGrande{display:block;font-size:10.5px;color:var(--tx3);font-weight:700;margin-top:2px}
+/* mesa de juego */
+.cajaJuego{width:min(94vw,430px)}
+.jgCab{display:flex;align-items:center;gap:8px;margin:0 0 6px}
+.jgJug{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0}
+.jgJug .jgAv{width:38px;height:38px;border-radius:50%;background:var(--panel2);border:2px solid var(--borde2);display:grid;place-items:center;font-size:19px;overflow:hidden;background-size:cover;background-position:center;flex-shrink:0}
+.jgJug.activo .jgAv{border-color:var(--naranja);box-shadow:0 0 12px rgba(var(--acento-rgb),.4)}
+.jgJug .jgNom{font-size:10px;font-weight:800;color:var(--tx2);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.jgJug.activo .jgNom{color:var(--naranja)}
+.jgVS{font-size:10px;font-weight:900;color:var(--tx4);flex-shrink:0;letter-spacing:1px}
+.jgTurno{text-align:center;font-size:11.5px;font-weight:900;margin-bottom:8px;color:var(--tx3);letter-spacing:.4px;min-height:14px}
+.jgTurno.mio{color:var(--naranja)}
+.jgTablero{display:grid;gap:2px;padding:2px;width:min(88vw,364px);margin:0 auto;background:var(--panel2);border:2px solid var(--borde2);border-radius:12px;overflow:hidden}
+.jgTablero.jgTab8{gap:0;padding:0}
+.jgTablero.jgPpt{display:block;padding:10px}
+.jgCelda{aspect-ratio:1;border:none;padding:0;background:transparent;cursor:default;display:grid;place-items:center;font-family:inherit;line-height:1;min-width:0;min-height:0;color:inherit}
+.jgCelda:disabled{cursor:default}
+.jgCelda.clara{background:#2e2e2e}
+.jgCelda.oscura{background:#141414}
+.jgCelda.jgSel{box-shadow:inset 0 0 0 3px var(--naranja)}
+.jgCelda.jgDest{box-shadow:inset 0 0 0 3px rgba(61,220,132,.85)}
+.puntoDest{width:30%;height:30%;border-radius:50%;background:rgba(245,157,61,.6);pointer-events:none}
+/* ta-te-ti */
+.jgTateti .jgCelda{font-size:34px}
+.jgX{color:var(--naranja);font-weight:900}
+.jgO{color:#eeeeee;font-weight:900}
+/* conecta 4 */
+.jgC4 .jgCelda{background:#0d0d0d}
+.jgFicha{width:78%;height:78%;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:min(3.4vw,15px)}
+.jgFicha.f1{background:radial-gradient(circle at 35% 30%,#f7b263,#e0821a);border:1px solid #a95f10}
+.jgFicha.f2{background:radial-gradient(circle at 35% 30%,#7fd4ff,#2b8fd6);border:1px solid #1b6da8}
+.jgFicha.fB{background:radial-gradient(circle at 35% 30%,#ffffff,#c9c9c9);border:1px solid #8a8a8a;color:#b07a1e}
+.jgFicha.fN{background:radial-gradient(circle at 35% 30%,#4a4a4a,#151515);border:1px solid #000;color:var(--naranja,#f59d3d)}
+/* ajedrez */
+.jgAjedrez .jgCelda{font-size:29px}
+.jgPB{color:#ffffff;text-shadow:0 1px 2px #000,0 0 3px rgba(0,0,0,.85);pointer-events:none}
+.jgPN{color:#141414;text-shadow:0 0 2px rgba(255,255,255,.45),0 1px 1px rgba(255,255,255,.35);pointer-events:none}
+/* piedra papel tijera */
+.jgMarcador{display:flex;justify-content:center;align-items:baseline;gap:12px;margin:2px 0 10px;font-weight:900}
+.jgMarcador .mpYo{color:var(--naranja);font-size:24px}
+.jgMarcador .mpEl{color:var(--tx1);font-size:24px}
+.jgMarcador .mpGuion{color:var(--tx4);font-size:15px}
+.jgMarcador .mpQuien{font-size:9.5px;color:var(--tx4);font-weight:800;letter-spacing:.5px}
+.pptBtns{display:flex;gap:10px;justify-content:center}
+.pptBtn{font-size:36px;width:72px;height:72px;border-radius:16px;background:var(--panel2);border:2px solid var(--borde2);cursor:pointer;display:grid;place-items:center;line-height:1;padding:0}
+.pptBtn:hover{border-color:var(--naranja)}
+.pptBtn.pptSel{border-color:var(--naranja);background:rgba(var(--acento-rgb),.16)}
+.pptFila{display:flex;justify-content:center;gap:8px;margin-top:10px;font-size:24px;min-height:30px}
+.pptVs{align-self:center;font-size:10px;font-weight:900;color:var(--tx4)}
+.pptEsperando{text-align:center;font-size:11px;color:var(--tx3);font-weight:800;margin-top:10px}
+/* estados varios */
+.jgEsperando{grid-column:1/-1;padding:26px 10px;text-align:center;color:var(--tx2);font-weight:800;font-size:13px;line-height:1.8}
+.jgEsperando b{font-size:30px;display:block}
+.jgEstado{text-align:center;font-size:11px;color:var(--tx2);font-weight:700;min-height:15px;margin-top:8px;line-height:1.5}
+.jgEstado.gano{color:#3ddc84;font-weight:900;font-size:13px}
+.jgEstado.perdio{color:#ff6b6b;font-weight:900;font-size:13px}
+.jgEstado.empate{color:var(--naranja);font-weight:900;font-size:13px}
+.jgAcc{justify-content:center}
+/* banner de invitación (tipo llamada) */
+#bannerInv{
+  position:fixed;top:10px;left:50%;transform:translateX(-50%);z-index:96;
+  background:var(--caja);border:2px solid var(--naranja);border-radius:14px;padding:10px 12px;
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;
+  box-shadow:0 10px 40px rgba(0,0,0,.65);max-width:94vw;font-size:12px;font-weight:700;color:var(--tx1);
+}
+#bannerInv b{color:var(--naranja)}
+#btnInvSi{border:none;background:linear-gradient(135deg,var(--naranja),var(--naranja-osc));color:#000;font-weight:900;font-size:12px;padding:9px 14px;border-radius:10px;cursor:pointer;font-family:inherit}
+#btnInvNo{border:2px solid var(--borde2);background:none;color:var(--tx2);font-weight:900;font-size:12px;padding:7px 10px;border-radius:10px;cursor:pointer;font-family:inherit}
+#btnInvNo:hover{border-color:#ff6b6b;color:#ff6b6b}
+
 /* ============ MÓVIL ============ */
 @media (max-width:620px){
   #app{padding:0}
@@ -564,6 +670,12 @@ body.tema-claro .logoClaro{display:block}
     display:flex;flex-shrink:0;border:2px solid var(--naranja);
     color:var(--naranja);font-weight:900;
   }
+  /* ===== v25: botón ← INICIO arriba — volvés a la LISTA desde el grupo o un privado =====
+     (en PC no se ve nada de esto: .btnInicioCel queda display:none) ===== */
+  body:not(.celLista) #btnInicioGrupo{display:inline-flex}
+  body:not(.celLista) #btnInicioGrupo.oculto{display:none}
+  body:not(.celLista) #barraPrivado:not(.oculto) #btnInicioPriv{display:inline-flex}
+  body:not(.celLista) #btnVolverGrupo{display:none}
   .barraAcciones{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
   .btnAccion{padding:7px 8px;font-size:11px}
   #msj{height:42px}
@@ -579,6 +691,10 @@ body.tema-claro .logoClaro{display:block}
   /* v21: la tarjetaYo del panel quedó DUPLICADA — la barra de usuario (arriba) ya muestra
      lo mismo (carita + nombre + En línea + tu frase), así que se retira: tu nombre aparece UNA vez */
   .tarjetaYo{display:none}
+  /* v26: la mesa de juego un poco más grande en el cel */
+  .jgTablero{width:min(92vw,364px)}
+  .jgAjedrez .jgCelda{font-size:26px}
+  #bannerInv{top:6px}
 }
 </style>
 </head>
@@ -649,6 +765,7 @@ body.tema-claro .logoClaro{display:block}
       <main id="zonaChat">
         <!-- v11: franja de conectados siempre visible en el cel (vertical) -->
         <div id="franjaConectados">
+          <button id="btnInicioGrupo" class="btnInicioCel" type="button" title="Volver a los contactos">← INICIO</button>
           <span class="franjaTitulo">👥 <span id="cantFranja">0</span></span>
           <div class="franjaChips" id="franjaChips"><span class="franjaVacio">Buscando gente… 📡</span></div>
         </div>
@@ -662,12 +779,14 @@ body.tema-claro .logoClaro{display:block}
           <button id="btnCerrarRadio" class="btnMiniRadio" type="button" title="Ocultar barra">✕</button>
         </div>
         <div id="barraPrivado" class="oculto">
+          <button id="btnInicioPriv" class="btnInicioCel" type="button" title="Volver a los contactos">← INICIO</button>
           <button id="btnVolverGrupo" class="btnGrupo" type="button" title="Volver al chat grupal">← CHAT GRUPAL</button>
           <div class="cAvatar" id="privAvatar">🙂</div>
           <div class="radioInfo">
             <div class="privNombre" id="privNombre">—</div>
             <div class="privSub" id="privSub">🔒 chat privado · solo lo ven ustedes dos</div>
           </div>
+          <button id="btnJugarPriv" class="btnJugarPriv" type="button" title="Jugar un jueguito con esta persona">🎮</button>
         </div>
         <div class="cintaMsj" id="cintaMsj">
           <div class="lineaSistema">👋 Bienvenido al chat de Sikodark — respetá y pasala lindo 🖤🧡</div>
@@ -789,7 +908,14 @@ body.tema-claro .logoClaro{display:block}
     <div class="sonidoGrupo" id="grupoSonMsj"></div>
     <label class="modalLabel">SONIDO DEL ZUMBIDO 📳</label>
     <div class="sonidoGrupo" id="grupoSonZumb"></div>
-    <p class="gifNota">Tocá un tono para escucharlo y dejarlo elegido. El zumbido siempre vibra en el cel, aunque el tono esté en “Nada”.</p>
+    <label class="modalLabel">VOLUMEN DE SONIDOS Y AVISOS 🔊</label>
+    <div class="volFila">
+      <button class="volBtn" id="volMenos" type="button" title="Bajar volumen">−</button>
+      <input type="range" id="sliderVol" min="0" max="100" step="5" value="100">
+      <button class="volBtn" id="volMas" type="button" title="Subir volumen">+</button>
+      <span class="volTxt" id="volTxt">100%</span>
+    </div>
+    <p class="gifNota">Tocá un tono para escucharlo y dejarlo elegido. El zumbido siempre vibra en el cel, aunque el tono esté en “Nada”. El volumen se guarda en tu dispositivo — y el volumen del AVISO del cel (cuando el chat está cerrado) lo manejás con los botones de volumen del teléfono.</p>
     <div class="modalAcc">
       <button class="btnPrincipal" id="btnCerrarSonidos" type="button">LISTO ✓</button>
     </div>
@@ -825,6 +951,7 @@ body.tema-claro .logoClaro{display:block}
       <button class="btnDibujo" id="btnPedirPermiso" type="button">🔓 PERMITIR AVISOS EN ESTE CEL</button>
       <button class="btnPrincipal" id="btnProbarAviso" type="button">🔔 PROBAR AVISO AHORA</button>
     </div>
+    <button class="btnPrincipal" id="btnActivarPush" type="button" style="width:100%;margin-top:10px">📲 ACTIVAR PUSH — avisos con el chat cerrado</button>
     <label class="modalLabel">PARA QUE NO SE DUERMA EN SEGUNDO PLANO</label>
     <button class="btnDibujo" id="btnToggleVigilia" type="button" style="width:100%">🫀 MODO SIEMPRE ACTIVO: APAGADO</button>
     <p class="gifNota" id="avVigiliaNota">Chrome manda a “dormir” el chat cuando lo cambiás por otra app y ahí no llegan avisos. Con este modo prendido, el chat hace un ruido ultra chiquito (no se escucha) y se queda despierto: los avisos siguen llegando. Gasta un poquito más de batería.</p>
@@ -834,6 +961,297 @@ body.tema-claro .logoClaro{display:block}
     <p class="gifNota">Con el chat abierto y el Modo Siempre Activo prendido, llegan aunque estés en otra app. Y con el <b>empuje</b> 📲 activo (fila de arriba), los avisos llegan <b>incluso con el chat totalmente cerrado</b> 🧡</p>
     <div class="modalAcc">
       <button class="btnPrincipal" id="btnCerrarAvisos" type="button">LISTO ✓</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= 🎮 JUEGOS EN LÍNEA DE 2 (v26) ================= -->
+<div id="bannerInv" class="oculto">
+  <span id="invTxt">…</span>
+  <button id="btnInvSi" type="button">✅ ACEPTAR</button>
+  <button id="btnInvNo" type="button" title="No, gracias">✖</button>
+</div>
+
+<div id="overlayJugar" class="overlayModal oculto">
+  <div class="cajaModal">
+    <div class="modalTitulo">🎮 ELEGÍ UN JUEGO</div>
+    <p class="gifNota" style="margin-top:0">Para jugar con <b id="jugContra">—</b> 🎯 Le llega la invitación al toque y juegan en vivo, cada uno desde su pantalla.</p>
+    <div id="listaJuegos" class="listaJuegos"></div>
+    <div class="modalAcc">
+      <button class="btnDibujoGhost" id="btnCerrarJugar" type="button">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<div id="overlayJuego" class="overlayModal oculto">
+  <div class="cajaModal cajaJuego">
+    <div class="modalTitulo" id="jgNombre">🎮 JUEGO</div>
+    <div class="jgCab">
+      <div class="jgJug" id="jgJ1"><span class="jgAv">🙂</span><span class="jgNom">—</span></div>
+      <div class="jgVS">VS</div>
+      <div class="jgJug" id="jgJ2"><span class="jgAv">🙂</span><span class="jgNom">—</span></div>
+    </div>
+    <div class="jgTurno" id="jgTurno">—</div>
+    <div id="jgTablero" class="jgTablero"></div>
+    <div class="jgEstado" id="jgEstado"></div>
+    <div class="modalAcc jgAcc">
+      <button class="btnDibujoGhost" id="btnJgSalir" type="button">🚪 Salir</button>
+      <button class="btnDibujo oculto" id="btnJgAceptar" type="button">✅ ACEPTAR JUGAR</button>
+      <button class="btnPrincipal oculto" id="btnJgRevancha" type="button">🔄 REVANCHA</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= 📲 ACTIVAR PUSH (v24) — el código del servidor viaja dentro del chat ================= -->
+<script type="text/plain" id="codigoWorker">
+/* ============================================================
+   📨 SERVIDOR DE PUSH — SIKODARK CHAT (v24)
+   ============================================================
+   ESTE ES EL SERVIDOR QUE MANDA LOS AVISOS CUANDO EL CHAT ESTÁ CERRADO.
+
+   ⚠️ V24: se activa DENTRO del chat → 🔔 Avisos → 📲 ACTIVAR PUSH.
+   Copiá este código desde ahí (botón COPIAR). Pasos de siempre:
+   dash.cloudflare.com → Workers & Pages → Create Worker → Deploy →
+   Edit code → pegá ESTO ENTERO → Deploy otra vez.
+   Si ya tenías un worker viejo: pegale este código y Deploy de nuevo.
+
+   NO NECESITA NADA MÁS: lee las suscripciones guardadas en tu Firestore
+   (colección chat_usuarios, campo push de cada usuario — las mismas reglas
+   de siempre) y manda el aviso cifrado a cada cel. Sin colecciones nuevas.
+   ============================================================ */
+
+/* ---- CONFIGURACIÓN (ya viene lista, no toques nada) ---- */
+const VAPID_PUB  = 'BIoCuSouVQoW3N4QuFeXiCDjHHItZSxs80A8XzLq7hpF3R2Gja1ippl7HC25vBFC2OM_z1RoYWYuA5tyO1Iczw0';
+const VAPID_PRIV = 'MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgfIvPk261fEZUCERcmrqk7EHphrnWavPL1xcmwu_GP4ChRANCAASKArkqLlUKFtzeELhXl4gg4xxyLWUsbPNAPF8y6u4aRd0dho2tYqaZexwtubwRQtjjP89UaGFmLgObcjtSHM8N';
+const FIREBASE_PROJECT = 'sikodarkradio-26a07';
+const FIREBASE_API_KEY = 'AIzaSyC9Q9N1TTqWRUpeh2lo7tGuG8lwTrvbHrA';
+const USU_COL = 'chat_usuarios';                   /* las suscripciones viven acá: chat_usuarios/{uid}.push */
+const CLAVE = 'sikodark-push-2026';                /* tiene que ser igual a PUSH_CLAVE en index.html */
+const MAILTO = 'mailto:sikodark-chat@push.local';  /* contacto VAPID (obligatorio, no se muestra) */
+const TTL = '2419200';                             /* 28 días de vida del aviso */
+const VERSION = 24;
+
+/* ---- utilidades base64url ---- */
+function b64uDecode(s){
+  s = s.replace(/-/g, '+').replace(/_/g, '/');
+  while (s.length % 4) s += '=';
+  const bin = atob(s);
+  const out = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+  return out;
+}
+function bufToB64u(buf){
+  let bin = '';
+  const b = new Uint8Array(buf);
+  for (let i = 0; i < b.length; i++) bin += String.fromCharCode(b[i]);
+  return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+function concat(...arrs){
+  let len = 0;
+  arrs.forEach(a => len += a.length);
+  const out = new Uint8Array(len);
+  let o = 0;
+  arrs.forEach(a => { out.set(a, o); o += a.length; });
+  return out;
+}
+const TE = s => new TextEncoder().encode(s);
+
+/* ---- HKDF (SHA-256) ---- */
+async function hkdf(ikm, salt, info, len){
+  const key = await crypto.subtle.importKey('raw', ikm, 'HKDF', false, ['deriveBits']);
+  const bits = await crypto.subtle.deriveBits(
+    { name: 'HKDF', hash: 'SHA-256', salt: salt, info: info }, key, len * 8);
+  return new Uint8Array(bits);
+}
+
+/* ---- JWT VAPID (RFC 8292) ---- */
+async function vapidJwt(aud){
+  const h = bufToB64u(TE(JSON.stringify({ typ: 'JWT', alg: 'ES256' })));
+  const p = bufToB64u(TE(JSON.stringify({
+    aud: aud,
+    exp: Math.floor(Date.now() / 1000) + 43200,
+    sub: MAILTO
+  })));
+  const key = await crypto.subtle.importKey(
+    'pkcs8', b64uDecode(VAPID_PRIV),
+    { name: 'ECDSA', namedCurve: 'P-256' }, false, ['sign']);
+  const sig = await crypto.subtle.sign(
+    { name: 'ECDSA', hash: 'SHA-256' }, key, TE(h + '.' + p));
+  return h + '.' + p + '.' + bufToB64u(sig);
+}
+
+/* ---- cifrado del payload (RFC 8291 · aes128gcm) ----
+   Devuelve el cuerpo binario que va al endpoint del navegador */
+async function encryptWebPush(payloadStr, sub){
+  const uaPub = b64uDecode(sub.p256dh);
+
+  /* par efímero del servidor (uno nuevo por mensaje) */
+  const asKeys = await crypto.subtle.generateKey(
+    { name: 'ECDH', namedCurve: 'P-256' }, true, ['deriveBits']);
+  const uaKey = await crypto.subtle.importKey(
+    'raw', uaPub, { name: 'ECDH', namedCurve: 'P-256' }, false, []);
+  const secret = new Uint8Array(await crypto.subtle.deriveBits(
+    { name: 'ECDH', public: uaKey }, asKeys.privateKey, 256));
+  const asPub = new Uint8Array(await crypto.subtle.exportKey('raw', asKeys.publicKey));
+
+  /* PRK_key = HKDF(salt=0^16, IKM=secreto ECDH, info="WebPush: info" || 0x00 || ua || as) */
+  const prkKey = await hkdf(
+    secret,
+    new Uint8Array(16),
+    concat(TE('WebPush: info'), new Uint8Array([0]), uaPub, asPub),
+    32);
+
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  const cek   = await hkdf(prkKey, salt, concat(TE('Content-Encoding: aes128gcm'), new Uint8Array([1])), 16);
+  const nonce = await hkdf(prkKey, salt, concat(TE('Content-Encoding: nonce'),     new Uint8Array([1])), 12);
+
+  /* cuerpo del registro: payload || 0x02 (delimitador, sin relleno extra) */
+  const body = concat(TE(payloadStr), new Uint8Array([2]));
+  const encKey = await crypto.subtle.importKey('raw', cek, 'AES-GCM', false, ['encrypt']);
+  const cipher = new Uint8Array(await crypto.subtle.encrypt(
+    { name: 'AES-GCM', iv: nonce, tagLength: 128 }, encKey, body));
+
+  /* encabezado aes128gcm: salt(16) || rs(4) || idlen(1)=65 || clave pública efímera(65) */
+  const rs = 4096;
+  const header = concat(
+    salt,
+    new Uint8Array([(rs >>> 24) & 255, (rs >>> 16) & 255, (rs >>> 8) & 255, rs & 255]),
+    new Uint8Array([asPub.length]),
+    asPub);
+
+  if (cipher.length > rs - 16) throw new Error('payload demasiado grande');
+  return concat(header, cipher);
+}
+
+/* ---- leer suscripciones de Firestore (REST, clave pública web) ----
+   v24: viven en chat_usuarios/{uid}, campo "push" = lista de
+   { endpoint, p256dh, auth } (una por dispositivo). Sin colección nueva. */
+async function leerSubs(){
+  const url = 'https://firestore.googleapis.com/v1/projects/' + FIREBASE_PROJECT +
+              '/databases/(default)/documents/' + USU_COL + '?pageSize=300&key=' + FIREBASE_API_KEY;
+  const r = await fetch(url);
+  if (!r.ok) throw new Error('Firestore ' + r.status + ' (revisá las reglas de ' + USU_COL + ')');
+  const j = await r.json();
+  const out = [];
+  (j.documents || []).forEach(d => {
+    const uid = d.name.split('/').pop();
+    if (uid.indexOf('__') === 0) return; /* docs internos (config) afuera */
+    const vals = (d.fields && d.fields.push && d.fields.push.arrayValue &&
+                  d.fields.push.arrayValue.values) || [];
+    vals.forEach(it => {
+      const g = it.mapValue && it.mapValue.fields;
+      if (!g) return;
+      const sv = x => (g[x] && g[x].stringValue) || '';
+      const ep = sv('endpoint'), p256dh = sv('p256dh'), auth = sv('auth');
+      if (ep && p256dh && auth) out.push({ uid: uid, endpoint: ep, p256dh: p256dh, auth: auth });
+    });
+  });
+  return out;
+}
+
+/* ---- enviar un push a una suscripción ---- */
+async function enviarUno(sub, payload){
+  const jwt = await vapidJwt(new URL(sub.endpoint).origin);
+  const cuerpo = await encryptWebPush(JSON.stringify(payload), sub);
+  const r = await fetch(sub.endpoint, {
+    method: 'POST',
+    headers: {
+      TTL: TTL,
+      'Content-Encoding': 'aes128gcm',
+      Authorization: 'vapid t=' + jwt + ', k=' + VAPID_PUB,
+      'Content-Type': 'application/octet-stream'
+    },
+    body: cuerpo
+  });
+  return r.status; /* 201 ok · 404/410 la suscripción murió */
+}
+
+/* ---- el worker ---- */
+const CORS = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type',
+  'Access-Control-Max-Age': '86400'
+};
+const json = (obj, status) => new Response(JSON.stringify(obj), {
+  status: status || 200,
+  headers: Object.assign({ 'Content-Type': 'application/json' }, CORS)
+});
+
+export default {
+  async fetch(req){
+    if (req.method === 'OPTIONS') return new Response(null, { status: 204, headers: CORS });
+
+    if (req.method === 'GET') {
+      /* panel chico para probar que está vivo (el chat lo muestra al guardar la URL) */
+      let cuantas = -1;
+      try { cuantas = (await leerSubs()).length; } catch (e) {}
+      return json({
+        servicio: 'push de SikoChat ✅',
+        version: VERSION,
+        suscripciones: cuantas,
+        firestore: cuantas < 0 ? '❌ no pude leer (revisá las reglas de chat_usuarios)' : 'ok'
+      });
+    }
+
+    if (req.method !== 'POST') return json({ error: 'usá POST' }, 405);
+
+    let m;
+    try { m = await req.json(); } catch (e) { return json({ error: 'JSON inválido' }, 400); }
+    if (m.clave !== CLAVE) return json({ error: 'clave incorrecta' }, 403);
+    if (!m.titulo) return json({ error: 'falta el título' }, 400);
+
+    let subs;
+    try { subs = await leerSubs(); }
+    catch (e) { return json({ error: String(e.message || e) }, 500); }
+
+    /* privado → todos los dispositivos de ese usuario · grupo → todos menos el que manda */
+    const destino = subs.filter(s => m.para ? s.uid === m.para : (s.uid !== m.de && s.uid.indexOf('__') !== 0));
+    if (!destino.length) return json({ ok: true, enviados: 0, nota: 'nadie subscripto todavía' });
+
+    const payload = {
+      titulo: m.titulo,
+      cuerpo: m.cuerpo || '',
+      tag: m.tag || 'siko-push',
+      de: m.de || null,
+      icono: m.icono || null  /* v24: la foto del que escribe viaja hasta el aviso (como WhatsApp) */
+    };
+
+    let ok = 0, fallas = 0;
+    await Promise.all(destino.map(async s => {
+      try {
+        const st = await enviarUno(s, payload);
+        if (st >= 200 && st < 300) ok++; else fallas++;
+      } catch (e) { fallas++; }
+    }));
+
+    return json({ ok: true, enviados: ok, total: destino.length, fallas: fallas });
+  }
+};
+
+/* exports solo para pruebas locales (no afectan Cloudflare) */
+export { encryptWebPush, vapidJwt, b64uDecode, bufToB64u, hkdf, leerSubs };
+</script>
+<div id="overlayPush" class="overlayModal oculto">
+  <div class="cajaModal">
+    <div class="modalTitulo">📲 ACTIVAR PUSH — AVISOS CON EL CHAT CERRADO</div>
+    <p class="gifNota">Los avisos que llegan aunque el chat esté <b>totalmente cerrado</b> (como WhatsApp) necesitan un servidorcito gratis. Se activa <b>UNA sola vez</b> en 3 pasos y queda listo <b>para todos</b> — después no hay que subir nada más.</p>
+    <label class="modalLabel">PASO 1 · COPIAR EL CÓDIGO DEL SERVIDOR</label>
+    <div class="modalAcc">
+      <button class="btnDibujo" id="btnCopiarWorker" type="button" style="width:100%">📋 COPIAR CÓDIGO DEL SERVIDOR</button>
+    </div>
+    <label class="modalLabel">PASO 2 · CREAR EL SERVIDOR (GRATIS, 5 MIN)</label>
+    <p class="gifNota">1) Abrí <a href="https://dash.cloudflare.com" target="_blank" rel="noopener" style="color:var(--naranja);font-weight:800">dash.cloudflare.com</a> (cuenta gratis).<br>2) Menú izquierdo → <b>Workers &amp; Pages</b> → <b>Create</b> → <b>Create Worker</b> → nombre (ej: <i>sikodark-push</i>) → <b>Deploy</b> → <b>Edit code</b>.<br>3) Borrá TODO lo que trae y <b>pegá</b> el código copiado (mantener apretado → Pegar).<br>4) Botón <b>Deploy</b> (arriba a la derecha).<br>5) Copiá la URL que te dio: <i>https://sikodark-push.tu-cuenta.workers.dev</i></p>
+    <label class="modalLabel">PASO 3 · PEGAR LA URL ACÁ Y PROBAR</label>
+    <input id="inputPushUrl" type="url" autocomplete="off" spellcheck="false" placeholder="https://sikodark-push.tu-cuenta.workers.dev">
+    <div class="modalAcc">
+      <button class="btnPrincipal" id="btnGuardarPush" type="button" style="width:100%">✅ GUARDAR Y PROBAR</button>
+    </div>
+    <div class="avFila" id="avServPush"><span class="avChip">—</span><span class="avTxt">servidor de push</span></div>
+    <p class="gifNota">⚠️ Si ya habías creado el servidor antes, igual pegale este código nuevo (tiene mejoras) y dale <b>Deploy</b> de nuevo — la URL no cambia.</p>
+    <p class="gifNota">📱 <b>iPhone:</b> además de esto, el chat tiene que estar <b>instalado como app</b> (Compartir ⬆️ → Agregar a inicio). En Android anda con Chrome, instalado o no.</p>
+    <div class="modalAcc">
+      <button class="btnSec" id="btnCerrarPush" type="button">Cerrar</button>
     </div>
   </div>
 </div>
@@ -893,25 +1311,16 @@ var SERVER_TS = firebase.firestore.FieldValue.serverTimestamp;
 
 var COL_USUARIOS = 'chat_usuarios';
 var COL_MSJ = 'chat_mensajes';
-var COL_PUSH = 'chat_push_subs'; /* v22: suscripciones de empuje (una por dispositivo) */
+var COL_JUEGOS = 'chat_juegos'; /* v26: partidas 1 a 1 (dama, ajedrez, ta-te-ti…) */
 
-/* ---------- 📨 v22 · AVISOS CON LA APP TOTALMENTE CERRADA (PUSH REAL) ----------
-   El chat ya deja TODO listo: cada dispositivo se suscribe al empuje y los
-   mensajes disparan el aviso por el servidor de push.
-   Solo falta UNA cosa: pegar acá la URL de tu servidor de push.
-
-   PASOS (5 minutos, gratis, todo desde el navegador):
-   1) En la carpeta del chat está el archivo PUSH-servidor-cloudflare.js
-   2) Creá una cuenta gratis en dash.cloudflare.com → Workers & Pages →
-      Create Worker → Edit code → pegá el archivo completo → Deploy
-   3) Te da una URL tipo https://sikodark-push.TU-CUENTA.workers.dev
-   4) Pegala acá abajo entre las comillas:
-        var PUSH_URL = 'https://sikodark-push.TU-CUENTA.workers.dev';
-   5) Subí el index.html al repo — y listo 🎉
-
-   Mientras PUSH_URL esté vacío el chat funciona igual que siempre
-   (los avisos llegan con el chat abierto, aunque esté en segundo plano). */
-var PUSH_URL = '';
+/* ---------- 📨 v24 · AVISOS CON LA APP TOTALMENTE CERRADA (PUSH REAL) ----------
+   La URL del servidor de empuje ya NO se pone acá: se configura DENTRO del chat,
+   UNA sola vez: 🔔 Avisos → 📲 ACTIVAR PUSH → copiar código → crear el worker
+   gratis en Cloudflare → pegar la URL → GUARDAR Y PROBAR.
+   La URL queda guardada en Firestore (chat_usuarios/__config__) y sirve para
+   TODOS los que entran — sin editar código ni volver a subir archivos.
+   El PUSH_URL de acá abajo queda solo como respaldo manual. */
+var PUSH_URL = ''; /* respaldo — lo normal es configurarlo desde el chat */
 var PUSH_CLAVE = 'sikodark-push-2026'; /* tiene que ser igual a CLAVE en el servidor de push */
 
 /* Llave pública VAPID (identifica al chat ante el servicio de push del navegador).
@@ -1065,6 +1474,7 @@ function iniciarSesion(){
   marcarPresencia();
   escucharUsuarios();
   escucharMensajes();
+  escucharJuegos(); /* v26: invitaciones y partidas en curso */
   limpiarViejos();
   pedirPermisoNotis();
   vigiliaAplicar(); /* v20: si el Modo Siempre Activo quedó prendido, lo retomo */
@@ -1289,8 +1699,11 @@ function pintarContactos(lista){
               : (u.estado === 'online' ? 'En línea' : 'Ausente'))) + '</span>' +
         '</span>' +
         (pend ? '<span class="badgePriv">' + (pend > 9 ? '9+' : pend) + '</span>' : '') +
+        '<span class="btnPrivMsj btnPrivJugar" title="Jugar un jueguito">🎮</span>' +
         '<span class="btnPrivMsj" title="Hablar en privado">💬</span>';
       fila.onclick = function(){ abrirPrivado(u._id); };
+      var bJugar = fila.querySelector('.btnPrivJugar'); /* v26: 🎮 desafía directo sin abrir el chat */
+      if (bJugar) bJugar.onclick = function(ev){ ev.stopPropagation(); invitarA(u._id); };
       cont.appendChild(fila);
     })(lista[i]);
   }
@@ -1436,6 +1849,7 @@ function abrirPrivado(uid){
     : '🔒 chat privado · solo lo ven ustedes dos';
   if (descon) toast('📭 ' + (info.nombre || 'Ese usuario') + ' está desconectado — le avisa cuando entre', 3800);
   $('barraPrivado').classList.remove('oculto');
+  $('btnInicioGrupo').classList.add('oculto'); /* v25: hay privado → el ← INICIO va en la barra del privado, no dos veces */
   $('barraAcciones').classList.add('modoPrivado');
   irAChat(); /* v19: en el cel la conversación ocupa toda la pantalla (en PC no cambia nada) */
   pintarContactos(usuariosListaActual);
@@ -1445,6 +1859,7 @@ function abrirPrivado(uid){
 function cerrarPrivado(){ /* v19: apaga la barra del privado sin tocar la vista */
   chatPrivadoId = null;
   $('barraPrivado').classList.add('oculto');
+  $('btnInicioGrupo').classList.remove('oculto'); /* v25: volvés al grupo → el ← INICIO vuelve a la franja */
   $('barraAcciones').classList.remove('modoPrivado');
   $('privSub').textContent = '🔒 chat privado · solo lo ven ustedes dos';
   pintarContactos(usuariosListaActual);
@@ -1456,6 +1871,8 @@ function volverAlGrupo(){
   irAChat(); /* v19: tocar CHAT GRUPAL (o el chip 💬) abre la pantalla del chat en el cel */
 }
 $('btnVolverGrupo').onclick = volverAlGrupo;
+$('btnInicioGrupo').onclick = irALista; /* v25: ← INICIO en el grupo del cel → volvés a los contactos */
+$('btnInicioPriv').onclick = irALista; /* v25: ← INICIO en un privado del cel → volvés a los contactos */
 
 function pintarMensaje(m){
   var cinta = $('cintaMsj');
@@ -1712,6 +2129,18 @@ function zumbidoLocal(nombre){
 
 /* ---------- 11 · SONIDOS (SIN ARCHIVOS EXTERNOS) ---------- */
 var audioCtx = null;
+/* v25: VOLUMEN general (0 a 100%) — guardado en el dispositivo, multiplica TODOS los tonos
+   (mensaje, zumbido, pruebas de tonos). En 0 = silencio total de sonidos internos. */
+var volSonidos = parseFloat(localStorage.getItem('siko_chat_vol'));
+if (isNaN(volSonidos)) volSonidos = 1;
+volSonidos = Math.min(1, Math.max(0, volSonidos));
+function ponerVol(pct){ /* recibe 0..100 y guarda */
+  volSonidos = Math.min(100, Math.max(0, Math.round(pct))) / 100;
+  try { localStorage.setItem('siko_chat_vol', String(volSonidos)); } catch (e) {}
+  var elV = $('sliderVol'), txV = $('volTxt');
+  if (elV) elV.value = Math.round(volSonidos * 100);
+  if (txV) txV.textContent = Math.round(volSonidos * 100) + '%';
+}
 function ctxAudio(){
   if (!audioCtx) {
     try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) {}
@@ -1722,12 +2151,14 @@ function ctxAudio(){
 function tono(frec, dur, tipo, cuando, vol){
   var ctx = ctxAudio();
   if (!ctx) return;
+  var vFin = (vol || 0.12) * volSonidos; /* v25: todo obedece el volumen elegido */
+  if (vFin <= 0.001) return; /* volumen en 0 → silencio total */
   try {
     var o = ctx.createOscillator(), g = ctx.createGain();
     o.type = tipo || 'sine';
     o.frequency.value = frec;
     var t0 = ctx.currentTime + cuando;
-    g.gain.setValueAtTime(vol || 0.12, t0);
+    g.gain.setValueAtTime(vFin, t0);
     g.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
     o.connect(g);
     g.connect(ctx.destination);
@@ -1756,6 +2187,23 @@ $('btnSonido').onclick = function(){
   localStorage.setItem('siko_chat_sonido', sonidoActivo ? 'si' : 'no');
   $('btnSonido').textContent = sonidoActivo ? '🔔 Sonido' : '🔕 Mudo';
   toast(sonidoActivo ? '🔔 Sonido activado' : '🔕 Sonido desactivado (el zumbido siempre suena)');
+};
+
+/* ---------- 11b · v25: CONTROL DE VOLUMEN (en 🎵 TONOS) ---------- */
+ponerVol(volSonidos * 100); /* pinta el slider con lo guardado en el dispositivo */
+$('sliderVol').addEventListener('input', function(){
+  ponerVol(parseInt(this.value, 10) || 0);
+});
+$('sliderVol').addEventListener('change', function(){
+  if (volSonidos > 0) tono(880, 0.12, 'sine', 0, 0.2); /* probador: escuchás el nivel elegido */
+});
+$('volMenos').onclick = function(){
+  ponerVol(Math.round(volSonidos * 100) - 5);
+  if (volSonidos > 0) tono(660, 0.09, 'sine', 0, 0.18);
+};
+$('volMas').onclick = function(){
+  ponerVol(Math.round(volSonidos * 100) + 5);
+  if (volSonidos > 0) tono(880, 0.09, 'sine', 0, 0.18);
 };
 
 /* ---------- 12 · TÍTULO TITILANTE (PESTAÑA OCULTA) ---------- */
@@ -1882,9 +2330,9 @@ function aviso(titulo, cuerpo, tag, data, enVista){
   var llave = (tag || 'siko') + '|' + titulo + '|' + cuerpo;
   if (avisosRecientes[llave] && Date.now() - avisosRecientes[llave] < 2500) return;
   avisosRecientes[llave] = Date.now();
-  /* v22: con servidor de push, cuando la pestaña está EN SEGUNDO PLANO el aviso lo manda el empuje
+  /* v24: con servidor de push, cuando la pestaña está EN SEGUNDO PLANO el aviso lo manda el empuje
      (llega igual y no duplica). Sin servidor configurado, sigue andando como siempre. */
-  if (PUSH_URL && document.hidden) return;
+  if (pushUrlVigente && document.hidden) return;
   var op = {
     body: cuerpo,
     icon: (data && data.icono) || 'icon-192.png', /* v23: si el que escribe tiene foto, esa es la imagen del aviso (como WhatsApp) */
@@ -1892,7 +2340,7 @@ function aviso(titulo, cuerpo, tag, data, enVista){
     tag: tag || 'siko',
     renotify: true,
     /* el zumbido ya vibra por su cuenta: su aviso no suena para no duplicar */
-    silent: !sonidoActivo || cuerpo.indexOf('ZUMBIDO') !== -1,
+    silent: !sonidoActivo || volSonidos <= 0 || cuerpo.indexOf('ZUMBIDO') !== -1, /* v25: volumen 0 → aviso sin sonido */
     vibrate: [90, 50, 90],
     data: data || {}
   };
@@ -1913,15 +2361,20 @@ function notaDirecta(titulo, op){
   try { new Notification(titulo, op); } catch (e) {}
 }
 
-/* ============ 📨 v22 · EMPUJE REAL (Web Push) — avisos con la app TOTALMENTE cerrada ============
+/* ============ 📨 v24 · EMPUJE REAL (Web Push) — avisos con la app TOTALMENTE cerrada ============
    Cada dispositivo se SUSCRIBE al push del navegador (con la llave VAPID del chat) y la
-   suscripción queda guardada en Firestore (chat_push_subs). Cuando alguien manda un mensaje,
-   el chat avisa al SERVIDOR DE PUSH (var PUSH_URL, arriba en la configuración) y ese servidor
+   suscripción queda guardada en Firestore en SU PROPIO usuario (chat_usuarios/{uid}, campo
+   "push" — sin colección nueva ni reglas extra). Cuando alguien manda un mensaje, el chat
+   avisa al SERVIDOR DE PUSH (v24: la URL se configura DENTRO del chat, 🔔 Avisos → 📲
+   ACTIVAR PUSH, y queda guardada para todos en chat_usuarios/__config__) y ese servidor
    manda el aviso cifrado a cada cel — aunque la PWA esté totalmente cerrada.
    Sin servidor configurado, el chat sigue funcionando igual que siempre. */
 
 var pushSubActiva = null; /* la suscripción de empuje de ESTE dispositivo */
 var avisosRecientes = {}; /* dedupe de avisos (local + empuje reenviado, ventaja de 2,5s) */
+var pushUrlVigente = PUSH_URL; /* v24: la de Firestore (__config__) gana sobre la del código */
+var pushServEstado = 'off';    /* off | probando | ok | viejo | caido | error */
+var pushServDetalle = '';
 
 function urlB64ToUint8Array(b64){
   var pad = '', len = b64.length % 4;
@@ -1943,9 +2396,10 @@ function bufABtoB64u(ab){
   return btoa(s).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 }
 
-/* suscribir este dispositivo al empuje y guardar la suscripción en Firestore */
+/* suscribir este dispositivo al empuje y guardar la suscripción en MI usuario de Firestore.
+   v24: se suscribe SIEMPRE (aunque el servidor todavía no esté configurado) — así cuando
+   se active el push, todos los cel ya están listos y les llega al toque. */
 function activarPush(){
-  if (!PUSH_URL) return; /* sin servidor no hace falta suscribirse */
   if (!('serviceWorker' in navigator) || !('PushManager' in window)) return;
   if (!logueado || !notisQueridas) return;
   if (!('Notification' in window) || Notification.permission !== 'granted') return;
@@ -1974,29 +2428,66 @@ function activarPush(){
 }
 function guardarPushSub(endpoint, keys){
   try {
-    var id = (miId + '-' + hashStr(endpoint)).slice(0, 40);
-    db.collection(COL_PUSH).doc(id).set({
-      uid: miId,
-      nombre: miNombre || 'Anónimo',
-      avatar: miAvatar || '🙂',
-      endpoint: endpoint,
-      p256dh: keys.p256dh,
-      auth: keys.auth,
-      ts: SERVER_TS()
-    }).catch(function(){});
+    /* v24: la suscripción vive en MI usuario (chat_usuarios/{miId}, campo push) —
+       una lista, un dispositivo por elemento. Sin colección nueva ni reglas extra. */
+    var tok = { endpoint: endpoint, p256dh: keys.p256dh, auth: keys.auth };
+    db.collection(COL_USUARIOS).doc(miId).set(
+      { push: firebase.firestore.FieldValue.arrayUnion(tok) }, { merge: true }
+    ).catch(function(){});
   } catch (e) {}
 }
 
+/* v24: la URL del servidor de push se guarda en el chat (chat_usuarios/__config__) y sirve para todos */
+function leerConfigPush(){
+  try {
+    db.collection(COL_USUARIOS).doc('__config__').get().then(function(d){
+      if (d && d.exists && d.data() && d.data().pushUrl && String(d.data().pushUrl).indexOf('http') === 0) {
+        pushUrlVigente = String(d.data().pushUrl);
+      }
+      if (pushUrlVigente) chequearServidorPush(false);
+    }).catch(function(){});
+  } catch (e) {}
+}
+/* el servidor responde su panel {servicio, version, suscripciones} — lo chequeamos en vivo */
+function chequearServidorPush(conToast){
+  if (!pushUrlVigente) { pushServEstado = 'off'; pushServDetalle = ''; refrescarChipsPush(); return; }
+  pushServEstado = 'probando'; pushServDetalle = '';
+  refrescarChipsPush();
+  try {
+    fetch(pushUrlVigente, { method: 'GET' }).then(function(r){ return r.json(); }).then(function(j){
+      if (j && j.servicio && (j.version || 0) >= 24) {
+        pushServEstado = 'ok';
+        pushServDetalle = (j.suscripciones >= 0 ? j.suscripciones : 0) + ' dispositivo(s) subscripto(s)';
+        if (conToast) toast('✅ Servidor de push OK — empuje listo');
+      } else if (j && j.servicio) {
+        pushServEstado = 'viejo';
+        pushServDetalle = 'el servidor es de una versión anterior — pegale el código nuevo (PASO 1) y Deploy otra vez';
+        if (conToast) toast('⚠️ El servidor está vivo pero es VIEJO — pegale el código nuevo');
+      } else {
+        pushServEstado = 'caido';
+        pushServDetalle = 'la URL responde pero no es el servidor de push';
+        if (conToast) toast('❌ Esa URL no es el servidor de push');
+      }
+      refrescarChipsPush();
+    }).catch(function(){
+      pushServEstado = 'caido'; pushServDetalle = 'no responde (¿URL mal escrita o worker sin publicar?)';
+      refrescarChipsPush();
+      if (conToast) toast('❌ El servidor no responde — revisá la URL');
+    });
+  } catch (e) { pushServEstado = 'caido'; pushServDetalle = 'error al contactar'; refrescarChipsPush(); }
+}
+function refrescarChipsPush(){ try { pintarCentral(); } catch (e) {} try { pintarServPush(); } catch (e) {} }
+
 /* aviso al servidor de push → manda el aviso cifrado a los demás dispositivos */
 function mandarPush(m){
-  if (!PUSH_URL || !logueado) return;
+  if (!pushUrlVigente || !logueado) return;
   if (typeof fetch !== 'function') return;
   var cuerpo = textoPreview(m);
   /* v23 estilo WhatsApp: título = solo el nombre del que escribe (sin caritas), grupo = "quién: qué dijo" */
   var titulo = m.para ? (m.nombre || 'alguien') : '💬 CHAT GRUPAL';
   var cuerpoFin = m.para ? cuerpo : ((m.nombre || 'alguien') + ': ' + cuerpo);
   try {
-    fetch(PUSH_URL, {
+    fetch(pushUrlVigente, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -2010,15 +2501,20 @@ function mandarPush(m){
         tag: m.para ? 'priv-' + miId : 'grupo',
         tipo: m.tipo || 'texto'
       })
-    }).catch(function(){});
+    }).then(function(r){ return r.json(); }).then(function(j){
+      /* v24: si el servidor se queja (clave/reglas), la Central lo muestra — sin tostadas que molesten */
+      if (j && j.error) { pushServEstado = 'error'; pushServDetalle = j.error; refrescarChipsPush(); }
+    }).catch(function(){
+      pushServEstado = 'caido'; pushServDetalle = 'no responde al mandar un aviso'; refrescarChipsPush();
+    });
   } catch (e) {}
 }
 
 /* prueba del empuje completo: me mando a MÍ mismo por el servidor */
 function probarPush(){
-  if (!PUSH_URL || !pushSubActiva) return;
+  if (!pushUrlVigente || !pushSubActiva) return;
   try {
-    fetch(PUSH_URL, {
+    fetch(pushUrlVigente, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -2031,7 +2527,11 @@ function probarPush(){
         tag: 'push-prueba',
         tipo: 'prueba'
       })
-    }).catch(function(){});
+    }).then(function(r){ return r.json(); }).then(function(j){
+      if (j && j.ok && j.enviados > 0) toast('🚀 Push de prueba en camino — CERRÁ el chat del todo y esperalo', 5000);
+      else if (j && j.ok) toast('📭 El servidor no te tiene subscripto todavía — esperá 10 seg y probá otra vez', 5000);
+      else if (j && j.error) toast('❌ El servidor dijo: ' + j.error, 5000);
+    }).catch(function(){ toast('❌ El servidor de push no responde', 4500); });
   } catch (e) {}
 }
 
@@ -2041,6 +2541,7 @@ function mandarMsj(obj){
     try { mandarPush(obj); } catch (e) {}
   });
 }
+leerConfigPush(); /* v24: leo la URL del servidor guardada en el chat (si ya la configuraste) */
 
 /* v18: aviso de PRUEBA al activar los avisos — te llega al instante para que veas cómo va a ser.
    Si este aviso NO llega, el bloqueo está en el navegador o en el cel (permisos del sistema). */
@@ -2145,10 +2646,13 @@ function pintarCentral(){
 
   fila('avSW', swListo ? '✅' : '⏳', swListo ? 'ok' : 'medio', swListo ? 'motor listo para mostrar avisos en el cel' : 'cargando el motor de avisos…');
 
-  /* v22: estado del EMPUJE (avisos con la app totalmente cerrada) */
+  /* v24: estado del EMPUJE (avisos con la app totalmente cerrada) + del servidor */
   if (!('PushManager' in window)) fila('avPush', '❌', 'mal', 'este navegador no soporta empuje — avisos solo con el chat abierto');
-  else if (!PUSH_URL) fila('avPush', '⚠️', 'medio', 'sin servidor de empuje: los avisos llegan solo con el chat abierto — armá el servidor gratis en 5 min (README, sección PUSH)');
-  else if (pushSubActiva) fila('avPush', '✅', 'ok', 'empuje ACTIVO — te avisan aunque tengas el chat cerrado (probalo con PROBAR AVISO y cerrando el chat)');
+  else if (!pushUrlVigente) fila('avPush', '⚠️', 'medio', 'sin servidor de empuje: avisos solo con el chat abierto — tocá 📲 ACTIVAR PUSH abajo y quedá listo en 3 pasos');
+  else if (pushServEstado === 'ok' && pushSubActiva) fila('avPush', '✅', 'ok', 'empuje ACTIVO' + (pushServDetalle ? ' · ' + pushServDetalle : '') + ' — te avisan con el chat cerrado');
+  else if (pushServEstado === 'ok') fila('avPush', '⏳', 'medio', 'servidor OK — este cel todavía no termina de suscribirse (dale permiso 🔔 y esperá un poco)');
+  else if (pushServEstado === 'viejo') fila('avPush', '⚠️', 'medio', 'el servidor es VIEJO — 📲 ACTIVAR PUSH → PASO 1: pegale el código nuevo y Deploy otra vez');
+  else if (pushServEstado === 'caido' || pushServEstado === 'error') fila('avPush', '❌', 'mal', 'servidor de empuje con problema: ' + (pushServDetalle || 'no responde') + ' — tocá 📲 ACTIVAR PUSH para revisarlo');
   else fila('avPush', '⏳', 'medio', 'conectando con el servidor de empuje…');
 
   var probada = false;
@@ -2187,7 +2691,7 @@ $('btnProbarAviso').onclick = function(){
   localStorage.setItem('siko_chat_notis', 'si');
   avisoPrueba();
   probarPush(); /* v22: si hay servidor de empuje, mandá también el 🚀 push de prueba */
-  toast(PUSH_URL && pushSubActiva
+  toast(pushUrlVigente && pushSubActiva
     ? '📤 Mandado. Ahora CERRÁ el chat del todo: si te llega el 🚀 Push de prueba, el empuje anda ✓'
     : '📤 Mandado — mirá la entrada del cel. ¿No apareció? Leé la ayuda de abajo', 4500);
   setTimeout(pintarCentral, 600);
@@ -2199,6 +2703,66 @@ $('btnToggleVigilia').onclick = function(){
   toast(vigiliaActiva ? '🫀 Listo: el chat no se duerme en segundo plano' : '😴 Modo siempre activo apagado');
 };
 
+/* --- v24: 📲 ACTIVAR PUSH — el servidor se configura desde acá, sin tocar código --- */
+$('btnActivarPush').onclick = function(){
+  try { $('inputPushUrl').value = pushUrlVigente || ''; } catch (e) {}
+  pintarServPush();
+  $('overlayPush').classList.remove('oculto');
+};
+$('btnCerrarPush').onclick = function(){ $('overlayPush').classList.add('oculto'); };
+function codigoWorkerTxt(){ try { return ($('codigoWorker').textContent || '').trim(); } catch (e) { return ''; } }
+function copiarWorkerViejo(cod, listo){
+  try {
+    var t = document.createElement('textarea');
+    t.value = cod; t.style.position = 'fixed'; t.style.opacity = '0';
+    document.body.appendChild(t); t.focus(); t.select();
+    if (document.execCommand('copy')) listo();
+    else toast('No pude copiar solo — abrí el archivo PUSH-servidor-cloudflare.js y copialo a mano');
+    document.body.removeChild(t);
+  } catch (e) { toast('No pude copiar — copialo a mano desde PUSH-servidor-cloudflare.js'); }
+}
+$('btnCopiarWorker').onclick = function(){
+  var cod = codigoWorkerTxt();
+  if (!cod) { toast('No encontré el código — usá el archivo PUSH-servidor-cloudflare.js'); return; }
+  var listo = function(){
+    toast('📋 Código copiado — ahora PASO 2: Cloudflare', 3500);
+    $('btnCopiarWorker').textContent = '✅ COPIADO';
+    setTimeout(function(){ $('btnCopiarWorker').textContent = '📋 COPIAR CÓDIGO DEL SERVIDOR'; }, 2600);
+  };
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(cod).then(listo, function(){ copiarWorkerViejo(cod, listo); });
+    } else copiarWorkerViejo(cod, listo);
+  } catch (e) { copiarWorkerViejo(cod, listo); }
+};
+$('btnGuardarPush').onclick = function(){
+  var u = (($('inputPushUrl') || {}).value || '').trim().replace(/\s+/g, '');
+  if (u.indexOf('http') !== 0) { toast('Pegá la URL que te dio Cloudflare (empieza con https://…)', 4200); return; }
+  pushUrlVigente = u;
+  try {
+    db.collection(COL_USUARIOS).doc('__config__').set({ pushUrl: u, ts: SERVER_TS() }, { merge: true }).then(function(){
+      toast('💾 Guardado para TODOS ✓ checando el servidor…', 3800);
+      chequearServidorPush(false);
+      setTimeout(function(){
+        if (pushServEstado === 'ok') probarPush(); /* si el servidor está OK, mandá la prueba completa */
+      }, 1300);
+    }).catch(function(){ toast('⚠️ No pude guardar en Firestore — revisá la conexión', 4200); });
+  } catch (e) { toast('⚠️ No pude guardar en Firestore', 4200); }
+};
+function pintarServPush(){
+  var f = $('avServPush');
+  if (!f) return;
+  var c = f.querySelector('.avChip'), t = f.querySelector('.avTxt');
+  if (!c || !t) return;
+  var est;
+  if (!pushUrlVigente) est = ['⚠️', 'medio', 'todavía sin servidor — hacé los 3 pasos de arriba'];
+  else if (pushServEstado === 'probando') est = ['⏳', 'medio', 'checando el servidor…'];
+  else if (pushServEstado === 'ok') est = ['✅', 'ok', 'ACTIVO' + (pushServDetalle ? ' · ' + pushServDetalle : '') + ' — cerrá el chat y los avisos igual llegan'];
+  else if (pushServEstado === 'viejo') est = ['⚠️', 'medio', 'el servidor está vivo pero es VIEJO — pegale el código del PASO 1 y Deploy de nuevo'];
+  else est = ['❌', 'mal', 'no responde o falló: ' + (pushServDetalle || 'revisá la URL')];
+  c.textContent = est[0]; c.className = 'avChip ' + est[1]; t.textContent = est[2];
+}
+
 /* v20: guía automática apenas entrás, según cómo esté el permiso en el dispositivo */
 function guiaAvisos(){
   if (!('Notification' in window)) {
@@ -2207,6 +2771,728 @@ function guiaAvisos(){
   }
   if (Notification.permission === 'denied') toast('🔕 Avisos bloqueados en este navegador — tocá 🔔 Avisos (abajo) para arreglarlo', 5500);
   else if (Notification.permission === 'default') toast('🔔 Tocá el botón 🔔 Avisos de la barra para activar los avisos al cel', 5500);
+  else if (!pushUrlVigente) toast('📲 ¿Querés avisos con el chat CERRADO? 🔔 Avisos → ACTIVAR PUSH', 5500);
+}
+
+/* ============================================================
+   v26 · 🎮 JUEGOS EN LÍNEA DE 2 JUGADORES
+   damas · ajedrez · ta-te-ti · conecta 4 · piedra-papel-tijera
+   Cada partida es un doc de chat_juegos: los dos cel ven el MISMO
+   tablero en vivo (el doc viaja por Firestore), con invitación,
+   revancha y recuperación si cerraste el chat a mitad de partida.
+   ============================================================ */
+var JUEGOS = {
+  tateti:   { nom: 'TA-TE-TI',  emo: '⭕', desc: '3 en línea — el de siempre', ayuda: 'Tocá una casilla libre para poner tu ficha' },
+  conecta4: { nom: 'CONECTA 4', emo: '🟠', desc: 'juntá 4 fichas en línea',    ayuda: 'Tocá una columna para tirar tu ficha' },
+  dama:     { nom: 'DAMAS',     emo: '⚫', desc: 'saltá las piezas y coroná ⭐', ayuda: 'Tocá tu pieza y después la casilla verde · ⭐ = dama' },
+  ajedrez:  { nom: 'AJEDREZ',   emo: '♞', desc: 'jaque mate al rey (sin enroque)', ayuda: 'Tocá tu pieza y después la casilla verde' },
+  ppt:      { nom: 'PIEDRA · PAPEL · TIJERA', emo: '✊', desc: 'al mejor de 3', ayuda: 'Los dos eligen a la vez — gana el primero a 2' }
+};
+var PINTAS_JUEGO = {}; /* se llena abajo, después de cada pintador */
+
+var juegoAbiertoId = null, juegoAbiertoDatos = null, juegoUnsub = null;
+var invUnsubA = null, invUnsubB = null;
+var juegosCache = {};    /* id → última data vista (de los escuchas de j1/j2) */
+var juegosCerrados = {}; /* partidas que cerré a mano → no se reabren solas */
+var invVistas = {};      /* invitaciones ya mostradas (no repetir el banner) */
+var juegoSelIdx = -1;    /* pieza seleccionada (damas / ajedrez) */
+var juegoUltTurno = null, juegoUltEstado = null, juegoUltMarc = '';
+var bannerInvId = null;
+var avisoReglasJuegos = false;
+var jugarTarget = null;
+
+function juegoCol(){ return db.collection(COL_JUEGOS); }
+function juegoDoc(id){ return juegoCol().doc(id); }
+function jugoActualizar(g, obj){
+  var o = { actualizado: SERVER_TS() };
+  for (var k in obj) if (obj.hasOwnProperty(k)) o[k] = obj[k];
+  return juegoDoc(g._id).update(o);
+}
+function juegoFresca(g){
+  if (!g.actualizado || !g.actualizado.toMillis) return true; /* local recién escrita */
+  return (Date.now() - g.actualizado.toMillis()) < 3 * 60 * 60 * 1000;
+}
+function errorJuegos(err){
+  if (avisoReglasJuegos) return;
+  avisoReglasJuegos = true;
+  try { console.log('SikoChat juegos:', err && err.code); } catch (e) {}
+  toast('⚠️ Los jueguitos no pudieron conectar — faltan las reglas de chat_juegos (mirá firestore-reglas.txt)', 7000);
+}
+
+/* --- escuchar invitaciones para mí (j2) y mis partidas (j1) --- */
+function escucharJuegos(){
+  try {
+    if (invUnsubA) invUnsubA();
+    if (invUnsubB) invUnsubB();
+    invUnsubA = juegoCol().where('j2', '==', miId).onSnapshot(function(snap){
+      var nueva = null;
+      snap.forEach(function(d){
+        var g = d.data(); g._id = d.id;
+        juegosCache[d.id] = g;
+        if (bannerInvId === d.id && g.estado !== 'esperando') ocultarBannerInv();
+        if (g.estado === 'esperando' && !invVistas[d.id]) { invVistas[d.id] = true; nueva = g; }
+        revisarJuegoEnLista(g);
+      });
+      if (nueva) mostrarInvitacion(nueva);
+    }, errorJuegos);
+    invUnsubB = juegoCol().where('j1', '==', miId).onSnapshot(function(snap){
+      snap.forEach(function(d){
+        var g = d.data(); g._id = d.id;
+        juegosCache[d.id] = g;
+        revisarJuegoEnLista(g);
+      });
+    }, function(){});
+  } catch (e) {}
+}
+function revisarJuegoEnLista(g){
+  if (g.estado !== 'jugando' || g._id === juegoAbiertoId) return;
+  if (juegosCerrados[g._id]) {
+    /* la cerré a mano pero sigue viva: si me toca, aviso chiquito */
+    if (!document.hidden && g.turno === miId) {
+      var nomM = g.turno === g.j1 ? (g.n2 || 'El otro') : (g.n1 || 'El otro');
+      toast('🎮 ' + nomM + ' jugó en ' + ((JUEGOS[g.juego] || {}).nom || 'el juego') + ' — tocá 🎮 para seguir');
+    }
+    return;
+  }
+  if (juegoFresca(g)) abrirJuego(g._id); /* cerraste el chat a mitad de partida → la retomo sola */
+}
+
+/* --- banner de invitación (tipo llamada) --- */
+function mostrarInvitacion(g){
+  if (bannerInvId === g._id && !$('bannerInv').classList.contains('oculto')) return;
+  bannerInvId = g._id;
+  var nom = g.n1 || (nombresCache[g.j1] || {}).nombre || 'Alguien';
+  $('invTxt').innerHTML = '🎮 <b>' + escapar(nom) + '</b> te invita a jugar <b>' + escapar((JUEGOS[g.juego] || {}).nom || '') + '</b>';
+  $('btnInvSi').onclick = function(){ ocultarBannerInv(); aceptarInvitacion(g); };
+  $('btnInvNo').onclick = function(){
+    ocultarBannerInv();
+    juegoDoc(g._id).update({ estado: 'rechazada', actualizado: SERVER_TS() }).catch(function(){});
+  };
+  $('bannerInv').classList.remove('oculto');
+  if (sonidoActivo) sonidoMsj();
+  vibrar([120, 60, 120]);
+  if (document.hidden) aviso('🎮 ' + nom, 'te invita a jugar ' + ((JUEGOS[g.juego] || {}).nom || ''), 'juego', {}, false);
+}
+function ocultarBannerInv(){ $('bannerInv').classList.add('oculto'); bannerInvId = null; }
+function aceptarInvitacion(g){
+  juegoDoc(g._id).update({
+    estado: 'jugando', turno: g.j1,
+    tablero: JSON.stringify(iniTablero(g.juego)),
+    actualizado: SERVER_TS()
+  }).catch(function(){});
+  abrirJuego(g._id);
+}
+
+/* --- invitar a alguien a jugar --- */
+function invitarA(uid){
+  if (!logueado) return;
+  if (!uid || uid === miId) { toast('😄 Ese sos vos — desafiá a otro'); return; }
+  for (var id in juegosCache) { /* ¿ya había algo con esta persona? */
+    if (!juegosCache.hasOwnProperty(id)) continue;
+    var g = juegosCache[id];
+    if (!g || !g.juego || g.estado === 'rechazada' || g.estado === 'terminado') continue;
+    if ((g.j1 === miId && g.j2 === uid) || (g.j1 === uid && g.j2 === miId)) {
+      if (g.estado === 'esperando' && g.j1 === uid) { aceptarInvitacion(g); return; } /* él ya te había invitado */
+      abrirJuego(id);
+      toast(g.estado === 'esperando' ? '🎮 Ya le mandaste la invitación — esperando…' : '🎮 Ya tienen una partida en curso');
+      return;
+    }
+  }
+  jugarTarget = uid;
+  var inf = nombresCache[uid] || {};
+  $('jugContra').textContent = inf.nombre || 'usuario';
+  pintarListaJuegos();
+  $('overlayJugar').classList.remove('oculto');
+}
+function pintarListaJuegos(){
+  var l = $('listaJuegos');
+  l.innerHTML = '';
+  var claves = Object.keys(JUEGOS);
+  for (var i = 0; i < claves.length; i++) {
+    (function(k){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'btnJuegoGrande';
+      b.innerHTML = '<span class="jgEmoGrande">' + JUEGOS[k].emo + '</span><span><span class="jgNomGrande">' + JUEGOS[k].nom + '</span><span class="jgDescGrande">' + JUEGOS[k].desc + '</span></span>';
+      b.onclick = function(){
+        $('overlayJugar').classList.add('oculto');
+        crearInvitacion(k);
+      };
+      l.appendChild(b);
+    })(claves[i]);
+  }
+}
+function crearInvitacion(juego){
+  var inf = nombresCache[jugarTarget] || {};
+  var datos = {
+    juego: juego, j1: miId, j2: jugarTarget,
+    n1: miNombre, n2: inf.nombre || 'usuario',
+    a1: miAvatar || '🙂', a2: inf.avatar || '🙂',
+    f1: fotoSegura(miFoto), f2: fotoSegura(inf.foto),
+    estado: 'esperando', turno: miId,
+    tablero: JSON.stringify(iniTablero(juego)),
+    ganador: '', finTxt: '', ultTxt: 'invitación enviada',
+    creado: SERVER_TS(), actualizado: SERVER_TS()
+  };
+  juegoCol().add(datos).then(function(ref){
+    abrirJuego(ref.id);
+    toast('🎮 Invitación enviada a ' + datos.n2);
+  }).catch(function(){
+    toast('⚠️ No pude crear la partida — faltan las reglas de chat_juegos (mirá firestore-reglas.txt)', 6500);
+  });
+}
+$('btnCerrarJugar').onclick = function(){ $('overlayJugar').classList.add('oculto'); };
+$('btnJugarPriv').onclick = function(){ if (chatPrivadoId) invitarA(chatPrivadoId); };
+
+/* --- abrir / cerrar la mesa --- */
+function abrirJuego(id){
+  if (juegoUnsub) { juegoUnsub(); juegoUnsub = null; }
+  juegoAbiertoId = id;
+  delete juegosCerrados[id];
+  juegoSelIdx = -1;
+  juegoUltTurno = null; juegoUltEstado = null; juegoUltMarc = '';
+  ocultarBannerInv();
+  $('overlayJuego').classList.remove('oculto');
+  juegoUnsub = juegoDoc(id).onSnapshot(function(snap){
+    if (!snap || !snap.exists) { cerrarJuego(); return; }
+    var g = snap.data(); g._id = snap.id;
+    juegosCache[snap.id] = g;
+    pintarJuego(g);
+  }, function(err){
+    toast('⚠️ No pude seguir la partida: ' + (err && err.code), 5000);
+    cerrarJuego();
+  });
+}
+function cerrarJuego(){
+  if (juegoUnsub) { juegoUnsub(); juegoUnsub = null; }
+  juegoAbiertoId = null;
+  juegoAbiertoDatos = null;
+  $('overlayJuego').classList.add('oculto');
+}
+$('btnJgSalir').onclick = function(){
+  var g = juegoAbiertoDatos;
+  if (g && g.estado === 'esperando' && g.j1 === miId) {
+    juegoDoc(g._id).delete().catch(function(){});
+    toast('✖ Invitación cancelada');
+  } else if (g && g.estado === 'esperando' && g.j2 === miId) {
+    juegoDoc(g._id).update({ estado: 'rechazada', actualizado: SERVER_TS() }).catch(function(){});
+  }
+  if (juegoAbiertoId) juegosCerrados[juegoAbiertoId] = true;
+  cerrarJuego();
+};
+$('btnJgAceptar').onclick = function(){ var g = juegoAbiertoDatos; if (g) aceptarInvitacion(g); };
+$('btnJgRevancha').onclick = function(){
+  var g = juegoAbiertoDatos;
+  if (!g) return;
+  juegoDoc(g._id).update({
+    estado: 'jugando', turno: g.j1, ganador: '', finTxt: '', ultTxt: '¡revancha!',
+    tablero: JSON.stringify(iniTablero(g.juego)),
+    actualizado: SERVER_TS()
+  }).catch(function(){});
+  toast('🔄 ¡Revancha! Arranca ' + (g.n1 || 'el otro'));
+};
+
+/* --- pintor central de la mesa --- */
+function pintaJugador(idEl, uid, nom, av, foto, activo){
+  var el = $(idEl);
+  if (!el) return;
+  var f = fotoSegura(foto) || fotoSegura((nombresCache[uid] || {}).foto);
+  el.querySelector('.jgAv').innerHTML = f ? '<img class="fotoMini" src="' + escaparAttr(f) + '" alt="">' : escapar(av || '🙂');
+  el.querySelector('.jgNom').textContent = (nom || (nombresCache[uid] || {}).nombre || '—') + (uid === miId ? ' (vos)' : '');
+  el.classList.toggle('activo', !!activo);
+}
+function pintarJuego(g){
+  juegoAbiertoDatos = g;
+  var J = JUEGOS[g.juego] || { nom: String(g.juego || 'juego').toUpperCase(), emo: '🎮', ayuda: '' };
+  $('jgNombre').textContent = J.emo + ' ' + J.nom;
+  pintaJugador('jgJ1', g.j1, g.n1, g.a1, g.f1, g.estado === 'jugando' && g.turno === g.j1);
+  pintaJugador('jgJ2', g.j2, g.n2, g.a2, g.f2, g.estado === 'jugando' && g.turno === g.j2);
+  var t = $('jgTurno'), es = $('jgEstado');
+  t.className = 'jgTurno';
+  es.className = 'jgEstado';
+  es.textContent = '';
+  $('btnJgRevancha').classList.add('oculto');
+  $('btnJgAceptar').classList.add('oculto');
+  var tabla = $('jgTablero');
+  tabla.innerHTML = '';
+  tabla.className = 'jgTablero';
+
+  if (g.estado === 'esperando' || g.estado === 'rechazada') {
+    if (g.estado === 'esperando' && g.j2 === miId) {
+      t.textContent = '🎮 ' + (g.n1 || 'Alguien') + ' te invita a jugar';
+      t.className = 'jgTurno mio';
+      es.textContent = '¿Aceptás la partida?';
+      $('btnJgAceptar').classList.remove('oculto');
+    } else if (g.estado === 'esperando') {
+      t.textContent = '⏳ Esperando que ' + (g.n2 || 'el otro') + ' acepte…';
+      es.textContent = 'Le salta la invitación en su pantalla al toque 🚀';
+    } else {
+      t.textContent = '😕 Partida no aceptada';
+      es.textContent = g.j1 === miId ? (g.n2 || 'El otro') + ' no aceptó esta vez' : 'Rechazaste esta invitación';
+    }
+    tabla.innerHTML = '<div class="jgEsperando"><b>🎲</b>Preparando la mesa…</div>';
+    juegoUltEstado = g.estado;
+    juegoUltTurno = null;
+    return;
+  }
+
+  var st = null;
+  try { st = JSON.parse(g.tablero || '{}') || {}; } catch (e) { st = {}; }
+
+  if (g.estado === 'terminado') {
+    var empateEs = g.ganador === 'empate';
+    var ganeYo = g.ganador === miId;
+    t.textContent = '🏁 Partida terminada';
+    es.className = 'jgEstado ' + (empateEs ? 'empate' : (ganeYo ? 'gano' : 'perdio'));
+    es.textContent = empateEs ? '🤝 ¡Empate! Buena partida'
+      : (ganeYo ? '🎉 ¡GANASTE! 🏆' : '😢 Ganó ' + (g.ganador === g.j1 ? (g.n1 || 'el otro') : (g.n2 || 'el otro')));
+    if (juegoUltEstado !== 'terminado') { /* el hincha de turnos suena UNA sola vez */
+      if (empateEs) { tono(520, .1, 'sine', 0, .18); tono(520, .12, 'sine', .14, .18); }
+      else if (ganeYo) { tono(523, .11, 'sine', 0, .2); tono(659, .11, 'sine', .13, .2); tono(784, .22, 'sine', .26, .2); }
+      else { tono(392, .13, 'sine', 0, .18); tono(311, .13, 'sine', .15, .18); tono(233, .25, 'sine', .3, .18); }
+    }
+    $('btnJgRevancha').classList.remove('oculto');
+  } else if (g.estado === 'jugando') {
+    var miTurno = g.turno === miId;
+    var nomTurno = g.turno === g.j1 ? (g.n1 || 'el otro') : (g.n2 || 'el otro');
+    t.textContent = miTurno ? '🎯 ¡TU TURNO!' : '⏳ turno de ' + nomTurno;
+    if (miTurno) t.className = 'jgTurno mio';
+    es.textContent = J.ayuda || '';
+    if (g.juego === 'ppt') { t.textContent = '✊ 🖐 ✌️ — elegí tu jugada'; es.textContent = J.ayuda; }
+    if (g.juego === 'ajedrez' && miTurno && st.b && jaqueA(st.b, g.j1 === miId)) es.textContent = '⚠️ ¡JAQUE! Salvá a tu rey';
+    if (miTurno && juegoUltTurno !== null && juegoUltTurno !== miId) {
+      tono(660, .07, 'sine', 0, .16);
+      if (document.hidden) aviso('🎮 ' + J.nom, nomTurno + ' ya jugó — es tu turno', 'jg' + g._id, {}, false);
+    }
+    juegoUltTurno = g.turno;
+  }
+  juegoUltEstado = g.estado;
+  var PINTA = PINTAS_JUEGO[g.juego];
+  if (PINTA) PINTA(tabla, st, g);
+}
+
+/* --- estados iniciales --- */
+function iniTablero(j){
+  if (j === 'tateti') return { c: ['', '', '', '', '', '', '', '', ''] };
+  if (j === 'conecta4') { var a = [], i; for (i = 0; i < 42; i++) a.push(0); return { c: a }; }
+  if (j === 'dama') return { b: iniDama() };
+  if (j === 'ajedrez') return { b: 'rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNR' };
+  if (j === 'ppt') return { e1: '', e2: '', m1: 0, m2: 0, ult: null };
+  return {};
+}
+function iniDama(){ /* fila 0 arriba: negras arriba, blancas abajo, solo casillas oscuras */
+  var s = '', r, c;
+  for (r = 0; r < 8; r++) for (c = 0; c < 8; c++) {
+    var oscura = (r + c) % 2 === 1;
+    s += (oscura && r < 3) ? 'n' : (oscura && r > 4) ? 'b' : '.';
+  }
+  return s;
+}
+
+/* ================= TA-TE-TI ================= */
+function pintaTateti(tabla, st, g){
+  tabla.style.gridTemplateColumns = 'repeat(3,1fr)';
+  tabla.classList.add('jgTateti');
+  var c = st.c || [];
+  var puedo = g.estado === 'jugando' && g.turno === miId;
+  for (var i = 0; i < 9; i++) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'jgCelda';
+    b.innerHTML = c[i] === 'X' ? '<span class="jgX">✕</span>' : c[i] === 'O' ? '<span class="jgO">◯</span>' : '';
+    if (puedo && !c[i]) b.onclick = hacerTateti.bind(null, i); /* bind: SIN esto la jugada se disparaba sola al pintar */
+    else b.disabled = true;
+    tabla.appendChild(b);
+  }
+}
+PINTAS_JUEGO.tateti = pintaTateti;
+function hacerTateti(i){
+  var g = juegoAbiertoDatos;
+  if (!g || g.estado !== 'jugando' || g.turno !== miId) return;
+  var st; try { st = JSON.parse(g.tablero || '{}'); } catch (e) { return; }
+  st.c = st.c || [];
+  if (st.c[i]) return;
+  st.c[i] = g.j1 === miId ? 'X' : 'O';
+  var upd = { tablero: JSON.stringify(st), ultTxt: (miNombre || 'yo') + ' marcó en TA-TE-TI' };
+  var fin = finTateti(st.c);
+  if (fin) { upd.estado = 'terminado'; upd.ganador = fin === 'empate' ? 'empate' : miId; upd.finTxt = fin === 'empate' ? 'empate' : '3 en línea'; }
+  else upd.turno = g.j1 === miId ? g.j2 : g.j1;
+  jugoActualizar(g, upd).catch(function(){ toast('❌ No salió la jugada, probá otra vez'); });
+  tono(520, .05, 'square', 0, .12);
+}
+function finTateti(c){
+  var L = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+  for (var i = 0; i < L.length; i++) {
+    if (c[L[i][0]] && c[L[i][0]] === c[L[i][1]] && c[L[i][1]] === c[L[i][2]]) return c[L[i][0]];
+  }
+  for (var j = 0; j < 9; j++) if (!c[j]) return null;
+  return 'empate';
+}
+
+/* ================= CONECTA 4 ================= */
+function pintaConecta4(tabla, st, g){
+  tabla.style.gridTemplateColumns = 'repeat(7,1fr)';
+  tabla.classList.add('jgC4');
+  var c = st.c || [];
+  var puedo = g.estado === 'jugando' && g.turno === miId;
+  for (var i = 0; i < 42; i++) {
+    var col = i % 7, v = c[i] || 0;
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'jgCelda';
+    b.innerHTML = v === 1 ? '<span class="jgFicha f1"></span>' : v === 2 ? '<span class="jgFicha f2"></span>' : '';
+    if (puedo && !v) b.onclick = hacerC4(col);
+    else b.disabled = true;
+    tabla.appendChild(b);
+  }
+}
+PINTAS_JUEGO.conecta4 = pintaConecta4;
+function hacerC4(col){
+  return function(){
+    var g = juegoAbiertoDatos;
+    if (!g || g.estado !== 'jugando' || g.turno !== miId) return;
+    var st; try { st = JSON.parse(g.tablero || '{}'); } catch (e) { return; }
+    var c = st.c || [], fila = -1, r;
+    for (r = 5; r >= 0; r--) { if (!c[r * 7 + col]) { fila = r; break; } }
+    if (fila < 0) { toast('😮 Esa columna está llena'); return; }
+    c[fila * 7 + col] = g.j1 === miId ? 1 : 2;
+    st.c = c;
+    var upd = { tablero: JSON.stringify(st), ultTxt: (miNombre || 'yo') + ' tiró una ficha' };
+    var fin = finC4(c);
+    if (fin) { upd.estado = 'terminado'; upd.ganador = fin === 'empate' ? 'empate' : miId; upd.finTxt = fin === 'empate' ? 'empate' : '4 en línea'; }
+    else upd.turno = g.j1 === miId ? g.j2 : g.j1;
+    jugoActualizar(g, upd).catch(function(){ toast('❌ No salió la jugada, probá otra vez'); });
+    tono(500, .05, 'square', 0, .12);
+  };
+}
+function finC4(c){
+  var dirs = [[0,1],[1,0],[1,1],[1,-1]], r, col, d;
+  for (r = 0; r < 6; r++) for (col = 0; col < 7; col++) {
+    var v = c[r * 7 + col];
+    if (!v) continue;
+    for (d = 0; d < 4; d++) {
+      var n = 1;
+      while (n < 4) {
+        var rr = r + dirs[d][0] * n, cc = col + dirs[d][1] * n;
+        if (rr < 0 || rr > 5 || cc < 0 || cc > 6 || c[rr * 7 + cc] !== v) break;
+        n++;
+      }
+      if (n >= 4) return v;
+    }
+  }
+  var lleno = true;
+  for (var i = 0; i < 42; i++) if (!c[i]) { lleno = false; break; }
+  return lleno ? 'empate' : null;
+}
+
+/* ================= DAMAS ================= */
+function movsDama(b, i){
+  var p = b[i];
+  if (!p || p === '.') return [];
+  var blanca = p === 'b' || p === 'B', esDama = p === 'B' || p === 'N';
+  var r = Math.floor(i / 8), c = i % 8, res = [];
+  var dirs = esDama ? [[-1,-1],[-1,1],[1,-1],[1,1]] : (blanca ? [[-1,-1],[-1,1]] : [[1,-1],[1,1]]);
+  for (var d = 0; d < dirs.length; d++) {
+    var r1 = r + dirs[d][0], c1 = c + dirs[d][1], r2 = r + 2 * dirs[d][0], c2 = c + 2 * dirs[d][1];
+    if (r1 < 0 || r1 > 7 || c1 < 0 || c1 > 7) continue;
+    var t = b[r1 * 8 + c1];
+    if (t === '.') res.push(r1 * 8 + c1);
+    else {
+      var enemigo = blanca ? (t === 'n' || t === 'N') : (t === 'b' || t === 'B');
+      if (enemigo && r2 >= 0 && r2 < 8 && c2 >= 0 && c2 < 8 && b[r2 * 8 + c2] === '.') res.push(r2 * 8 + c2);
+    }
+  }
+  return res;
+}
+function sinMovsDama(b, lado){
+  for (var i = 0; i < 64; i++) {
+    var p = b[i];
+    if (p === '.') continue;
+    var esLado = lado === 'b' ? (p === 'b' || p === 'B') : (p === 'n' || p === 'N');
+    if (esLado && movsDama(b, i).length) return false;
+  }
+  return true;
+}
+function pintaDama(tabla, st, g){
+  tabla.style.gridTemplateColumns = 'repeat(8,1fr)';
+  tabla.classList.add('jgTab8');
+  var b = st.b || iniDama();
+  var puedo = g.estado === 'jugando' && g.turno === miId;
+  var dests = (puedo && juegoSelIdx >= 0) ? movsDama(b, juegoSelIdx) : [];
+  for (var i = 0; i < 64; i++) {
+    var r = Math.floor(i / 8), cc = i % 8, p = b[i];
+    var el = document.createElement('button');
+    el.type = 'button';
+    el.className = 'jgCelda' + ((r + cc) % 2 === 1 ? ' oscura' : ' clara');
+    if (p && p !== '.') {
+      var cls = (p === 'b' || p === 'B') ? 'fB' : 'fN';
+      var dama = p === 'B' || p === 'N';
+      el.innerHTML = '<span class="jgFicha ' + cls + '">' + (dama ? '★' : '') + '</span>';
+    }
+    if (i === juegoSelIdx) el.classList.add('jgSel');
+    if (dests.indexOf(i) >= 0) { el.classList.add('jgDest'); if (!el.innerHTML) el.innerHTML = '<span class="puntoDest"></span>'; }
+    var mia = puedo && ((g.j1 === miId && (p === 'b' || p === 'B')) || (g.j2 === miId && (p === 'n' || p === 'N')));
+    if (mia || dests.indexOf(i) >= 0) el.onclick = clickDama(i, b, g);
+    else el.disabled = true;
+    tabla.appendChild(el);
+  }
+}
+PINTAS_JUEGO.dama = pintaDama;
+function clickDama(i, b, g){
+  return function(){
+    if (g.estado !== 'jugando' || g.turno !== miId) return;
+    var p = b[i];
+    var mia = (g.j1 === miId && (p === 'b' || p === 'B')) || (g.j2 === miId && (p === 'n' || p === 'N'));
+    if (mia && juegoSelIdx !== i) { juegoSelIdx = i; pintarJuego(g); tono(400, .03, 'sine', 0, .08); return; }
+    if (juegoSelIdx < 0) return;
+    if (movsDama(b, juegoSelIdx).indexOf(i) < 0) {
+      if (!mia) { juegoSelIdx = -1; pintarJuego(g); }
+      return;
+    }
+    var nb = b.split('');
+    var pieza = nb[juegoSelIdx];
+    var blanca = pieza === 'b' || pieza === 'B';
+    nb[juegoSelIdx] = '.';
+    if (Math.abs(Math.floor(i / 8) - Math.floor(juegoSelIdx / 8)) === 2) { /* salto: me como la del medio */
+      var mr = (Math.floor(i / 8) + Math.floor(juegoSelIdx / 8)) / 2;
+      var mc = ((i % 8) + (juegoSelIdx % 8)) / 2;
+      nb[mr * 8 + mc] = '.';
+    }
+    if ((blanca && Math.floor(i / 8) === 0) || (!blanca && Math.floor(i / 8) === 7)) pieza = blanca ? 'B' : 'N'; /* coroné */
+    nb[i] = pieza;
+    var nst = { b: nb.join('') };
+    var upd = { tablero: JSON.stringify(nst), ultTxt: (miNombre || 'yo') + ' movió en DAMAS' };
+    var ladoRival = g.j1 === miId ? 'n' : 'b';
+    if (sinMovsDama(nst.b, ladoRival)) { upd.estado = 'terminado'; upd.ganador = miId; upd.finTxt = 'DAMAS'; }
+    else upd.turno = g.j1 === miId ? g.j2 : g.j1;
+    juegoSelIdx = -1;
+    jugoActualizar(g, upd).catch(function(){ toast('❌ No salió la jugada, probá otra vez'); });
+    tono(500, .05, 'square', 0, .12);
+  };
+}
+
+/* ================= AJEDREZ ================= */
+var CHAR_PIEZA = { P:'♙', N:'♘', B:'♗', R:'♖', Q:'♕', K:'♔', p:'♟', n:'♞', b:'♝', r:'♜', q:'♛', k:'♚' };
+function esBlancaPieza(p){ return p >= 'A' && p <= 'Z'; }
+function movsAjedrezPseudo(b, i){
+  var p = b[i];
+  if (!p || p === '.') return [];
+  var esB = esBlancaPieza(p), tipo = p.toLowerCase();
+  var r = Math.floor(i / 8), c = i % 8, res = [];
+  function push(rr, cc){
+    if (rr < 0 || rr > 7 || cc < 0 || cc > 7) return false;
+    var t = b[rr * 8 + cc];
+    if (t === '.') { res.push(rr * 8 + cc); return true; }
+    if (esBlancaPieza(t) !== esB) res.push(rr * 8 + cc);
+    return false;
+  }
+  if (tipo === 'p') {
+    var dir = esB ? -1 : 1, base = esB ? 6 : 1;
+    if (r + dir >= 0 && r + dir < 8 && b[(r + dir) * 8 + c] === '.') {
+      res.push((r + dir) * 8 + c);
+      if (r === base && b[(r + 2 * dir) * 8 + c] === '.') res.push((r + 2 * dir) * 8 + c);
+    }
+    for (var s = -1; s <= 1; s += 2) {
+      var rr = r + dir, cc2 = c + s;
+      if (rr < 0 || rr > 7 || cc2 < 0 || cc2 > 7) continue;
+      var t2 = b[rr * 8 + cc2];
+      if (t2 !== '.' && esBlancaPieza(t2) !== esB) res.push(rr * 8 + cc2);
+    }
+  } else if (tipo === 'n') {
+    var L = [[1,2],[2,1],[-1,2],[-2,1],[1,-2],[2,-1],[-1,-2],[-2,-1]];
+    for (var n = 0; n < 8; n++) push(r + L[n][0], c + L[n][1]);
+  } else if (tipo === 'k') {
+    for (var dr = -1; dr <= 1; dr++) for (var dc = -1; dc <= 1; dc++) { if (dr || dc) push(r + dr, c + dc); }
+  } else {
+    var rays = tipo === 'r' ? [[1,0],[-1,0],[0,1],[0,-1]]
+      : tipo === 'b' ? [[1,1],[1,-1],[-1,1],[-1,-1]]
+      : [[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]];
+    for (var q = 0; q < rays.length; q++) {
+      var rr2 = r + rays[q][0], cc3 = c + rays[q][1];
+      while (push(rr2, cc3)) { rr2 += rays[q][0]; cc3 += rays[q][1]; }
+    }
+  }
+  return res;
+}
+function reyIdx(b, blanco){
+  var k = blanco ? 'K' : 'k';
+  for (var i = 0; i < 64; i++) if (b[i] === k) return i;
+  return -1;
+}
+function atacada(b, idx, porBlancas){
+  if (idx < 0) return false;
+  var r = Math.floor(idx / 8), c = idx % 8, s;
+  var pr = porBlancas ? r + 1 : r - 1; /* el peón que me ataca está del otro lado */
+  for (s = -1; s <= 1; s += 2) {
+    if (pr >= 0 && pr < 8 && c + s >= 0 && c + s < 8 && b[pr * 8 + c + s] === (porBlancas ? 'P' : 'p')) return true;
+  }
+  var L = [[1,2],[2,1],[-1,2],[-2,1],[1,-2],[2,-1],[-1,-2],[-2,-1]];
+  for (var n = 0; n < 8; n++) {
+    var rr = r + L[n][0], cc = c + L[n][1];
+    if (rr >= 0 && rr < 8 && cc >= 0 && cc < 8 && b[rr * 8 + cc] === (porBlancas ? 'N' : 'n')) return true;
+  }
+  for (var dr = -1; dr <= 1; dr++) for (var dc = -1; dc <= 1; dc++) {
+    if (!dr && !dc) continue;
+    var r2 = r + dr, c2 = c + dc;
+    if (r2 >= 0 && r2 < 8 && c2 >= 0 && c2 < 8 && b[r2 * 8 + c2] === (porBlancas ? 'K' : 'k')) return true;
+  }
+  var rays = [[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]];
+  for (var q = 0; q < 8; q++) {
+    var rr3 = r + rays[q][0], cc3 = c + rays[q][1];
+    while (rr3 >= 0 && rr3 < 8 && cc3 >= 0 && cc3 < 8) {
+      var t = b[rr3 * 8 + cc3];
+      if (t !== '.') {
+        var recto = q < 4;
+        if (t === (porBlancas ? 'Q' : 'q') || t === (porBlancas ? (recto ? 'R' : 'B') : (recto ? 'r' : 'b'))) return true;
+        break;
+      }
+      rr3 += rays[q][0]; cc3 += rays[q][1];
+    }
+  }
+  return false;
+}
+function movsAjedrez(b, i){
+  var p = b[i];
+  if (!p || p === '.') return [];
+  var esB = esBlancaPieza(p);
+  var pseudo = movsAjedrezPseudo(b, i), res = [];
+  for (var j = 0; j < pseudo.length; j++) {
+    var nb = b.split('');
+    nb[i] = '.';
+    nb[pseudo[j]] = p;
+    var nbj = nb.join('');
+    if (!atacada(nbj, reyIdx(nbj, esB), !esB)) res.push(pseudo[j]);
+  }
+  return res;
+}
+function jaqueA(b, blanco){ return atacada(b, reyIdx(b, blanco), !blanco); }
+function sinMovsAjedrez(b, esBlanco){
+  for (var i = 0; i < 64; i++) {
+    var p = b[i];
+    if (p === '.' || esBlancaPieza(p) !== esBlanco) continue;
+    if (movsAjedrez(b, i).length) return false;
+  }
+  return true;
+}
+function soloReyes(b){
+  var n = 0;
+  for (var i = 0; i < 64; i++) if (b[i] !== '.' && b[i].toLowerCase() !== 'k') n++;
+  return n === 0;
+}
+function pintaAjedrez(tabla, st, g){
+  tabla.style.gridTemplateColumns = 'repeat(8,1fr)';
+  tabla.classList.add('jgTab8', 'jgAjedrez');
+  var b = st.b || '';
+  var puedo = g.estado === 'jugando' && g.turno === miId;
+  var dests = (puedo && juegoSelIdx >= 0 && b[juegoSelIdx] && b[juegoSelIdx] !== '.') ? movsAjedrez(b, juegoSelIdx) : [];
+  for (var i = 0; i < 64; i++) {
+    var r = Math.floor(i / 8), cc = i % 8, p = b[i];
+    var el = document.createElement('button');
+    el.type = 'button';
+    el.className = 'jgCelda' + ((r + cc) % 2 === 0 ? ' clara' : ' oscura');
+    if (p && p !== '.') el.innerHTML = '<span class="' + (esBlancaPieza(p) ? 'jgPB' : 'jgPN') + '">' + (CHAR_PIEZA[p] || '?') + '</span>';
+    if (i === juegoSelIdx) el.classList.add('jgSel');
+    if (dests.indexOf(i) >= 0) { el.classList.add('jgDest'); if (!el.innerHTML) el.innerHTML = '<span class="puntoDest"></span>'; }
+    var mia = puedo && p && p !== '.' && ((g.j1 === miId) === esBlancaPieza(p));
+    if (mia || dests.indexOf(i) >= 0) el.onclick = clickAjedrez(i, b, g);
+    else el.disabled = true;
+    tabla.appendChild(el);
+  }
+}
+PINTAS_JUEGO.ajedrez = pintaAjedrez;
+function clickAjedrez(i, b, g){
+  return function(){
+    if (g.estado !== 'jugando' || g.turno !== miId) return;
+    var p = b[i];
+    var mia = p && p !== '.' && ((g.j1 === miId) === esBlancaPieza(p));
+    if (mia && juegoSelIdx !== i) { juegoSelIdx = i; pintarJuego(g); tono(400, .03, 'sine', 0, .08); return; }
+    if (juegoSelIdx < 0) return;
+    if (movsAjedrez(b, juegoSelIdx).indexOf(i) < 0) {
+      if (!mia) { juegoSelIdx = -1; pintarJuego(g); }
+      return;
+    }
+    var pieza = b[juegoSelIdx], nb = b.split('');
+    var esB = esBlancaPieza(pieza);
+    nb[juegoSelIdx] = '.';
+    if (pieza.toLowerCase() === 'p' && (esB ? Math.floor(i / 8) === 0 : Math.floor(i / 8) === 7)) pieza = esB ? 'Q' : 'q'; /* coroná */
+    nb[i] = pieza;
+    var nst = { b: nb.join('') };
+    var upd = { tablero: JSON.stringify(nst), ultTxt: (miNombre || 'yo') + ' movió en AJEDREZ' };
+    var rivalBlanco = !(g.j1 === miId);
+    if (sinMovsAjedrez(nst.b, rivalBlanco)) {
+      upd.estado = 'terminado';
+      if (jaqueA(nst.b, rivalBlanco)) { upd.ganador = miId; upd.finTxt = 'jaque mate'; }
+      else { upd.ganador = 'empate'; upd.finTxt = 'tablas'; }
+    } else if (soloReyes(nst.b)) { upd.estado = 'terminado'; upd.ganador = 'empate'; upd.finTxt = 'tablas'; }
+    else upd.turno = g.j1 === miId ? g.j2 : g.j1;
+    juegoSelIdx = -1;
+    jugoActualizar(g, upd).catch(function(){ toast('❌ No salió la jugada, probá otra vez'); });
+    tono(500, .05, 'square', 0, .12);
+  };
+}
+
+/* ================= PIEDRA · PAPEL · TIJERA ================= */
+var EMO_PPT = { piedra: '✊', papel: '✋', tijera: '✌️' };
+function ganaPpt(a, b){
+  if (a === b) return 0;
+  var gana1 = (a === 'piedra' && b === 'tijera') || (a === 'papel' && b === 'piedra') || (a === 'tijera' && b === 'papel');
+  return gana1 ? 1 : 2;
+}
+function pintaPpt(tabla, st, g){
+  tabla.classList.add('jgPpt');
+  var yoSoy1 = g.j1 === miId;
+  var m1 = st.m1 || 0, m2 = st.m2 || 0;
+  var miMarc = yoSoy1 ? m1 : m2, suMarc = yoSoy1 ? m2 : m1;
+  var miEl = yoSoy1 ? st.e1 : st.e2;
+  var jugando = g.estado === 'jugando';
+  var marc = m1 + '-' + m2;
+  if (juegoUltMarc && juegoUltMarc !== marc) tono(740, .07, 'sine', 0, .16);
+  juegoUltMarc = marc;
+  var h = '<div class="jgMarcador"><span class="mpQuien">VOS</span><span class="mpYo">' + miMarc + '</span>' +
+    '<span class="mpGuion">–</span><span class="mpEl">' + suMarc + '</span>' +
+    '<span class="mpQuien">' + escapar(yoSoy1 ? (g.n2 || 'ÉL') : (g.n1 || 'ÉL')) + '</span></div>';
+  h += '<div class="pptBtns">';
+  var OPS = [['piedra','✊'],['papel','✋'],['tijera','✌️']];
+  for (var o = 0; o < 3; o++) {
+    h += '<button type="button" class="pptBtn' + (miEl === OPS[o][0] ? ' pptSel' : '') + '" data-op="' + OPS[o][0] + '"' + (jugando ? '' : ' disabled') + '>' + OPS[o][1] + '</button>';
+  }
+  h += '</div>';
+  if (st.ult && st.ult.e1) {
+    var rs = st.ult.r === 0 ? '🤝 empate' : ((st.ult.r === 1) === yoSoy1 ? '🎉 ¡ganaste la ronda!' : '😬 la ganó el otro');
+    h += '<div class="pptFila"><span>' + (EMO_PPT[st.ult.e1] || '?') + '</span><span class="pptVs">VS</span><span>' + (EMO_PPT[st.ult.e2] || '?') + '</span></div>';
+    h += '<div class="pptEsperando">Última ronda: ' + rs + '</div>';
+  }
+  if (jugando && miEl) h += '<div class="pptEsperando">Elegiste ' + (EMO_PPT[miEl] || '') + ' — esperando a ' + escapar(yoSoy1 ? (g.n2 || 'el otro') : (g.n1 || 'el otro')) + '…</div>';
+  tabla.innerHTML = h;
+  var bs = tabla.querySelectorAll('.pptBtn');
+  for (var i = 0; i < bs.length; i++) bs[i].onclick = hacerPpt(bs[i].getAttribute('data-op'));
+}
+PINTAS_JUEGO.ppt = pintaPpt;
+function hacerPpt(op){
+  return function(){
+    var g = juegoAbiertoDatos;
+    if (!g || g.estado !== 'jugando') return;
+    var st; try { st = JSON.parse(g.tablero || '{}') || {}; } catch (e) { return; }
+    var yoSoy1 = g.j1 === miId;
+    if (yoSoy1 ? st.e1 : st.e2) { toast('🙌 Ya elegiste esta ronda — esperá al otro'); return; }
+    if (yoSoy1) st.e1 = op; else st.e2 = op;
+    var upd = { tablero: JSON.stringify(st) };
+    if (st.e1 && st.e2) { /* cerramos ronda los dos */
+      var r = ganaPpt(st.e1, st.e2);
+      st.ult = { e1: st.e1, e2: st.e2, r: r };
+      if (r === 1) st.m1 = (st.m1 || 0) + 1;
+      else if (r === 2) st.m2 = (st.m2 || 0) + 1;
+      st.e1 = ''; st.e2 = '';
+      upd.tablero = JSON.stringify(st);
+      if (st.m1 >= 2 || st.m2 >= 2) {
+        upd.estado = 'terminado';
+        upd.ganador = st.m1 >= 2 ? g.j1 : g.j2;
+        upd.finTxt = 'ganó al mejor de 3';
+      } else upd.turno = g.turno === g.j1 ? g.j2 : g.j1;
+    }
+    jugoActualizar(g, upd).catch(function(){ toast('❌ No salió la jugada, probá otra vez'); });
+    tono(520, .05, 'square', 0, .12);
+  };
 }
 
 /* alguien nuevo entra → tostada adentro del chat
@@ -2266,8 +3552,9 @@ var vistaCel = 'lista'; /* en qué pantalla está el cel: 'lista' o 'chat' */
 function enCel(){ return window.matchMedia('(max-width:620px)').matches; }
 function enListaCel(){ return document.body.classList.contains('celLista'); }
 function aplicarVistaCel(){
-  if (!enCel()) { document.body.classList.remove('celLista'); return; }
+  if (!enCel()) { document.body.classList.remove('celLista'); document.body.classList.remove('celChat'); return; }
   document.body.classList.toggle('celLista', vistaCel === 'lista');
+  document.body.classList.toggle('celChat', vistaCel === 'chat'); /* v25: la clase celChat muestra el botón ← INICIO */
 }
 function irALista(){
   vistaCel = 'lista';
@@ -2298,6 +3585,11 @@ function limpiarViejos(){
   }).catch(function(){});
   var corteUsu = Date.now() - 24 * 60 * 60 * 1000;
   db.collection(COL_USUARIOS).where('ping', '<', new Date(corteUsu)).get().then(function(s){
+    s.forEach(function(d){ d.ref.delete(); });
+  }).catch(function(){});
+  /* v26: partidas abandonadas hace más de 6 horas se borran solas */
+  var corteJg = Date.now() - 6 * 60 * 60 * 1000;
+  db.collection(COL_JUEGOS).where('actualizado', '<', new Date(corteJg)).get().then(function(s){
     s.forEach(function(d){ d.ref.delete(); });
   }).catch(function(){});
 }
