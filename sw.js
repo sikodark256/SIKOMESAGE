@@ -1,5 +1,6 @@
 /* ============================================================
-   SERVICE WORKER — SIKODARK CHAT (MSN) · chat-v26
+   SERVICE WORKER — SIKODARK CHAT (MSN) · chat-v27
+   + v27: 🏁 botón TERMINAR la partida en curso (la cierra para los dos, al otro le queda la revancha) · las partidas que cerrás YA NO se reabren solas al recargar (queda guardado en tu dispositivo) · 📺 la mesa de juego se agranda en PC/TV
    + v26: 🎮 JUEGOS EN LÍNEA DE 2 — damas, ajedrez, ta-te-ti, conecta 4 y piedra-papel-tijera: invitás desde el privado o la lista, juegan en vivo cada uno en su pantalla (colección chat_juegos)
    + v25: botón ← INICIO arriba para volver a los contactos (grupo y privados, cel) y VOLUMEN de sonidos en 🎵 Tonos
    + PUSH ACTIVABLE DESDE EL CHAT: el servidor se configura adentro (🔔 Avisos → 📲 ACTIVAR PUSH) y queda guardado para todos en Firestore; las suscripciones viven en chat_usuarios/{uid}.push (sin colección nueva)
@@ -14,7 +15,7 @@
    + reacciones/me gusta, reenviar, borrar, guardar y favoritos
    Subí este número (v5, v6…) cada vez que cambies el index.html
    ============================================================ */
-var CACHE = 'sikodark-chat-v26';
+var CACHE = 'sikodark-chat-v27';
 var ARCHIVOS = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png', './favicon.png', './apple-touch-icon.png', './icon-maskable-192.png', './icon-maskable-512.png', './logo-blanco.png', './logo-negro.png', './logo-cara.png'];
 
 self.addEventListener('install', function(e){
