@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- SikoChat v28 · 📺 TABLERO ARREGLADO PARA TV: en varias televisiones el tablero salía APLASTADO (una tira chata) porque el navegador de la TV es viejo y no conoce la medida "aspect-ratio" — ahora el chat MIDE cada casilla y le pone el alto justo con JavaScript: casilleros bien cuadrados en cualquier TV, PC o cel, y la mesa grande arranca desde 900px de ancho · + v27 · 🏁 TERMINAR PARTIDA: mientras jugás hay un botón 🏁 TERMINAR junto a Salir — la partida se cierra PARA LOS DOS (al otro le queda el resultado y la revancha) · + v27 · YA NO REAPARECE SOLA: si salís de una partida a medio jugar no se reabre sola cuando recargás el chat (queda guardado en tu dispositivo; si el otro mueve te avisa con una tostada y volvés tocando 🎮) · + v27 · 📺 MESA A PANTALLA GRANDE: en PC y TV el tablero, las fichas, el marcador y los botones se agrandan para aprovechar la pantalla · + v26 · 🎮 JUEGOS EN LÍNEA DE 2: damas · ajedrez · ta-te-ti · conecta 4 · piedra-papel-tijera — invitás desde el chat privado o la lista de contactos, al otro le salta la invitación tipo llamada, juegan en vivo cada uno desde su pantalla (sincronizado con Firestore, colección chat_juegos), con marcador, revancha y recuperación de partidas · + v25 · ← INICIO ARRIBA: botón para VOLVER a los contactos cuando entrás al grupo o a un privado (arriba a la izquierda, como WhatsApp; en el cel) · VOLUMEN: en 🎵 Tonos ahora hay un slider de volumen (0–100%) para los sonidos y avisos del chat, se guarda en tu dispositivo y en 0 queda todo mudo · + v24 PUSH ACTIVABLE DESDE EL CHAT: el servidor de empuje se configura ADENTRO (🔔 Avisos → 📲 ACTIVAR PUSH: copiar código → crear el worker gratis en Cloudflare → pegar la URL → GUARDAR Y PROBAR); la URL queda guardada en Firestore (chat_usuarios/__config__) y sirve para TODOS — ya no hay que editar el código ni volver a subir archivos por esto; las suscripciones de cada cel ahora se guardan en chat_usuarios/{uid}.push (sin colección nueva ni reglas extra) y el servidor es verificado en vivo desde la Central (estado: OK / viejo / caído, con detalle) · + v23 BANDEJA LIMPIA TIPO WHATSAPP: sin avisos de "se conectó", título = SOLO el nombre del que escribe, foto del remitente como imagen, grupo = 💬 CHAT GRUPAL con "juan: mensaje"; el rótulo de la dirección (github.io) lo pinta el NAVEGADOR por seguridad y no se puede sacar por código — con la app instalada Chrome puede mostrar "SikoChat" · + v22 PUSH REAL: cada cel se suscribe al empuje (Web Push con llaves VAPID) y el servidor manda el aviso cifrado aunque la PWA esté totalmente cerrada · + SIN DUPLICADO EN LA LISTA: tu nombre aparece UNA sola vez y los contadores ya no te cuentan a vos · + CENTRAL DE AVISOS: estado real del dispositivo, PROBAR AVISO AHORA, ayuda Android/iPhone y 🫀 MODO SIEMPRE ACTIVO · + NAVEGACIÓN TIPO APP EN EL CEL: lista ↔ chat con botón 👥 CONTACTOS · + PANEL DEL CEL ESTILO MSN · SIN contraseña (opcional) · badge de no leídos · PIZARRITA PAINT · TODOS en la lista con visto hace · reacciones ❤️ reenviar ↪️ borrar 🗑️ favoritos ⭐ · emotis/stikers/gifs/fotos · tonos · radio · temas · perfil · privado · instalar como app -->
+<!-- SikoChat v26 · 🎮 JUEGOS EN LÍNEA DE 2: damas · ajedrez · ta-te-ti · conecta 4 · piedra-papel-tijera — invitás desde el chat privado o la lista de contactos, al otro le salta la invitación tipo llamada, juegan en vivo cada uno desde su pantalla (sincronizado con Firestore, colección chat_juegos), con marcador, revancha y recuperación de partidas · + v25 · ← INICIO ARRIBA: botón para VOLVER a los contactos cuando entrás al grupo o a un privado (arriba a la izquierda, como WhatsApp; en el cel) · VOLUMEN: en 🎵 Tonos ahora hay un slider de volumen (0–100%) para los sonidos y avisos del chat, se guarda en tu dispositivo y en 0 queda todo mudo · + v24 PUSH ACTIVABLE DESDE EL CHAT: el servidor de empuje se configura ADENTRO (🔔 Avisos → 📲 ACTIVAR PUSH: copiar código → crear el worker gratis en Cloudflare → pegar la URL → GUARDAR Y PROBAR); la URL queda guardada en Firestore (chat_usuarios/__config__) y sirve para TODOS — ya no hay que editar el código ni volver a subir archivos por esto; las suscripciones de cada cel ahora se guardan en chat_usuarios/{uid}.push (sin colección nueva ni reglas extra) y el servidor es verificado en vivo desde la Central (estado: OK / viejo / caído, con detalle) · + v23 BANDEJA LIMPIA TIPO WHATSAPP: sin avisos de "se conectó", título = SOLO el nombre del que escribe, foto del remitente como imagen, grupo = 💬 CHAT GRUPAL con "juan: mensaje"; el rótulo de la dirección (github.io) lo pinta el NAVEGADOR por seguridad y no se puede sacar por código — con la app instalada Chrome puede mostrar "SikoChat" · + v22 PUSH REAL: cada cel se suscribe al empuje (Web Push con llaves VAPID) y el servidor manda el aviso cifrado aunque la PWA esté totalmente cerrada · + SIN DUPLICADO EN LA LISTA: tu nombre aparece UNA sola vez y los contadores ya no te cuentan a vos · + CENTRAL DE AVISOS: estado real del dispositivo, PROBAR AVISO AHORA, ayuda Android/iPhone y 🫀 MODO SIEMPRE ACTIVO · + NAVEGACIÓN TIPO APP EN EL CEL: lista ↔ chat con botón 👥 CONTACTOS · + PANEL DEL CEL ESTILO MSN · SIN contraseña (opcional) · badge de no leídos · PIZARRITA PAINT · TODOS en la lista con visto hace · reacciones ❤️ reenviar ↪️ borrar 🗑️ favoritos ⭐ · emotis/stikers/gifs/fotos · tonos · radio · temas · perfil · privado · instalar como app -->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -696,28 +696,6 @@ body.tema-claro .logoClaro{display:block}
   .jgAjedrez .jgCelda{font-size:26px}
   #bannerInv{top:6px}
 }
-
-/* v27+v28: PANTALLA GRANDE (PC/TV) — la mesa de juego se agranda para aprovechar la pantalla.
-   v28: arranca desde 900px porque varios navegadores de TV avisan menos ancho de pantalla */
-@media (min-width:900px){
-  .cajaJuego{width:min(94vw,780px);max-height:96vh;overflow:auto}
-  .cajaJuego .modalTitulo{font-size:22px}
-  .jgJug .jgAv{width:72px;height:72px;font-size:36px}
-  .jgJug .jgNom{font-size:16px}
-  .jgVS{font-size:17px}
-  .jgTurno{font-size:18px;min-height:22px}
-  .jgEstado{font-size:16px;min-height:20px}
-  .jgEstado.gano,.jgEstado.perdio,.jgEstado.empate{font-size:20px}
-  .jgTablero{width:min(58vh,560px)}
-  .jgEsperando{font-size:18px}
-  .jgTateti .jgCelda{font-size:80px}
-  .jgAjedrez .jgCelda{font-size:50px}
-  .jgFicha{font-size:24px}
-  .pptBtn{width:130px;height:130px;font-size:64px;border-radius:26px}
-  .jgMarcador .mpYo,.jgMarcador .mpEl{font-size:44px}
-  .jgMarcador .mpQuien{font-size:13px}
-  .jgAcc button{font-size:15px;min-height:46px}
-}
 </style>
 </head>
 <body>
@@ -1018,7 +996,6 @@ body.tema-claro .logoClaro{display:block}
     <div class="jgEstado" id="jgEstado"></div>
     <div class="modalAcc jgAcc">
       <button class="btnDibujoGhost" id="btnJgSalir" type="button">🚪 Salir</button>
-      <button class="btnDibujoGhost oculto" id="btnJgTerminar" type="button">🏁 Terminar</button>
       <button class="btnDibujo oculto" id="btnJgAceptar" type="button">✅ ACEPTAR JUGAR</button>
       <button class="btnPrincipal oculto" id="btnJgRevancha" type="button">🔄 REVANCHA</button>
     </div>
@@ -2816,9 +2793,8 @@ var PINTAS_JUEGO = {}; /* se llena abajo, después de cada pintador */
 var juegoAbiertoId = null, juegoAbiertoDatos = null, juegoUnsub = null;
 var invUnsubA = null, invUnsubB = null;
 var juegosCache = {};    /* id → última data vista (de los escuchas de j1/j2) */
-var juegosCerrados = (function(){ try { return JSON.parse(localStorage.getItem('siko_chat_jcerr') || '{}') || {}; } catch (e) { return {}; } })(); /* v27: partidas que cerré a mano → no se reabren solas, y QUEDA GUARDADO (al recargar el chat tampoco reaparecen) */
+var juegosCerrados = {}; /* partidas que cerré a mano → no se reabren solas */
 var invVistas = {};      /* invitaciones ya mostradas (no repetir el banner) */
-function guardarJuegosCerrados(){ try { localStorage.setItem('siko_chat_jcerr', JSON.stringify(juegosCerrados)); } catch (e) {} }
 var juegoSelIdx = -1;    /* pieza seleccionada (damas / ajedrez) */
 var juegoUltTurno = null, juegoUltEstado = null, juegoUltMarc = '';
 var bannerInvId = null;
@@ -2972,7 +2948,7 @@ $('btnJugarPriv').onclick = function(){ if (chatPrivadoId) invitarA(chatPrivadoI
 function abrirJuego(id){
   if (juegoUnsub) { juegoUnsub(); juegoUnsub = null; }
   juegoAbiertoId = id;
-  if (juegosCerrados[id]) { delete juegosCerrados[id]; guardarJuegosCerrados(); }
+  delete juegosCerrados[id];
   juegoSelIdx = -1;
   juegoUltTurno = null; juegoUltEstado = null; juegoUltMarc = '';
   ocultarBannerInv();
@@ -3001,21 +2977,7 @@ $('btnJgSalir').onclick = function(){
   } else if (g && g.estado === 'esperando' && g.j2 === miId) {
     juegoDoc(g._id).update({ estado: 'rechazada', actualizado: SERVER_TS() }).catch(function(){});
   }
-  if (juegoAbiertoId) { juegosCerrados[juegoAbiertoId] = true; guardarJuegosCerrados(); } /* v27: se guarda — al recargar tampoco se reabre sola */
-  cerrarJuego();
-};
-/* v27: 🏁 TERMINAR — cierro la partida para los dos (el otro gana por abandono y puede pedir revancha) */
-$('btnJgTerminar').onclick = function(){
-  var g = juegoAbiertoDatos;
-  if (!g || g.estado !== 'jugando') { toast('🙃 No hay partida en curso'); return; }
-  var otro = g.j1 === miId ? g.j2 : g.j1;
-  var nomOtro = g.j1 === miId ? (g.n2 || 'el otro') : (g.n1 || 'el otro');
-  juegoDoc(g._id).update({
-    estado: 'terminado', ganador: otro,
-    ultTxt: (miNombre || 'Alguien') + ' terminó la partida',
-    actualizado: SERVER_TS()
-  }).catch(function(){});
-  toast('🏁 Partida terminada — ' + nomOtro + ' ganó');
+  if (juegoAbiertoId) juegosCerrados[juegoAbiertoId] = true;
   cerrarJuego();
 };
 $('btnJgAceptar').onclick = function(){ var g = juegoAbiertoDatos; if (g) aceptarInvitacion(g); };
@@ -3051,7 +3013,6 @@ function pintarJuego(g){
   es.textContent = '';
   $('btnJgRevancha').classList.add('oculto');
   $('btnJgAceptar').classList.add('oculto');
-  $('btnJgTerminar').classList.add('oculto');
   var tabla = $('jgTablero');
   tabla.innerHTML = '';
   tabla.className = 'jgTablero';
@@ -3092,7 +3053,6 @@ function pintarJuego(g){
     }
     $('btnJgRevancha').classList.remove('oculto');
   } else if (g.estado === 'jugando') {
-    $('btnJgTerminar').classList.remove('oculto'); /* v27: se puede terminar mientras se juega */
     var miTurno = g.turno === miId;
     var nomTurno = g.turno === g.j1 ? (g.n1 || 'el otro') : (g.n2 || 'el otro');
     t.textContent = miTurno ? '🎯 ¡TU TURNO!' : '⏳ turno de ' + nomTurno;
@@ -3108,29 +3068,7 @@ function pintarJuego(g){
   }
   juegoUltEstado = g.estado;
   var PINTA = PINTAS_JUEGO[g.juego];
-  if (PINTA) { PINTA(tabla, st, g); cuadrarTableroPronto(tabla); } /* v28: casillas bien cuadradas aunque la TV sea vieja */
-}
-
-/* v28: TABLERO SIEMPRE CUADRADO — el alto de las casillas dependía de la medida CSS
-   "aspect-ratio", que los navegadores de MUCHAS Smart TV no conocen: ahí las filas se
-   colapsaban y el tablero quedaba APLASTADO (una tira chata). Ahora medimos el ancho real
-   de una casilla y le ponemos EL MISMO ALTO EN PIXELES a todas: cuadrados perfectos en
-   cualquier navegador, viejo o nuevo. Se repite al girar o cambiar el tamaño de la ventana. */
-function cuadrarTablero(tabla){
-  var cs = tabla.querySelectorAll('.jgCelda');
-  if (!cs.length) return true; /* piedra-papel-tijera no tiene casillas: nada que cuadrar */
-  var w = cs[0].getBoundingClientRect().width;
-  if (!w || w < 8) return false; /* todavía sin lugar en pantalla: reintentamos en el próximo cuadro */
-  var h = Math.round(w * 100) / 100;
-  for (var i = 0; i < cs.length; i++) cs[i].style.height = h + 'px';
-  return true;
-}
-function cuadrarTableroPronto(tabla){
-  var intentos = 0;
-  (function paso(){
-    if (cuadrarTablero(tabla)) return;
-    if (++intentos <= 14 && window.requestAnimationFrame) requestAnimationFrame(paso);
-  })();
+  if (PINTA) PINTA(tabla, st, g);
 }
 
 /* --- estados iniciales --- */
@@ -3632,13 +3570,6 @@ function irAChat(){
 }
 $('btnContactos').onclick = irALista; /* v19: 👥 te lleva a la lista a pantalla completa */
 window.addEventListener('resize', aplicarVistaCel); /* girar el cel: horizontal = vista PC, vertical = lista/chat */
-/* v28: si la mesa de juego está abierta y cambia el tamaño de la ventana, se re-cuadra sola */
-var jgRecuadre = null;
-window.addEventListener('resize', function(){
-  if (!juegoAbiertoId) return;
-  clearTimeout(jgRecuadre);
-  jgRecuadre = setTimeout(function(){ var tb = $('jgTablero'); if (tb) cuadrarTableroPronto(tb); }, 150);
-});
 var botonesVent = document.querySelectorAll('.btnVent');
 for (var ib = 0; ib < botonesVent.length; ib++) {
   if (botonesVent[ib].id === 'btnNotis') continue; /* v17: la campanita 🔔 tiene su propio trabajo (antes este loop la pisaba) */
