@@ -77,8 +77,9 @@ body{
   background:var(--fondo);
   background-image:radial-gradient(circle at 50% -10%,rgba(var(--acento-rgb),.10),transparent 55%);
   color:var(--tx1);
-  font-family:'Montserrat',sans-serif;
-  min-height:100vh;
+	font-family:'Montserrat',sans-serif;
+	min-height:100vh;
+	background-color: #000000;
 }
 .oculto{display:none !important}
 button{font-family:'Montserrat',sans-serif}
@@ -719,13 +720,13 @@ body.tema-claro .logoClaro{display:block}
   .jgAcc button{font-size:15px;min-height:46px}
 }
 </style>
-</head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
 <body>
 
 <!-- ================= PANTALLA DE INGRESO (SIN REGISTRO) ================= -->
 <div id="pantallaLogin">
   <div class="loginCaja">
-    <img src="logo-blanco.png" class="logoBienvenida logoOscuro" alt="SiKO CHAT">
+    <img src="logo-blanco.png" alt="SiKO CHAT" width="26" height="23" class="logoBienvenida logoOscuro">
     <img src="logo-negro.png" class="logoBienvenida logoClaro" alt="SiKO CHAT">
     <label class="etiqueta" for="inputNombre">TU NOMBRE EN EL CHAT</label>
     <input id="inputNombre" class="campo" maxlength="18" placeholder="Ej: SikoFan23" autocomplete="off">
@@ -1280,7 +1281,7 @@ export { encryptWebPush, vapidJwt, b64uDecode, bufToB64u, hkdf, leerSubs };
 </div>
 
 <!-- ================= LIGHTBOX ================= -->
-<div id="lightbox" class="oculto"><img id="lightboxImg" alt="Dibujo ampliado"><button id="btnGuardarLightbox" class="btnSec" type="button" onclick="event.stopPropagation()">💾 Guardar imagen</button></div>
+<div id="lightbox" class="oculto"><img id="lightboxImg" alt="Dibujo ampliado"><button id="btnGuardarLightbox" class="btnSec" type="button" onClick="event.stopPropagation()">💾 Guardar imagen</button></div>
 
 <!-- v12: menú de mensaje (reacciones · reenviar · guardar · borrar) -->
 <div id="sheetMsj" class="oculto">
