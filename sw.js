@@ -1,5 +1,11 @@
 /* ============================================================
-   SERVICE WORKER — SIKODARK CHAT (MSN) · chat-v28
+   SERVICE WORKER — SIKODARK CHAT (MSN) · chat-v34
+   + v34: 🔤 TEXTO CON FUENTES + PANELES QUE SE CIERRAN — herramienta TEXTO nueva (la T): tocás el papel, escribís y queda pintado en la capa elegida con tu color y la fuente elegida (Montserrat, Arial, Impact, Cómic… tamaño 14–72; los selectores viven en el panel de capas junto al color y también dentro del cartel de escribir) · el panel de CAPAS tiene FLECHITA para cerrarlo (en el cel el cajón tapaba la pantalla y no se podía sacar) y además se cierra tocando afuera; en PC/TV la flechita lo pliega y el botón de capas de la barra lo reabre · IMPORTAR IMAGEN abre el selector por defecto en JPG, PNG o WEBP (y si elegís otro formato avisa)
+   + v33: 🎨 PIZARRA MODERNA + PANTALLA COMPLETA — barra superior con iconos SVG (deshacer/limpiar/importar/capas/⛶/cerrar), herramientas en columna con iconos modernos, color en UN botón que abre la paleta + selector adentro, zoom flotante sobre el papel, capas a la derecha (cajón en el cel) y ⛶ pantalla completa real para PC y TV
+   + v32: 🔍 ZOOM + PAPEL BLANCO EN LA PIZARRA — hoja de dibujo BLANCA como la imagen de referencia, botones 🔍➕/🔍➖ con porcentaje (100% → 800%) y ⤢ Ajustar; con zoom el papel se arrastra con ✋ Mover, en el cel se estira con 2 dedos y en PC Ctrl+rueda acerca al punto del puntero; desde 300% píxeles grandes para detalle
+   + v31: 🎨 PIZARRA PRO CON CAPAS — 🧱 capas de verdad (ojito para ver/ocultar, ➕ nueva, 🗑️ borrar, miniatura, hasta 6) · 🖌️ brocha con cerdas · 💨 difuminado tipo aerógrafo · 🎨 selector de color con cuadro de degradado + barra arcoíris · 🖼️ importar imagen a una capa de abajo para calcar · goma que borra la capa elegida · deshacer por capa · al mandar se aplanan las capas visibles
+   + v30: 🔀 PROYECTO PROPIO DE FIREBASE PARA EL CHAT — la config vive ahora en chat-config.js (archivo aparte): pegás las claves de un proyecto nuevo y el chat deja de depender de las reglas de la radio para siempre; sin cambiar el archivo sigue todo igual (respaldo) y ACTIVAR PUSH copia el servidor con el proyecto nuevo solo
+   + v29: 👥 LOS CONTACTOS NO SE BORRAN MÁS — el chat tenía una limpieza que borraba de Firebase a los contactos sin entrar hace más de 24 horas (por eso la lista quedaba solo con los que escribían): ahora quedan SIEMPRE con su "visto hace"
    + v28: 📺 ARREGLO PARA TV — en televisores con navegador viejo el tablero salía APLASTADO (una tira chata): ahora las casillas se cuadran solas midiendo el ancho real (funciona en cualquier TV, PC o cel) y la mesa grande arranca desde 900px
    + v27: 🏁 botón TERMINAR la partida en curso (la cierra para los dos, al otro le queda la revancha) · las partidas que cerrás YA NO se reabren solas al recargar (queda guardado en tu dispositivo) · 📺 la mesa de juego se agranda en PC/TV
    + v26: 🎮 JUEGOS EN LÍNEA DE 2 — damas, ajedrez, ta-te-ti, conecta 4 y piedra-papel-tijera: invitás desde el privado o la lista, juegan en vivo cada uno en su pantalla (colección chat_juegos)
@@ -16,8 +22,8 @@
    + reacciones/me gusta, reenviar, borrar, guardar y favoritos
    Subí este número (v5, v6…) cada vez que cambies el index.html
    ============================================================ */
-var CACHE = 'sikodark-chat-v28';
-var ARCHIVOS = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png', './favicon.png', './apple-touch-icon.png', './icon-maskable-192.png', './icon-maskable-512.png', './logo-blanco.png', './logo-negro.png', './logo-cara.png'];
+var CACHE = 'sikodark-chat-v34';
+var ARCHIVOS = ['./', './index.html', './chat-config.js', './manifest.json', './icon-192.png', './icon-512.png', './favicon.png', './apple-touch-icon.png', './icon-maskable-192.png', './icon-maskable-512.png', './logo-blanco.png', './logo-negro.png', './logo-cara.png'];
 
 self.addEventListener('install', function(e){
   self.skipWaiting();

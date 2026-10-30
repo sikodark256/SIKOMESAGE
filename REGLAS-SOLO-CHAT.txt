@@ -1,0 +1,60 @@
+// ============================================================
+// SIKOCHAT · REGLAS DEL PROYECTO NUEVO DEL CHAT (v30)
+// Estas reglas son SOLO DEL CHAT — se pegan en el PROYECTO
+// NUEVO de Firebase (el que crees para el chat, p. ej. "sikochat").
+// La radio queda en su proyecto de siempre, con sus reglas,
+// y nunca más se tocan entre ellos.
+// ============================================================
+//
+// LOS 4 PASOS COMPLETOS (1 sola vez):
+//
+//   1) CREAR EL PROYECTO
+//      console.firebase.google.com → "Agregar proyecto"
+//      → nombre: sikochat → Crear (Analytics: no hace falta)
+//
+//   2) CREAR LA APP WEB Y COPIAR LAS CLAVES
+//      Adentro del proyecto tocá el ícono WEB </> → nombre: chat
+//      → Registrar → te muestra "firebaseConfig" con las claves
+//      → pegalas en el archivo chat-config.js (está explicado
+//        adentro de ese archivo, con el lugar exacto)
+//
+//   3) CREAR LA BASE DE DATOS Y PEGAR ESTAS REGLAS
+//      Menú "Firestore Database" → Crear base de datos →
+//      Continuar (modo de prueba está bien) → pestaña "Reglas" →
+//      BORRÁ todo → PEGÁ ESTE ARCHIVO ENTERO → PUBLICAR
+//
+//   4) SUBIR EL ARCHIVO chat-config.js AL REPO DEL CHAT
+//      GitHub → Add file → upload → y abrí el chat 2 veces
+//
+// LISTO: el chat tiene SU PROPIO proyecto con SUS reglas.
+// Cambiá las reglas de la radio las veces que quieras:
+// el chat ya no se entera. Y estas reglas del chat están
+// tan simples que casi no van a necesitar cambios nunca.
+// ============================================================
+
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ---------- SIKOCHAT · CONTACTOS ----------
+    // ficha de cada usuario: nombre, carita, foto, frase,
+    // ping (para "En línea" y "visto hace"), suscripción de avisos (push)
+    // acá también vive el doc especial __config__ con la URL del servidor de push
+    match /chat_usuarios/{doc} {
+      allow read, write: if true;
+    }
+
+    // ---------- SIKOCHAT · MENSAJES ----------
+    // mensajes del grupo y de los privados
+    match /chat_mensajes/{doc} {
+      allow read, write: if true;
+    }
+
+    // ---------- SIKOCHAT · JUEGOS ----------
+    // invitaciones y partidas de damas, ajedrez, ta-te-ti, conecta 4 y piedra-papel-tijera
+    match /chat_juegos/{doc} {
+      allow read, write: if true;
+    }
+  }
+}

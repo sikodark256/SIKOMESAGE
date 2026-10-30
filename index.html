@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- SikoChat v28 · 📺 TABLERO ARREGLADO PARA TV: en varias televisiones el tablero salía APLASTADO (una tira chata) porque el navegador de la TV es viejo y no conoce la medida "aspect-ratio" — ahora el chat MIDE cada casilla y le pone el alto justo con JavaScript: casilleros bien cuadrados en cualquier TV, PC o cel, y la mesa grande arranca desde 900px de ancho · + v27 · 🏁 TERMINAR PARTIDA: mientras jugás hay un botón 🏁 TERMINAR junto a Salir — la partida se cierra PARA LOS DOS (al otro le queda el resultado y la revancha) · + v27 · YA NO REAPARECE SOLA: si salís de una partida a medio jugar no se reabre sola cuando recargás el chat (queda guardado en tu dispositivo; si el otro mueve te avisa con una tostada y volvés tocando 🎮) · + v27 · 📺 MESA A PANTALLA GRANDE: en PC y TV el tablero, las fichas, el marcador y los botones se agrandan para aprovechar la pantalla · + v26 · 🎮 JUEGOS EN LÍNEA DE 2: damas · ajedrez · ta-te-ti · conecta 4 · piedra-papel-tijera — invitás desde el chat privado o la lista de contactos, al otro le salta la invitación tipo llamada, juegan en vivo cada uno desde su pantalla (sincronizado con Firestore, colección chat_juegos), con marcador, revancha y recuperación de partidas · + v25 · ← INICIO ARRIBA: botón para VOLVER a los contactos cuando entrás al grupo o a un privado (arriba a la izquierda, como WhatsApp; en el cel) · VOLUMEN: en 🎵 Tonos ahora hay un slider de volumen (0–100%) para los sonidos y avisos del chat, se guarda en tu dispositivo y en 0 queda todo mudo · + v24 PUSH ACTIVABLE DESDE EL CHAT: el servidor de empuje se configura ADENTRO (🔔 Avisos → 📲 ACTIVAR PUSH: copiar código → crear el worker gratis en Cloudflare → pegar la URL → GUARDAR Y PROBAR); la URL queda guardada en Firestore (chat_usuarios/__config__) y sirve para TODOS — ya no hay que editar el código ni volver a subir archivos por esto; las suscripciones de cada cel ahora se guardan en chat_usuarios/{uid}.push (sin colección nueva ni reglas extra) y el servidor es verificado en vivo desde la Central (estado: OK / viejo / caído, con detalle) · + v23 BANDEJA LIMPIA TIPO WHATSAPP: sin avisos de "se conectó", título = SOLO el nombre del que escribe, foto del remitente como imagen, grupo = 💬 CHAT GRUPAL con "juan: mensaje"; el rótulo de la dirección (github.io) lo pinta el NAVEGADOR por seguridad y no se puede sacar por código — con la app instalada Chrome puede mostrar "SikoChat" · + v22 PUSH REAL: cada cel se suscribe al empuje (Web Push con llaves VAPID) y el servidor manda el aviso cifrado aunque la PWA esté totalmente cerrada · + SIN DUPLICADO EN LA LISTA: tu nombre aparece UNA sola vez y los contadores ya no te cuentan a vos · + CENTRAL DE AVISOS: estado real del dispositivo, PROBAR AVISO AHORA, ayuda Android/iPhone y 🫀 MODO SIEMPRE ACTIVO · + NAVEGACIÓN TIPO APP EN EL CEL: lista ↔ chat con botón 👥 CONTACTOS · + PANEL DEL CEL ESTILO MSN · SIN contraseña (opcional) · badge de no leídos · PIZARRITA PAINT · TODOS en la lista con visto hace · reacciones ❤️ reenviar ↪️ borrar 🗑️ favoritos ⭐ · emotis/stikers/gifs/fotos · tonos · radio · temas · perfil · privado · instalar como app -->
+<!-- SikoChat v34 · 🔤 TEXTO CON FUENTES + PANELES QUE SE CIERRAN (pedido del usuario): la pizarra tiene herramienta TEXTO nueva (la T de la columna): tocás el papel, escribís, y queda pintado en la capa elegida con tu COLOR y la FUENTE que elijas (Montserrat, Arial, Impact, Cómic y más, con tamaño de 14 a 72 — los selectores de fuente viven en el panel de CAPAS, ahí al lado del color, y también dentro del cartel de escribir para el cel) · el panel de CAPAS ahora tiene la FLECHITA para cerrarlo (en el cel el cajón tapaba la pantalla y no había forma de sacarlo) y además se cierra tocando afuera; en PC/TV la flechita lo pliega y el botón de capas de la barra lo vuelve a abrir · IMPORTAR IMAGEN ahora abre el selector por defecto en JPG, PNG o WEBP (y si elegís otro formato avisa) · + v33 · 🎨 PIZARRA MODERNA + PANTALLA COMPLETA (mismo diseño que la imagen de muestra): barra de ARRIBA con iconos SVG modernos (deshacer, limpiar, importar, capas, pantalla completa y cerrar — sin emojis ni texto largo), herramientas en COLUMNA con iconos trazo fino que se pintan naranjas cuando las elegís, grosores como puntitos y el COLOR en un solo botón (el circulito muestra tu color actual y al tocarlo abre la paleta completa con el selector de degradado adentro), zoom FLOTANTE sobre el papel (− % + y ajustar, esquina inferior derecha, ya no ocupa una fila), capas a la DERECHA en PC/TV y en el cel entran como CAJÓN desde la derecha con el botón de capas, y ⛶ PANTALLA COMPLETA de verdad (requestFullscreen con respaldo webkit para navegadores viejos de TV — si el navegador no la permite, la pizarra ya cubre todo): todo se reacomoda solo para PC, TV y cel · + v32 · 🔍 ZOOM + PAPEL BLANCO EN LA PIZARRA (igual diseño, como la imagen de referencia): el dibujo ahora es una hoja BLANCA dentro de una ventana con marco naranja · botones 🔍➕ Acercar / 🔍➖ Alejar con el porcentaje al medio (100% → 800%) y ⤢ Ajustar para volver al tamaño justo · con zoom el papel se arrastra con ✋ Mover (o los scroll de la ventana) · en el cel se estira/aplasta con 2 DEDOS (pellizco) y en PC Ctrl + rueda del mouse acerca justo al punto del puntero · desde 300% el papel muestra píxeles grandes para rematar detalles chicos · + v31 · 🎨 PIZARRA PRO CON CAPAS: la pizarrita ahora es un mini programa de dibujo de verdad — 🧱 CAPAS (arranca con 2, hasta 6: ojito para mostrar/ocultar, ➕ nueva, 🗑️ borrar, miniatura de cada una, se dibuja en la capa elegida y quedan como papeles transparentes superpuestos), 🖌️ BROCHA con cerdas (textura, no tira lisa), 💨 DIFUMINADO tipo aerógrafo para sombras y pasos suaves, 🎨 SELECTOR DE COLOR con cuadro de degradado + barra arcoíris (cualquier color, como la imagen pedida), 🖼️ IMPORTAR IMAGEN (la foto entra en una capa de abajo para calcar encima), la goma borra la capa elegida, Limpiar vacía solo la capa elegida, deshacer por capa y al mandar se aplanan las capas visibles · + v30 · 🔀 CHAT CON PROYECTO PROPIO DE FIREBASE (REGLAS SEPARADAS DE LA RADIO): la config de Firebase salió del código a un archivo aparte chat-config.js — creás un proyecto nuevo, pegás las claves ahí y el chat deja de depender del proyecto de la radio PARA SIEMPRE (cada vez que cambiabas las reglas de la radio el chat se rompía: esto lo arregla de raíz); mientras no cambies el archivo el chat sigue EXACTAMENTE igual que siempre (respaldo automático), y el botón 📲 ACTIVAR PUSH copia el servidor con el proyecto nuevo puesto solo · + v29 · 👥 LOS CONTACTOS NO SE BORRAN MÁS: el chat tenía una "limpieza automática" que BORRABA de Firebase a cada contacto que no entraba hace más de 24 horas — por eso la lista quedaba solo con los que estaban escribiendo en el momento y "desaparecían" los demás; ahora los contactos QUEDAN SIEMPRE en la lista con su "visto hace" (estilo MSN: los desconectados también se ven) y solo se limpian los mensajes viejos (12 h) y las partidas abandonadas (6 h) · + v28 · 📺 TABLERO ARREGLADO PARA TV: en varias televisiones el tablero salía APLASTADO (una tira chata) porque el navegador de la TV es viejo y no conoce la medida "aspect-ratio" — ahora el chat MIDE cada casilla y le pone el alto justo con JavaScript: casilleros bien cuadrados en cualquier TV, PC o cel, y la mesa grande arranca desde 900px de ancho · + v27 · 🏁 TERMINAR PARTIDA: mientras jugás hay un botón 🏁 TERMINAR junto a Salir — la partida se cierra PARA LOS DOS (al otro le queda el resultado y la revancha) · + v27 · YA NO REAPARECE SOLA: si salís de una partida a medio jugar no se reabre sola cuando recargás el chat (queda guardado en tu dispositivo; si el otro mueve te avisa con una tostada y volvés tocando 🎮) · + v27 · 📺 MESA A PANTALLA GRANDE: en PC y TV el tablero, las fichas, el marcador y los botones se agrandan para aprovechar la pantalla · + v26 · 🎮 JUEGOS EN LÍNEA DE 2: damas · ajedrez · ta-te-ti · conecta 4 · piedra-papel-tijera — invitás desde el chat privado o la lista de contactos, al otro le salta la invitación tipo llamada, juegan en vivo cada uno desde su pantalla (sincronizado con Firestore, colección chat_juegos), con marcador, revancha y recuperación de partidas · + v25 · ← INICIO ARRIBA: botón para VOLVER a los contactos cuando entrás al grupo o a un privado (arriba a la izquierda, como WhatsApp; en el cel) · VOLUMEN: en 🎵 Tonos ahora hay un slider de volumen (0–100%) para los sonidos y avisos del chat, se guarda en tu dispositivo y en 0 queda todo mudo · + v24 PUSH ACTIVABLE DESDE EL CHAT: el servidor de empuje se configura ADENTRO (🔔 Avisos → 📲 ACTIVAR PUSH: copiar código → crear el worker gratis en Cloudflare → pegar la URL → GUARDAR Y PROBAR); la URL queda guardada en Firestore (chat_usuarios/__config__) y sirve para TODOS — ya no hay que editar el código ni volver a subir archivos por esto; las suscripciones de cada cel ahora se guardan en chat_usuarios/{uid}.push (sin colección nueva ni reglas extra) y el servidor es verificado en vivo desde la Central (estado: OK / viejo / caído, con detalle) · + v23 BANDEJA LIMPIA TIPO WHATSAPP: sin avisos de "se conectó", título = SOLO el nombre del que escribe, foto del remitente como imagen, grupo = 💬 CHAT GRUPAL con "juan: mensaje"; el rótulo de la dirección (github.io) lo pinta el NAVEGADOR por seguridad y no se puede sacar por código — con la app instalada Chrome puede mostrar "SikoChat" · + v22 PUSH REAL: cada cel se suscribe al empuje (Web Push con llaves VAPID) y el servidor manda el aviso cifrado aunque la PWA esté totalmente cerrada · + SIN DUPLICADO EN LA LISTA: tu nombre aparece UNA sola vez y los contadores ya no te cuentan a vos · + CENTRAL DE AVISOS: estado real del dispositivo, PROBAR AVISO AHORA, ayuda Android/iPhone y 🫀 MODO SIEMPRE ACTIVO · + NAVEGACIÓN TIPO APP EN EL CEL: lista ↔ chat con botón 👥 CONTACTOS · + PANEL DEL CEL ESTILO MSN · SIN contraseña (opcional) · badge de no leídos · PIZARRITA PAINT · TODOS en la lista con visto hace · reacciones ❤️ reenviar ↪️ borrar 🗑️ favoritos ⭐ · emotis/stikers/gifs/fotos · tonos · radio · temas · perfil · privado · instalar como app -->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -77,9 +77,8 @@ body{
   background:var(--fondo);
   background-image:radial-gradient(circle at 50% -10%,rgba(var(--acento-rgb),.10),transparent 55%);
   color:var(--tx1);
-	font-family:'Montserrat',sans-serif;
-	min-height:100vh;
-	background-color: #000000;
+  font-family:'Montserrat',sans-serif;
+  min-height:100vh;
 }
 .oculto{display:none !important}
 button{font-family:'Montserrat',sans-serif}
@@ -434,15 +433,68 @@ body.tema-claro .logoClaro{display:block}
 .chipSonido.activo{border-color:var(--naranja);color:var(--naranja);background:rgba(var(--acento-rgb),.14)}
 
 /* ============ PIZARRITA (DIBUJO) ============ */
+/* v33 · PIZARRA MODERNA (como la imagen de muestra): barra de arriba con iconos, herramientas
+   en columna con iconos SVG, zoom flotante sobre el papel, capas a la derecha (cajón en el cel)
+   y botón de PANTALLA COMPLETA que se adapta a PC y TV */
 #overlayDibujo{
-  position:fixed;inset:0;background:rgba(0,0,0,.93);z-index:80;display:flex;
-  flex-direction:column;align-items:center;justify-content:center;padding:14px;gap:10px;
+  position:fixed;inset:0;background:#0b0b0d;z-index:80;display:flex;
+  flex-direction:column;align-items:center;padding:10px;gap:8px;overflow:auto;
 }
-.dibujoTitulo{font-size:15px;font-weight:900;color:var(--naranja);letter-spacing:.5px}
+#overlayDibujo:fullscreen,#overlayDibujo:-webkit-full-screen{background:#0b0b0d}
+.dbTop{width:100%;max-width:1200px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex:none}
+.dbMarca{display:flex;align-items:center;gap:7px;font-size:14px;font-weight:900;color:var(--naranja);letter-spacing:1.5px}
+.dbMarca svg{width:17px;height:17px}
+.dbTopAcc{display:flex;gap:6px}
+.btnIcono{
+  width:40px;height:40px;flex:none;display:grid;place-items:center;border-radius:11px;
+  background:var(--panel2);border:1px solid var(--borde2);color:var(--tx1);cursor:pointer;padding:0;
+}
+.btnIcono svg{width:19px;height:19px}
+.btnIcono:hover{border-color:var(--naranja);color:var(--naranja)}
+.btnIcono.activo{background:rgba(var(--acento-rgb),.18);border-color:var(--naranja);color:var(--naranja)}
+.dbCuerpo{flex:1;min-height:0;width:100%;max-width:1200px;display:flex;gap:10px;align-items:stretch;justify-content:center}
+.dbColHerr{
+  display:flex;flex-direction:column;gap:7px;padding:8px;border-radius:14px;
+  background:var(--panel2);border:1px solid var(--borde2);overflow-y:auto;flex:none;
+}
+.dbSep{height:1px;background:var(--borde2);margin:2px 3px;flex:none}
+.pt{display:block;border-radius:50%;background:currentColor}
+.pt1{width:5px;height:5px}.pt2{width:10px;height:10px}.pt3{width:16px;height:16px}
+#swatchColor{display:block;width:20px;height:20px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px var(--borde2)}
+.dbCentro{position:relative;flex:1;min-width:0;min-height:0;display:flex;align-items:center;justify-content:center}
+/* min-height:0 es CLAVE: deja que la ventana del papel se recorte al alto disponible y el
+   sobrante se pasee con scroll (si no, el contenedor crece con el zoom y nunca hay scroll) */
+/* v33: el zoom flotante va FIJO en la esquina de la pantalla (como las apps de dibujo),
+   siempre a mano aunque el papel scrollee; en el cel queda encima del botón de enviar */
+/* v32: el lienzo es PAPEL BLANCO dentro de una ventana con scroll. v33: crece en PC/TV
+   sin pasarse del alto (ratio 4:3) y la ventana lo recorta para pasear con zoom */
+#vpLienzo{
+  width:min(100%, 920px);max-height:calc(100vh - 190px);overflow:auto;
+  border:2px solid var(--naranja);border-radius:12px;background:#fff;
+  touch-action:pan-x pan-y;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;
+}
+#vpLienzo::-webkit-scrollbar{width:9px;height:9px}
+#vpLienzo::-webkit-scrollbar-track{background:rgba(0,0,0,.25)}
+#vpLienzo::-webkit-scrollbar-thumb{background:rgba(245,157,61,.55);border-radius:5px}
 #lienzo{
-  background:#0a0a0a;border:2px solid var(--naranja);border-radius:12px;
-  width:min(92vw,560px);max-width:100%;height:auto;touch-action:none;cursor:crosshair;
+  background:#fff;display:block;width:100%;height:auto;touch-action:none;cursor:crosshair;
   -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;
+}
+#lienzo.pix{image-rendering:pixelated} /* desde 300%: píxel grande para detalle fino */
+.dbZoom{
+  position:fixed;right:12px;bottom:12px;display:flex;align-items:center;gap:3px;
+  background:rgba(12,12,14,.78);border:1px solid rgba(245,157,61,.5);border-radius:12px;padding:4px;
+  z-index:6;
+}
+.dbZoom button{
+  width:32px;height:32px;flex:none;display:grid;place-items:center;border-radius:9px;cursor:pointer;padding:0;
+  background:transparent;border:1px solid transparent;color:var(--tx1);
+}
+.dbZoom button svg{width:16px;height:16px}
+.dbZoom button:hover{border-color:var(--naranja);color:var(--naranja)}
+.zoomEtq{
+  min-width:46px;text-align:center;font-size:12px;font-weight:900;color:var(--naranja);
+  letter-spacing:.5px;user-select:none;-webkit-user-select:none;
 }
 .herrDibujo{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:580px}
 .colorBtn{width:34px;height:34px;border-radius:50%;border:2px solid var(--borde2);cursor:pointer;padding:0}
@@ -460,6 +512,89 @@ body.tema-claro .logoClaro{display:block}
 }
 .btnDibujoGhost:hover{border-color:var(--naranja);color:var(--naranja)}
 #btnEnviarDibujo{width:auto;padding:12px 22px;margin-top:0}
+/* v33: panel de capas a la derecha en PC/TV; en el cel es un CAJÓN que entra desde la
+   derecha con el botón de capas de la barra de arriba */
+.panelCapas{
+  background:var(--panel2);border:1px solid var(--borde2);border-radius:14px;padding:10px;
+  width:190px;display:flex;flex-direction:column;gap:8px;flex:none;
+}
+.capasTitulo{font-size:12px;font-weight:900;color:var(--naranja);letter-spacing:.5px}
+/* v34: fila del título con la FLECHITA para cerrar/plegar el panel de capas */
+.capasTitulo.filaCapas{display:flex;align-items:center;justify-content:space-between}
+.btnCerrarCapas{
+  width:26px;height:26px;flex:none;display:grid;place-items:center;padding:0;cursor:pointer;
+  background:var(--fondo);border:1px solid var(--borde2);border-radius:8px;color:var(--tx2);
+}
+.btnCerrarCapas:hover{border-color:var(--naranja);color:var(--naranja)}
+/* v34: bloque de TEXTO (fuentes) — vive dentro del panel de capas, al lado del color */
+.textoBloque{display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--borde2);padding-top:8px}
+.miniSwatch{display:inline-block;width:11px;height:11px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px var(--borde2);vertical-align:-1px;background:var(--naranja)}
+.selTexto{
+  width:100%;background:var(--fondo);border:1px solid var(--borde2);color:var(--tx1);
+  border-radius:9px;padding:7px 8px;font-size:12px;font-weight:800;font-family:'Montserrat',sans-serif;
+  cursor:pointer;outline:none;
+}
+.selTexto:focus{border-color:var(--naranja)}
+/* v34: cartel para escribir el texto (aparece donde toqués el papel) */
+#popTexto{
+  position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);z-index:8;
+  background:var(--panel2);border:2px solid var(--naranja);border-radius:16px;padding:14px;
+  display:flex;flex-direction:column;gap:10px;width:min(320px,92vw);
+  box-shadow:0 12px 40px rgba(0,0,0,.6);
+}
+#popTexto.oculto{display:none}
+.ptTitulo{font-size:12px;font-weight:900;color:var(--naranja);letter-spacing:.5px}
+.ptInput{
+  width:100%;background:var(--fondo);border:1px solid var(--borde2);color:var(--tx1);
+  border-radius:9px;padding:10px 11px;font-size:14px;font-weight:700;font-family:'Montserrat',sans-serif;outline:none;
+}
+.ptInput:focus{border-color:var(--naranja)}
+.ptFila{display:flex;gap:6px}
+.ptFila .selTexto{flex:1;min-width:0}
+.ptAcc{display:flex;gap:8px;justify-content:flex-end;align-items:center}
+#listaCapas{display:flex;flex-direction:column;gap:6px;max-height:196px;overflow-y:auto}
+.capaFila{display:flex;align-items:center;gap:7px;padding:5px 6px;border-radius:9px;border:1px solid var(--borde2);cursor:pointer;background:var(--fondo)}
+.capaFila.activa{border-color:var(--naranja);background:rgba(var(--acento-rgb),.14)}
+.capaFila.oculta .capaNombre,.capaFila.oculta .capaThumb{opacity:.4}
+.capaThumb{width:38px;height:28px;border-radius:5px;background:#fff;border:1px solid var(--borde2);flex:none}
+.capaNombre{flex:1;font-size:12px;font-weight:800;color:var(--tx1);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.capaOjo{background:none;border:none;cursor:pointer;font-size:15px;padding:2px;line-height:1}
+.capasAcc{display:flex;gap:6px}
+.btnCapa{flex:1;background:var(--fondo);border:1px solid var(--borde2);color:var(--tx1);padding:8px;border-radius:9px;font-size:15px;cursor:pointer;font-weight:800}
+.btnCapa:hover{border-color:var(--naranja)}
+#popColor{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:6;
+  background:var(--panel2);border:2px solid var(--naranja);border-radius:16px;padding:14px;
+  display:flex;flex-direction:column;gap:10px;align-items:center;
+  box-shadow:0 12px 40px rgba(0,0,0,.6);max-width:94vw;
+}
+#popColor.oculto{display:none}
+#cuadroColor,#barraMatiz{border:1px solid var(--borde2);border-radius:8px;touch-action:none;cursor:crosshair;max-width:100%}
+/* v33: pie con solo el botón principal */
+.dbPie{flex:none;display:flex;justify-content:center;width:100%;max-width:1200px}
+@media (min-width:701px){
+  /* v34: el botón de capas se ve TAMBIÉN en PC/TV — la flechita del panel lo pliega
+     y este botón lo vuelve a abrir (antes en PC no había forma de recuperarlo) */
+  .panelCapas.cerrado{display:none}
+}
+@media (max-width:700px){
+  .dbCuerpo{flex-direction:column;align-items:center;gap:8px}
+  .dbColHerr{flex-direction:row;width:100%;max-width:560px;overflow-x:auto;overflow-y:hidden;padding:6px}
+  .dbSep{width:1px;height:auto;align-self:stretch;margin:3px 2px}
+  /* en el cel el ancho del papel es de VIEWPORT (el % no anda: el contenedor es de ancho auto) */
+  #vpLienzo{width:min(92vw, 920px);max-height:calc(100vh - 360px)}
+  .dbZoom{bottom:74px}
+  .panelCapas{
+    position:fixed;right:0;top:0;bottom:0;width:min(80vw,300px);z-index:7;
+    border-radius:14px 0 0 14px;transform:translateX(105%);transition:transform .22s ease;
+    box-shadow:-8px 0 30px rgba(0,0,0,.5);max-height:none;overflow-y:auto;
+  }
+  .panelCapas.abierto{transform:translateX(0)}
+  .panelCapas.cerrado{display:flex} /* en el cel el estado natural del cajón es cerrado */
+  .btnIcono{width:36px;height:36px}
+  .btnIcono svg{width:17px;height:17px}
+}
+
 
 /* ============ LIGHTBOX + TOAST ============ */
 #lightbox{
@@ -720,13 +855,13 @@ body.tema-claro .logoClaro{display:block}
   .jgAcc button{font-size:15px;min-height:46px}
 }
 </style>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+</head>
 <body>
 
 <!-- ================= PANTALLA DE INGRESO (SIN REGISTRO) ================= -->
 <div id="pantallaLogin">
   <div class="loginCaja">
-    <img src="logo-blanco.png" alt="SiKO CHAT" width="26" height="23" class="logoBienvenida logoOscuro">
+    <img src="logo-blanco.png" class="logoBienvenida logoOscuro" alt="SiKO CHAT">
     <img src="logo-negro.png" class="logoBienvenida logoClaro" alt="SiKO CHAT">
     <label class="etiqueta" for="inputNombre">TU NOMBRE EN EL CHAT</label>
     <input id="inputNombre" class="campo" maxlength="18" placeholder="Ej: SikoFan23" autocomplete="off">
@@ -862,28 +997,82 @@ body.tema-claro .logoClaro{display:block}
   </div>
 </div>
 
-<!-- ================= PIZARRITA PAINT (LÁPIZ · PINCEL · BOTE) ================= -->
+<!-- ================= PIZARRA PRO v33 (MODERNA: iconos SVG · zoom flotante · capas · PANTALLA COMPLETA) ================= -->
 <div id="overlayDibujo" class="oculto">
-  <div class="dibujoTitulo">🎨 PIZARRITA — dibujá, pintá y mandalo</div>
-  <canvas id="lienzo" width="480" height="360"></canvas>
-  <div class="herrDibujo" id="herrHerram">
-    <button class="btnDibujo btnHerr activo" data-herr="lapiz" type="button">✏️ Lápiz</button>
-    <button class="btnDibujo btnHerr" data-herr="pincel" type="button">🖌️ Pincel</button>
-    <button class="btnDibujo btnHerr" data-herr="bote" type="button">🪣 Bote</button>
-    <button class="btnDibujo btnHerr" data-herr="goma" type="button">🧽 Goma</button>
-    <button class="btnDibujo" id="btnDeshacer" type="button">↩️ Deshacer</button>
-    <button class="btnDibujo" id="btnLimpiarDibujo" type="button">🗑️ Limpiar</button>
+  <div class="dbTop">
+    <div class="dbMarca"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>PIZARRA</div>
+    <div class="dbTopAcc">
+      <button class="btnIcono" id="btnDeshacer" type="button" title="Deshacer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg></button>
+      <button class="btnIcono" id="btnLimpiarDibujo" type="button" title="Limpiar la capa elegida"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg></button>
+      <button class="btnIcono" id="btnImportarDibujo" type="button" title="Importar imagen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg></button>
+      <button class="btnIcono" id="btnCapasToggle" type="button" title="Capas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></button>
+      <button class="btnIcono" id="btnPantallaCompleta" type="button" title="Pantalla completa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+      <button class="btnIcono" id="btnCancelarDibujo" type="button" title="Cerrar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
   </div>
-  <div class="herrDibujo" id="herrGrosor">
-    <button class="btnDibujo btnGrosor activo" data-grosor="3" type="button">✏️ Fino</button>
-    <button class="btnDibujo btnGrosor" data-grosor="5" type="button">🖊️ Medio</button>
-    <button class="btnDibujo btnGrosor" data-grosor="10" type="button">🖌️ Grueso</button>
+  <div class="dbCuerpo">
+    <div class="dbColHerr">
+      <button class="btnIcono btnHerr activo" data-herr="lapiz" type="button" title="Lápiz"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg></button>
+      <button class="btnIcono btnHerr" data-herr="pincel" type="button" title="Pincel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9.06 11.9 8.07-8.06a2.85 2.85 0 1 1 4.03 4.03l-8.06 8.08"/><path d="M7.07 14.94c-1.66 0-3 1.35-3 3.02 0 1.33-2.5 1.52-2 2.02 1.08 1.1 2.49 2.02 4 2.02 2.2 0 4-1.8 4-4.04a3.01 3.01 0 0 0-3-3.02z"/></svg></button>
+      <button class="btnIcono btnHerr" data-herr="brocha" type="button" title="Brocha"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m14.622 4.622 4.756 4.756"/><path d="M18.37 2.63 14 7l-1.59-1.59a2 2 0 0 0-2.82 0L8 7l9 9 1.59-1.59a2 2 0 0 0 0-2.82L17 10l4.37-4.37a2.12 2.12 0 1 0-3-3z"/><path d="M9 8c-2 3-4 3.5-7 4l8 10c2-1 6-5 6-7"/><path d="M14.5 17.5 4.5 15"/></svg></button>
+      <button class="btnIcono btnHerr" data-herr="difum" type="button" title="Difuminado"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h.01"/><path d="M7 5h.01"/><path d="M11 7h.01"/><path d="M3 7h.01"/><path d="M7 9h.01"/><path d="M3 11h.01"/><rect width="4" height="4" x="15" y="5"/><path d="m19 9 2 2v10c0 .6-.4 1-1 1h-8a1 1 0 0 1-1-1V11l2-2"/><path d="M13 14v6"/><path d="M16 14v6"/><path d="M19 14v6"/></svg></button>
+      <button class="btnIcono btnHerr" data-herr="bote" type="button" title="Bote de pintura"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 11-8-8-8.6 8.6a2 2 0 0 0 0 2.8l5.2 5.2c.8.8 2 .8 2.8 0L19 11Z"/><path d="m5 2 5 5"/><path d="M2 13h15"/><path d="M22 20a2 2 0 1 1-4 0c0-1.6 1.7-2.4 2-4 .3 1.6 2 2.4 2 4Z"/></svg></button>
+      <button class="btnIcono btnHerr" data-herr="goma" type="button" title="Goma"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21"/><path d="M22 21H7"/><path d="m5 11 9 9"/></svg></button>
+      <button class="btnIcono btnHerr" data-herr="texto" type="button" title="Texto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg></button>
+      <button class="btnIcono btnHerr" data-herr="mano" type="button" title="Mover el papel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg></button>
+      <div class="dbSep"></div>
+      <button class="btnIcono btnGrosor activo" data-grosor="2" type="button" title="Trazo fino"><span class="pt pt1"></span></button>
+      <button class="btnIcono btnGrosor" data-grosor="5" type="button" title="Trazo medio"><span class="pt pt2"></span></button>
+      <button class="btnIcono btnGrosor" data-grosor="10" type="button" title="Trazo grueso"><span class="pt pt3"></span></button>
+      <div class="dbSep"></div>
+      <button class="btnIcono" id="btnColorActual" type="button" title="Color"><span id="swatchColor"></span></button>
+    </div>
+    <div class="dbCentro">
+      <div id="vpLienzo"><canvas id="lienzo" width="480" height="360"></canvas></div>
+    </div>
+    <div class="dbZoom">
+      <button id="btnZoomMenos" type="button" title="Alejar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg></button>
+      <span class="zoomEtq" id="zoomEtq">100%</span>
+      <button id="btnZoomMas" type="button" title="Acercar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/><line x1="11" y1="8" x2="11" y2="14"/></svg></button>
+      <button id="btnZoomReset" type="button" title="Volver al tamaño normal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></svg></button>
+    </div>
+    <div class="panelCapas" id="panelCapas">
+      <div class="capasTitulo filaCapas">CAPAS
+        <button class="btnCerrarCapas" id="btnCerrarCapas" type="button" title="Ocultar este panel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="m9 18 6-6-6-6"/></svg></button>
+      </div>
+      <div id="listaCapas"></div>
+      <div class="capasAcc">
+        <button class="btnCapa" id="btnCapaNueva" type="button" title="Agregar capa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+        <button class="btnCapa" id="btnCapaBorrar" type="button" title="Borrar la capa elegida"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+      </div>
+      <div class="textoBloque">
+        <div class="capasTitulo">TEXTO <span class="miniSwatch" id="swatchTexto" title="El texto se pinta con tu color"></span></div>
+        <select id="selFuente" class="selTexto" title="Fuente del texto"></select>
+        <select id="selTamTexto" class="selTexto" title="Tamaño del texto"></select>
+      </div>
+    </div>
   </div>
-  <div class="herrDibujo" id="herrColores"></div>
-  <div class="accionesDibujo">
-    <button class="btnDibujoGhost" id="btnCancelarDibujo">Cancelar</button>
-    <button class="btnPrincipal" id="btnEnviarDibujo">ENVIAR DIBUJO 🎨</button>
+  <div class="dbPie">
+    <button class="btnPrincipal" id="btnEnviarDibujo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:-2px;margin-right:6px"><path d="M22 2 11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>ENVIAR DIBUJO</button>
   </div>
+  <div id="popColor" class="oculto">
+    <div class="herrDibujo" id="herrColores"></div>
+    <canvas id="cuadroColor" width="220" height="110"></canvas>
+    <canvas id="barraMatiz" width="220" height="16"></canvas>
+  </div>
+  <div id="popTexto" class="oculto">
+    <div class="ptTitulo">🔤 ESCRIBÍ EL TEXTO <span class="miniSwatch" id="swatchTexto2"></span></div>
+    <input id="txtPopTexto" class="ptInput" maxlength="60" placeholder="Escribí acá..." autocomplete="off">
+    <div class="ptFila">
+      <select id="selFuente2" class="selTexto" title="Fuente del texto"></select>
+      <select id="selTamTexto2" class="selTexto" title="Tamaño del texto"></select>
+    </div>
+    <div class="ptAcc">
+      <button class="btnDibujoGhost" id="btnCancelarTexto" type="button">Cancelar</button>
+      <button class="btnPrincipal" id="btnPintarTexto" type="button">PINTAR</button>
+    </div>
+  </div>
+  <input type="file" id="inputFotoDibujo" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" class="oculto">
 </div>
 
 <!-- ================= MI PERFIL ================= -->
@@ -1281,7 +1470,7 @@ export { encryptWebPush, vapidJwt, b64uDecode, bufToB64u, hkdf, leerSubs };
 </div>
 
 <!-- ================= LIGHTBOX ================= -->
-<div id="lightbox" class="oculto"><img id="lightboxImg" alt="Dibujo ampliado"><button id="btnGuardarLightbox" class="btnSec" type="button" onClick="event.stopPropagation()">💾 Guardar imagen</button></div>
+<div id="lightbox" class="oculto"><img id="lightboxImg" alt="Dibujo ampliado"><button id="btnGuardarLightbox" class="btnSec" type="button" onclick="event.stopPropagation()">💾 Guardar imagen</button></div>
 
 <!-- v12: menú de mensaje (reacciones · reenviar · guardar · borrar) -->
 <div id="sheetMsj" class="oculto">
@@ -1310,6 +1499,7 @@ export { encryptWebPush, vapidJwt, b64uDecode, bufToB64u, hkdf, leerSubs };
 <!-- ================= TOAST ================= -->
 <div id="toast"></div>
 
+<script src="chat-config.js"></script> <!-- v30: LA CONFIG DEL CHAT vive acá — archivo aparte para migrar el chat a su propio proyecto de Firebase sin tocar código -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
@@ -1323,12 +1513,19 @@ export { encryptWebPush, vapidJwt, b64uDecode, bufToB64u, hkdf, leerSubs };
    ============================================================ */
 
 /* ---------- 1 · FIREBASE ---------- */
-var firebaseConfig = {
+/* v30: la config vive en chat-config.js (archivo aparte, el único que tocás para
+   migrar el chat a SU PROPIO proyecto de Firebase — así las reglas de la radio
+   nunca más lo rompen). Si el archivo no carga o está incompleto, sigo con la
+   config de siempre guardada acá abajo como respaldo: el chat no se rompe NUNCA. */
+var CFG_RESPALDO = {
   apiKey: "AIzaSyC9Q9N1TTqWRUpeh2lo7tGuG8lwTrvbHrA",
   authDomain: "sikodarkradio-26a07.firebaseapp.com",
   projectId: "sikodarkradio-26a07",
   storageBucket: "sikodarkradio-26a07.appspot.com"
 };
+var firebaseConfig = (typeof window.SIKOCHAT_CONFIG === 'object' && window.SIKOCHAT_CONFIG && window.SIKOCHAT_CONFIG.apiKey && window.SIKOCHAT_CONFIG.projectId)
+  ? window.SIKOCHAT_CONFIG
+  : CFG_RESPALDO;
 firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
 var SERVER_TS = firebase.firestore.FieldValue.serverTimestamp;
@@ -1604,11 +1801,11 @@ function escucharUsuarios(){
     var ahora = Date.now(), lista = [];
     snap.forEach(function(d){
       var u = d.data();
-      if (!u.ping || !u.ping.toMillis) return;
-      var ms = u.ping.toMillis();
+      var ms = (u.ping && u.ping.toMillis) ? u.ping.toMillis() : 0;
+      if (!ms && !u.nombre) return; /* v29: sin ping y sin nombre no es un usuario (ej. __config__) — un usuario REAL entra aunque su ping esté viejo */
       u._id = d.id;
       u._ms = ms;
-      u._fresco = (ahora - ms) <= 65000; /* v14: ¿conectado ahora? — los que no TAMBIÉN entran a la lista */
+      u._fresco = ms > 0 && (ahora - ms) <= 65000; /* v14: ¿conectado ahora? — los que no TAMBIÉN entran a la lista */
       var fu = fotoSegura(u.foto);
       if (fu) fotosCache[d.id] = fu;
       lista.push(u);
@@ -2734,7 +2931,17 @@ $('btnActivarPush').onclick = function(){
   $('overlayPush').classList.remove('oculto');
 };
 $('btnCerrarPush').onclick = function(){ $('overlayPush').classList.add('oculto'); };
-function codigoWorkerTxt(){ try { return ($('codigoWorker').textContent || '').trim(); } catch (e) { return ''; } }
+function codigoWorkerTxt(){
+  var cod = '';
+  try { cod = ($('codigoWorker').textContent || '').trim(); } catch (e) { return ''; }
+  try {
+    /* v30: el servidor que copiás sale SIEMPRE con el proyecto que usa el chat ahora —
+       si migrás el chat a su proyecto propio, el COPIAR ya te lo da con el proyecto nuevo */
+    cod = cod.replace(/const FIREBASE_PROJECT = '[^']*';/, "const FIREBASE_PROJECT = '" + firebaseConfig.projectId + "';");
+    cod = cod.replace(/const FIREBASE_API_KEY = '[^']*';/, "const FIREBASE_API_KEY = '" + firebaseConfig.apiKey + "';");
+  } catch (e) {}
+  return cod;
+}
 function copiarWorkerViejo(cod, listo){
   try {
     var t = document.createElement('textarea');
@@ -3653,10 +3860,11 @@ function limpiarViejos(){
     s.forEach(function(d){ d.ref.delete(); });
     if (s.size) console.log('SikoChat: borré ' + s.size + ' mensajes viejos');
   }).catch(function(){});
-  var corteUsu = Date.now() - 24 * 60 * 60 * 1000;
-  db.collection(COL_USUARIOS).where('ping', '<', new Date(corteUsu)).get().then(function(s){
-    s.forEach(function(d){ d.ref.delete(); });
-  }).catch(function(){});
+  /* v29: LOS CONTACTOS YA NO SE BORRAN — antes cada entrada al chat borraba de
+     Firebase a los usuarios sin actividad de más de 24 horas, y por eso la lista
+     quedaba solo con los que estaban escribiendo en el momento. Ahora los
+     contactos QUEDAN PARA SIEMPRE con su "visto hace" (estilo MSN). Solo se
+     limpian los mensajes viejos (12 h) y las partidas abandonadas (6 h). */
   /* v26: partidas abandonadas hace más de 6 horas se borran solas */
   var corteJg = Date.now() - 6 * 60 * 60 * 1000;
   db.collection(COL_JUEGOS).where('actualizado', '<', new Date(corteJg)).get().then(function(s){
@@ -3664,31 +3872,226 @@ function limpiarViejos(){
   }).catch(function(){});
 }
 
-/* ---------- 15 · PIZARRITA PAINT (LÁPIZ · PINCEL · BOTE DE PINTURA · GOMA · DESHACER) ---------- */
+/* ---------- 15 · PIZARRITA PAINT v31 (CAPAS · BROCHA · DIFUMINADO · SELECTOR DE COLOR · FOTO) ---------- */
 var lienzo = $('lienzo');
 var ctx2 = lienzo.getContext('2d');
 var COLORES = ['#f59d3d', '#ffffff', '#ff4d4d', '#4dd964', '#4dc3ff', '#ff7ab8', '#ffe14d', '#9b59ff', '#b8ff4d', '#4dffe0', '#ff4dd2', '#4d6bff', '#b06a3c', '#b0b6bd'];
 var colorAct = '#f59d3d';
-var grosorAct = 3;
+var grosorAct = 2;
 var herrAct = 'lapiz';
 var pintando = false;
 var ultimoX = 0, ultimoY = 0;
-var FONDO_LIENZO = '#0a0a0a';
+var FONDO_LIENZO = '#ffffff'; /* v32: papel BLANCO como la imagen de referencia */
 var pilaUndo = [];
+
+/* v32 · ZOOM DE LA PIZARRA: el lienzo queda dentro de una ventana (#vpLienzo) con scroll.
+   Acercar/alejar agranda el PAPEL (el dibujo interno sigue siendo 480×360 — por eso el
+   detalle no se pierde) y la ventana lo recorta. Con ✋ Mover, con 2 dedos o con Ctrl+rueda
+   se pasea por la hoja como en los programas de dibujo de verdad. */
+var ZOOMS = [1, 1.5, 2, 3, 4, 6, 8];
+var zoomAct = 1;
+var zoomBaseW = 0; /* ancho del papel al 100% (se mide al abrir, con la ventana ya visible) */
+var vpLienzo = $('vpLienzo');
+var arrastrar = null; /* datos del arrastre con ✋ Mover */
+function pintarZoomEtq(){ $('zoomEtq').textContent = Math.round(zoomAct * 100) + '%'; }
+/* pone un zoom (1 a 8). Si le pasás clienteX/Y mantiene fijo el contenido de ese punto de
+   la pantalla (para el pellizco y el Ctrl+rueda); si no, ancla al CENTRO de la ventana */
+function ponerZoom(z, clienteX, clienteY){
+  var zAnt = zoomAct;
+  z = Math.max(1, Math.min(8, z));
+  if (Math.abs(z - zAnt) < 0.001) { pintarZoomEtq(); return; }
+  var vr = vpLienzo.getBoundingClientRect();
+  var ax = (clienteX == null) ? vr.left + vr.width / 2 : clienteX;
+  var ay = (clienteY == null) ? vr.top + vr.height / 2 : clienteY;
+  var cxL = (ax - vr.left + vpLienzo.scrollLeft) / zAnt; /* punto del papel que queda fijo */
+  var cyL = (ay - vr.top + vpLienzo.scrollTop) / zAnt;
+  zoomAct = z;
+  lienzo.style.width = Math.round(zoomBaseW * z) + 'px';
+  lienzo.classList.toggle('pix', z >= 3);
+  vpLienzo.scrollLeft = cxL * z - (ax - vr.left);
+  vpLienzo.scrollTop = cyL * z - (ay - vr.top);
+  pintarZoomEtq();
+}
+function pasoZoom(dir){
+  var idx = 0;
+  for (var k = 0; k < ZOOMS.length; k++) {
+    if (ZOOMS[k] <= zoomAct + 0.001) idx = k; /* el escalón en el que estoy (o el último más chico) */
+  }
+  ponerZoom(ZOOMS[Math.max(0, Math.min(ZOOMS.length - 1, idx + dir))]);
+}
+$('btnZoomMas').onclick = function(){ pasoZoom(1); };
+$('btnZoomMenos').onclick = function(){ pasoZoom(-1); };
+$('btnZoomReset').onclick = function(){
+  ponerZoom(1);
+  vpLienzo.scrollLeft = 0;
+  vpLienzo.scrollTop = Math.max(0, (lienzo.offsetHeight - vpLienzo.clientHeight) / 2);
+};
+/* PC: Ctrl + rueda acerca al punto donde está el puntero (rueda sola = scroll normal) */
+vpLienzo.addEventListener('wheel', function(e){
+  if (!e.ctrlKey && !e.metaKey) return;
+  e.preventDefault();
+  ponerZoom(zoomAct * (e.deltaY < 0 ? 1.18 : 1 / 1.18), e.clientX, e.clientY);
+}, { passive: false });
+/* CEL: pellizco con 2 dedos — el segundo dedo entra y se cancela lo que se estaba dibujando */
+var dedos = new Map();
+var pellizco = null;
+vpLienzo.addEventListener('pointerdown', function(e){
+  dedos.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  if (dedos.size === 2) {
+    pintando = false; arrastrar = null;
+    var pts = Array.from(dedos.values());
+    var dx = pts[0].x - pts[1].x, dy = pts[0].y - pts[1].y;
+    pellizco = { d: Math.sqrt(dx * dx + dy * dy) || 1, z: zoomAct };
+  }
+});
+vpLienzo.addEventListener('pointermove', function(e){
+  if (!dedos.has(e.pointerId)) return;
+  dedos.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  if (dedos.size === 2 && pellizco) {
+    var pts = Array.from(dedos.values());
+    var dx = pts[0].x - pts[1].x, dy = pts[0].y - pts[1].y;
+    var d = Math.sqrt(dx * dx + dy * dy) || 1;
+    ponerZoom(pellizco.z * d / pellizco.d, (pts[0].x + pts[1].x) / 2, (pts[0].y + pts[1].y) / 2);
+  }
+});
+function soltoDedo(e){
+  dedos.delete(e.pointerId);
+  if (dedos.size < 2) pellizco = null;
+}
+vpLienzo.addEventListener('pointerup', soltoDedo);
+vpLienzo.addEventListener('pointercancel', soltoDedo);
+
+/* v31 · CAPAS: cada capa es un lienzo invisible del mismo tamaño. Dibujás en la capa
+   elegida y el chat superpone todas (la de arriba tapa a la de abajo, como papeles
+   transparentes uno encima del otro). Con el ojito las mostrás/ocultás, con ➕ agregás
+   y con 🗑️ borrás — igual que la imagen que mandó el usuario. */
+var capas = [];
+var capaAct = 0; /* índice de la capa elegida (0 = la de más abajo) */
+
+function nuevaCapa(nombre){
+  var cv = document.createElement('canvas');
+  cv.width = lienzo.width; cv.height = lienzo.height;
+  return { cv: cv, ctx: cv.getContext('2d'), nombre: nombre, visible: true };
+}
+function lctx(){ return capas[capaAct].ctx; } /* el contexto 2d de la capa elegida */
+
+/* superpone fondo + capas visibles: esto es lo que se ve en pantalla y lo que se manda */
+function repintar(){
+  ctx2.fillStyle = FONDO_LIENZO;
+  ctx2.fillRect(0, 0, lienzo.width, lienzo.height);
+  for (var i = 0; i < capas.length; i++) {
+    if (capas[i].visible) ctx2.drawImage(capas[i].cv, 0, 0);
+  }
+}
+
+/* panel de capas: la fila de ARRIBA es la capa de más arriba (como en los programas de dibujo).
+   v33: ojitos con icono SVG (estilo moderno) */
+var SVG_OJO = '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+var SVG_OJO_OFF = '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>';
+function pintarCapas(){
+  var lc = $('listaCapas');
+  lc.innerHTML = '';
+  for (var i = capas.length - 1; i >= 0; i--) {
+    (function(idx){
+      var f = document.createElement('div');
+      f.className = 'capaFila' + (idx === capaAct ? ' activa' : '') + (capas[idx].visible ? '' : ' oculta');
+      var th = document.createElement('canvas');
+      th.className = 'capaThumb'; th.width = 38; th.height = 28;
+      var tx = th.getContext('2d');
+      tx.fillStyle = '#ffffff'; tx.fillRect(0, 0, 38, 28); /* v32: miniatura con papel blanco */
+      tx.drawImage(capas[idx].cv, 0, 0, 38, 28);
+      f.appendChild(th);
+      var n = document.createElement('span');
+      n.className = 'capaNombre';
+      n.textContent = capas[idx].nombre;
+      f.appendChild(n);
+      var o = document.createElement('button');
+      o.className = 'capaOjo'; o.type = 'button';
+      o.innerHTML = capas[idx].visible ? SVG_OJO : SVG_OJO_OFF; /* v33: icono SVG */
+      o.title = capas[idx].visible ? 'Ocultar capa' : 'Mostrar capa';
+      o.style.color = capas[idx].visible ? 'var(--naranja)' : 'var(--tx2)';
+      o.onclick = function(ev){
+        ev.stopPropagation();
+        capas[idx].visible = !capas[idx].visible;
+        pintarCapas(); repintar();
+      };
+      f.appendChild(o);
+      f.onclick = function(){ capaAct = idx; pintarCapas(); };
+      lc.appendChild(f);
+    })(i);
+  }
+}
+$('btnCapaNueva').onclick = function(){
+  if (capas.length >= 6) { toast('😳 Hasta 6 capas — con eso alcanza para dibujo detallado'); return; }
+  capas.push(nuevaCapa('Capa ' + (capas.length + 1)));
+  capaAct = capas.length - 1;
+  pintarCapas();
+  toast('➕ Capa nueva arriba — dibujá tranquilo, la de abajo no se toca');
+};
+$('btnCapaBorrar').onclick = function(){
+  if (capas.length <= 1) {
+    guardarUndo();
+    capas[0].ctx.clearRect(0, 0, lienzo.width, lienzo.height);
+    repintar();
+    toast('🧼 Es la única capa: la vacié entera');
+    return;
+  }
+  var nombre = capas[capaAct].nombre;
+  capas.splice(capaAct, 1);
+  if (capaAct > capas.length - 1) capaAct = capas.length - 1;
+  pilaUndo = []; /* el borrado de una capa entera no se deshace (limpio la pila) */
+  pintarCapas(); repintar();
+  toast('🗑️ Borré la capa "' + nombre + '"');
+};
 
 function hexRgb(h){
   return { r: parseInt(h.slice(1, 3), 16), g: parseInt(h.slice(3, 5), 16), b: parseInt(h.slice(5, 7), 16) };
 }
-/* ↩️ Deshacer: guardo la foto del lienzo antes de cada trazo / relleno / limpieza */
+function rgbHex(r, g, b){
+  function h2(v){ var s = Math.max(0, Math.min(255, Math.round(v))).toString(16); return s.length < 2 ? '0' + s : s; }
+  return '#' + h2(r) + h2(g) + h2(b);
+}
+/* color desde matiz (0-360), saturación y brillo (0-1) — el sistema del selector nuevo */
+function hsvHex(h, s, v){
+  function f(n){
+    var k = (n + h / 60) % 6;
+    return 255 * (v - v * s * Math.max(0, Math.min(k, 4 - k, 1)));
+  }
+  return rgbHex(f(5), f(3), f(1));
+}
+function hexHsv(hex){
+  var c = hexRgb(hex), r = c.r / 255, g = c.g / 255, b = c.b / 255;
+  var mx = Math.max(r, g, b), mn = Math.min(r, g, b), d = mx - mn, h = 0;
+  if (d) {
+    if (mx === r) h = ((g - b) / d) % 6;
+    else if (mx === g) h = (b - r) / d + 2;
+    else h = (r - g) / d + 4;
+    h *= 60; if (h < 0) h += 360;
+  }
+  return { h: h, s: mx ? d / mx : 0, v: mx };
+}
+function hexA(hex, a){
+  var c = hexRgb(hex);
+  return 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',' + a + ')';
+}
+
+/* ↩️ Deshacer: guardo la foto de la CAPA ELEGIDA antes de cada trazo / relleno / limpieza */
 function guardarUndo(){
   try {
-    if (pilaUndo.length >= 12) pilaUndo.shift();
-    pilaUndo.push(ctx2.getImageData(0, 0, lienzo.width, lienzo.height));
+    if (pilaUndo.length >= 10) pilaUndo.shift();
+    pilaUndo.push({ i: capaAct, img: capas[capaAct].ctx.getImageData(0, 0, lienzo.width, lienzo.height) });
   } catch (e) {}
 }
 function deshacer(){
-  if (!pilaUndo.length) { toast('🤷 No hay nada para deshacer'); return; }
-  ctx2.putImageData(pilaUndo.pop(), 0, 0);
+  while (pilaUndo.length) {
+    var e = pilaUndo.pop();
+    if (e.i < capas.length) {
+      capas[e.i].ctx.putImageData(e.img, 0, 0);
+      repintar();
+      return;
+    }
+  }
+  toast('🤷 No hay nada para deshacer');
 }
 function pintarColores(){
   var hc = $('herrColores');
@@ -3698,29 +4101,200 @@ function pintarColores(){
       var b = document.createElement('button');
       b.className = 'colorBtn' + (c === colorAct ? ' sel' : '');
       b.style.background = c;
-      b.onclick = function(){ colorAct = c; pintarColores(); };
+      b.onclick = function(){
+        colorAct = c;
+        var hsv = hexHsv(c); /* v31: el selector grande sigue al color tocado */
+        matizAct = hsv.h; satAct = hsv.s; valAct = hsv.v;
+        pintarCuadro(); pintarBarra(); pintarColores();
+      };
       hc.appendChild(b);
     })(COLORES[i]);
   }
+  pintarBotonColor(); /* v33: el botón de la barra muestra SIEMPRE el color actual */
 }
+/* v33: el circulito del botón de color en la barra de herramientas · v34: y los del bloque TEXTO */
+function pintarBotonColor(){
+  var s = $('swatchColor'); if (s) s.style.background = colorAct;
+  var t = $('swatchTexto'); if (t) t.style.background = colorAct;
+  var t2 = $('swatchTexto2'); if (t2) t2.style.background = colorAct;
+}
+
+/* v31 · SELECTOR DE COLOR como en los programas de dibujo (tal cual la imagen):
+   cuadro con degradado (izq blanca → der color puro, abajo negro) + barra del arcoíris
+   para el matiz. Cualquier color, no solo los de la paleta. */
+var matizAct = 30, satAct = 0.96, valAct = 0.96;
+var cuadroC = $('cuadroColor'), barraC = $('barraMatiz');
+var cuadroX = cuadroC.getContext('2d'), barraX = barraC.getContext('2d');
+
+function pintarCuadro(){
+  var w = cuadroC.width, h = cuadroC.height;
+  cuadroX.fillStyle = hsvHex(matizAct, 1, 1);
+  cuadroX.fillRect(0, 0, w, h);
+  var gb = cuadroX.createLinearGradient(0, 0, w, 0);
+  gb.addColorStop(0, 'rgba(255,255,255,1)');
+  gb.addColorStop(1, 'rgba(255,255,255,0)');
+  cuadroX.fillStyle = gb; cuadroX.fillRect(0, 0, w, h);
+  var gn = cuadroX.createLinearGradient(0, 0, 0, h);
+  gn.addColorStop(0, 'rgba(0,0,0,0)');
+  gn.addColorStop(1, 'rgba(0,0,0,1)');
+  cuadroX.fillStyle = gn; cuadroX.fillRect(0, 0, w, h);
+  var mx = satAct * w, my = (1 - valAct) * h; /* anillo de dónde quedó el color */
+  cuadroX.beginPath(); cuadroX.arc(mx, my, 7, 0, 6.2832);
+  cuadroX.strokeStyle = '#000'; cuadroX.lineWidth = 3; cuadroX.stroke();
+  cuadroX.beginPath(); cuadroX.arc(mx, my, 7, 0, 6.2832);
+  cuadroX.strokeStyle = '#fff'; cuadroX.lineWidth = 1.5; cuadroX.stroke();
+}
+function pintarBarra(){
+  var w = barraC.width, h = barraC.height;
+  var g = barraX.createLinearGradient(0, 0, w, 0);
+  for (var i = 0; i <= 6; i++) g.addColorStop(i / 6, hsvHex(i * 60, 1, 1));
+  barraX.fillStyle = g; barraX.fillRect(0, 0, w, h);
+  var mx = matizAct / 360 * w;
+  barraX.fillStyle = '#fff'; barraX.fillRect(mx - 2, 0, 4, h);
+  barraX.strokeStyle = '#000'; barraX.lineWidth = 1; barraX.strokeRect(mx - 2, 0.5, 4, h - 1);
+}
+function tomarColor(){
+  colorAct = hsvHex(matizAct, satAct, valAct);
+  pintarColores();
+}
+(function(){
+  function pos(ev, c){
+    var r = c.getBoundingClientRect();
+    return {
+      x: Math.max(0, Math.min(1, (ev.clientX - r.left) / r.width)),
+      y: Math.max(0, Math.min(1, (ev.clientY - r.top) / r.height))
+    };
+  }
+  var agarrCuadro = false, agarreBarra = false;
+  cuadroC.addEventListener('pointerdown', function(e){
+    e.preventDefault(); agarrCuadro = true;
+    var p = pos(e, cuadroC);
+    satAct = p.x; valAct = 1 - p.y;
+    tomarColor(); pintarCuadro();
+  });
+  cuadroC.addEventListener('pointermove', function(e){
+    if (!agarrCuadro) return;
+    var p = pos(e, cuadroC);
+    satAct = p.x; valAct = 1 - p.y;
+    tomarColor(); pintarCuadro();
+  });
+  barraC.addEventListener('pointerdown', function(e){
+    e.preventDefault(); agarreBarra = true;
+    matizAct = pos(e, barraC).x * 360;
+    tomarColor(); pintarCuadro(); pintarBarra();
+  });
+  barraC.addEventListener('pointermove', function(e){
+    if (!agarreBarra) return;
+    matizAct = pos(e, barraC).x * 360;
+    tomarColor(); pintarCuadro(); pintarBarra();
+  });
+  document.addEventListener('pointerup', function(){ agarrCuadro = false; agarreBarra = false; });
+})();
+
+/* v31: Limpiar vacía SOLO la capa elegida (con capas no conviene borrar todo de golpe) */
 function prepararLienzo(){
   guardarUndo();
-  ctx2.fillStyle = FONDO_LIENZO;
-  ctx2.fillRect(0, 0, lienzo.width, lienzo.height);
+  capas[capaAct].ctx.clearRect(0, 0, lienzo.width, lienzo.height);
+  repintar();
+  toast('🧼 Vacié la capa "' + capas[capaAct].nombre + '"');
 }
 function elegirHerr(h){
   herrAct = h;
   var bs = document.querySelectorAll('.btnHerr');
   for (var i = 0; i < bs.length; i++) bs[i].classList.toggle('activo', bs[i].getAttribute('data-herr') === h);
-  lienzo.style.cursor = h === 'bote' ? 'pointer' : 'crosshair';
+  /* v32: con ✋ Mover el cursor es una mano (y agarra mientras arrastrás) · v34: con la T el cursor es de texto */
+  lienzo.style.cursor = h === 'bote' ? 'pointer' : (h === 'mano' ? 'grab' : (h === 'texto' ? 'text' : 'crosshair'));
+  if (h === 'texto') $('popColor').classList.add('oculto');
+  if (h !== 'texto') cerrarPopTexto(); /* v34: si salís de la T, el cartel de escribir se cierra */
 }
 function abrirDibujo(){
   $('overlayDibujo').classList.remove('oculto');
   pilaUndo = [];
-  prepararLienzo();
-  pintarColores();
+  capas = [nuevaCapa('Capa 1'), nuevaCapa('Capa 2')]; /* v31: arranca con 2 capas como la imagen */
+  capaAct = 1; /* dibujás en la de arriba (Capa 2) */
+  pintarCapas(); repintar();
+  pintarColores(); pintarCuadro(); pintarBarra();
+  /* v32: la pizarra SIEMPRE abre al 100%, papel centrado en la ventana */
+  zoomAct = 1; lienzo.style.width = ''; lienzo.classList.remove('pix');
+  zoomBaseW = lienzo.getBoundingClientRect().width; /* medir con la ventana ya visible */
+  vpLienzo.scrollLeft = 0;
+  vpLienzo.scrollTop = Math.max(0, (lienzo.offsetHeight - vpLienzo.clientHeight) / 2);
+  pintarZoomEtq();
+  /* v34: capas como al principio (visible en PC, cajón cerrado en el cel) y sin cartel de texto */
+  cerrarPopTexto();
+  $('panelCapas').classList.remove('cerrado');
 }
-function cerrarDibujo(){ $('overlayDibujo').classList.add('oculto'); }
+function cerrarDibujo(){
+  $('overlayDibujo').classList.add('oculto');
+  /* v33: dejo todo cerrado para la próxima vez · v34: también el cartel de texto */
+  $('popColor').classList.add('oculto');
+  $('panelCapas').classList.remove('abierto');
+  $('panelCapas').classList.remove('cerrado');
+  cerrarPopTexto();
+}
+
+/* v33 · POP del COLOR: la paleta + el selector grande viven DENTRO del botón de color */
+$('btnColorActual').onclick = function(){ $('popColor').classList.toggle('oculto'); };
+/* v34: tocando AFUERA se cierran el pop del color, el cajón de capas (cel) y el cartel de texto */
+$('overlayDibujo').addEventListener('pointerdown', function(e){
+  var p = $('popColor');
+  if (!p.classList.contains('oculto') && !(e.target.closest && (e.target.closest('#popColor') || e.target.closest('#btnColorActual')))) p.classList.add('oculto');
+  var pc = $('panelCapas');
+  if (esPantCel() && pc.classList.contains('abierto') && !(e.target.closest && (e.target.closest('#panelCapas') || e.target.closest('#btnCapasToggle')))) pc.classList.remove('abierto');
+  var pt = $('popTexto');
+  if (pt && !pt.classList.contains('oculto') && !(e.target.closest && (e.target.closest('#popTexto') || e.target.closest('#lienzo')))) cerrarPopTexto();
+});
+/* v34: ¿estamos en pantalla de cel? (el cajón de capas se comporta distinto que en PC/TV) */
+function esPantCel(){ return window.matchMedia && window.matchMedia('(max-width:700px)').matches; }
+/* v34: el panel de capas ahora SE CIERRA — con la flechita adentro, con el botón de la barra
+   y en el cel también tocando afuera (antes quedaba tapando la pantalla sin poder sacarlo) */
+function cerrarPanelCapas(){
+  if (esPantCel()) $('panelCapas').classList.remove('abierto');
+  else $('panelCapas').classList.add('cerrado');
+}
+function abrirPanelCapas(){
+  $('panelCapas').classList.remove('cerrado');
+  if (esPantCel()) $('panelCapas').classList.add('abierto');
+}
+$('btnCerrarCapas').onclick = cerrarPanelCapas;
+$('btnCapasToggle').onclick = function(){
+  var pc = $('panelCapas');
+  if (esPantCel()) pc.classList.toggle('abierto');
+  else pc.classList.toggle('cerrado');
+};
+
+/* v33 · PANTALLA COMPLETA: aprovecha toda la pantalla en PC y TV (y en el cel quita la barra
+   del navegador). Si el navegador no la permite, la pizarra ya cubre todo igual */
+var SVG_EXPANDIR = '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>';
+var SVG_COMPACTO = '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v3a2 2 0 0 1-2 2H3"/><path d="M21 8h-3a2 2 0 0 1-2-2V3"/><path d="M3 16h3a2 2 0 0 1 2 2v3"/><path d="M16 21v-3a2 2 0 0 1 2-2h3"/></svg>';
+function enPantallaCompleta(){
+  return !!(document.fullscreenElement || document.webkitFullscreenElement);
+}
+function pintarBotonFull(){
+  var b = $('btnPantallaCompleta');
+  if (b) b.innerHTML = enPantallaCompleta() ? SVG_COMPACTO : SVG_EXPANDIR;
+}
+function alternarPantallaCompleta(){
+  var d = document;
+  if (enPantallaCompleta()) {
+    var salir = d.exitFullscreen || d.webkitExitFullscreen;
+    if (salir) { try { salir.call(d); } catch (e) {} }
+    return;
+  }
+  var el = d.documentElement;
+  var pedir = el.requestFullscreen || el.webkitRequestFullscreen || el.webkitRequestFullScreen;
+  if (pedir) {
+    try {
+      var r = pedir.call(el);
+      if (r && r.catch) r.catch(function(){ toast('😳 El navegador no dejó entrar en pantalla completa'); });
+    } catch (e) { toast('😳 El navegador no dejó entrar en pantalla completa'); }
+  } else {
+    toast('😳 Este navegador no conoce pantalla completa — la pizarra ya cubre todo');
+  }
+}
+$('btnPantallaCompleta').onclick = alternarPantallaCompleta;
+document.addEventListener('fullscreenchange', pintarBotonFull);
+document.addEventListener('webkitfullscreenchange', pintarBotonFull);
 
 $('btnDibujar').onclick = abrirDibujo;
 $('btnCancelarDibujo').onclick = cerrarDibujo;
@@ -3758,28 +4332,85 @@ function anchoTrazo(){
   if (herrAct === 'pincel') return grosorAct * 3;
   return grosorAct;
 }
-function trazo(x1, y1, x2, y2){
-  ctx2.strokeStyle = herrAct === 'goma' ? FONDO_LIENZO : colorAct;
-  ctx2.lineWidth = anchoTrazo();
-  ctx2.lineCap = 'round';
-  ctx2.lineJoin = 'round';
-  ctx2.beginPath();
-  ctx2.moveTo(x1, y1);
-  ctx2.lineTo(x2, y2);
-  ctx2.stroke();
+/* v31 · 🖌️ BROCHA: cerdas de verdad — 5 hilitos paralelos con un poco de azar,
+   como pasar una brocha mojada: queda textura, no una tira lisa */
+function trazoBrocha(x1, y1, x2, y2){
+  var dx = x2 - x1, dy = y2 - y1;
+  var dist = Math.sqrt(dx * dx + dy * dy) || 1;
+  var perX = -dy / dist, perY = dx / dist; /* perpendicular al trazo */
+  var medio = grosorAct * 1.6; /* media ventana de la brocha */
+  var pasos = Math.max(1, Math.floor(dist / 2));
+  var C = lctx();
+  C.fillStyle = colorAct;
+  for (var i = 0; i <= pasos; i++) {
+    var t = i / pasos, x = x1 + dx * t, y = y1 + dy * t;
+    for (var k = 0; k < 5; k++) {
+      var off = (k - 2) / 2 * medio + (Math.random() - 0.5) * grosorAct * 0.6;
+      C.globalAlpha = 0.5 + Math.random() * 0.3;
+      C.beginPath();
+      C.arc(x + perX * off, y + perY * off, Math.max(0.7, grosorAct * 0.42), 0, 6.2832);
+      C.fill();
+    }
+  }
+  C.globalAlpha = 1;
 }
-/* 🪣 BOTE DE PINTURA: tocás una mancha y la rellena entera del color elegido (estilo Paint) */
+/* v31 · 💨 DIFUMINADO: aerógrafo — nube suave que se va acumulando.
+   Ideal para sombras, cielo, brillo y pasos suaves: el borde sale difuso de verdad */
+function trazoDifum(x1, y1, x2, y2){
+  var dx = x2 - x1, dy = y2 - y1;
+  var dist = Math.sqrt(dx * dx + dy * dy) || 1;
+  var r = Math.max(9, grosorAct * 3.2);
+  var pasos = Math.max(1, Math.floor(dist / 3));
+  var C = lctx();
+  for (var i = 0; i <= pasos; i++) {
+    var t = i / pasos, x = x1 + dx * t, y = y1 + dy * t;
+    var g = C.createRadialGradient(x, y, 0, x, y, r);
+    g.addColorStop(0, hexA(colorAct, 0.16));
+    g.addColorStop(1, hexA(colorAct, 0));
+    C.fillStyle = g;
+    C.beginPath(); C.arc(x, y, r, 0, 6.2832); C.fill();
+  }
+}
+function trazo(x1, y1, x2, y2){
+  var C = lctx();
+  if (herrAct === 'goma') {
+    /* v31: la goma borra LA CAPA (queda transparente y se ve la de abajo) */
+    C.globalCompositeOperation = 'destination-out';
+    C.strokeStyle = '#000';
+    C.lineWidth = anchoTrazo();
+    C.lineCap = 'round'; C.lineJoin = 'round';
+    C.beginPath(); C.moveTo(x1, y1); C.lineTo(x2, y2); C.stroke();
+    C.globalCompositeOperation = 'source-over';
+    return;
+  }
+  if (herrAct === 'brocha') { trazoBrocha(x1, y1, x2, y2); return; }
+  if (herrAct === 'difum') { trazoDifum(x1, y1, x2, y2); return; }
+  C.strokeStyle = colorAct;
+  C.lineWidth = anchoTrazo();
+  C.lineCap = 'round';
+  C.lineJoin = 'round';
+  C.beginPath();
+  C.moveTo(x1, y1);
+  C.lineTo(x2, y2);
+  C.stroke();
+}
+/* 🪣 BOTE DE PINTURA: tocás una mancha de la CAPA ELEGIDA y la rellena entera (estilo Paint).
+   v31: ahora entiende capas — rellena los vacíos (transparencia) sin pisar los trazos */
 function rellenar(px, py){
   var W = lienzo.width, H = lienzo.height;
   var x = Math.floor(px), y = Math.floor(py);
   if (x < 0 || y < 0 || x >= W || y >= H) return;
+  var C = lctx();
   var c = hexRgb(colorAct);
-  var img = ctx2.getImageData(0, 0, W, H);
+  var img = C.getImageData(0, 0, W, H);
   var d = img.data;
   var i0 = (y * W + x) * 4;
-  var tR = d[i0], tG = d[i0 + 1], tB = d[i0 + 2];
-  if (Math.abs(tR - c.r) <= 6 && Math.abs(tG - c.g) <= 6 && Math.abs(tB - c.b) <= 6) return;
+  var tR = d[i0], tG = d[i0 + 1], tB = d[i0 + 2], tA = d[i0 + 3];
+  if (tA === 255 && Math.abs(tR - c.r) <= 6 && Math.abs(tG - c.g) <= 6 && Math.abs(tB - c.b) <= 6) return;
   var TOL = 42;
+  function parecido(i4){
+    return Math.abs(d[i4] - tR) <= TOL && Math.abs(d[i4 + 1] - tG) <= TOL && Math.abs(d[i4 + 2] - tB) <= TOL && Math.abs(d[i4 + 3] - tA) <= TOL;
+  }
   var visit = new Uint8Array(W * H);
   var pila = [[x, y]];
   while (pila.length) {
@@ -3788,8 +4419,7 @@ function rellenar(px, py){
     while (cx >= 0) {
       var pi = cy * W + cx;
       if (visit[pi]) break;
-      var i4 = pi * 4;
-      if (Math.abs(d[i4] - tR) > TOL || Math.abs(d[i4 + 1] - tG) > TOL || Math.abs(d[i4 + 2] - tB) > TOL) break;
+      if (!parecido(pi * 4)) break;
       cx--;
     }
     cx++;
@@ -3797,76 +4427,231 @@ function rellenar(px, py){
     while (cx < W) {
       var pi2 = cy * W + cx;
       if (visit[pi2]) break;
-      var j4 = pi2 * 4;
-      if (Math.abs(d[j4] - tR) > TOL || Math.abs(d[j4 + 1] - tG) > TOL || Math.abs(d[j4 + 2] - tB) > TOL) break;
-      d[j4] = c.r; d[j4 + 1] = c.g; d[j4 + 2] = c.b; d[j4 + 3] = 255;
+      if (!parecido(pi2 * 4)) break;
+      d[pi2 * 4] = c.r; d[pi2 * 4 + 1] = c.g; d[pi2 * 4 + 2] = c.b; d[pi2 * 4 + 3] = 255;
       visit[pi2] = 1;
       if (cy > 0) {
         var vA = (cy - 1) * W + cx;
-        if (!visit[vA] && Math.abs(d[vA * 4] - tR) <= TOL && Math.abs(d[vA * 4 + 1] - tG) <= TOL && Math.abs(d[vA * 4 + 2] - tB) <= TOL) {
+        if (!visit[vA] && parecido(vA * 4)) {
           if (!subio) { pila.push([cx, cy - 1]); subio = true; }
         } else { subio = false; }
       }
       if (cy < H - 1) {
         var vB = (cy + 1) * W + cx;
-        if (!visit[vB] && Math.abs(d[vB * 4] - tR) <= TOL && Math.abs(d[vB * 4 + 1] - tG) <= TOL && Math.abs(d[vB * 4 + 2] - tB) <= TOL) {
+        if (!visit[vB] && parecido(vB * 4)) {
           if (!bajo) { pila.push([cx, cy + 1]); bajo = true; }
         } else { bajo = false; }
       }
       cx++;
     }
   }
-  ctx2.putImageData(img, 0, 0);
+  C.putImageData(img, 0, 0);
 }
 lienzo.addEventListener('contextmenu', function(e){ e.preventDefault(); });
 function alBajar(p){
+  /* v34: con la T tocás el papel y sale el cartel para escribir (no dibuja ahí) */
+  if (herrAct === 'texto') { abrirPopTexto(p); return; }
+  cerrarPopTexto();
   guardarUndo();
-  if (herrAct === 'bote') { rellenar(p.x, p.y); return; }
+  if (herrAct === 'bote') { rellenar(p.x, p.y); repintar(); return; }
   pintando = true;
   ultimoX = p.x; ultimoY = p.y;
   trazo(p.x, p.y, p.x + 0.01, p.y + 0.01);
+  repintar();
 }
 function alMover(p){
   if (!pintando || herrAct === 'bote') return;
   trazo(ultimoX, ultimoY, p.x, p.y);
   ultimoX = p.x; ultimoY = p.y;
+  repintar();
 }
 if (window.PointerEvent) {
   lienzo.addEventListener('pointerdown', function(e){
     e.preventDefault();
+    if (!e.isPrimary) return; /* v32: el segundo dedo es para el pellizco, no dibuja */
+    if (herrAct === 'texto') { alBajar(posLapiz(e)); return; } /* v34: sin capturar el puntero, así el teclado sale igual en el cel */
     try { lienzo.setPointerCapture(e.pointerId); } catch (err) {}
+    if (herrAct === 'mano') { /* v32: ✋ agarra el papel y lo arrastra */
+      arrastrar = { x: e.clientX, y: e.clientY, sl: vpLienzo.scrollLeft, st: vpLienzo.scrollTop };
+      lienzo.style.cursor = 'grabbing';
+      return;
+    }
     alBajar(posLapiz(e));
   });
   lienzo.addEventListener('pointermove', function(e){
-    if (!pintando) return;
+    if (arrastrar) { /* v32: arrastrando el papel con ✋ */
+      vpLienzo.scrollLeft = arrastrar.sl - (e.clientX - arrastrar.x);
+      vpLienzo.scrollTop = arrastrar.st - (e.clientY - arrastrar.y);
+      return;
+    }
+    if (!pintando || !e.isPrimary) return;
     alMover(posLapiz(e));
   });
-  lienzo.addEventListener('pointerup', function(){ pintando = false; });
-  lienzo.addEventListener('pointercancel', function(){ pintando = false; });
+  lienzo.addEventListener('pointerup', function(){ pintando = false; arrastrar = null; if (herrAct === 'mano') lienzo.style.cursor = 'grab'; });
+  lienzo.addEventListener('pointercancel', function(){ pintando = false; arrastrar = null; if (herrAct === 'mano') lienzo.style.cursor = 'grab'; });
 } else {
   lienzo.addEventListener('mousedown', function(e){
     e.preventDefault();
+    if (herrAct === 'texto') { alBajar(posLapiz(e)); return; } /* v34: texto no dibuja */
+    if (herrAct === 'mano') {
+      arrastrar = { x: e.clientX, y: e.clientY, sl: vpLienzo.scrollLeft, st: vpLienzo.scrollTop };
+      return;
+    }
     alBajar(posLapiz(e));
   });
   document.addEventListener('mousemove', function(e){
+    if (arrastrar) {
+      vpLienzo.scrollLeft = arrastrar.sl - (e.clientX - arrastrar.x);
+      vpLienzo.scrollTop = arrastrar.st - (e.clientY - arrastrar.y);
+      return;
+    }
     if (!pintando) return;
     alMover(posLapiz(e));
   });
-  document.addEventListener('mouseup', function(){ pintando = false; });
+  document.addEventListener('mouseup', function(){ pintando = false; arrastrar = null; });
   lienzo.addEventListener('touchstart', function(e){
     e.preventDefault();
+    if (herrAct === 'texto') { alBajar(posLapiz(e.changedTouches[0])); return; } /* v34: texto no dibuja */
+    if (herrAct === 'mano') {
+      var t = e.changedTouches[0];
+      arrastrar = { x: t.clientX, y: t.clientY, sl: vpLienzo.scrollLeft, st: vpLienzo.scrollTop };
+      return;
+    }
     alBajar(posLapiz(e.changedTouches[0]));
   }, { passive: false });
   lienzo.addEventListener('touchmove', function(e){
+    if (arrastrar) {
+      e.preventDefault();
+      var t = e.changedTouches[0];
+      vpLienzo.scrollLeft = arrastrar.sl - (t.clientX - arrastrar.x);
+      vpLienzo.scrollTop = arrastrar.st - (t.clientY - arrastrar.y);
+      return;
+    }
     if (!pintando) return;
     e.preventDefault();
     alMover(posLapiz(e.changedTouches[0]));
   }, { passive: false });
-  lienzo.addEventListener('touchend', function(){ pintando = false; });
-  lienzo.addEventListener('touchcancel', function(){ pintando = false; });
+  lienzo.addEventListener('touchend', function(){ pintando = false; arrastrar = null; });
+  lienzo.addEventListener('touchcancel', function(){ pintando = false; arrastrar = null; });
 }
 
+/* v31 · 🖼️ IMPORTAR IMAGEN: mete una foto en una capa de ABAJO para calcar
+   o pintar encima (igual que el botón de la imagen que pidió el usuario)
+   v34: el selector abre por defecto en JPG, PNG o WEBP y si entra otra cosa avisa */
+$('btnImportarDibujo').onclick = function(){ $('inputFotoDibujo').click(); };
+$('inputFotoDibujo').addEventListener('change', function(e){
+  var f = e.target.files && e.target.files[0];
+  if (!f) return;
+  if (!/image\/(jpeg|jpg|png|webp)/i.test(f.type || '')) {
+    toast('🖼️ Usá una imagen JPG, PNG o WEBP');
+    e.target.value = '';
+    return;
+  }
+  var fr = new FileReader();
+  fr.onload = function(){
+    var im = new Image();
+    im.onload = function(){
+      var L = nuevaCapa('🖼️ Foto');
+      var s = Math.min(lienzo.width / im.width, lienzo.height / im.height);
+      var w = im.width * s, h = im.height * s;
+      L.ctx.drawImage(im, (lienzo.width - w) / 2, (lienzo.height - h) / 2, w, h);
+      capas.unshift(L); /* la foto va AL FONDO: dibujás encima tranquilo */
+      capaAct = Math.min(capaAct + 1, capas.length - 1);
+      pintarCapas(); repintar();
+      toast('🖼️ Foto puesta abajo — dibujá en las capas de arriba');
+    };
+    im.onerror = function(){ toast('😵 Esa imagen no la pude abrir'); };
+    im.src = fr.result;
+  };
+  fr.readAsDataURL(f);
+  e.target.value = '';
+});
+
+/* v34 · 🔤 TEXTO CON FUENTES: elegís la T, tocás el papel, escribís y queda pintado en la
+   CAPA ELEGIDA con tu COLOR y la fuente/tamaño que hayas elegido (los selectores viven
+   en el panel de capas, ahí al lado del color — y también adentro del cartel para el cel) */
+var FUENTES = [
+  ['Montserrat', 'Montserrat'],
+  ['Arial', 'Arial'],
+  ['Arial Black', 'Arial Black'],
+  ['Impact', 'Impact'],
+  ['Comic Sans MS', 'Comic Sans MS'],
+  ['Georgia', 'Georgia'],
+  ['Times New Roman', 'Times New Roman'],
+  ['Courier New', 'Courier New'],
+  ['Verdana', 'Verdana'],
+  ['Trebuchet MS', 'Trebuchet MS']
+];
+var TAM_TEXTO = [14, 18, 24, 32, 42, 56, 72];
+var puntoTexto = null; /* dónde quedó el toque en el papel (coords del lienzo) */
+function llenarFuentes(){
+  var idsF = ['selFuente', 'selFuente2'], idsT = ['selTamTexto', 'selTamTexto2'], i, j, s;
+  for (i = 0; i < idsF.length; i++) {
+    s = $(idsF[i]); if (!s) continue;
+    s.innerHTML = '';
+    for (j = 0; j < FUENTES.length; j++) {
+      var o = document.createElement('option');
+      o.value = FUENTES[j][0]; o.textContent = FUENTES[j][0];
+      if (FUENTES[j][0] === 'Montserrat') o.selected = true;
+      s.appendChild(o);
+    }
+  }
+  for (i = 0; i < idsT.length; i++) {
+    s = $(idsT[i]); if (!s) continue;
+    s.innerHTML = '';
+    for (j = 0; j < TAM_TEXTO.length; j++) {
+      var o2 = document.createElement('option');
+      o2.value = TAM_TEXTO[j]; o2.textContent = TAM_TEXTO[j] + ' px';
+      if (TAM_TEXTO[j] === 24) o2.selected = true;
+      s.appendChild(o2);
+    }
+  }
+}
+function fuenteAct(){ var s = $('selFuente'); return s && s.value ? s.value : 'Montserrat'; }
+function tamTextoAct(){ var s = $('selTamTexto'); var v = s ? parseInt(s.value, 10) : 24; return v || 24; }
+/* los 4 selectores (2 del panel + 2 del cartel) andan SIEMPRE sincronizados */
+$('selFuente').addEventListener('change', function(){ $('selFuente2').value = this.value; });
+$('selFuente2').addEventListener('change', function(){ $('selFuente').value = this.value; });
+$('selTamTexto').addEventListener('change', function(){ $('selTamTexto2').value = this.value; });
+$('selTamTexto2').addEventListener('change', function(){ $('selTamTexto').value = this.value; });
+function abrirPopTexto(p){
+  puntoTexto = p;
+  $('popTexto').classList.remove('oculto');
+  /* en el cel el teclado tarda un toque: focus con espera suave */
+  setTimeout(function(){ try { $('txtPopTexto').focus(); } catch (e) {} }, 60);
+}
+function cerrarPopTexto(){
+  var pt = $('popTexto');
+  if (pt) pt.classList.add('oculto');
+  puntoTexto = null;
+}
+function pintarTextoAhora(){
+  var t = ($('txtPopTexto').value || '').replace(/^\s+|\s+$/g, '');
+  if (!t) { toast('✍️ Escribí algo primero'); return; }
+  if (!puntoTexto) { cerrarPopTexto(); return; }
+  guardarUndo();
+  var C = lctx();
+  C.fillStyle = colorAct; /* con tu color actual */
+  C.font = '800 ' + tamTextoAct() + 'px "' + fuenteAct() + '", sans-serif';
+  C.textBaseline = 'alphabetic';
+  C.textAlign = 'left';
+  C.fillText(t, puntoTexto.x, puntoTexto.y);
+  C.textAlign = 'start';
+  repintar();
+  cerrarPopTexto();
+  $('txtPopTexto').value = '';
+  toast('🔤 Texto pintado en ' + capas[capaAct].nombre);
+}
+$('btnPintarTexto').onclick = pintarTextoAhora;
+$('btnCancelarTexto').onclick = cerrarPopTexto;
+$('txtPopTexto').addEventListener('keydown', function(e){
+  if (e.key === 'Enter') { e.preventDefault(); pintarTextoAhora(); }
+  else if (e.key === 'Escape') { cerrarPopTexto(); }
+});
+llenarFuentes();
+
 $('btnEnviarDibujo').onclick = function(){
+  repintar(); /* v31: aplano todas las capas visibles antes de mandar */
   var img = lienzo.toDataURL('image/jpeg', 0.85);
   if (img.length > 900000) {
     toast('😬 El dibujo quedó muy pesado, probá con menos detalle');
@@ -3884,7 +4669,6 @@ $('btnEnviarDibujo').onclick = function(){
     toast('❌ No pude mandar el dibujo, probá de nuevo');
   });
 };
-
 /* ---------- 16 · LIGHTBOX (VER DIBUJOS EN GRANDE) ---------- */
 $('cintaMsj').addEventListener('click', function(e){
   var bm = e.target.closest ? e.target.closest('.btnMsjMenu') : null;

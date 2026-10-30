@@ -1,15 +1,93 @@
-# ============================================================
-# SIKODARK CHAT — Reglas de Firestore (solo la parte del chat)
-# Pegá estos TRES bloques dentro del bloque match /databases/{database}/documents {
-# Si tus reglas ya están abiertas (allow read, write: if true), no hace falta.
-#
-# v26: los JUEGOS usan una colección nueva: chat_juegos — agregá su bloque
-# abajo, si no las invitaciones y las jugadas no van a salir.
-# v24: el push YA NO usa una colección aparte — las suscripciones de cada cel
-# viven en chat_usuarios/{uid}, campo "push", y la URL del servidor queda en
-# chat_usuarios/__config__. Con el bloque de chat_usuarios ya alcanza.
-# ============================================================
+// ============================================================
+// SIKODARK · REGLAS COMPLETAS DE FIREBASE (RADIO + CHAT JUNTOS)
+// Actualizado: 28-oct-2026 (v29 del chat) · revisión de reglas del usuario
+//
+// QUÉ ESTABA MAL EN LA VERSIÓN ANTERIOR DEL USUARIO:
+//   1) Los 3 bloques del CHAT quedaron AFUERA de match /databases/{database}/documents
+//      (después de la llave que cierra): Firebase los ignora y el bloque
+//      "bloquear todo lo demás" tapa el chat entero → chat roto.
+//   2) Faltaba el bloque de la colección "imagenes" de la radio.
+//   3) Faltaba la llave final de "service cloud.firestore".
+//
+// ¿QUERÉS LAS REGLAS DEL CHAT SOLO, POR SEPARADO?
+// → mirá el archivo REGLAS-SOLO-CHAT.txt (misma carpeta / junto a este).
+//
+// DÓNDE VA: Firebase Console → Firestore Database → pestaña "Reglas"
+//   1) BORRÁ todo lo que esté en el cuadro de reglas
+//   2) PEGÁ este archivo ENTERO (desde rules_version hasta la última llave)
+//   3) Tocá PUBLICAR
+//
+// IMPORTANTE: en un proyecto de Firebase las reglas viven TODAS en este
+// único cuadro (no se pueden separar en dos paneles). Lo que SÍ queda
+// separado es cada colección: cada bloque "match" es independiente —
+// las reglas del CHAT no tocan a la RADIO y viceversa.
+// ============================================================
 
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ==================== RADIO SIKODARK ====================
+
+    // === USUARIOS ===
+    match /usuarios/{docId} {
+      allow read, write: if request.auth != null;
+    }
+
+    // === VISITAS, ESCUCHAS, MEGUSTAS, TOKENS ===
+    match /visitas/{docId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null;
+    }
+    match /escuchas/{docId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null;
+    }
+    match /megustas/{docId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null;
+    }
+    match /tokens/{docId} {
+      allow read, write: if request.auth != null;
+    }
+
+    // === PRESENCIA ===
+    match /presencia/{docId} {
+      allow read, write: if request.auth != null;
+    }
+
+    // === IMAGENES (la habías dejado afuera — sin este bloque quedaba bloqueada) ===
+    match /imagenes/{docId} {
+      allow read, write: if request.auth != null;
+    }
+
+    // === CONFIG (avisos, publicidad, encuesta) ===
+    // Cualquier usuario autenticado (incluido anónimo) puede LEER.
+    // Solo el admin puede ESCRIBIR.
+    match /config/{docId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth.token.email == "sikoradio@hotmail.com";
+      // Excepción: los votos de la encuesta los puede sumar cualquier oyente
+      // (lo hacemos via FieldValue.arrayUnion desde el cliente)
+      allow update: if request.auth != null
+        && request.resource.data.diff(resource.data)
+            .affectedKeys().hasOnly(['encuesta']);
+    }
+
+    // === PEDIDOS DE TEMAS ===
+    // Cualquier usuario autenticado (incluido anónimo) puede crear pedidos.
+    // Solo el admin puede leerlos y borrarlos.
+    match /temas_pedidos/{docId} {
+      allow create: if request.auth != null
+        && request.resource.data.banda is string
+        && request.resource.data.banda.size() <= 60
+        && request.resource.data.fecha is int;
+      allow read, delete, update: if request.auth.token.email == "sikoradio@hotmail.com";
+    }
+
+    // ==================== SIKOCHAT (el chat) ====================
+    // ⬇️ ADENTRO de match /databases/... — cada bloque independiente de la radio
     match /chat_usuarios/{doc} {
       allow read, write: if true;
     }
@@ -21,3 +99,10 @@
     match /chat_juegos/{doc} {
       allow read, write: if true;
     }
+
+    // === Bloquear todo lo demás por defecto ===
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
