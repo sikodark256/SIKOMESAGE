@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- SikoChat v34 · 🔤 TEXTO CON FUENTES + PANELES QUE SE CIERRAN (pedido del usuario): la pizarra tiene herramienta TEXTO nueva (la T de la columna): tocás el papel, escribís, y queda pintado en la capa elegida con tu COLOR y la FUENTE que elijas (Montserrat, Arial, Impact, Cómic y más, con tamaño de 14 a 72 — los selectores de fuente viven en el panel de CAPAS, ahí al lado del color, y también dentro del cartel de escribir para el cel) · el panel de CAPAS ahora tiene la FLECHITA para cerrarlo (en el cel el cajón tapaba la pantalla y no había forma de sacarlo) y además se cierra tocando afuera; en PC/TV la flechita lo pliega y el botón de capas de la barra lo vuelve a abrir · IMPORTAR IMAGEN ahora abre el selector por defecto en JPG, PNG o WEBP (y si elegís otro formato avisa) · + v33 · 🎨 PIZARRA MODERNA + PANTALLA COMPLETA (mismo diseño que la imagen de muestra): barra de ARRIBA con iconos SVG modernos (deshacer, limpiar, importar, capas, pantalla completa y cerrar — sin emojis ni texto largo), herramientas en COLUMNA con iconos trazo fino que se pintan naranjas cuando las elegís, grosores como puntitos y el COLOR en un solo botón (el circulito muestra tu color actual y al tocarlo abre la paleta completa con el selector de degradado adentro), zoom FLOTANTE sobre el papel (− % + y ajustar, esquina inferior derecha, ya no ocupa una fila), capas a la DERECHA en PC/TV y en el cel entran como CAJÓN desde la derecha con el botón de capas, y ⛶ PANTALLA COMPLETA de verdad (requestFullscreen con respaldo webkit para navegadores viejos de TV — si el navegador no la permite, la pizarra ya cubre todo): todo se reacomoda solo para PC, TV y cel · + v32 · 🔍 ZOOM + PAPEL BLANCO EN LA PIZARRA (igual diseño, como la imagen de referencia): el dibujo ahora es una hoja BLANCA dentro de una ventana con marco naranja · botones 🔍➕ Acercar / 🔍➖ Alejar con el porcentaje al medio (100% → 800%) y ⤢ Ajustar para volver al tamaño justo · con zoom el papel se arrastra con ✋ Mover (o los scroll de la ventana) · en el cel se estira/aplasta con 2 DEDOS (pellizco) y en PC Ctrl + rueda del mouse acerca justo al punto del puntero · desde 300% el papel muestra píxeles grandes para rematar detalles chicos · + v31 · 🎨 PIZARRA PRO CON CAPAS: la pizarrita ahora es un mini programa de dibujo de verdad — 🧱 CAPAS (arranca con 2, hasta 6: ojito para mostrar/ocultar, ➕ nueva, 🗑️ borrar, miniatura de cada una, se dibuja en la capa elegida y quedan como papeles transparentes superpuestos), 🖌️ BROCHA con cerdas (textura, no tira lisa), 💨 DIFUMINADO tipo aerógrafo para sombras y pasos suaves, 🎨 SELECTOR DE COLOR con cuadro de degradado + barra arcoíris (cualquier color, como la imagen pedida), 🖼️ IMPORTAR IMAGEN (la foto entra en una capa de abajo para calcar encima), la goma borra la capa elegida, Limpiar vacía solo la capa elegida, deshacer por capa y al mandar se aplanan las capas visibles · + v30 · 🔀 CHAT CON PROYECTO PROPIO DE FIREBASE (REGLAS SEPARADAS DE LA RADIO): la config de Firebase salió del código a un archivo aparte chat-config.js — creás un proyecto nuevo, pegás las claves ahí y el chat deja de depender del proyecto de la radio PARA SIEMPRE (cada vez que cambiabas las reglas de la radio el chat se rompía: esto lo arregla de raíz); mientras no cambies el archivo el chat sigue EXACTAMENTE igual que siempre (respaldo automático), y el botón 📲 ACTIVAR PUSH copia el servidor con el proyecto nuevo puesto solo · + v29 · 👥 LOS CONTACTOS NO SE BORRAN MÁS: el chat tenía una "limpieza automática" que BORRABA de Firebase a cada contacto que no entraba hace más de 24 horas — por eso la lista quedaba solo con los que estaban escribiendo en el momento y "desaparecían" los demás; ahora los contactos QUEDAN SIEMPRE en la lista con su "visto hace" (estilo MSN: los desconectados también se ven) y solo se limpian los mensajes viejos (12 h) y las partidas abandonadas (6 h) · + v28 · 📺 TABLERO ARREGLADO PARA TV: en varias televisiones el tablero salía APLASTADO (una tira chata) porque el navegador de la TV es viejo y no conoce la medida "aspect-ratio" — ahora el chat MIDE cada casilla y le pone el alto justo con JavaScript: casilleros bien cuadrados en cualquier TV, PC o cel, y la mesa grande arranca desde 900px de ancho · + v27 · 🏁 TERMINAR PARTIDA: mientras jugás hay un botón 🏁 TERMINAR junto a Salir — la partida se cierra PARA LOS DOS (al otro le queda el resultado y la revancha) · + v27 · YA NO REAPARECE SOLA: si salís de una partida a medio jugar no se reabre sola cuando recargás el chat (queda guardado en tu dispositivo; si el otro mueve te avisa con una tostada y volvés tocando 🎮) · + v27 · 📺 MESA A PANTALLA GRANDE: en PC y TV el tablero, las fichas, el marcador y los botones se agrandan para aprovechar la pantalla · + v26 · 🎮 JUEGOS EN LÍNEA DE 2: damas · ajedrez · ta-te-ti · conecta 4 · piedra-papel-tijera — invitás desde el chat privado o la lista de contactos, al otro le salta la invitación tipo llamada, juegan en vivo cada uno desde su pantalla (sincronizado con Firestore, colección chat_juegos), con marcador, revancha y recuperación de partidas · + v25 · ← INICIO ARRIBA: botón para VOLVER a los contactos cuando entrás al grupo o a un privado (arriba a la izquierda, como WhatsApp; en el cel) · VOLUMEN: en 🎵 Tonos ahora hay un slider de volumen (0–100%) para los sonidos y avisos del chat, se guarda en tu dispositivo y en 0 queda todo mudo · + v24 PUSH ACTIVABLE DESDE EL CHAT: el servidor de empuje se configura ADENTRO (🔔 Avisos → 📲 ACTIVAR PUSH: copiar código → crear el worker gratis en Cloudflare → pegar la URL → GUARDAR Y PROBAR); la URL queda guardada en Firestore (chat_usuarios/__config__) y sirve para TODOS — ya no hay que editar el código ni volver a subir archivos por esto; las suscripciones de cada cel ahora se guardan en chat_usuarios/{uid}.push (sin colección nueva ni reglas extra) y el servidor es verificado en vivo desde la Central (estado: OK / viejo / caído, con detalle) · + v23 BANDEJA LIMPIA TIPO WHATSAPP: sin avisos de "se conectó", título = SOLO el nombre del que escribe, foto del remitente como imagen, grupo = 💬 CHAT GRUPAL con "juan: mensaje"; el rótulo de la dirección (github.io) lo pinta el NAVEGADOR por seguridad y no se puede sacar por código — con la app instalada Chrome puede mostrar "SikoChat" · + v22 PUSH REAL: cada cel se suscribe al empuje (Web Push con llaves VAPID) y el servidor manda el aviso cifrado aunque la PWA esté totalmente cerrada · + SIN DUPLICADO EN LA LISTA: tu nombre aparece UNA sola vez y los contadores ya no te cuentan a vos · + CENTRAL DE AVISOS: estado real del dispositivo, PROBAR AVISO AHORA, ayuda Android/iPhone y 🫀 MODO SIEMPRE ACTIVO · + NAVEGACIÓN TIPO APP EN EL CEL: lista ↔ chat con botón 👥 CONTACTOS · + PANEL DEL CEL ESTILO MSN · SIN contraseña (opcional) · badge de no leídos · PIZARRITA PAINT · TODOS en la lista con visto hace · reacciones ❤️ reenviar ↪️ borrar 🗑️ favoritos ⭐ · emotis/stikers/gifs/fotos · tonos · radio · temas · perfil · privado · instalar como app -->
+<!-- SikoChat v37 · ✍️ VISTA PREVIA DE LA LETRA + 🎃 FUENTES DE TERROR + 🧷 FIGURITAS PREARMADAS: en el panel de la derecha (la misma área de las CAPAS) la sección TEXTO ahora muestra una VISTA PREVIA grande donde se ve EXACTAMENTE cómo va a salir la letra — con la fuente elegida, el tamaño y el color de la paleta, y cambia EN VIVO mientras escribís o probás fuentes · entraron 5 FUENTES DE TERROR para Halloween (Creepster, Nosifer, Eater, Butcherman y Frijole) que se ven tal cual en el papel y en el propio menú · y ABAJO del texto entró la sección nueva 🧷 FIGURITAS: 24 logitos prearmados (estrellitas, corazones, luna, fuego, murciélago, calabaza, fantasma, calavera, araña, telaraña y emojis de siempre) — tocás una, queda FLOTANDO sobre el papel, la ARRASTRÁS a cualquier lugar, la agrandás o achicás con A+ / A− y con ✔ la fijás en la capa elegida (se puede deshacer como cualquier trazo) · + v36 · 🎨 PALETA EN EL PANEL + 👆 DEDO (LICUAR) + CERRAR ABAJO: la paleta de colores SALIÓ del menú del riel (la X amarilla de tu captura) y ahora vive EN EL PANEL DE LA DERECHA debajo de las capas y el texto — con los 14 colores de siempre, el cuadro de degradado, la barra del arcoíris y un CÍRCULO GRANDE que muestra EN VIVO el color elegido · herramienta nueva 👆 DEDO (licuar como en Photoshop): tocás el color ya pintado y lo JALÁS para estirarlo y mezclarlo · el botón CERRAR volvió a estar ABAJO al lado de ENVIAR DIBUJO (arriba queda el ✕ chiquito de siempre) · si la pantalla es baja el riel scrollea adentro y ningún icono queda recortado · + v35 · 🖌️ PIZARRA COMO LA CAPTURA DEL DUEÑO: el panel de dibujo quedó IGUAL a la imagen que mandó — herramientas en una COLUMNA de iconos a la IZQUIERDA (lápiz, pincel, brocha, difuminado, bote, goma, texto y mover — al tocar cada uno se ilumina en naranja), ARRIBA quedaron los botones deshacer ↩️ · limpiar 🗑️ · importar imagen 🖼️ · capas 🧱 (muestra/esconde el panel) · ⛶ pantalla completa · ✕ cerrar, las CAPAS y el TEXTO (fuente + color) siguen a la DERECHA y abajo el botón grande ENVIAR DIBUJO — en el cel el riel se corre de lado y las capas arrancan escondidas como siempre · TODO lo demás de la pizarra sigue exacto: papel blanco, zoom, capas, texto arrastrable, deshacer por capa · + v34 · 🎙️ RADIO Y COMPARTIR ARRIBA: los botones 📻 Radio y 📤 Compartir SALIERON de la barra de abajo (quedó más limpia) y ahora son DOS LOGITOS en la barra del título — la radio usa el logo de los auriculares naranjas del propio SikoChat (chip negro) y al lado está el logito de compartir · 📲 COMPARTIR CON IMAGEN: al compartir por WhatsApp sale la tarjetita “Dibuja · Escucha Radio · Chatea” con la carita de SikoChat y ABAJO el link (en el cel va con imagen incluida gracias al compartir nativo; en PC/TV WhatsApp arma la tarjetita sola leyendo los datos nuevos de la página) · + v33 · 🎨 PIZARRA REDISEÑADA ESTILO MODERNO: ya no está todo amontonado — herramientas en tarjetas separadas con ICONOS SVG modernos (nada de caritas negras en la TV), el GROSOR y el COLOR entrán DENTRO de un botón (menú desplegable) y hay un botón ⛶ PANTALLA COMPLETA que funciona en PC, TV y cel · ✍️ HERRAMIENTA DE TEXTO: elegís la FUENTE y sale con el COLOR de la paleta, el texto queda FLOTANDO sobre el papel, lo ARRASTRÁS a cualquier lugar, lo AGRANDÁS con A+ / A− y lo fijás con ✔ (entra en la capa elegida y se puede deshacer) · 🧱 CAPAS PLEGABLES: el visor de capas ahora tiene FLECHA para esconderlo — en el cel arranca escondido y YA NO TAPA la pantalla · 🖼️ IMPORTAR IMAGEN filtra por defecto JPG / PNG / WEBP · 😀 EMOJIS SIEMPRE A COLOR: el chat usa Twemoji (los dibujitos de X/Twitter) así en las TVs que mostraban los emojis NEGROS ahora se ven a color — mensajes, contactos, emotis y stikers · 🎞️ GIFs INFINITOS: la pestaña GIFs ahora tiene BUSCADOR de Tenor (Google) — gratis con tu propia clave en el archivo nuevo gif-config.js (pasos en el README); sin clave siguen los GIFs de Sikodark de siempre · + v32 · 🔍 ZOOM + PAPEL BLANCO EN LA PIZARRA (igual diseño, como la imagen de referencia): el dibujo ahora es una hoja BLANCA dentro de una ventana con marco naranja · botones 🔍➕ Acercar / 🔍➖ Alejar con el porcentaje al medio (100% → 800%) y ⤢ Ajustar para volver al tamaño justo · con zoom el papel se arrastra con ✋ Mover (o los scroll de la ventana) · en el cel se estira/aplasta con 2 DEDOS (pellizco) y en PC Ctrl + rueda del mouse acerca justo al punto del puntero · desde 300% el papel muestra píxeles grandes para rematar detalles chicos · + v31 · 🎨 PIZARRA PRO CON CAPAS: la pizarrita ahora es un mini programa de dibujo de verdad — 🧱 CAPAS (arranca con 2, hasta 6: ojito para mostrar/ocultar, ➕ nueva, 🗑️ borrar, miniatura de cada una, se dibuja en la capa elegida y quedan como papeles transparentes superpuestos), 🖌️ BROCHA con cerdas (textura, no tira lisa), 💨 DIFUMINADO tipo aerógrafo para sombras y pasos suaves, 🎨 SELECTOR DE COLOR con cuadro de degradado + barra arcoíris (cualquier color, como la imagen pedida), 🖼️ IMPORTAR IMAGEN (la foto entra en una capa de abajo para calcar encima), la goma borra la capa elegida, Limpiar vacía solo la capa elegida, deshacer por capa y al mandar se aplanan las capas visibles · + v30 · 🔀 CHAT CON PROYECTO PROPIO DE FIREBASE (REGLAS SEPARADAS DE LA RADIO): la config de Firebase salió del código a un archivo aparte chat-config.js — creás un proyecto nuevo, pegás las claves ahí y el chat deja de depender del proyecto de la radio PARA SIEMPRE (cada vez que cambiabas las reglas de la radio el chat se rompía: esto lo arregla de raíz); mientras no cambies el archivo el chat sigue EXACTAMENTE igual que siempre (respaldo automático), y el botón 📲 ACTIVAR PUSH copia el servidor con el proyecto nuevo puesto solo · + v29 · 👥 LOS CONTACTOS NO SE BORRAN MÁS: el chat tenía una "limpieza automática" que BORRABA de Firebase a cada contacto que no entraba hace más de 24 horas — por eso la lista quedaba solo con los que estaban escribiendo en el momento y "desaparecían" los demás; ahora los contactos QUEDAN SIEMPRE en la lista con su "visto hace" (estilo MSN: los desconectados también se ven) y solo se limpian los mensajes viejos (12 h) y las partidas abandonadas (6 h) · + v28 · 📺 TABLERO ARREGLADO PARA TV: en varias televisiones el tablero salía APLASTADO (una tira chata) porque el navegador de la TV es viejo y no conoce la medida "aspect-ratio" — ahora el chat MIDE cada casilla y le pone el alto justo con JavaScript: casilleros bien cuadrados en cualquier TV, PC o cel, y la mesa grande arranca desde 900px de ancho · + v27 · 🏁 TERMINAR PARTIDA: mientras jugás hay un botón 🏁 TERMINAR junto a Salir — la partida se cierra PARA LOS DOS (al otro le queda el resultado y la revancha) · + v27 · YA NO REAPARECE SOLA: si salís de una partida a medio jugar no se reabre sola cuando recargás el chat (queda guardado en tu dispositivo; si el otro mueve te avisa con una tostada y volvés tocando 🎮) · + v27 · 📺 MESA A PANTALLA GRANDE: en PC y TV el tablero, las fichas, el marcador y los botones se agrandan para aprovechar la pantalla · + v26 · 🎮 JUEGOS EN LÍNEA DE 2: damas · ajedrez · ta-te-ti · conecta 4 · piedra-papel-tijera — invitás desde el chat privado o la lista de contactos, al otro le salta la invitación tipo llamada, juegan en vivo cada uno desde su pantalla (sincronizado con Firestore, colección chat_juegos), con marcador, revancha y recuperación de partidas · + v25 · ← INICIO ARRIBA: botón para VOLVER a los contactos cuando entrás al grupo o a un privado (arriba a la izquierda, como WhatsApp; en el cel) · VOLUMEN: en 🎵 Tonos ahora hay un slider de volumen (0–100%) para los sonidos y avisos del chat, se guarda en tu dispositivo y en 0 queda todo mudo · + v24 PUSH ACTIVABLE DESDE EL CHAT: el servidor de empuje se configura ADENTRO (🔔 Avisos → 📲 ACTIVAR PUSH: copiar código → crear el worker gratis en Cloudflare → pegar la URL → GUARDAR Y PROBAR); la URL queda guardada en Firestore (chat_usuarios/__config__) y sirve para TODOS — ya no hay que editar el código ni volver a subir archivos por esto; las suscripciones de cada cel ahora se guardan en chat_usuarios/{uid}.push (sin colección nueva ni reglas extra) y el servidor es verificado en vivo desde la Central (estado: OK / viejo / caído, con detalle) · + v23 BANDEJA LIMPIA TIPO WHATSAPP: sin avisos de "se conectó", título = SOLO el nombre del que escribe, foto del remitente como imagen, grupo = 💬 CHAT GRUPAL con "juan: mensaje"; el rótulo de la dirección (github.io) lo pinta el NAVEGADOR por seguridad y no se puede sacar por código — con la app instalada Chrome puede mostrar "SikoChat" · + v22 PUSH REAL: cada cel se suscribe al empuje (Web Push con llaves VAPID) y el servidor manda el aviso cifrado aunque la PWA esté totalmente cerrada · + SIN DUPLICADO EN LA LISTA: tu nombre aparece UNA sola vez y los contadores ya no te cuentan a vos · + CENTRAL DE AVISOS: estado real del dispositivo, PROBAR AVISO AHORA, ayuda Android/iPhone y 🫀 MODO SIEMPRE ACTIVO · + NAVEGACIÓN TIPO APP EN EL CEL: lista ↔ chat con botón 👥 CONTACTOS · + PANEL DEL CEL ESTILO MSN · SIN contraseña (opcional) · badge de no leídos · PIZARRITA PAINT · TODOS en la lista con visto hace · reacciones ❤️ reenviar ↪️ borrar 🗑️ favoritos ⭐ · emotis/stikers/gifs/fotos · tonos · radio · temas · perfil · privado · instalar como app -->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -11,12 +11,23 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-title" content="SikoChat">
+<!-- v34: TARJETITA DE WHATSAPP / TELEGRAM — cuando alguien comparte el link, sale la promo con la carita, “Dibuja · Escucha Radio · Chatea” y el link abajo -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SIKO CHAT">
+<meta property="og:title" content="SIKO CHAT — Dibuja, Escucha Radio y Chatea">
+<meta property="og:description" content="El messenger de Sikodark Radio: chat en vivo, pizarra para dibujar, jueguitos y radio online. Sin registro. 🖤🧡">
+<meta property="og:image" content="https://sikochat.vercel.app/compartir-sikochat.jpg">
+<meta property="og:image:width" content="1080">
+<meta property="og:image:height" content="802">
+<meta property="og:url" content="https://sikochat.vercel.app/">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<!-- v37: las fuentes de terror entran por Google Fonts (mismo canal de Montserrat; el navegador las guarda solas) -->
+<link href="https://fonts.googleapis.com/css2?family=Butcherman&family=Creepster&family=Eater&family=Frijole&family=Montserrat:wght@400;600;700;800;900&family=Nosifer&display=swap" rel="stylesheet">
 <style>
 :root{
   --naranja:#f59d3d;
@@ -159,6 +170,23 @@ body.tema-claro .logoClaro{display:block}
   place-items:center;font-size:9px;font-weight:900;cursor:pointer;user-select:none;
 }
 .btnVent:hover{background:rgba(0,0,0,.18)}
+/* v34: LOGITOS de RADIO y COMPARTIR en la barra de arriba — chip negro con el ícono naranja (igual que el logo que mandó el dueño) */
+.btnVentLog{
+  width:26px;height:22px;border:none;border-radius:6px;display:grid;place-items:center;
+  background:#000;cursor:pointer;flex-shrink:0;padding:0;
+  transition:background .15s,transform .15s;
+}
+.btnVentLog img{width:16px;height:16px;display:block}
+.btnVentLog svg{display:block}
+.btnVentLog:hover{background:#161616;transform:translateY(-1px)}
+.btnVentLog:active{transform:scale(.9)}
+@media (max-width:620px){
+  .barraTitulo{gap:6px;padding:8px 8px}
+  .barraTitulo strong{font-size:11.5px;white-space:nowrap}
+  .tituloEstado{max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .btnVentLog{width:24px;height:21px}
+  .btnVentLog img,.btnVentLog svg{width:15px;height:15px}
+}
 
 .barraUsuario{
   display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--barra);
@@ -357,6 +385,22 @@ body.tema-claro .logoClaro{display:block}
 .gridGifs img{width:100%;border-radius:9px;cursor:pointer;border:1px solid var(--borde2);display:block}
 .gridGifs img:hover{border-color:var(--naranja)}
 .gifNota{font-size:10px;color:var(--tx4);margin-top:8px;line-height:1.5;text-align:center}
+/* v33: buscador de GIFs de Tenor + emojis Twemoji siempre a color */
+.gifBusca{display:flex;gap:6px;align-items:center;margin-bottom:8px}
+.gifBuscaInput{
+  flex:1;min-width:0;background:var(--fondo);border:1px solid var(--borde2);color:var(--tx1);
+  border-radius:10px;padding:10px 12px;font-weight:700;font-size:13px;font-family:inherit;
+}
+.gifBuscaInput:focus{border-color:var(--naranja);outline:none}
+.btnGifBusca{
+  background:rgba(var(--acento-rgb),.14);border:1px solid var(--naranja);color:var(--naranja);
+  border-radius:10px;padding:10px 14px;font-weight:900;font-size:12.5px;cursor:pointer;font-family:inherit;flex:none;
+}
+.btnGifBusca:hover{background:rgba(var(--acento-rgb),.28)}
+img.emoji{height:1.15em;width:1.15em;margin:0 .08em;vertical-align:-0.18em;display:inline-block}
+.emo img.emoji{width:24px;height:24px;vertical-align:-6px}
+.stkBtn img.emoji{width:34px;height:34px;vertical-align:-8px}
+.stikerBig img.emoji{width:1em;height:1em;vertical-align:-0.12em}
 .btnExplorador{
   width:100%;margin-bottom:8px;padding:12px;border-radius:10px;border:2px dashed var(--naranja);
   background:rgba(var(--acento-rgb),.10);color:var(--naranja);font-weight:900;font-size:12.5px;
@@ -432,46 +476,27 @@ body.tema-claro .logoClaro{display:block}
 .chipSonido{background:var(--fondo);border:1px solid var(--borde2);color:var(--tx2);padding:8px 12px;border-radius:999px;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit}
 .chipSonido.activo{border-color:var(--naranja);color:var(--naranja);background:rgba(var(--acento-rgb),.14)}
 
-/* ============ PIZARRITA (DIBUJO) ============ */
-/* v33 · PIZARRA MODERNA (como la imagen de muestra): barra de arriba con iconos, herramientas
-   en columna con iconos SVG, zoom flotante sobre el papel, capas a la derecha (cajón en el cel)
-   y botón de PANTALLA COMPLETA que se adapta a PC y TV */
+/* ============ PIZARRITA (DIBUJO) · v33 REDISEÑO MODERNO ============
+   Ya no está todo amontonado: cada fila es una TARJETA separada, los botones
+   llevan ICONOS SVG modernos (nada de emojis negros en la TV), el grosor y el
+   color entran DENTRO de un botón (menú desplegable), hay ⛶ pantalla completa
+   y el visor de capas es PLEGABLE con flecha (en el cel ya no tapa nada). */
 #overlayDibujo{
-  position:fixed;inset:0;background:#0b0b0d;z-index:80;display:flex;
-  flex-direction:column;align-items:center;padding:10px;gap:8px;overflow:auto;
+  position:fixed;inset:0;background:rgba(0,0,0,.94);z-index:80;display:flex;
+  flex-direction:column;align-items:center;justify-content:flex-start;padding:12px;gap:12px;overflow-y:auto;
 }
-#overlayDibujo:fullscreen,#overlayDibujo:-webkit-full-screen{background:#0b0b0d}
-.dbTop{width:100%;max-width:1200px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex:none}
-.dbMarca{display:flex;align-items:center;gap:7px;font-size:14px;font-weight:900;color:var(--naranja);letter-spacing:1.5px}
-.dbMarca svg{width:17px;height:17px}
-.dbTopAcc{display:flex;gap:6px}
-.btnIcono{
-  width:40px;height:40px;flex:none;display:grid;place-items:center;border-radius:11px;
-  background:var(--panel2);border:1px solid var(--borde2);color:var(--tx1);cursor:pointer;padding:0;
-}
-.btnIcono svg{width:19px;height:19px}
-.btnIcono:hover{border-color:var(--naranja);color:var(--naranja)}
-.btnIcono.activo{background:rgba(var(--acento-rgb),.18);border-color:var(--naranja);color:var(--naranja)}
-.dbCuerpo{flex:1;min-height:0;width:100%;max-width:1200px;display:flex;gap:10px;align-items:stretch;justify-content:center}
-.dbColHerr{
-  display:flex;flex-direction:column;gap:7px;padding:8px;border-radius:14px;
-  background:var(--panel2);border:1px solid var(--borde2);overflow-y:auto;flex:none;
-}
-.dbSep{height:1px;background:var(--borde2);margin:2px 3px;flex:none}
-.pt{display:block;border-radius:50%;background:currentColor}
-.pt1{width:5px;height:5px}.pt2{width:10px;height:10px}.pt3{width:16px;height:16px}
-#swatchColor{display:block;width:20px;height:20px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px var(--borde2)}
-.dbCentro{position:relative;flex:1;min-width:0;min-height:0;display:flex;align-items:center;justify-content:center}
-/* min-height:0 es CLAVE: deja que la ventana del papel se recorte al alto disponible y el
-   sobrante se pasee con scroll (si no, el contenedor crece con el zoom y nunca hay scroll) */
-/* v33: el zoom flotante va FIJO en la esquina de la pantalla (como las apps de dibujo),
-   siempre a mano aunque el papel scrollee; en el cel queda encima del botón de enviar */
-/* v32: el lienzo es PAPEL BLANCO dentro de una ventana con scroll. v33: crece en PC/TV
-   sin pasarse del alto (ratio 4:3) y la ventana lo recorta para pasear con zoom */
+.dibujoCab{display:flex;align-items:center;gap:10px;width:min(97vw,1080px);justify-content:space-between}
+.dibujoCabAcc{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.dibujoTitulo{font-size:16px;font-weight:900;color:var(--naranja);letter-spacing:.5px;display:flex;align-items:center;gap:8px}
+.dibujoSub{font-size:11px;font-weight:700;color:var(--tx4);letter-spacing:0}
+.btnPantalla.fsActivo{border-color:var(--naranja);background:rgba(var(--acento-rgb),.24);color:var(--naranja)}
+/* v32: el lienzo es PAPEL BLANCO dentro de una ventana con scroll (como la imagen de
+   referencia). La ventana #vpLienzo tiene el marco naranja; cuando el zoom agranda el
+   papel, la ventana lo recorta y lo deja arrastrar/scroll — como en los programas de dibujo */
 #vpLienzo{
-  width:min(100%, 920px);max-height:calc(100vh - 190px);overflow:auto;
-  border:2px solid var(--naranja);border-radius:12px;background:#fff;
-  touch-action:pan-x pan-y;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;
+  position:relative;
+  width:min(92vw,640px);max-height:56vh;overflow:auto;border:2px solid var(--naranja);border-radius:14px;
+  background:#fff;touch-action:pan-x pan-y;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;
 }
 #vpLienzo::-webkit-scrollbar{width:9px;height:9px}
 #vpLienzo::-webkit-scrollbar-track{background:rgba(0,0,0,.25)}
@@ -481,118 +506,175 @@ body.tema-claro .logoClaro{display:block}
   -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;
 }
 #lienzo.pix{image-rendering:pixelated} /* desde 300%: píxel grande para detalle fino */
-.dbZoom{
-  position:fixed;right:12px;bottom:12px;display:flex;align-items:center;gap:3px;
-  background:rgba(12,12,14,.78);border:1px solid rgba(245,157,61,.5);border-radius:12px;padding:4px;
-  z-index:6;
-}
-.dbZoom button{
-  width:32px;height:32px;flex:none;display:grid;place-items:center;border-radius:9px;cursor:pointer;padding:0;
-  background:transparent;border:1px solid transparent;color:var(--tx1);
-}
-.dbZoom button svg{width:16px;height:16px}
-.dbZoom button:hover{border-color:var(--naranja);color:var(--naranja)}
 .zoomEtq{
-  min-width:46px;text-align:center;font-size:12px;font-weight:900;color:var(--naranja);
-  letter-spacing:.5px;user-select:none;-webkit-user-select:none;
+  min-width:56px;text-align:center;font-size:14px;font-weight:900;color:var(--naranja);
+  letter-spacing:.5px;user-select:none;-webkit-user-select:none;padding:6px 0;
 }
-.herrDibujo{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:580px}
-.colorBtn{width:34px;height:34px;border-radius:50%;border:2px solid var(--borde2);cursor:pointer;padding:0}
-.colorBtn.sel{border-color:var(--contra);transform:scale(1.15)}
+/* v33: tarjetas de herramientas */
+.cardDibujo{
+  position:relative;
+  background:var(--panel2);border:1px solid var(--borde2);border-radius:14px;padding:7px 8px;
+  display:flex;align-items:center;gap:5px;max-width:min(96vw,660px);
+}
+.filaHerr{display:flex;align-items:center;gap:5px;flex-wrap:wrap;justify-content:center;max-width:100%;padding:2px}
+.sepV{width:1px;height:24px;background:var(--borde2);flex:none;margin:0 3px}
+.herrDibujo{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.colorBtn{width:30px;height:30px;border-radius:50%;border:2px solid var(--borde2);cursor:pointer;padding:0;flex:none}
+.colorBtn.sel{border-color:var(--contra);transform:scale(1.18)}
 .btnDibujo{
-  background:var(--panel2);border:1px solid var(--borde2);color:var(--tx1);padding:9px 12px;border-radius:9px;
-  font-size:13px;font-weight:800;cursor:pointer;
+  display:inline-flex;align-items:center;gap:6px;
+  background:#161616;border:1px solid #2e2e2e;color:#d8d8d8;padding:9px 11px;border-radius:11px;
+  font-size:12.5px;font-weight:800;cursor:pointer;font-family:inherit;white-space:nowrap;flex:none;
+  transition:border-color .15s,background .15s,color .15s;
 }
-.btnDibujo:hover{border-color:var(--naranja)}
-.btnDibujo.activo{background:rgba(var(--acento-rgb),.18);border-color:var(--naranja);color:var(--naranja)}
-.accionesDibujo{display:flex;gap:8px;align-items:center}
+.btnDibujo:hover{border-color:var(--naranja);color:var(--tx1)}
+.btnDibujo.activo{background:rgba(var(--acento-rgb),.16);border-color:var(--naranja);color:var(--naranja)}
+.btnDibujo.btnIconoD{width:37px;height:37px;padding:0;justify-content:center;border-radius:11px}
+/* v35: RIEL de herramientas VERTICAL a la izquierda — igual a la captura del dueño:
+   iconos apilados sin textos; Deshacer/Limpiar/Importar/Capas/⛶/✕ pasan ARRIBA;
+   los menús de Trazo y Color abren hacia la DERECHA del riel */
+#herrHerram{flex-direction:column;padding:8px 7px;gap:0;max-height:calc(100vh - 215px)}
+/* v36: si la pantalla es baja (o el navegador con zoom), la LISTA de herramientas scrollea
+   adentro del riel — ningún icono queda recortado y Trazo queda siempre a la vista */
+#herrHerram .filaHerr{flex-direction:column;flex-wrap:nowrap;gap:5px;min-height:0;justify-content:flex-start;overflow-y:auto;scrollbar-width:none}
+/* (justify-content:flex-start es CLAVE: el center heredado de .filaHerr centra en vertical y
+   el scroll pierde el tramo de arriba — bug clásico de flexbox con overflow) */
+#herrHerram .filaHerr::-webkit-scrollbar{display:none}
+#herrHerram .btnHerr,#herrHerram #btnPopGrosor{width:40px;height:40px;padding:0;justify-content:center}
+#herrHerram .etqHerr{display:none}
+#herrHerram .sepV{width:28px;height:1px;margin:3px 0;flex:none}
+#herrHerram .popDibujo{left:calc(100% + 12px);top:50%;transform:translateY(-50%);max-height:calc(100vh - 30px);overflow-y:auto}
+#herrHerram .popDibujo.popArriba{top:50%;bottom:auto;transform:translateY(-50%)}
+/* v35: en cel el RIEL pasa a FILA horizontal (se corre de lado) y los menús abren arriba/abajo.
+   Va DESPUÉS de las reglas del riel para ganar el cascade (misma especificidad).
+   OJO: el scroll va en .filaHerr (la fila interna), NO en el riel — un riel con overflow
+   RECORTARÍA los menús desplegables; así Trazo y Color quedan siempre a la vista. */
+@media (max-width:620px){
+  #herrHerram{flex-direction:row;max-width:min(96vw,560px);padding:7px}
+  #herrHerram .filaHerr{flex:1 1 auto;min-width:0;flex-direction:row;flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;scrollbar-width:thin}
+  #herrHerram .filaHerr::-webkit-scrollbar{height:6px}
+  #herrHerram .filaHerr::-webkit-scrollbar-thumb{background:var(--borde2);border-radius:4px}
+  #herrHerram .sepV{width:1px;height:24px;margin:0 3px}
+  #herrHerram .popDibujo{left:50%;top:calc(100% + 10px);transform:translateX(-50%);max-height:none;overflow:visible}
+  #herrHerram .popDibujo.popArriba{top:auto;bottom:calc(100% + 10px);transform:translateX(-50%)}
+  .dibujoCabAcc .btnIconoD{width:34px;height:34px}
+  .dibujoTitulo .dibujoSub{display:none}
+}
+/* v33: iconos SVG modernos (heredan el color del botón) */
+svg.ico{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.chipColor{width:14px;height:14px;border-radius:50%;background:var(--naranja);border:1px solid rgba(255,255,255,.35);flex:none;display:inline-block}
+/* v33: funciones agrupadas — menús desplegables dentro de un botón */
+.popDibujo{
+  position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%);
+  background:#141414;border:1px solid var(--naranja);border-radius:14px;padding:12px;z-index:45;
+  box-shadow:0 14px 44px rgba(0,0,0,.7);display:flex;flex-direction:column;gap:9px;
+}
+.popDibujo.oculto{display:none}
+/* v33: si el menú no entra hacia abajo (cel), se abre hacia arriba */
+.popDibujo.popArriba{top:auto;bottom:calc(100% + 10px)}
+.popTitulo{font-size:10.5px;font-weight:900;color:var(--tx3);letter-spacing:.6px}
+.popGrosor{flex-direction:row;align-items:center;gap:12px}
+.accionesDibujo{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center}
 .btnDibujoGhost{
-  background:transparent;border:2px solid var(--borde2);color:var(--tx2);padding:11px 18px;border-radius:10px;
-  font-weight:800;font-size:12px;cursor:pointer;
+  display:inline-flex;align-items:center;gap:6px;
+  background:transparent;border:2px solid var(--borde2);color:var(--tx2);padding:11px 16px;border-radius:11px;
+  font-weight:800;font-size:12px;cursor:pointer;font-family:inherit;
 }
 .btnDibujoGhost:hover{border-color:var(--naranja);color:var(--naranja)}
 #btnEnviarDibujo{width:auto;padding:12px 22px;margin-top:0}
-/* v33: panel de capas a la derecha en PC/TV; en el cel es un CAJÓN que entra desde la
-   derecha con el botón de capas de la barra de arriba */
+/* v36: CERRAR al lado de ENVIAR, abajo (como la captura del dueño) */
+#btnCerrarAbajo{width:auto;padding:12px 30px;margin-top:0}
+/* v31: lienzo + panel de capas a la derecha (abajo en el cel) */
+.zonaDibujo{display:flex;gap:12px;align-items:flex-start;justify-content:center;flex-wrap:wrap;max-width:97vw}
+.colLienzo{display:flex;flex-direction:column;gap:10px;align-items:center;min-width:0}
+/* v33: panel de capas PLEGABLE — en el cel arranca plegado para no tapar la pantalla */
 .panelCapas{
   background:var(--panel2);border:1px solid var(--borde2);border-radius:14px;padding:10px;
-  width:190px;display:flex;flex-direction:column;gap:8px;flex:none;
+  width:212px;display:flex;flex-direction:column;gap:8px;position:relative;transition:width .18s;
 }
-.capasTitulo{font-size:12px;font-weight:900;color:var(--naranja);letter-spacing:.5px}
-/* v34: fila del título con la FLECHITA para cerrar/plegar el panel de capas */
-.capasTitulo.filaCapas{display:flex;align-items:center;justify-content:space-between}
-.btnCerrarCapas{
-  width:26px;height:26px;flex:none;display:grid;place-items:center;padding:0;cursor:pointer;
-  background:var(--fondo);border:1px solid var(--borde2);border-radius:8px;color:var(--tx2);
+.panelCapas.plegado{width:52px;padding:10px 6px;align-items:center}
+.capasCuerpo{display:flex;flex-direction:column;gap:8px;width:100%}
+.panelCapas.plegado .capasCuerpo{display:none}
+.btnPlegarCapas{
+  position:absolute;top:7px;right:7px;width:30px;height:30px;border-radius:9px;
+  background:var(--fondo);border:1px solid var(--borde2);color:var(--tx2);cursor:pointer;
+  display:grid;place-items:center;padding:0;
 }
-.btnCerrarCapas:hover{border-color:var(--naranja);color:var(--naranja)}
-/* v34: bloque de TEXTO (fuentes) — vive dentro del panel de capas, al lado del color */
-.textoBloque{display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--borde2);padding-top:8px}
-.miniSwatch{display:inline-block;width:11px;height:11px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px var(--borde2);vertical-align:-1px;background:var(--naranja)}
-.selTexto{
-  width:100%;background:var(--fondo);border:1px solid var(--borde2);color:var(--tx1);
-  border-radius:9px;padding:7px 8px;font-size:12px;font-weight:800;font-family:'Montserrat',sans-serif;
-  cursor:pointer;outline:none;
-}
-.selTexto:focus{border-color:var(--naranja)}
-/* v34: cartel para escribir el texto (aparece donde toqués el papel) */
-#popTexto{
-  position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);z-index:8;
-  background:var(--panel2);border:2px solid var(--naranja);border-radius:16px;padding:14px;
-  display:flex;flex-direction:column;gap:10px;width:min(320px,92vw);
-  box-shadow:0 12px 40px rgba(0,0,0,.6);
-}
-#popTexto.oculto{display:none}
-.ptTitulo{font-size:12px;font-weight:900;color:var(--naranja);letter-spacing:.5px}
-.ptInput{
-  width:100%;background:var(--fondo);border:1px solid var(--borde2);color:var(--tx1);
-  border-radius:9px;padding:10px 11px;font-size:14px;font-weight:700;font-family:'Montserrat',sans-serif;outline:none;
-}
-.ptInput:focus{border-color:var(--naranja)}
-.ptFila{display:flex;gap:6px}
-.ptFila .selTexto{flex:1;min-width:0}
-.ptAcc{display:flex;gap:8px;justify-content:flex-end;align-items:center}
-#listaCapas{display:flex;flex-direction:column;gap:6px;max-height:196px;overflow-y:auto}
+.btnPlegarCapas:hover{border-color:var(--naranja);color:var(--naranja)}
+.panelCapas.plegado .btnPlegarCapas{position:static;margin:0 auto}
+.btnPlegarCapas svg.ico{transition:transform .18s}
+.panelCapas.plegado .btnPlegarCapas svg.ico{transform:rotate(180deg)}
+.capasTitulo{font-size:12px;font-weight:900;color:var(--naranja);letter-spacing:.5px;display:flex;align-items:center;gap:6px}
+#listaCapas{display:flex;flex-direction:column;gap:6px;max-height:176px;overflow-y:auto}
 .capaFila{display:flex;align-items:center;gap:7px;padding:5px 6px;border-radius:9px;border:1px solid var(--borde2);cursor:pointer;background:var(--fondo)}
 .capaFila.activa{border-color:var(--naranja);background:rgba(var(--acento-rgb),.14)}
 .capaFila.oculta .capaNombre,.capaFila.oculta .capaThumb{opacity:.4}
 .capaThumb{width:38px;height:28px;border-radius:5px;background:#fff;border:1px solid var(--borde2);flex:none}
 .capaNombre{flex:1;font-size:12px;font-weight:800;color:var(--tx1);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.capaOjo{background:none;border:none;cursor:pointer;font-size:15px;padding:2px;line-height:1}
+.capaOjo{background:none;border:none;cursor:pointer;padding:2px;line-height:1;display:grid;place-items:center;color:var(--tx2)}
+.capaOjo:hover{color:var(--naranja)}
 .capasAcc{display:flex;gap:6px}
-.btnCapa{flex:1;background:var(--fondo);border:1px solid var(--borde2);color:var(--tx1);padding:8px;border-radius:9px;font-size:15px;cursor:pointer;font-weight:800}
-.btnCapa:hover{border-color:var(--naranja)}
-#popColor{
-  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:6;
-  background:var(--panel2);border:2px solid var(--naranja);border-radius:16px;padding:14px;
-  display:flex;flex-direction:column;gap:10px;align-items:center;
-  box-shadow:0 12px 40px rgba(0,0,0,.6);max-width:94vw;
+.btnCapa{flex:1;background:var(--fondo);border:1px solid var(--borde2);color:var(--tx1);padding:8px;border-radius:9px;cursor:pointer;font-weight:800;display:grid;place-items:center}
+.btnCapa:hover{border-color:var(--naranja);color:var(--naranja)}
+/* v33: sección TEXTO junto a las capas (fuente + color) */
+.ctrlTexto{border-top:1px dashed var(--borde2);padding-top:9px;display:flex;flex-direction:column;gap:7px}
+.selFuente{
+  width:100%;background:var(--fondo);border:1px solid var(--borde2);color:var(--tx1);
+  border-radius:9px;padding:9px 8px;font-weight:800;font-size:12.5px;font-family:inherit;
 }
-#popColor.oculto{display:none}
-#cuadroColor,#barraMatiz{border:1px solid var(--borde2);border-radius:8px;touch-action:none;cursor:crosshair;max-width:100%}
-/* v33: pie con solo el botón principal */
-.dbPie{flex:none;display:flex;justify-content:center;width:100%;max-width:1200px}
-@media (min-width:701px){
-  /* v34: el botón de capas se ve TAMBIÉN en PC/TV — la flechita del panel lo pliega
-     y este botón lo vuelve a abrir (antes en PC no había forma de recuperarlo) */
-  .panelCapas.cerrado{display:none}
+.selFuente:focus{border-color:var(--naranja);outline:none}
+/* v37: VISTA PREVIA de la fuente — un papelito en blanco donde se ve cómo sale la letra
+   (la fuente, el tamaño y el color de la paleta; cambia en vivo) */
+.prevFuente{
+  background:#ffffff;border:1px solid var(--borde2);border-radius:9px;
+  padding:6px 9px;font-weight:700;font-size:22px;line-height:1.2;
+  overflow:hidden;white-space:nowrap;text-overflow:ellipsis;min-height:38px;
 }
-@media (max-width:700px){
-  .dbCuerpo{flex-direction:column;align-items:center;gap:8px}
-  .dbColHerr{flex-direction:row;width:100%;max-width:560px;overflow-x:auto;overflow-y:hidden;padding:6px}
-  .dbSep{width:1px;height:auto;align-self:stretch;margin:3px 2px}
-  /* en el cel el ancho del papel es de VIEWPORT (el % no anda: el contenedor es de ancho auto) */
-  #vpLienzo{width:min(92vw, 920px);max-height:calc(100vh - 360px)}
-  .dbZoom{bottom:74px}
-  .panelCapas{
-    position:fixed;right:0;top:0;bottom:0;width:min(80vw,300px);z-index:7;
-    border-radius:14px 0 0 14px;transform:translateX(105%);transition:transform .22s ease;
-    box-shadow:-8px 0 30px rgba(0,0,0,.5);max-height:none;overflow-y:auto;
-  }
-  .panelCapas.abierto{transform:translateX(0)}
-  .panelCapas.cerrado{display:flex} /* en el cel el estado natural del cajón es cerrado */
-  .btnIcono{width:36px;height:36px}
-  .btnIcono svg{width:17px;height:17px}
+.txtNota{font-size:10px;color:var(--tx4);line-height:1.5;margin:0}
+.txtNota b{color:var(--tx2)}
+.filaFuenteChip{display:flex;align-items:center;gap:6px;font-size:10.5px;color:var(--tx4);font-weight:700}
+/* v37: FIGURITAS del panel — rejilla de logitos prearmados (estrellitas, murciélagos, emojis) */
+.ctrlStik{border-top:1px dashed var(--borde2);padding-top:9px;display:flex;flex-direction:column;gap:7px}
+.gridStik{display:grid;grid-template-columns:repeat(6,1fr);gap:4px}
+.btnStik{
+  background:var(--fondo);border:1px solid var(--borde2);border-radius:8px;padding:4px 0;
+  cursor:pointer;line-height:1;display:grid;place-items:center;font-size:17px;padding:0;
+}
+.btnStik:hover{border-color:var(--naranja);background:rgba(var(--acento-rgb),.12)}
+.btnStik img.emoji{width:20px;height:20px;vertical-align:0}
+/* v36: PALETA DE COLORES en el panel — debajo de las capas y el texto, como la captura del dueño */
+.ctrlColores{border-top:1px dashed var(--borde2);padding-top:9px;display:flex;flex-direction:column;gap:8px}
+.ctrlColores .herrDibujo{justify-content:center}
+.bolaColor{
+  width:40px;height:40px;border-radius:50%;background:var(--naranja);border:2px solid rgba(255,255,255,.4);
+  margin-left:auto;flex:none;box-shadow:0 3px 12px rgba(0,0,0,.5);transition:background .12s;
+}
+/* v33: caja de TEXTO flotante sobre el papel (se arrastra a cualquier lugar y se agranda)
+   v37: la caja de la FIGURITA comparte el mismo estilo */
+#cajaTexto,#cajaStik{position:absolute;display:none;z-index:35;flex-direction:column;gap:4px;touch-action:none;cursor:move}
+#cajaStik{align-items:center}
+#stikImg{width:48px;height:48px;pointer-events:none;filter:drop-shadow(0 2px 3px rgba(0,0,0,.28))}
+#textoInput{
+  background:rgba(0,0,0,.06);border:2px dashed var(--naranja);border-radius:7px;
+  color:#000;padding:2px 6px;outline:none;font-weight:700;min-width:110px;max-width:360px;
+}
+#cajaTextoAcc{display:flex;gap:4px}
+#cajaTextoAcc button,#cajaStikAcc button{
+  background:#161616;border:1px solid #2e2e2e;color:#d8d8d8;border-radius:8px;padding:4px 8px;
+  font-size:12px;font-weight:900;cursor:pointer;font-family:inherit;line-height:1;
+}
+#cajaTextoAcc button:hover,#cajaStikAcc button:hover{border-color:var(--naranja);color:var(--naranja)}
+#btnTextoOk,#btnStikOk{border-color:var(--naranja)!important;color:var(--naranja)!important;background:rgba(0,0,0,.25)!important}
+.pickerColor{display:flex;flex-direction:column;gap:6px;align-items:center}
+#cuadroColor,#barraMatiz{border:1px solid var(--borde2);border-radius:8px;touch-action:none;cursor:crosshair;max-width:100%;width:100%;display:block}
+/* centrada cuando entra en pantalla, con scroll cuando no (el auto-margin no recorta la punta) */
+#overlayDibujo > .dibujoCab{margin-top:auto}
+#overlayDibujo > .accionesDibujo{margin-bottom:auto}
+@media (max-width:620px){
+  #vpLienzo{width:min(96vw,560px)}
+  .panelCapas{width:100%;max-width:560px}
+  .panelCapas.plegado{width:52px;max-width:52px}
+  #listaCapas{max-height:130px}
 }
 
 
@@ -885,7 +967,14 @@ body.tema-claro .logoClaro{display:block}
     <div class="barraTitulo">
       <img src="logo-cara.png" class="logoMini" alt=""><strong>💬 Sikodark Messenger</strong>
       <span class="tituloEstado" id="tituloEstado">— conectando…</span>
-      <div style="margin-left:auto;display:flex;gap:5px">
+      <div style="margin-left:auto;display:flex;gap:5px;align-items:center">
+        <!-- v34: RADIO y COMPARTIR ahora viven ACÁ ARRIBA como logitos (antes estaban en la barra de abajo) -->
+        <button class="btnVentLog" id="btnRadio" type="button" title="📻 Radio en vivo">
+          <img src="logo-radio.png" alt="Radio">
+        </button>
+        <button class="btnVentLog" id="btnCompartir" type="button" title="Compartir SikoChat por WhatsApp">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f59d3d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.4 10.8l7.2-4.4M8.4 13.2l7.2 4.4"/></svg>
+        </button>
         <div class="btnVent" id="btnNotis" title="Notificaciones">🔔</div>
         <div class="btnVent" title="Minimizar">—</div>
         <div class="btnVent" title="Maximizar">□</div>
@@ -957,8 +1046,7 @@ body.tema-claro .logoClaro{display:block}
           <button class="btnAccion" id="btnEmotis">😀 Emoticons</button>
           <button class="btnAccion" id="btnDibujar">✏️ Dibujar</button>
           <button class="btnAccion" id="btnImagen">📷 Foto/GIF</button>
-          <button class="btnAccion soloGrupo" id="btnRadio">📻 Radio</button>
-          <button class="btnAccion soloGrupo" id="btnCompartir">📤 Compartir</button>
+          <!-- v34: 📻 Radio y 📤 Compartir se MUDARON arriba, a los logitos de la barra del título -->
           <button class="btnAccion" id="btnZumbido">📳 Zumbido</button>
           <button class="btnAccion" id="btnSonido">🔔 Sonido</button>
           <button class="btnAccion" id="btnMusica">🎵 Tonos</button>
@@ -986,6 +1074,12 @@ body.tema-claro .logoClaro{display:block}
   <div id="tabEmotis" class="gridEmotis"></div>
   <div id="tabStikers" class="gridStikers oculto"></div>
   <div id="tabGifs" class="oculto">
+    <div class="gifBusca">
+      <input id="gifBuscaTxt" class="gifBuscaInput" type="text" maxlength="40" placeholder="Buscar GIFs… (risa, amor, fuego…)" autocomplete="off">
+      <button id="btnGifBusca" class="btnGifBusca" type="button">🔍 Buscar</button>
+    </div>
+    <div id="gifTenorRes" class="gridGifs oculto"></div>
+    <p class="gifNota oculto" id="gifTenorNota"></p>
     <button id="btnGifExplorador" class="btnExplorador" type="button">📂 Buscar foto o GIF en el explorador…</button>
     <div class="gridGifs" id="gridGifs"></div>
     <p class="gifNota">Stikers animados hechos para Sikodark 🧡 · para mandar una foto tuya tocá 📂 de arriba o el botón <b>📷 Foto/GIF</b></p>
@@ -997,82 +1091,178 @@ body.tema-claro .logoClaro{display:block}
   </div>
 </div>
 
-<!-- ================= PIZARRA PRO v33 (MODERNA: iconos SVG · zoom flotante · capas · PANTALLA COMPLETA) ================= -->
+<!-- ================= PIZARRITA PAINT v33 (REDISEÑO MODERNO · CAPAS PLEGABLES · TEXTO · ZOOM · PANTALLA COMPLETA) ================= -->
 <div id="overlayDibujo" class="oculto">
-  <div class="dbTop">
-    <div class="dbMarca"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>PIZARRA</div>
-    <div class="dbTopAcc">
-      <button class="btnIcono" id="btnDeshacer" type="button" title="Deshacer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg></button>
-      <button class="btnIcono" id="btnLimpiarDibujo" type="button" title="Limpiar la capa elegida"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg></button>
-      <button class="btnIcono" id="btnImportarDibujo" type="button" title="Importar imagen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg></button>
-      <button class="btnIcono" id="btnCapasToggle" type="button" title="Capas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></button>
-      <button class="btnIcono" id="btnPantallaCompleta" type="button" title="Pantalla completa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
-      <button class="btnIcono" id="btnCancelarDibujo" type="button" title="Cerrar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  <div class="dibujoCab">
+    <div class="dibujoTitulo">🎨 PIZARRITA <span class="dibujoSub">capas · texto · zoom</span></div>
+    <!-- v35: ARRIBA quedaron Deshacer · Limpiar · Importar · Capas · ⛶ · ✕ (igual a la captura del dueño) -->
+    <div class="dibujoCabAcc">
+      <button class="btnDibujo btnIconoD" id="btnDeshacer" type="button" title="Deshacer (en la capa elegida)">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5a5.5 5.5 0 0 1-5.5 5.5H11"/></svg>
+      </button>
+      <button class="btnDibujo btnIconoD" id="btnLimpiarDibujo" type="button" title="Vaciar la capa elegida">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+      </button>
+      <button class="btnDibujo btnIconoD" id="btnImportarDibujo" type="button" title="Importar imagen (JPG, PNG o WEBP)">
+        <svg class="ico" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+      </button>
+      <button class="btnDibujo btnIconoD" id="btnCapasToggle" type="button" title="Mostrar u ocultar las capas">
+        <svg class="ico" viewBox="0 0 24 24"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg>
+      </button>
+      <button class="btnDibujo btnIconoD btnPantalla" id="btnPantallaDibujo" type="button" title="Pantalla completa (PC, TV y cel)">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></svg>
+      </button>
+      <button class="btnDibujo btnIconoD" id="btnCancelarDibujo" type="button" title="Cerrar sin enviar">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
     </div>
   </div>
-  <div class="dbCuerpo">
-    <div class="dbColHerr">
-      <button class="btnIcono btnHerr activo" data-herr="lapiz" type="button" title="Lápiz"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg></button>
-      <button class="btnIcono btnHerr" data-herr="pincel" type="button" title="Pincel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9.06 11.9 8.07-8.06a2.85 2.85 0 1 1 4.03 4.03l-8.06 8.08"/><path d="M7.07 14.94c-1.66 0-3 1.35-3 3.02 0 1.33-2.5 1.52-2 2.02 1.08 1.1 2.49 2.02 4 2.02 2.2 0 4-1.8 4-4.04a3.01 3.01 0 0 0-3-3.02z"/></svg></button>
-      <button class="btnIcono btnHerr" data-herr="brocha" type="button" title="Brocha"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m14.622 4.622 4.756 4.756"/><path d="M18.37 2.63 14 7l-1.59-1.59a2 2 0 0 0-2.82 0L8 7l9 9 1.59-1.59a2 2 0 0 0 0-2.82L17 10l4.37-4.37a2.12 2.12 0 1 0-3-3z"/><path d="M9 8c-2 3-4 3.5-7 4l8 10c2-1 6-5 6-7"/><path d="M14.5 17.5 4.5 15"/></svg></button>
-      <button class="btnIcono btnHerr" data-herr="difum" type="button" title="Difuminado"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h.01"/><path d="M7 5h.01"/><path d="M11 7h.01"/><path d="M3 7h.01"/><path d="M7 9h.01"/><path d="M3 11h.01"/><rect width="4" height="4" x="15" y="5"/><path d="m19 9 2 2v10c0 .6-.4 1-1 1h-8a1 1 0 0 1-1-1V11l2-2"/><path d="M13 14v6"/><path d="M16 14v6"/><path d="M19 14v6"/></svg></button>
-      <button class="btnIcono btnHerr" data-herr="bote" type="button" title="Bote de pintura"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 11-8-8-8.6 8.6a2 2 0 0 0 0 2.8l5.2 5.2c.8.8 2 .8 2.8 0L19 11Z"/><path d="m5 2 5 5"/><path d="M2 13h15"/><path d="M22 20a2 2 0 1 1-4 0c0-1.6 1.7-2.4 2-4 .3 1.6 2 2.4 2 4Z"/></svg></button>
-      <button class="btnIcono btnHerr" data-herr="goma" type="button" title="Goma"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21"/><path d="M22 21H7"/><path d="m5 11 9 9"/></svg></button>
-      <button class="btnIcono btnHerr" data-herr="texto" type="button" title="Texto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg></button>
-      <button class="btnIcono btnHerr" data-herr="mano" type="button" title="Mover el papel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg></button>
-      <div class="dbSep"></div>
-      <button class="btnIcono btnGrosor activo" data-grosor="2" type="button" title="Trazo fino"><span class="pt pt1"></span></button>
-      <button class="btnIcono btnGrosor" data-grosor="5" type="button" title="Trazo medio"><span class="pt pt2"></span></button>
-      <button class="btnIcono btnGrosor" data-grosor="10" type="button" title="Trazo grueso"><span class="pt pt3"></span></button>
-      <div class="dbSep"></div>
-      <button class="btnIcono" id="btnColorActual" type="button" title="Color"><span id="swatchColor"></span></button>
-    </div>
-    <div class="dbCentro">
-      <div id="vpLienzo"><canvas id="lienzo" width="480" height="360"></canvas></div>
-    </div>
-    <div class="dbZoom">
-      <button id="btnZoomMenos" type="button" title="Alejar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg></button>
-      <span class="zoomEtq" id="zoomEtq">100%</span>
-      <button id="btnZoomMas" type="button" title="Acercar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/><line x1="11" y1="8" x2="11" y2="14"/></svg></button>
-      <button id="btnZoomReset" type="button" title="Volver al tamaño normal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></svg></button>
+  <div class="zonaDibujo">
+      <div class="cardDibujo" id="herrHerram">
+        <!-- v36: RIEL VERTICAL — solo iconos; el botón Color se fue al panel (la X amarilla de la captura) y entró el DEDO (licuar) -->
+        <div class="filaHerr">
+          <button class="btnDibujo btnHerr activo" data-herr="lapiz" type="button" title="Lápiz">
+            <svg class="ico" viewBox="0 0 24 24"><path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg><span class="etqHerr">Lápiz</span>
+          </button>
+          <button class="btnDibujo btnHerr" data-herr="pincel" type="button" title="Pincel">
+            <svg class="ico" viewBox="0 0 24 24"><path d="m9.06 11.9 8.07-8.06a2.85 2.85 0 1 1 4.03 4.03l-8.06 8.08"/><path d="M7.07 14.94c-1.66 0-3 1.35-3 3.02 0 1.33-2.5 1.52-2 2.02 1.08 1.1 2.49 2.02 4 2.02 2.2 0 4-1.8 4-4.04a3.01 3.01 0 0 0-3.02-3.02z"/></svg><span class="etqHerr">Pincel</span>
+          </button>
+          <button class="btnDibujo btnHerr" data-herr="brocha" type="button" title="Brocha con cerdas">
+            <svg class="ico" viewBox="0 0 24 24"><rect x="8" y="2" width="8" height="7" rx="1.5"/><path d="M9 9v4h6V9"/><path d="M12 13v8"/></svg><span class="etqHerr">Brocha</span>
+          </button>
+          <button class="btnDibujo btnHerr" data-herr="difum" type="button" title="Difuminado tipo aerógrafo">
+            <svg class="ico" viewBox="0 0 24 24"><circle cx="7" cy="18" r="1.7" fill="currentColor" stroke="none"/><circle cx="12" cy="15.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="18" cy="7.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="11" cy="10.5" r="1" fill="currentColor" stroke="none"/><circle cx="7" cy="12.5" r="1" fill="currentColor" stroke="none"/></svg><span class="etqHerr">Difum.</span>
+          </button>
+          <button class="btnDibujo btnHerr" data-herr="dedo" type="button" title="Dedo (licuar): jalá y mezclá el color ya pintado, como el dedo en Photoshop">
+            <svg class="ico" viewBox="0 0 24 24"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg><span class="etqHerr">Dedo</span>
+          </button>
+          <button class="btnDibujo btnHerr" data-herr="bote" type="button" title="Bote de pintura (rellenar)">
+            <svg class="ico" viewBox="0 0 24 24"><path d="m19 11-8-8-8.6 8.6a2 2 0 0 0 0 2.8l5.2 5.2c.8.8 2 .8 2.8 0L19 11Z"/><path d="m5 2 5 5"/><path d="M2 13h15"/><path d="M22 20a2 2 0 1 1-4 0c0-1.6 1.7-2.4 2-4 .3 1.6 2 2.4 2 4Z"/></svg><span class="etqHerr">Bote</span>
+          </button>
+          <button class="btnDibujo btnHerr" data-herr="goma" type="button" title="Goma (borra la capa elegida)">
+            <svg class="ico" viewBox="0 0 24 24"><path d="M21 21H8a2 2 0 0 1-1.42-.587l-3.994-3.999a2 2 0 0 1 0-2.828l10-10a2 2 0 0 1 2.829 0l5.999 6a2 2 0 0 1 0 2.828L12.834 21"/><path d="m5.082 11.09 8.828 8.828"/></svg><span class="etqHerr">Goma</span>
+          </button>
+          <button class="btnDibujo btnHerr" data-herr="texto" type="button" title="Escribir en el dibujo (se arrastra a cualquier lugar y se agranda)">
+            <svg class="ico" viewBox="0 0 24 24"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg><span class="etqHerr">Texto</span>
+          </button>
+          <button class="btnDibujo btnHerr" data-herr="mano" type="button" title="Arrastrá el papel cuando estás con zoom">
+            <svg class="ico" viewBox="0 0 24 24"><polyline points="5 9 2 12 5 15"/><polyline points="9 5 12 2 15 5"/><polyline points="15 19 12 22 9 19"/><polyline points="19 9 22 12 19 15"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="2" x2="12" y2="22"/></svg><span class="etqHerr">Mover</span>
+          </button>
+        </div>
+        <span class="sepV"></span>
+        <button class="btnDibujo btnIconoD" id="btnPopGrosor" type="button" title="Grosor del trazo">
+          <svg class="ico" viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg><span class="etqHerr">Trazo</span>
+        </button>
+        <div class="popDibujo popGrosor oculto" id="popGrosor">
+          <span class="popTitulo">GROSOR DEL TRAZO</span>
+          <div class="herrDibujo" id="herrGrosor">
+            <button class="btnDibujo btnGrosor activo" data-grosor="2" type="button">Fino</button>
+            <button class="btnDibujo btnGrosor" data-grosor="5" type="button">Medio</button>
+            <button class="btnDibujo btnGrosor" data-grosor="10" type="button">Grueso</button>
+          </div>
+        </div>
+      </div>
+    <div class="colLienzo">
+      <div id="vpLienzo">
+        <canvas id="lienzo" width="480" height="360"></canvas>
+        <div id="cajaTexto">
+          <input id="textoInput" type="text" maxlength="60" placeholder="Escribí tu texto…" autocomplete="off">
+          <div id="cajaTextoAcc">
+            <button id="btnTextoMenos" type="button" title="Achicar el texto">A−</button>
+            <button id="btnTextoMas" type="button" title="Agrandar el texto">A+</button>
+            <button id="btnTextoOk" type="button" title="Fijar el texto en la capa elegida">✔</button>
+            <button id="btnTextoNo" type="button" title="Quitar el texto">✖</button>
+          </div>
+        </div>
+        <!-- v37: caja de la FIGURITA flotante (igual que la de texto: se arrastra y se agranda) -->
+        <div id="cajaStik">
+          <img id="stikImg" alt="figurita" draggable="false">
+          <div id="cajaStikAcc">
+            <button id="btnStikMenos" type="button" title="Achicar la figurita">A−</button>
+            <button id="btnStikMas" type="button" title="Agrandar la figurita">A+</button>
+            <button id="btnStikOk" type="button" title="Fijar la figurita en la capa elegida">✔</button>
+            <button id="btnStikNo" type="button" title="Quitar la figurita">✖</button>
+          </div>
+        </div>
+      </div>
+      <div class="cardDibujo" id="herrZoom">
+        <button class="btnDibujo btnIconoD" id="btnZoomMenos" type="button" title="Alejar">
+          <svg class="ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M8 11h6"/></svg>
+        </button>
+        <span class="zoomEtq" id="zoomEtq">100%</span>
+        <button class="btnDibujo btnIconoD" id="btnZoomMas" type="button" title="Acercar">
+          <svg class="ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+        </button>
+        <button class="btnDibujo" id="btnZoomReset" type="button" title="Volver al tamaño normal">
+          <svg class="ico" viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/></svg>
+          Ajustar
+        </button>
+      </div>
+
     </div>
     <div class="panelCapas" id="panelCapas">
-      <div class="capasTitulo filaCapas">CAPAS
-        <button class="btnCerrarCapas" id="btnCerrarCapas" type="button" title="Ocultar este panel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="m9 18 6-6-6-6"/></svg></button>
-      </div>
-      <div id="listaCapas"></div>
-      <div class="capasAcc">
-        <button class="btnCapa" id="btnCapaNueva" type="button" title="Agregar capa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
-        <button class="btnCapa" id="btnCapaBorrar" type="button" title="Borrar la capa elegida"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
-      </div>
-      <div class="textoBloque">
-        <div class="capasTitulo">TEXTO <span class="miniSwatch" id="swatchTexto" title="El texto se pinta con tu color"></span></div>
-        <select id="selFuente" class="selTexto" title="Fuente del texto"></select>
-        <select id="selTamTexto" class="selTexto" title="Tamaño del texto"></select>
+      <button class="btnPlegarCapas" id="btnPlegarCapas" type="button" title="Ocultar las capas">
+        <svg class="ico" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+      </button>
+      <div class="capasCuerpo">
+        <div class="capasTitulo">
+          <svg class="ico" viewBox="0 0 24 24"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg>
+          CAPAS
+        </div>
+        <div id="listaCapas"></div>
+        <div class="capasAcc">
+          <button class="btnCapa" id="btnCapaNueva" type="button" title="Agregar capa">
+            <svg class="ico" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+          </button>
+          <button class="btnCapa" id="btnCapaBorrar" type="button" title="Borrar la capa elegida">
+            <svg class="ico" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+          </button>
+        </div>
+        <div class="ctrlTexto">
+          <div class="capasTitulo">
+            <svg class="ico" viewBox="0 0 24 24"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+            TEXTO
+          </div>
+          <select id="selFuente" class="selFuente" title="Fuente del texto"></select>
+          <!-- v37: VISTA PREVIA — mirás cómo sale la letra ANTES de fijarla (fuente + tamaño + color de la paleta, en vivo) -->
+          <div id="prevFuente" class="prevFuente" title="Así sale la letra con la fuente y el color elegidos"></div>
+          <div class="filaFuenteChip">El texto usa el color <span class="chipColor" id="chipColorTxt"></span> de la paleta</div>
+          <p class="txtNota">Elegí la herramienta <b>Texto</b>, escribí y tocá <b>✔</b> para fijarlo en la capa. Arrastralo con el dedo o el mouse para ponerlo en cualquier lugar y usá <b>A+</b> / <b>A−</b> para agrandarlo.</p>
+        </div>
+        <!-- v37: FIGURITAS PREARMADAS (estrellitas, murciélagos, calabazas y emojis) — entran por el MISMO
+             panel de las capas: tocás una, queda flotando sobre el papel, la arrastrás al lugar que
+             quieras, la agrandás o achicás con A+ / A− y con ✔ queda estampada en la capa elegida -->
+        <div class="ctrlStik">
+          <div class="capasTitulo">
+            <svg class="ico" viewBox="0 0 24 24"><path d="M11.05 2.9c.3-.92 1.6-.92 1.9 0l1.36 4.18a1 1 0 0 0 .95.69h4.4c.97 0 1.37 1.24.59 1.81l-3.56 2.59a1 1 0 0 0-.36 1.12l1.36 4.18c.3.92-.75 1.69-1.54 1.12l-3.55-2.59a1 1 0 0 0-1.18 0l-3.55 2.59c-.79.57-1.84-.2-1.54-1.12l1.36-4.18a1 1 0 0 0-.36-1.12L2.77 9.58c-.78-.57-.38-1.81.6-1.81h4.4a1 1 0 0 0 .94-.69Z"/></svg>
+            FIGURITAS
+          </div>
+          <div class="gridStik" id="gridStik"></div>
+          <p class="txtNota">Tocá una figurita: queda FLOTANDO sobre el papel. Arrastrala adonde quieras, agrandala con <b>A+</b> / <b>A−</b> y fijala con <b>✔</b> en la capa elegida.</p>
+        </div>
+        <!-- v36: PALETA DE COLORES en el panel — debajo de las capas y el texto (como la captura del dueño),
+             con la BOLA GRANDE que muestra en vivo el color elegido -->
+        <div class="ctrlColores">
+          <div class="capasTitulo">
+            <svg class="ico" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/><circle cx="13.5" cy="6.5" r=".9" fill="currentColor" stroke="none"/><circle cx="17.5" cy="10.5" r=".9" fill="currentColor" stroke="none"/><circle cx="8.5" cy="7.5" r=".9" fill="currentColor" stroke="none"/><circle cx="6.5" cy="12.5" r=".9" fill="currentColor" stroke="none"/></svg>
+            COLORES
+            <span class="bolaColor" id="bolaColor" title="El color elegido"></span>
+          </div>
+          <div class="herrDibujo" id="herrColores"></div>
+          <div class="pickerColor">
+            <canvas id="cuadroColor" width="220" height="110"></canvas>
+            <canvas id="barraMatiz" width="220" height="16"></canvas>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <div class="dbPie">
-    <button class="btnPrincipal" id="btnEnviarDibujo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:-2px;margin-right:6px"><path d="M22 2 11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>ENVIAR DIBUJO</button>
+  <div class="accionesDibujo">
+    <!-- v36: CERRAR volvió a estar ABAJO al lado de ENVIAR (como la captura del dueño); arriba queda el ✕ chiquito -->
+    <button class="btnPrincipal" id="btnCerrarAbajo" type="button">Cerrar</button>
+    <button class="btnPrincipal" id="btnEnviarDibujo">ENVIAR DIBUJO 🎨</button>
   </div>
-  <div id="popColor" class="oculto">
-    <div class="herrDibujo" id="herrColores"></div>
-    <canvas id="cuadroColor" width="220" height="110"></canvas>
-    <canvas id="barraMatiz" width="220" height="16"></canvas>
-  </div>
-  <div id="popTexto" class="oculto">
-    <div class="ptTitulo">🔤 ESCRIBÍ EL TEXTO <span class="miniSwatch" id="swatchTexto2"></span></div>
-    <input id="txtPopTexto" class="ptInput" maxlength="60" placeholder="Escribí acá..." autocomplete="off">
-    <div class="ptFila">
-      <select id="selFuente2" class="selTexto" title="Fuente del texto"></select>
-      <select id="selTamTexto2" class="selTexto" title="Tamaño del texto"></select>
-    </div>
-    <div class="ptAcc">
-      <button class="btnDibujoGhost" id="btnCancelarTexto" type="button">Cancelar</button>
-      <button class="btnPrincipal" id="btnPintarTexto" type="button">PINTAR</button>
-    </div>
-  </div>
-  <input type="file" id="inputFotoDibujo" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" class="oculto">
+  <input type="file" id="inputFotoDibujo" accept="image/jpeg,image/png,image/webp" class="oculto">
 </div>
 
 <!-- ================= MI PERFIL ================= -->
@@ -1499,7 +1689,9 @@ export { encryptWebPush, vapidJwt, b64uDecode, bufToB64u, hkdf, leerSubs };
 <!-- ================= TOAST ================= -->
 <div id="toast"></div>
 
+<script src="twemoji.min.js"></script> <!-- v33: emojis SIEMPRE a color (TV incluida) -->
 <script src="chat-config.js"></script> <!-- v30: LA CONFIG DEL CHAT vive acá — archivo aparte para migrar el chat a su propio proyecto de Firebase sin tocar código -->
+<script src="gif-config.js"></script> <!-- v33: la clave de Tenor para GIFs infinitos vive acá (gratis, pasos en el README) -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
@@ -1595,6 +1787,20 @@ function escapar(t){
   return d.innerHTML;
 }
 function escaparAttr(t){ return escapar(t).replace(/"/g, '&quot;'); }
+
+/* ---------- v33 · EMOJIS SIEMPRE A COLOR (TWEMOJI) ----------
+   Hay televisores (LG webOS entre ellos) y navegadores viejos que NO tienen
+   la fuente de emojis de color: ahí los emojis salen NEGROS. Solución:
+   convertimos cada emoji a una IMAGEN de Twemoji (los emojis abiertos de
+   X/Twitter) — se ven IGUALES y A COLOR en cualquier pantalla. Si el
+   archivo no carga, quedan como siempre (no se rompe nada). */
+var TW_BASE = 'https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/';
+function emojisBonitos(el){
+  try {
+    if (!window.twemoji || !el) return;
+    twemoji.parse(el, { base: TW_BASE, folder: 'svg', ext: '.svg', className: 'emoji' });
+  } catch (e) {}
+}
 function fotoSegura(f){
   if (!f) return '';
   f = String(f);
@@ -1928,6 +2134,8 @@ function pintarContactos(lista){
       cont.appendChild(fila);
     })(lista[i]);
   }
+  emojisBonitos(cont); /* v33: avatares a color también en la TV */
+  emojisBonitos($('franjaChips'));
   actualizarBadgeApp(); /* v16: puntito de privados sin leer en el ícono */
   detectarConexiones(lista);
 }
@@ -2157,6 +2365,7 @@ function pintarMensaje(m){
     '</div>' +
     (esMio ? '' : menuBtn);
   cinta.appendChild(fila);
+  emojisBonitos(fila); /* v33: emojis a color también en la TV */
   scrollAbajo();
 }
 
@@ -2269,7 +2478,69 @@ function pintarEmotis(){
       g.appendChild(im);
     })(GIFS[h]);
   }
+  emojisBonitos($('pickerEmotis')); /* v33: emotis y stikers a color también en la TV */
 }
+/* ---------- v33 · GIFs INFINITOS CON TENOR (GOOGLE) ----------
+   La clave gratis vive en gif-config.js (archivo aparte, como chat-config.js).
+   Sin clave: el buscador muestra cómo activarlo y siguen los GIFs de Sikodark. */
+var GIF_CFG = (typeof window.GIF_CONFIG === 'object' && window.GIF_CONFIG) ? window.GIF_CONFIG : {};
+var tenorAbierto = false;
+function notaTenor(html){
+  var n = $('gifTenorNota');
+  if (!n) return;
+  n.innerHTML = html;
+  n.classList.remove('oculto');
+}
+function tenorBuscar(q){
+  var res = $('gifTenorRes');
+  if (!GIF_CFG.tenorKey) {
+    res.classList.add('oculto');
+    res.innerHTML = '';
+    notaTenor('🔎 <b>GIFs infinitos gratis:</b> creá tu clave de Tenor (2 minutos) y pegala en el archivo <b>gif-config.js</b> — los pasos exactos están en el README del zip. Mientras tanto usá los GIFs de Sikodark de abajo 😊');
+    return;
+  }
+  res.classList.remove('oculto');
+  res.innerHTML = '';
+  notaTenor('Buscando “' + escapar(q) + '”…');
+  fetch('https://tenor.googleapis.com/v2/search?key=' + encodeURIComponent(GIF_CFG.tenorKey) +
+      '&q=' + encodeURIComponent(q) + '&limit=24&media_filter=tinygif,gif,mediumgif&client_key=sikochat')
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      var arr = (d && d.results) || [];
+      res.innerHTML = '';
+      if (!arr.length) { notaTenor('🤷 No encontré nada con “' + escapar(q) + '”, probá otra palabra'); return; }
+      $('gifTenorNota').classList.add('oculto');
+      for (var i = 0; i < arr.length; i++) {
+        (function(g){
+          var mf = g.media_formats || {};
+          var th = (mf.tinygif || mf.mediumgif || mf.gif || {}).url;
+          var gr = (mf.gif || mf.mediumgif || mf.tinygif || {}).url;
+          if (!th || !gr) return;
+          var im = document.createElement('img');
+          im.className = 'gifItem';
+          im.src = th;
+          im.alt = g.content_description || 'GIF';
+          im.title = g.content_description || 'GIF';
+          im.loading = 'lazy';
+          im.onclick = function(ev){
+            ev.stopPropagation();
+            $('pickerEmotis').classList.add('oculto');
+            enviarGif(gr);
+          };
+          res.appendChild(im);
+        })(arr[i]);
+      }
+    })
+    .catch(function(){ notaTenor('❌ No pude traer los GIFs, revisá tu conexión'); });
+}
+$('btnGifBusca').onclick = function(){
+  var v = $('gifBuscaTxt').value.trim();
+  if (v) tenorBuscar(v);
+};
+$('gifBuscaTxt').addEventListener('keydown', function(e){
+  if (e.key === 'Enter') { e.preventDefault(); $('btnGifBusca').onclick(); }
+});
+
 function verTab(id){
   var tabs = ['tabEmotis', 'tabStikers', 'tabGifs', 'tabFavs'];
   for (var i = 0; i < tabs.length; i++) $(tabs[i]).classList.toggle('oculto', tabs[i] !== id);
@@ -2277,6 +2548,8 @@ function verTab(id){
   for (var j = 0; j < botones.length; j++) {
     botones[j].classList.toggle('activo', botones[j].getAttribute('data-tab') === id);
   }
+  /* v33: al entrar por primera vez a la pestaña GIFs, traigo la búsqueda inicial */
+  if (id === 'tabGifs' && !tenorAbierto) { tenorAbierto = true; tenorBuscar('trending'); }
 }
 var botonesTab = document.querySelectorAll('.tabEmotis');
 for (var itb = 0; itb < botonesTab.length; itb++) {
@@ -3911,6 +4184,8 @@ function ponerZoom(z, clienteX, clienteY){
   vpLienzo.scrollLeft = cxL * z - (ax - vr.left);
   vpLienzo.scrollTop = cyL * z - (ay - vr.top);
   pintarZoomEtq();
+  aplicarEstiloTexto(); /* v37: el texto flotante sigue al zoom */
+  aplicarStik(); /* v37: la figurita flotante también */
 }
 function pasoZoom(dir){
   var idx = 0;
@@ -3984,10 +4259,7 @@ function repintar(){
   }
 }
 
-/* panel de capas: la fila de ARRIBA es la capa de más arriba (como en los programas de dibujo).
-   v33: ojitos con icono SVG (estilo moderno) */
-var SVG_OJO = '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
-var SVG_OJO_OFF = '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>';
+/* panel de capas: la fila de ARRIBA es la capa de más arriba (como en los programas de dibujo) */
 function pintarCapas(){
   var lc = $('listaCapas');
   lc.innerHTML = '';
@@ -4007,9 +4279,11 @@ function pintarCapas(){
       f.appendChild(n);
       var o = document.createElement('button');
       o.className = 'capaOjo'; o.type = 'button';
-      o.innerHTML = capas[idx].visible ? SVG_OJO : SVG_OJO_OFF; /* v33: icono SVG */
+      /* v33: ojito SVG (en la TV el 👁️ salía negro) */
+      o.innerHTML = capas[idx].visible
+        ? '<svg class="ico" viewBox="0 0 24 24" style="width:15px;height:15px"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>'
+        : '<svg class="ico" viewBox="0 0 24 24" style="width:15px;height:15px"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" y1="2" x2="22" y2="22"/></svg>';
       o.title = capas[idx].visible ? 'Ocultar capa' : 'Mostrar capa';
-      o.style.color = capas[idx].visible ? 'var(--naranja)' : 'var(--tx2)';
       o.onclick = function(ev){
         ev.stopPropagation();
         capas[idx].visible = !capas[idx].visible;
@@ -4106,17 +4380,12 @@ function pintarColores(){
         var hsv = hexHsv(c); /* v31: el selector grande sigue al color tocado */
         matizAct = hsv.h; satAct = hsv.s; valAct = hsv.v;
         pintarCuadro(); pintarBarra(); pintarColores();
+        actualizarChipsColor();
+        aplicarEstiloTexto(); /* v33: el texto sale siempre con el color elegido */
       };
       hc.appendChild(b);
     })(COLORES[i]);
   }
-  pintarBotonColor(); /* v33: el botón de la barra muestra SIEMPRE el color actual */
-}
-/* v33: el circulito del botón de color en la barra de herramientas · v34: y los del bloque TEXTO */
-function pintarBotonColor(){
-  var s = $('swatchColor'); if (s) s.style.background = colorAct;
-  var t = $('swatchTexto'); if (t) t.style.background = colorAct;
-  var t2 = $('swatchTexto2'); if (t2) t2.style.background = colorAct;
 }
 
 /* v31 · SELECTOR DE COLOR como en los programas de dibujo (tal cual la imagen):
@@ -4156,6 +4425,18 @@ function pintarBarra(){
 function tomarColor(){
   colorAct = hsvHex(matizAct, satAct, valAct);
   pintarColores();
+  actualizarChipsColor();
+}
+/* v33/v36: los chips de color siguen al color elegido — el chip del botón Color se fue con el
+   riel y en su lugar la BOLA GRANDE de la paleta (en el panel) muestra el color en vivo */
+function actualizarChipsColor(){
+  try {
+    var chipTxt = $('chipColorTxt');
+    if (chipTxt) chipTxt.style.background = colorAct;
+    var bola = $('bolaColor');
+    if (bola) bola.style.background = colorAct;
+    actualizarPrevFuente(); /* v37: la vista previa de la letra también sigue al color */
+  } catch (e) {}
 }
 (function(){
   function pos(ev, c){
@@ -4202,10 +4483,10 @@ function elegirHerr(h){
   herrAct = h;
   var bs = document.querySelectorAll('.btnHerr');
   for (var i = 0; i < bs.length; i++) bs[i].classList.toggle('activo', bs[i].getAttribute('data-herr') === h);
-  /* v32: con ✋ Mover el cursor es una mano (y agarra mientras arrastrás) · v34: con la T el cursor es de texto */
+  /* v32: con ✋ Mover el cursor es una mano (y agarra mientras arrastrás) · v33: texto = cursor de texto */
   lienzo.style.cursor = h === 'bote' ? 'pointer' : (h === 'mano' ? 'grab' : (h === 'texto' ? 'text' : 'crosshair'));
-  if (h === 'texto') $('popColor').classList.add('oculto');
-  if (h !== 'texto') cerrarPopTexto(); /* v34: si salís de la T, el cartel de escribir se cierra */
+  /* v33: la caja de texto SOLO se ve con la herramienta Texto */
+  if (h === 'texto') abrirTexto(); else cerrarTexto();
 }
 function abrirDibujo(){
   $('overlayDibujo').classList.remove('oculto');
@@ -4214,90 +4495,28 @@ function abrirDibujo(){
   capaAct = 1; /* dibujás en la de arriba (Capa 2) */
   pintarCapas(); repintar();
   pintarColores(); pintarCuadro(); pintarBarra();
+  actualizarChipsColor();
+  llenarFuentes();
+  precargarFuentes(); /* v37: que las fuentes (sobre todo las de terror) estén listas */
+  cerrarTexto(); cerrarStik(); cerrarPops();
+  /* v33: el visor de capas PLEGA en pantallas angostas (en el cel ya no tapa la pantalla) */
+  ponerPanelCapas(window.innerWidth <= 620);
   /* v32: la pizarra SIEMPRE abre al 100%, papel centrado en la ventana */
   zoomAct = 1; lienzo.style.width = ''; lienzo.classList.remove('pix');
   zoomBaseW = lienzo.getBoundingClientRect().width; /* medir con la ventana ya visible */
   vpLienzo.scrollLeft = 0;
   vpLienzo.scrollTop = Math.max(0, (lienzo.offsetHeight - vpLienzo.clientHeight) / 2);
   pintarZoomEtq();
-  /* v34: capas como al principio (visible en PC, cajón cerrado en el cel) y sin cartel de texto */
-  cerrarPopTexto();
-  $('panelCapas').classList.remove('cerrado');
 }
 function cerrarDibujo(){
   $('overlayDibujo').classList.add('oculto');
-  /* v33: dejo todo cerrado para la próxima vez · v34: también el cartel de texto */
-  $('popColor').classList.add('oculto');
-  $('panelCapas').classList.remove('abierto');
-  $('panelCapas').classList.remove('cerrado');
-  cerrarPopTexto();
+  cerrarTexto(); cerrarStik(); cerrarPops();
+  if (fsElemento()) salirPantallaCompleta(); /* v33: si estaba en pantalla completa, sale */
 }
-
-/* v33 · POP del COLOR: la paleta + el selector grande viven DENTRO del botón de color */
-$('btnColorActual').onclick = function(){ $('popColor').classList.toggle('oculto'); };
-/* v34: tocando AFUERA se cierran el pop del color, el cajón de capas (cel) y el cartel de texto */
-$('overlayDibujo').addEventListener('pointerdown', function(e){
-  var p = $('popColor');
-  if (!p.classList.contains('oculto') && !(e.target.closest && (e.target.closest('#popColor') || e.target.closest('#btnColorActual')))) p.classList.add('oculto');
-  var pc = $('panelCapas');
-  if (esPantCel() && pc.classList.contains('abierto') && !(e.target.closest && (e.target.closest('#panelCapas') || e.target.closest('#btnCapasToggle')))) pc.classList.remove('abierto');
-  var pt = $('popTexto');
-  if (pt && !pt.classList.contains('oculto') && !(e.target.closest && (e.target.closest('#popTexto') || e.target.closest('#lienzo')))) cerrarPopTexto();
-});
-/* v34: ¿estamos en pantalla de cel? (el cajón de capas se comporta distinto que en PC/TV) */
-function esPantCel(){ return window.matchMedia && window.matchMedia('(max-width:700px)').matches; }
-/* v34: el panel de capas ahora SE CIERRA — con la flechita adentro, con el botón de la barra
-   y en el cel también tocando afuera (antes quedaba tapando la pantalla sin poder sacarlo) */
-function cerrarPanelCapas(){
-  if (esPantCel()) $('panelCapas').classList.remove('abierto');
-  else $('panelCapas').classList.add('cerrado');
-}
-function abrirPanelCapas(){
-  $('panelCapas').classList.remove('cerrado');
-  if (esPantCel()) $('panelCapas').classList.add('abierto');
-}
-$('btnCerrarCapas').onclick = cerrarPanelCapas;
-$('btnCapasToggle').onclick = function(){
-  var pc = $('panelCapas');
-  if (esPantCel()) pc.classList.toggle('abierto');
-  else pc.classList.toggle('cerrado');
-};
-
-/* v33 · PANTALLA COMPLETA: aprovecha toda la pantalla en PC y TV (y en el cel quita la barra
-   del navegador). Si el navegador no la permite, la pizarra ya cubre todo igual */
-var SVG_EXPANDIR = '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>';
-var SVG_COMPACTO = '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v3a2 2 0 0 1-2 2H3"/><path d="M21 8h-3a2 2 0 0 1-2-2V3"/><path d="M3 16h3a2 2 0 0 1 2 2v3"/><path d="M16 21v-3a2 2 0 0 1 2-2h3"/></svg>';
-function enPantallaCompleta(){
-  return !!(document.fullscreenElement || document.webkitFullscreenElement);
-}
-function pintarBotonFull(){
-  var b = $('btnPantallaCompleta');
-  if (b) b.innerHTML = enPantallaCompleta() ? SVG_COMPACTO : SVG_EXPANDIR;
-}
-function alternarPantallaCompleta(){
-  var d = document;
-  if (enPantallaCompleta()) {
-    var salir = d.exitFullscreen || d.webkitExitFullscreen;
-    if (salir) { try { salir.call(d); } catch (e) {} }
-    return;
-  }
-  var el = d.documentElement;
-  var pedir = el.requestFullscreen || el.webkitRequestFullscreen || el.webkitRequestFullScreen;
-  if (pedir) {
-    try {
-      var r = pedir.call(el);
-      if (r && r.catch) r.catch(function(){ toast('😳 El navegador no dejó entrar en pantalla completa'); });
-    } catch (e) { toast('😳 El navegador no dejó entrar en pantalla completa'); }
-  } else {
-    toast('😳 Este navegador no conoce pantalla completa — la pizarra ya cubre todo');
-  }
-}
-$('btnPantallaCompleta').onclick = alternarPantallaCompleta;
-document.addEventListener('fullscreenchange', pintarBotonFull);
-document.addEventListener('webkitfullscreenchange', pintarBotonFull);
 
 $('btnDibujar').onclick = abrirDibujo;
 $('btnCancelarDibujo').onclick = cerrarDibujo;
+$('btnCerrarAbajo').onclick = cerrarDibujo; /* v36: Cerrar también abajo, al lado de ENVIAR */
 $('btnLimpiarDibujo').onclick = prepararLienzo;
 $('btnDeshacer').onclick = deshacer;
 
@@ -4308,6 +4527,419 @@ for (var ih = 0; ih < botonesHerr.length; ih++) {
   })(botonesHerr[ih]);
 }
 elegirHerr('lapiz');
+
+/* ============================================================
+   v33 · NUEVO EN LA PIZARRA
+   ⛶ PANTALLA COMPLETA (PC · TV · cel) · 🧱 CAPAS PLEGABLES con flecha
+   · menús desplegables (Trazo / Color) · ✍️ TEXTO con fuente, color,
+   ARRASTRE a cualquier lugar y AGRANDAR (A+ / A−) antes de fijarlo
+   ============================================================ */
+
+/* ---------- ⛶ PANTALLA COMPLETA (con prefijos para TVs y Safari) ---------- */
+function fsElemento(){
+  return document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement || null;
+}
+function pedirPantallaCompleta(){
+  var el = document.documentElement;
+  var fn = el.requestFullscreen || el.webkitRequestFullscreen || el.webkitRequestFullScreen || el.mozRequestFullScreen || el.msRequestFullscreen;
+  if (!fn) { toast('😖 Este navegador no soporta pantalla completa'); return; }
+  try { var p = fn.call(el); if (p && p.catch) p.catch(function(){}); }
+  catch (e) { toast('😖 El navegador no dejó entrar a pantalla completa'); }
+}
+function salirPantallaCompleta(){
+  var fn = document.exitFullscreen || document.webkitExitFullscreen || document.webkitCancelFullScreen || document.mozCancelFullScreen || document.msExitFullscreen;
+  try { if (fn) { var p = fn.call(document); if (p && p.catch) p.catch(function(){}); } } catch (e) {}
+}
+$('btnPantallaDibujo').onclick = function(){
+  if (fsElemento()) salirPantallaCompleta(); else pedirPantallaCompleta();
+};
+function fsCambio(){
+  var b = $('btnPantallaDibujo');
+  if (b) b.classList.toggle('fsActivo', !!fsElemento());
+  /* al cambiar el tamaño de la ventana, el papel se vuelve a medir con el zoom puesto */
+  setTimeout(remedirZoom, 120);
+}
+document.addEventListener('fullscreenchange', fsCambio);
+document.addEventListener('webkitfullscreenchange', fsCambio);
+document.addEventListener('mozfullscreenchange', fsCambio);
+document.addEventListener('msfullscreenchange', fsCambio);
+
+/* v33: si la ventana cambia (pantalla completa, girar el cel, TV), se vuelve a medir
+   el papel al 100% para que el zoom siga siendo exacto */
+function remedirZoom(){
+  if ($('overlayDibujo').classList.contains('oculto')) return;
+  var r = lienzo.getBoundingClientRect();
+  if (!r.width) return;
+  zoomBaseW = r.width / zoomAct;
+  lienzo.style.width = Math.round(zoomBaseW * zoomAct) + 'px';
+  pintarZoomEtq();
+}
+window.addEventListener('resize', remedirZoom);
+
+/* ---------- 🧱 CAPAS PLEGABLES (la flecha que pediste para el cel) ---------- */
+var panelCapasEl = $('panelCapas');
+function panelPlegado(){ return panelCapasEl.classList.contains('plegado'); }
+function ponerPanelCapas(plegar){
+  panelCapasEl.classList.toggle('plegado', !!plegar);
+  var b = $('btnPlegarCapas');
+  if (b) b.title = plegar ? 'Mostrar las capas' : 'Ocultar las capas (en el cel estorba menos)';
+  var h = $('btnCapasToggle'); /* v35: el botón de capas de la barra de arriba */
+  if (h) h.title = plegar ? 'Mostrar las capas' : 'Ocultar las capas';
+}
+$('btnPlegarCapas').onclick = function(ev){ ev.stopPropagation(); ponerPanelCapas(!panelPlegado()); };
+$('btnCapasToggle').onclick = function(ev){ ev.stopPropagation(); ponerPanelCapas(!panelPlegado()); };
+
+/* ---------- MENÚS DESPLEGABLES (el grosor dentro de un botón; el color pasó al panel en v36) ---------- */
+function cerrarPops(){
+  var ps = document.querySelectorAll('.popDibujo');
+  for (var i = 0; i < ps.length; i++) ps[i].classList.add('oculto');
+  var b1 = $('btnPopGrosor'), b2 = $('btnPopColor');
+  if (b1) b1.classList.remove('activo');
+  if (b2) b2.classList.remove('activo');
+}
+function togglePop(id, btn){
+  var p = $(id);
+  var abria = p.classList.contains('oculto');
+  cerrarPops();
+  if (abria) {
+    p.classList.remove('oculto');
+    if (btn) btn.classList.add('activo');
+    /* v33: si el menú se cae de la pantalla (cel), se abre hacia ARRIBA */
+    p.classList.remove('popArriba');
+    try {
+      var r = p.getBoundingClientRect();
+      if (r.bottom > window.innerHeight - 8) p.classList.add('popArriba');
+    } catch (e) {}
+  }
+}
+$('btnPopGrosor').onclick = function(ev){ ev.stopPropagation(); togglePop('popGrosor', this); };
+document.addEventListener('click', function(ev){
+  if (!ev.target || !ev.target.closest) return;
+  if (ev.target.closest('#popGrosor')) return;
+  if (ev.target.closest('#btnPopGrosor')) return;
+  cerrarPops();
+});
+
+/* ---------- ✍️ HERRAMIENTA DE TEXTO ----------
+   El texto NO se pinta al instante: queda FLOTANDO en una caja sobre el papel.
+   · se ARRASTRA con el dedo o el mouse a cualquier lugar del lienzo
+   · se AGRANDA / achica con A+ y A− (y Enter o ✔ lo fija en la capa elegida)
+   · sale con la FUENTE que elijas al lado de las capas y con el COLOR de la paleta
+   · al fijarlo se puede deshacer como cualquier trazo */
+var FUENTES = ['Montserrat', 'Arial', 'Verdana', 'Georgia', 'Times New Roman', 'Courier New', 'Impact', 'Comic Sans MS', 'Trebuchet MS'];
+/* v37: FUENTES DE TERROR para Halloween (de Google Fonts, mismas que usa la vista previa) */
+var FUE_TERROR = ['Creepster', 'Nosifer', 'Eater', 'Butcherman', 'Frijole'];
+/* las de terror van con peso normal (son letras decorativas, el negritas sintético las ensucia) */
+function pesoFuente(){ return FUE_TERROR.indexOf(fuenteAct) >= 0 ? '400' : '700'; }
+var fuenteAct = 'Montserrat';
+var tamTexto = 30;
+var txtObj = null;   /* { x, y } posición en coordenadas del papel (480×360) */
+var txtAgarre = null; /* datos del arrastre de la caja */
+try {
+  var fG = localStorage.getItem('siko_fuente');
+  if (fG && (FUENTES.indexOf(fG) >= 0 || FUE_TERROR.indexOf(fG) >= 0)) fuenteAct = fG;
+  var tG = parseInt(localStorage.getItem('siko_tamtexto'), 10);
+  if (tG >= 12 && tG <= 96) tamTexto = tG;
+} catch (e) {}
+/* v37: precarga de las fuentes (al abrir la pizarra y al cambiar) — así el texto SIEMPRE sale
+   con la letra elegida y no con el recambio mientras llega la fuente */
+function precargarFuentes(){
+  try {
+    if (!document.fonts || !document.fonts.load) return;
+    var todas = FUENTES.concat(FUE_TERROR);
+    for (var i = 0; i < todas.length; i++) document.fonts.load('400 30px "' + todas[i] + '"');
+  } catch (e) {}
+}
+function llenarFuentes(){
+  var s = $('selFuente');
+  s.innerHTML = '';
+  /* v37: dos grupos — las letras de siempre y el grupo 🎃 TERROR de Halloween.
+     Cada opción se muestra CON SU PROPIA LETRA para que se reconozca de una */
+  var g1 = document.createElement('optgroup');
+  g1.label = 'Letras';
+  for (var i = 0; i < FUENTES.length; i++) {
+    var o = document.createElement('option');
+    o.value = FUENTES[i];
+    o.textContent = FUENTES[i];
+    o.style.fontFamily = '"' + FUENTES[i] + '", sans-serif';
+    g1.appendChild(o);
+  }
+  var g2 = document.createElement('optgroup');
+  g2.label = '🎃 Terror (Halloween)';
+  for (var j = 0; j < FUE_TERROR.length; j++) {
+    var o2 = document.createElement('option');
+    o2.value = FUE_TERROR[j];
+    o2.textContent = FUE_TERROR[j];
+    o2.style.fontFamily = '"' + FUE_TERROR[j] + '", cursive';
+    g2.appendChild(o2);
+  }
+  s.appendChild(g1);
+  s.appendChild(g2);
+  s.value = fuenteAct;
+  actualizarPrevFuente();
+}
+/* v37: la VISTA PREVIA — papelito en blanco con la letra como va a salir de verdad:
+   la fuente elegida + el tamaño (A+ / A−) + el color de la paleta, y si estás
+   escribiendo muestra TU texto, no una palabra de ejemplo */
+function actualizarPrevFuente(){
+  var p = $('prevFuente');
+  if (!p) return;
+  var t = '';
+  try { t = ($('textoInput').value || '').trim(); } catch (e) {}
+  p.textContent = t || 'SikoChat Aa';
+  p.style.fontFamily = '"' + fuenteAct + '", sans-serif';
+  /* v37: el tamaño de la vista previa SIGUE al A+ / A− (a escala, para que entre en el panel) */
+  p.style.fontSize = Math.round(Math.min(34, Math.max(11, tamTexto * 0.72))) + 'px';
+  p.style.fontWeight = pesoFuente();
+  p.style.color = colorAct;
+}
+$('selFuente').onchange = function(){
+  fuenteAct = this.value;
+  try { localStorage.setItem('siko_fuente', fuenteAct); } catch (e) {}
+  try {
+    if (document.fonts && document.fonts.load) document.fonts.load(pesoFuente() + ' 30px "' + fuenteAct + '"');
+  } catch (e) {}
+  aplicarEstiloTexto();
+  actualizarPrevFuente();
+  toast('🔤 Fuente: ' + fuenteAct);
+};
+function cajaVisible(){ var d = $('cajaTexto').style.display; return d === 'flex' || d === 'block'; }
+function aplicarEstiloTexto(){
+  var inp = $('textoInput');
+  var b = $('cajaTexto');
+  inp.style.fontFamily = '"' + fuenteAct + '", sans-serif';
+  inp.style.fontWeight = pesoFuente(); /* v37: las de terror van sin negritas */
+  inp.style.fontSize = Math.round(tamTexto * zoomAct) + 'px';
+  inp.style.color = colorAct;
+  inp.style.borderColor = colorAct;
+  var ancho = Math.max(10, (txtObj && txtObj.texto ? txtObj.texto.length : 8)) + 2;
+  inp.style.width = Math.min(360, Math.max(110, ancho * tamTexto * zoomAct * 0.55)) + 'px';
+  if (txtObj) {
+    b.style.left = Math.round(txtObj.x * zoomAct) + 'px';
+    b.style.top = Math.round(txtObj.y * zoomAct) + 'px';
+  }
+  actualizarPrevFuente(); /* v37: la vista previa sigue todo (fuente, tamaño y color) */
+}
+function abrirTexto(){
+  if (!txtObj) {
+    txtObj = { x: lienzo.width * 0.28, y: lienzo.height * 0.42 };
+    $('textoInput').value = '';
+    centrarCajaTexto();
+  }
+  $('cajaTexto').style.display = 'flex';
+  aplicarEstiloTexto();
+  setTimeout(function(){ try { $('textoInput').focus(); } catch (e) {} }, 80);
+}
+/* pone la caja en el centro de LO QUE SE VE de la ventana del papel */
+function centrarCajaTexto(){
+  var vx = vpLienzo.scrollLeft + (vpLienzo.clientWidth - $('cajaTexto').offsetWidth) / 2;
+  var vy = vpLienzo.scrollTop + (vpLienzo.clientHeight - $('cajaTexto').offsetHeight) / 2;
+  txtObj.x = Math.max(4, Math.min(lienzo.width - 40, vx / zoomAct));
+  txtObj.y = Math.max(4, Math.min(lienzo.height - 50, vy / zoomAct));
+  aplicarEstiloTexto();
+}
+function cerrarTexto(){
+  txtObj = null;
+  $('cajaTexto').style.display = 'none';
+}
+function fijarTexto(){
+  var t = $('textoInput').value;
+  if (!t.trim()) { toast('✍️ Escribí algo primero'); return; }
+  if (!txtObj) return;
+  guardarUndo();
+  var C = lctx();
+  C.fillStyle = colorAct;
+  C.font = pesoFuente() + ' ' + tamTexto + 'px "' + fuenteAct + '", sans-serif'; /* v37: peso según la fuente */
+  C.textBaseline = 'top';
+  C.fillText(t, txtObj.x, txtObj.y + Math.round(tamTexto * 0.12));
+  repintar();
+  $('textoInput').value = '';
+  if (txtObj) txtObj.texto = '';
+  aplicarEstiloTexto();
+  toast('✍️ ¡Texto fijado en "' + capas[capaAct].nombre + '"! Arrastralo y poné otro si querés');
+}
+$('btnTextoOk').onclick = function(ev){ ev.stopPropagation(); fijarTexto(); };
+$('btnTextoNo').onclick = function(ev){
+  ev.stopPropagation();
+  cerrarTexto();
+  elegirHerr('lapiz');
+};
+$('btnTextoMas').onclick = function(ev){
+  ev.stopPropagation();
+  tamTexto = Math.min(96, tamTexto + 4);
+  try { localStorage.setItem('siko_tamtexto', String(tamTexto)); } catch (e) {}
+  aplicarEstiloTexto();
+};
+$('btnTextoMenos').onclick = function(ev){
+  ev.stopPropagation();
+  tamTexto = Math.max(12, tamTexto - 4);
+  try { localStorage.setItem('siko_tamtexto', String(tamTexto)); } catch (e) {}
+  aplicarEstiloTexto();
+};
+$('textoInput').addEventListener('input', function(){
+  if (txtObj) txtObj.texto = this.value;
+  aplicarEstiloTexto();
+});
+$('textoInput').addEventListener('keydown', function(e){
+  if (e.key === 'Enter') { e.preventDefault(); fijarTexto(); }
+});
+/* ARRASTRE de la caja de texto (mouse y dedo) */
+(function(){
+  var caja = $('cajaTexto');
+  caja.addEventListener('pointerdown', function(e){
+    if (e.target && e.target.tagName === 'BUTTON') return;
+    e.preventDefault();
+    if (!txtObj) return;
+    txtAgarre = { px: e.clientX, py: e.clientY, ox: txtObj.x, oy: txtObj.y };
+    try { caja.setPointerCapture(e.pointerId); } catch (err) {}
+  });
+  caja.addEventListener('pointermove', function(e){
+    if (!txtAgarre || !txtObj) return;
+    e.preventDefault();
+    var dx = (e.clientX - txtAgarre.px) / zoomAct;
+    var dy = (e.clientY - txtAgarre.py) / zoomAct;
+    txtObj.x = Math.max(-lienzo.width, Math.min(lienzo.width, txtAgarre.ox + dx));
+    txtObj.y = Math.max(-lienzo.height, Math.min(lienzo.height, txtAgarre.oy + dy));
+    aplicarEstiloTexto();
+  });
+  function solto(){ txtAgarre = null; }
+  caja.addEventListener('pointerup', solto);
+  caja.addEventListener('pointercancel', solto);
+})();
+
+/* ---------- v37 · 🧷 FIGURITAS PREARMADAS ----------
+   Logitos listos para estampar (estrellitas, corazones, luna, murciélago, calabaza,
+   fantasma, calavera, araña, telaraña y emojis de siempre). Igual que el TEXTO:
+   la figurita queda FLOTANDO en una caja sobre el papel — se ARRASTRA a cualquier
+   lugar, se agranda/achica con A+ / A− y con ✔ se FIJA en la capa elegida.
+   Sale con Twemoji (los dibujitos de X/Twitter) así se ve A COLOR hasta en las TVs
+   que pintaban los emojis negros; si no hay internet, la estampa como emoji de texto. */
+var STIKS = [
+  { e: '⭐', c: '2b50' }, { e: '🌟', c: '1f31f' }, { e: '✨', c: '2728' }, { e: '💫', c: '1f4ab' },
+  { e: '⚡', c: '26a1' }, { e: '🔥', c: '1f525' }, { e: '❤️', c: '2764' }, { e: '🧡', c: '1f9e1' },
+  { e: '🌙', c: '1f319' }, { e: '🌈', c: '1f308' }, { e: '🎵', c: '1f3b5' }, { e: '👑', c: '1f451' },
+  { e: '👍', c: '1f44d' }, { e: '😍', c: '1f60d' }, { e: '😎', c: '1f60e' }, { e: '🥳', c: '1f973' },
+  { e: '👽', c: '1f47d' }, { e: '🦇', c: '1f987' }, { e: '🎃', c: '1f383' }, { e: '👻', c: '1f47b' },
+  { e: '💀', c: '1f480' }, { e: '🕷️', c: '1f577' }, { e: '🕸️', c: '1f578' }, { e: '😂', c: '1f602' }
+];
+var tamStik = 48;      /* lado de la figurita en el papel (24 a 128) */
+var stikObj = null;    /* { emo, cod, x, y } — x/y es el CENTRO en coordenadas del papel */
+var stikAgarre = null; /* datos del arrastre de la caja */
+try {
+  var sG2 = parseInt(localStorage.getItem('siko_tamstik'), 10);
+  if (sG2 >= 24 && sG2 <= 128) tamStik = sG2;
+} catch (e) {}
+function guardarTamStik(){ try { localStorage.setItem('siko_tamstik', String(tamStik)); } catch (e) {} }
+function llenarStiks(){
+  var g = $('gridStik');
+  if (!g) return;
+  g.innerHTML = '';
+  for (var i = 0; i < STIKS.length; i++) {
+    (function(st){
+      var b = document.createElement('button');
+      b.className = 'btnStik';
+      b.type = 'button';
+      b.textContent = st.e;
+      b.title = 'Poner esta figurita en el dibujo';
+      b.onclick = function(ev){ ev.stopPropagation(); abrirStik(st.e, st.c); };
+      g.appendChild(b);
+    })(STIKS[i]);
+  }
+  emojisBonitos(g); /* v37: la rejilla también va a color en las TVs */
+}
+function abrirStik(emo, cod){
+  stikObj = { emo: emo, cod: cod, x: lienzo.width / 2, y: lienzo.height / 2 };
+  $('stikImg').src = TW_BASE + 'svg/' + cod + '.svg';
+  $('stikImg').alt = emo;
+  $('cajaStik').style.display = 'flex';
+  aplicarStik();
+  centrarCajaStik();
+  toast('🧷 Arrastrala adonde quieras, A+/A− para el tamaño y ✔ para fijarla');
+}
+function stikVisible(){ return $('cajaStik').style.display === 'flex'; }
+function aplicarStik(){
+  if (!stikObj) return;
+  var lado = Math.round(tamStik * zoomAct);
+  var im = $('stikImg');
+  im.style.width = lado + 'px';
+  im.style.height = lado + 'px';
+  /* la caja se posiciona por el CENTRO de la figurita (x/y) */
+  $('cajaStik').style.left = Math.round(stikObj.x * zoomAct - lado / 2) + 'px';
+  $('cajaStik').style.top = Math.round(stikObj.y * zoomAct - lado / 2) + 'px';
+}
+/* pone la figurita en el centro de LO QUE SE VE de la ventana del papel */
+function centrarCajaStik(){
+  var lado = Math.round(tamStik * zoomAct);
+  var vx = vpLienzo.scrollLeft + (vpLienzo.clientWidth - lado) / 2;
+  var vy = vpLienzo.scrollTop + (vpLienzo.clientHeight - lado) / 2;
+  stikObj.x = Math.max(2, Math.min(lienzo.width - 2, vx / zoomAct));
+  stikObj.y = Math.max(2, Math.min(lienzo.height - 2, vy / zoomAct));
+  aplicarStik();
+}
+function cerrarStik(){
+  stikObj = null;
+  $('cajaStik').style.display = 'none';
+}
+function fijarStik(){
+  if (!stikObj) return;
+  var s = tamStik, cx = stikObj.x, cy = stikObj.y, cod = stikObj.cod, emo = stikObj.emo;
+  guardarUndo();
+  var C = lctx();
+  var im = new Image();
+  im.crossOrigin = 'anonymous'; /* para poder mandar el dibujo después (toDataURL) */
+  im.onload = function(){
+    C.drawImage(im, cx - s / 2, cy - s / 2, s, s);
+    repintar();
+  };
+  im.onerror = function(){
+    /* sin internet que la imagen no llegó: la estampo como emoji de texto */
+    C.font = Math.round(s * 0.82) + 'px sans-serif';
+    C.textBaseline = 'top';
+    C.fillText(emo, cx - s / 2, cy - s * 0.09);
+    repintar();
+  };
+  im.src = TW_BASE + '72x72/' + cod + '.png';
+  cerrarStik();
+  toast('🧷 ¡Figurita fijada en "' + capas[capaAct].nombre + '"! Deshacé con ↩️ si no te gustó');
+}
+$('btnStikOk').onclick = function(ev){ ev.stopPropagation(); fijarStik(); };
+$('btnStikNo').onclick = function(ev){ ev.stopPropagation(); cerrarStik(); };
+$('btnStikMas').onclick = function(ev){
+  ev.stopPropagation();
+  tamStik = Math.min(128, tamStik + 8);
+  guardarTamStik();
+  aplicarStik();
+};
+$('btnStikMenos').onclick = function(ev){
+  ev.stopPropagation();
+  tamStik = Math.max(24, tamStik - 8);
+  guardarTamStik();
+  aplicarStik();
+};
+/* ARRASTRE de la caja de la figurita (mouse y dedo — igual que la de texto) */
+(function(){
+  var caja = $('cajaStik');
+  caja.addEventListener('pointerdown', function(e){
+    if (e.target && e.target.tagName === 'BUTTON') return;
+    e.preventDefault();
+    if (!stikObj) return;
+    stikAgarre = { px: e.clientX, py: e.clientY, ox: stikObj.x, oy: stikObj.y };
+    try { caja.setPointerCapture(e.pointerId); } catch (err) {}
+  });
+  caja.addEventListener('pointermove', function(e){
+    if (!stikAgarre || !stikObj) return;
+    e.preventDefault();
+    var dx = (e.clientX - stikAgarre.px) / zoomAct;
+    var dy = (e.clientY - stikAgarre.py) / zoomAct;
+    stikObj.x = Math.max(-lienzo.width, Math.min(lienzo.width * 2, stikAgarre.ox + dx));
+    stikObj.y = Math.max(-lienzo.height, Math.min(lienzo.height * 2, stikAgarre.oy + dy));
+    aplicarStik();
+  });
+  function solto(){ stikAgarre = null; }
+  caja.addEventListener('pointerup', solto);
+  caja.addEventListener('pointercancel', solto);
+})();
+llenarStiks();
 
 var botonesGrosor = document.querySelectorAll('.btnGrosor');
 for (var ig = 0; ig < botonesGrosor.length; ig++) {
@@ -4371,6 +5003,36 @@ function trazoDifum(x1, y1, x2, y2){
     C.beginPath(); C.arc(x, y, r, 0, 6.2832); C.fill();
   }
 }
+/* v36 · 👆 DEDO (LICUAR): como el dedo en Photoshop — tocás el color que YA está pintado y lo
+   ARRASTRÁS: la mancha se estira y se mezcla siguiendo el trazo. Funciona tomando un disco de la
+   CAPA ELEGIDA en la posición ANTERIOR y estampándolo semitransparente en la nueva, paso a paso. */
+var dedoTmp = document.createElement('canvas');
+var dedoT = dedoTmp.getContext('2d');
+function trazoDedo(x1, y1, x2, y2){
+  var L = capas[capaAct].cv;
+  var r = Math.max(9, grosorAct * 3.4);
+  var dx = x2 - x1, dy = y2 - y1;
+  var dist = Math.sqrt(dx * dx + dy * dy) || 1;
+  var n = Math.max(1, Math.ceil(dist / Math.max(2, r * 0.3)));
+  var tw = Math.ceil(r * 2);
+  if (dedoTmp.width !== tw) { dedoTmp.width = tw; dedoTmp.height = tw; }
+  var C = lctx();
+  for (var i = 1; i <= n; i++) {
+    var t = i / n;
+    var x = x1 + dx * t, y = y1 + dy * t;
+    var px = x1 + dx * (t - 1 / n), py = y1 + dy * (t - 1 / n);
+    dedoT.clearRect(0, 0, tw, tw);
+    dedoT.save();
+    dedoT.beginPath(); dedoT.arc(r, r, r, 0, 6.2832); dedoT.clip();
+    dedoT.drawImage(L, r - px, r - py); /* el pedacito de la capa que quedó ATRÁS */
+    dedoT.restore();
+    C.save();
+    C.globalAlpha = 0.62;
+    C.beginPath(); C.arc(x, y, r, 0, 6.2832); C.clip();
+    C.drawImage(dedoTmp, x - r, y - r);
+    C.restore();
+  }
+}
 function trazo(x1, y1, x2, y2){
   var C = lctx();
   if (herrAct === 'goma') {
@@ -4385,6 +5047,7 @@ function trazo(x1, y1, x2, y2){
   }
   if (herrAct === 'brocha') { trazoBrocha(x1, y1, x2, y2); return; }
   if (herrAct === 'difum') { trazoDifum(x1, y1, x2, y2); return; }
+  if (herrAct === 'dedo') { trazoDedo(x1, y1, x2, y2); return; } /* v36 */
   C.strokeStyle = colorAct;
   C.lineWidth = anchoTrazo();
   C.lineCap = 'round';
@@ -4449,9 +5112,7 @@ function rellenar(px, py){
 }
 lienzo.addEventListener('contextmenu', function(e){ e.preventDefault(); });
 function alBajar(p){
-  /* v34: con la T tocás el papel y sale el cartel para escribir (no dibuja ahí) */
-  if (herrAct === 'texto') { abrirPopTexto(p); return; }
-  cerrarPopTexto();
+  if (herrAct === 'texto') return; /* v33: con Texto no se dibuja (la caja flota encima) */
   guardarUndo();
   if (herrAct === 'bote') { rellenar(p.x, p.y); repintar(); return; }
   pintando = true;
@@ -4469,11 +5130,15 @@ if (window.PointerEvent) {
   lienzo.addEventListener('pointerdown', function(e){
     e.preventDefault();
     if (!e.isPrimary) return; /* v32: el segundo dedo es para el pellizco, no dibuja */
-    if (herrAct === 'texto') { alBajar(posLapiz(e)); return; } /* v34: sin capturar el puntero, así el teclado sale igual en el cel */
     try { lienzo.setPointerCapture(e.pointerId); } catch (err) {}
     if (herrAct === 'mano') { /* v32: ✋ agarra el papel y lo arrastra */
       arrastrar = { x: e.clientX, y: e.clientY, sl: vpLienzo.scrollLeft, st: vpLienzo.scrollTop };
       lienzo.style.cursor = 'grabbing';
+      return;
+    }
+    if (herrAct === 'texto') { /* v33: tocás el papel y la caja de texto salta ahí */
+      var pT = posLapiz(e);
+      if (txtObj) { txtObj.x = pT.x; txtObj.y = pT.y; aplicarEstiloTexto(); }
       return;
     }
     alBajar(posLapiz(e));
@@ -4492,9 +5157,13 @@ if (window.PointerEvent) {
 } else {
   lienzo.addEventListener('mousedown', function(e){
     e.preventDefault();
-    if (herrAct === 'texto') { alBajar(posLapiz(e)); return; } /* v34: texto no dibuja */
     if (herrAct === 'mano') {
       arrastrar = { x: e.clientX, y: e.clientY, sl: vpLienzo.scrollLeft, st: vpLienzo.scrollTop };
+      return;
+    }
+    if (herrAct === 'texto') {
+      var pT = posLapiz(e);
+      if (txtObj) { txtObj.x = pT.x; txtObj.y = pT.y; aplicarEstiloTexto(); }
       return;
     }
     alBajar(posLapiz(e));
@@ -4511,7 +5180,6 @@ if (window.PointerEvent) {
   document.addEventListener('mouseup', function(){ pintando = false; arrastrar = null; });
   lienzo.addEventListener('touchstart', function(e){
     e.preventDefault();
-    if (herrAct === 'texto') { alBajar(posLapiz(e.changedTouches[0])); return; } /* v34: texto no dibuja */
     if (herrAct === 'mano') {
       var t = e.changedTouches[0];
       arrastrar = { x: t.clientX, y: t.clientY, sl: vpLienzo.scrollLeft, st: vpLienzo.scrollTop };
@@ -4536,17 +5204,11 @@ if (window.PointerEvent) {
 }
 
 /* v31 · 🖼️ IMPORTAR IMAGEN: mete una foto en una capa de ABAJO para calcar
-   o pintar encima (igual que el botón de la imagen que pidió el usuario)
-   v34: el selector abre por defecto en JPG, PNG o WEBP y si entra otra cosa avisa */
+   o pintar encima (igual que el botón de la imagen que pidió el usuario) */
 $('btnImportarDibujo').onclick = function(){ $('inputFotoDibujo').click(); };
 $('inputFotoDibujo').addEventListener('change', function(e){
   var f = e.target.files && e.target.files[0];
   if (!f) return;
-  if (!/image\/(jpeg|jpg|png|webp)/i.test(f.type || '')) {
-    toast('🖼️ Usá una imagen JPG, PNG o WEBP');
-    e.target.value = '';
-    return;
-  }
   var fr = new FileReader();
   fr.onload = function(){
     var im = new Image();
@@ -4566,89 +5228,6 @@ $('inputFotoDibujo').addEventListener('change', function(e){
   fr.readAsDataURL(f);
   e.target.value = '';
 });
-
-/* v34 · 🔤 TEXTO CON FUENTES: elegís la T, tocás el papel, escribís y queda pintado en la
-   CAPA ELEGIDA con tu COLOR y la fuente/tamaño que hayas elegido (los selectores viven
-   en el panel de capas, ahí al lado del color — y también adentro del cartel para el cel) */
-var FUENTES = [
-  ['Montserrat', 'Montserrat'],
-  ['Arial', 'Arial'],
-  ['Arial Black', 'Arial Black'],
-  ['Impact', 'Impact'],
-  ['Comic Sans MS', 'Comic Sans MS'],
-  ['Georgia', 'Georgia'],
-  ['Times New Roman', 'Times New Roman'],
-  ['Courier New', 'Courier New'],
-  ['Verdana', 'Verdana'],
-  ['Trebuchet MS', 'Trebuchet MS']
-];
-var TAM_TEXTO = [14, 18, 24, 32, 42, 56, 72];
-var puntoTexto = null; /* dónde quedó el toque en el papel (coords del lienzo) */
-function llenarFuentes(){
-  var idsF = ['selFuente', 'selFuente2'], idsT = ['selTamTexto', 'selTamTexto2'], i, j, s;
-  for (i = 0; i < idsF.length; i++) {
-    s = $(idsF[i]); if (!s) continue;
-    s.innerHTML = '';
-    for (j = 0; j < FUENTES.length; j++) {
-      var o = document.createElement('option');
-      o.value = FUENTES[j][0]; o.textContent = FUENTES[j][0];
-      if (FUENTES[j][0] === 'Montserrat') o.selected = true;
-      s.appendChild(o);
-    }
-  }
-  for (i = 0; i < idsT.length; i++) {
-    s = $(idsT[i]); if (!s) continue;
-    s.innerHTML = '';
-    for (j = 0; j < TAM_TEXTO.length; j++) {
-      var o2 = document.createElement('option');
-      o2.value = TAM_TEXTO[j]; o2.textContent = TAM_TEXTO[j] + ' px';
-      if (TAM_TEXTO[j] === 24) o2.selected = true;
-      s.appendChild(o2);
-    }
-  }
-}
-function fuenteAct(){ var s = $('selFuente'); return s && s.value ? s.value : 'Montserrat'; }
-function tamTextoAct(){ var s = $('selTamTexto'); var v = s ? parseInt(s.value, 10) : 24; return v || 24; }
-/* los 4 selectores (2 del panel + 2 del cartel) andan SIEMPRE sincronizados */
-$('selFuente').addEventListener('change', function(){ $('selFuente2').value = this.value; });
-$('selFuente2').addEventListener('change', function(){ $('selFuente').value = this.value; });
-$('selTamTexto').addEventListener('change', function(){ $('selTamTexto2').value = this.value; });
-$('selTamTexto2').addEventListener('change', function(){ $('selTamTexto').value = this.value; });
-function abrirPopTexto(p){
-  puntoTexto = p;
-  $('popTexto').classList.remove('oculto');
-  /* en el cel el teclado tarda un toque: focus con espera suave */
-  setTimeout(function(){ try { $('txtPopTexto').focus(); } catch (e) {} }, 60);
-}
-function cerrarPopTexto(){
-  var pt = $('popTexto');
-  if (pt) pt.classList.add('oculto');
-  puntoTexto = null;
-}
-function pintarTextoAhora(){
-  var t = ($('txtPopTexto').value || '').replace(/^\s+|\s+$/g, '');
-  if (!t) { toast('✍️ Escribí algo primero'); return; }
-  if (!puntoTexto) { cerrarPopTexto(); return; }
-  guardarUndo();
-  var C = lctx();
-  C.fillStyle = colorAct; /* con tu color actual */
-  C.font = '800 ' + tamTextoAct() + 'px "' + fuenteAct() + '", sans-serif';
-  C.textBaseline = 'alphabetic';
-  C.textAlign = 'left';
-  C.fillText(t, puntoTexto.x, puntoTexto.y);
-  C.textAlign = 'start';
-  repintar();
-  cerrarPopTexto();
-  $('txtPopTexto').value = '';
-  toast('🔤 Texto pintado en ' + capas[capaAct].nombre);
-}
-$('btnPintarTexto').onclick = pintarTextoAhora;
-$('btnCancelarTexto').onclick = cerrarPopTexto;
-$('txtPopTexto').addEventListener('keydown', function(e){
-  if (e.key === 'Enter') { e.preventDefault(); pintarTextoAhora(); }
-  else if (e.key === 'Escape') { cerrarPopTexto(); }
-});
-llenarFuentes();
 
 $('btnEnviarDibujo').onclick = function(){
   repintar(); /* v31: aplano todas las capas visibles antes de mandar */
@@ -4767,6 +5346,7 @@ function abrirMenuMsj(mid){
   if (esFav) $('shFavorito').textContent = esFavorito(m) ? '💔 Quitar de favoritos' : '⭐ Guardar en favoritos';
   $('shBorrar').classList.toggle('oculto', m.de !== miId);
   $('sheetMsj').classList.remove('oculto');
+  emojisBonitos($('sheetMsj')); /* v33: reacciones a color */
 }
 function cerrarMenuMsj(){
   msjMenuId = null;
@@ -5334,15 +5914,33 @@ $('btnCompartirRadio').onclick = function(){
     .catch(function(){ toast('❌ No pude compartir la radio'); });
 };
 
-/* ---------- COMPARTIR EL CHAT POR WHATSAPP / NATIVO ---------- */
+/* ---------- v34 · COMPARTIR EL CHAT (imagen promo + link, por WhatsApp) ----------
+   En cel/tablet usa el compartir nativo del teléfono CON la imagen promo: al chat de
+   WhatsApp entra la tarjetita de “Dibuja · Escucha Radio · Chatea” y ABAJO el link.
+   En PC/TV abre WhatsApp Web con el link (la tarjetita con la imagen la arma WhatsApp
+   leyendo las meta og: del sitio). */
+var LINK_CHAT = 'https://sikochat.vercel.app/';
+var TEXTO_COMPARTIR = '🖤🧡 SIKO CHAT — dibujá, escuchá la radio en vivo y chateá con la gente 👇 ' + LINK_CHAT;
+var promoArchivo = null;
+function darPromo(){
+  if (promoArchivo) return Promise.resolve(promoArchivo);
+  return fetch('compartir-sikochat.jpg').then(function(r){ if (!r.ok) throw 0; return r.blob(); }).then(function(b){
+    try { promoArchivo = new File([b], 'sikochat.jpg', { type: 'image/jpeg' }); }
+    catch (e) { promoArchivo = b; } /* navegadores viejos: manda el blob crudo */
+    return promoArchivo;
+  });
+}
 $('btnCompartir').onclick = function(){
-  var urlChat = location.origin + location.pathname;
-  var texto = '💬 Entrá al SIKO CHAT, el messenger de Sikodark Radio 📻 escuchala en vivo 🖤🧡 ' + urlChat;
-  if (navigator.share) {
-    navigator.share({ title: 'SIKO CHAT — el messenger de la radio', text: texto, url: urlChat }).catch(function(){});
-  } else {
-    window.open('https://wa.me/?text=' + encodeURIComponent(texto), '_blank');
+  if (navigator.share && navigator.canShare) {
+    darPromo().catch(function(){ return null; }).then(function(f){
+      if (f && navigator.canShare({ files: [f] })) {
+        return navigator.share({ files: [f], title: 'SIKO CHAT', text: TEXTO_COMPARTIR });
+      }
+      return navigator.share({ title: 'SIKO CHAT', text: TEXTO_COMPARTIR, url: LINK_CHAT });
+    }).catch(function(){});
+    return;
   }
+  window.open('https://wa.me/?text=' + encodeURIComponent(TEXTO_COMPARTIR), '_blank');
 };
 
 /* ---------- 21 · PWA (INSTALAR COMO APP) ---------- */
@@ -5416,6 +6014,10 @@ document.addEventListener('pointerdown', desbloquearSonido);
 document.addEventListener('touchend', desbloquearSonido);
 document.addEventListener('click', desbloquearSonido);
 document.addEventListener('keydown', desbloquearSonido);
+
+/* v33 · ARRANQUE: pintar a COLOR todos los emojis que ya están en pantalla
+   (título, botones, avatares guardados…) — en la TV se ven de color, no negros */
+try { emojisBonitos(document.body); } catch (e) {}
 </script>
 </body>
 </html>
