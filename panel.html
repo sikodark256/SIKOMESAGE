@@ -1,352 +1,634 @@
 <!DOCTYPE html>
 <html lang="es">
-<head><link rel="manifest" href="panel-manifest.json">
-<meta name="theme-color" content="#171820">
+<head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Panel DJ — sikodark radio</title>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0c">
+<meta name="robots" content="noindex, nofollow">
+<title>🛠️ SikoChat · Panel del Administrador</title>
+<link rel="icon" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#171820;--card:#22232b;--sec:#2c2d35;--text:#f5f5f7;--muted:#a5a6ad;--pri:#ff8a24;--bor:rgba(255,255,255,.1);--ok:#34c759;--err:#ff3b30}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;padding:16px}
-h1{font-size:20px;margin:0 0 8px}
-.sup{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:16px}
-.estado{font-size:12px;color:var(--muted);flex:1;min-width:150px}
-button{background:var(--pri);color:#191919;border:0;border-radius:999px;padding:10px 20px;font-weight:700;cursor:pointer}
-.mini{padding:6px 12px;margin:0;font-size:12px;background:var(--sec);color:var(--text)}
-.mini.peligro{background:rgba(255,59,48,.15);color:var(--err)}
-.mini.ok{background:rgba(52,199,89,.15);color:var(--ok)}
-.mini.activo{background:var(--pri);color:#191919;font-weight:700}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
-.card{background:var(--card);border:1px solid var(--bor);border-radius:14px;padding:14px;text-align:center}
-.card .n{font-size:24px;font-weight:800;color:var(--pri)}
-.card .n.vivo{color:var(--ok)}
-.card .l{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:4px}
-h2{font-size:15px;margin:20px 0 8px}
-table{width:100%;border-collapse:collapse;background:var(--card);border-radius:14px;overflow:hidden;border:1px solid var(--bor)}
-th,td{padding:9px 10px;text-align:left;font-size:13px;border-bottom:1px solid var(--bor)}
-th{background:var(--sec);font-size:11px;text-transform:uppercase;color:var(--muted)}
-td.num{font-weight:800;color:var(--pri)}
-.pos{color:var(--muted);font-family:monospace;font-size:12px}
-.nombreUser{font-weight:700}
-.ico{font-size:16px}
-/* ⭐ BADGE EN LÍNEA con pulso */
-.onlineBadge{display:inline-flex;align-items:center;gap:5px;background:rgba(52,199,89,.16);
-  color:var(--ok);border:1px solid rgba(52,199,89,.45);border-radius:999px;
-  padding:3px 9px;font-size:10.5px;font-weight:800;letter-spacing:.04em;white-space:nowrap}
-.onlineBadge .pt{width:8px;height:8px;border-radius:50%;background:var(--ok);
-  box-shadow:0 0 8px rgba(52,199,89,.9);animation:pulso 1.4s infinite}
-@keyframes pulso{50%{opacity:.35}}
-.offlineBadge{display:inline-block;color:#6d6e78;font-size:10.5px;white-space:nowrap}
-.tiempoLinea{display:block;font-size:11px;color:var(--ok);margin-top:3px;font-family:monospace}
-.conexion{font-family:monospace;font-size:12px}
-.conexion b{color:var(--ok)}
-.chips{margin-top:4px;display:flex;flex-wrap:wrap;gap:4px}
-.chip{background:var(--sec);color:var(--muted);border-radius:999px;padding:2px 8px;font-size:10.5px}
-.vacio{color:var(--muted);font-size:13px;padding:12px;background:var(--card);border:1px dashed var(--bor);border-radius:12px}
-.bloqueadoTxt{color:var(--err);font-size:11px}
-.sub2{display:block;color:var(--muted);font-size:11px;font-weight:400;margin-top:2px}
-.ordenBtns{display:flex;gap:6px;margin:0 0 8px;flex-wrap:wrap}
+/* ============================================================
+   🛠️ SIKOCHAT · PANEL DEL ADMINISTRADOR (v42) — PÁGINA APARTE
+   Negra + naranja como el chat. Se conecta al MISMO Firebase
+   (chat-config.js) y maneja: 👥 usuarios · 🚫 bloqueo global
+   · 🗑️ borrado de gente y mensajes.
+   Esta página NO está en el menú del chat: guardá el link.
+   ============================================================ */
+:root{
+  --naranja:#f59d3d;
+  --naranja2:#ffb85c;
+  --negro:#0a0a0c;
+  --panel:#141418;
+  --panel2:#1c1c22;
+  --borde:#2a2a32;
+  --texto:#f2f2f2;
+  --suave:#9a9aa4;
+  --rojo:#e5484d;
+  --verde:#46c46e;
+}
+*{ margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html,body{ height:100%; }
+body{
+  background:radial-gradient(1100px 500px at 50% -180px, #23232b 0%, var(--negro) 60%) fixed;
+  color:var(--texto);
+  font-family:'Montserrat', sans-serif;
+  min-height:100vh;
+}
+.oculto{ display:none !important; }
+
+/* ---------- 🔒 PUERTA (clave del administrador) ---------- */
+#puerta{
+  min-height:100vh; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; padding:24px; text-align:center;
+}
+.cajaPuerta{
+  width:100%; max-width:360px; background:var(--panel);
+  border:1px solid var(--borde); border-radius:18px; padding:30px 24px;
+  box-shadow:0 18px 50px rgba(0,0,0,.55);
+}
+.cajaPuerta.err{ animation:temblor .35s; border-color:var(--rojo); }
+@keyframes temblor{ 0%,100%{transform:translateX(0)} 25%{transform:translateX(-9px)} 75%{transform:translateX(9px)} }
+.candado{
+  width:64px; height:64px; margin:0 auto 14px; border-radius:50%;
+  background:rgba(245,157,61,.12); border:1px solid rgba(245,157,61,.45);
+  display:flex; align-items:center; justify-content:center; font-size:30px;
+}
+.cajaPuerta h1{ font-size:19px; font-weight:800; letter-spacing:.4px; }
+.cajaPuerta h1 span{ color:var(--naranja); }
+.cajaPuerta p{ color:var(--suave); font-size:12.5px; margin:8px 0 18px; line-height:1.5; }
+#claveAdmin{
+  width:100%; padding:13px 14px; border-radius:12px; border:1px solid var(--borde);
+  background:var(--panel2); color:var(--texto); font:600 15px 'Montserrat',sans-serif;
+  text-align:center; letter-spacing:3px; outline:none;
+}
+#claveAdmin:focus{ border-color:var(--naranja); }
+#btnEntrar{
+  width:100%; margin-top:12px; padding:13px; border:none; border-radius:12px;
+  background:linear-gradient(180deg, var(--naranja2), var(--naranja));
+  color:#181004; font:800 14px 'Montserrat',sans-serif; letter-spacing:1.2px;
+  cursor:pointer;
+}
+#btnEntrar:active{ transform:scale(.97); }
+#msjPuerta{ margin-top:10px; font-size:12px; color:var(--rojo); font-weight:600; min-height:16px; }
+
+/* ---------- 🧰 PANEL ---------- */
+#app{ max-width:760px; margin:0 auto; padding:14px 12px calc(30px + env(safe-area-inset-bottom)); }
+.cabPanel{
+  display:flex; align-items:center; gap:10px; padding:14px 4px 4px; flex-wrap:wrap;
+}
+.cabPanel .logo{
+  width:44px; height:44px; border-radius:13px; flex:none;
+  background:linear-gradient(160deg,#26262e,#111114); border:1px solid var(--borde);
+  display:flex; align-items:center; justify-content:center; font-size:22px;
+}
+.cabPanel h1{ font-size:17px; font-weight:800; letter-spacing:.3px; line-height:1.15; }
+.cabPanel h1 span{ color:var(--naranja); }
+.cabPanel .sub{ width:100%; color:var(--suave); font-size:12px; margin-top:2px; }
+.cabPanel .sub a{ color:var(--naranja); font-weight:700; text-decoration:none; }
+
+.chipsStats{ display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:14px 0; }
+.chipStat{
+  background:var(--panel); border:1px solid var(--borde); border-radius:13px;
+  padding:10px 6px; text-align:center;
+}
+.chipStat b{ display:block; font-size:19px; font-weight:800; color:var(--naranja); }
+.chipStat span{ font-size:10px; color:var(--suave); font-weight:600; letter-spacing:.5px; }
+
+.tabsPanel{ display:flex; gap:6px; margin:4px 0 12px; background:var(--panel); border:1px solid var(--borde); border-radius:14px; padding:5px; }
+.tabBtn{
+  flex:1; padding:10px 4px; border:none; border-radius:10px; cursor:pointer;
+  background:transparent; color:var(--suave); font:700 12.5px 'Montserrat',sans-serif;
+}
+.tabBtn.act{ background:linear-gradient(180deg, var(--naranja2), var(--naranja)); color:#181004; font-weight:800; }
+
+.herramientas{ display:flex; gap:8px; margin-bottom:10px; }
+.herramientas input, .herramientas select{
+  flex:1; min-width:0; padding:10px 12px; border-radius:11px; border:1px solid var(--borde);
+  background:var(--panel); color:var(--texto); font:600 13px 'Montserrat',sans-serif; outline:none;
+}
+.herramientas input:focus, .herramientas select:focus{ border-color:var(--naranja); }
+.btnRefrescar{
+  flex:none; padding:10px 14px; border-radius:11px; border:1px solid var(--borde);
+  background:var(--panel); color:var(--naranja); font:800 14px 'Montserrat',sans-serif; cursor:pointer;
+}
+.btnRefrescar:active{ transform:scale(.95); }
+
+.notaTab{
+  background:rgba(245,157,61,.07); border:1px solid rgba(245,157,61,.25);
+  border-radius:12px; padding:10px 12px; color:#d8c9ad; font-size:11.5px; line-height:1.55; margin-bottom:12px;
+}
+
+.lista{ display:flex; flex-direction:column; gap:8px; }
+.tarjeta{
+  background:var(--panel); border:1px solid var(--borde); border-radius:14px; padding:11px 12px;
+  display:flex; align-items:center; gap:11px;
+}
+.tarjeta.bloqGlobal{ border-color:rgba(229,72,77,.55); }
+.avatarT{
+  width:44px; height:44px; border-radius:50%; flex:none; overflow:hidden;
+  background:var(--panel2); border:2px solid var(--borde);
+  display:flex; align-items:center; justify-content:center; font-size:21px;
+}
+.avatarT img{ width:100%; height:100%; object-fit:cover; }
+.infoT{ flex:1; min-width:0; }
+.nombreT{ font-size:14px; font-weight:700; display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+.nombreT .badgeB{ font-size:9.5px; font-weight:800; background:rgba(229,72,77,.16); color:#ff8a8e; border:1px solid rgba(229,72,77,.5); padding:2px 7px; border-radius:20px; letter-spacing:.5px; }
+.subT{ font-size:11px; color:var(--suave); margin-top:3px; display:flex; align-items:center; gap:5px; flex-wrap:wrap; }
+.punto{ width:8px; height:8px; border-radius:50%; background:#55555f; flex:none; }
+.punto.on{ background:var(--verde); box-shadow:0 0 6px rgba(70,196,110,.7); }
+.punto.au{ background:var(--naranja); }
+.idT{ color:#6a6a74; }
+.acciT{ display:flex; gap:6px; flex:none; }
+.miniBtn{
+  min-width:44px; min-height:40px; padding:0 10px; border-radius:11px; cursor:pointer;
+  border:1px solid var(--borde); background:var(--panel2); color:var(--texto);
+  font:800 15px 'Montserrat',sans-serif; transition:transform .08s;
+}
+.miniBtn:active{ transform:scale(.92); }
+.miniBtn.peligro{ color:#ff8a8e; border-color:rgba(229,72,77,.5); }
+.miniBtn.ok{ color:var(--verde); border-color:rgba(70,196,110,.5); }
+.miniBtn.armado{
+  background:linear-gradient(180deg,#ff6b6f,var(--rojo)); color:#fff;
+  border-color:var(--rojo); font-size:10px; letter-spacing:.4px; transform:scale(1.04);
+}
+
+.tarjMsj{ flex-direction:column; align-items:stretch; gap:6px; }
+.cabMsj{ display:flex; align-items:center; gap:8px; font-size:11.5px; color:var(--suave); }
+.cabMsj .quien{ font-weight:700; color:var(--texto); font-size:12.5px; }
+.cabMsj .destino{ color:var(--naranja); font-weight:700; }
+.cabMsj .horaM{ margin-left:auto; font-size:10.5px; color:#6a6a74; flex:none; }
+.cuerpoMsj{
+  background:var(--panel2); border-radius:10px; padding:8px 10px;
+  font-size:12.5px; line-height:1.5; color:#d6d6dc; word-break:break-word;
+}
+.cuerpoMsj img.prevFoto{ max-width:110px; max-height:110px; border-radius:8px; display:block; margin-top:4px; }
+
+.vacio{ text-align:center; color:var(--suave); font-size:12.5px; padding:26px 10px; line-height:1.6; }
+
+.piePanel{ margin-top:18px; text-align:center; color:#6a6a74; font-size:10.5px; line-height:1.7; padding:0 8px; }
+.piePanel b{ color:var(--suave); }
+
+/* tostadas */
+#tostadas{ position:fixed; left:50%; bottom:18px; transform:translateX(-50%); display:flex; flex-direction:column; gap:6px; z-index:99; width:min(92vw,430px); }
+.tostada{
+  background:#1f1f26; border:1px solid var(--naranja); color:var(--texto);
+  border-radius:12px; padding:11px 14px; font-size:12.5px; font-weight:600;
+  box-shadow:0 10px 28px rgba(0,0,0,.5); animation:tIn .22s; text-align:center;
+}
+@keyframes tIn{ from{opacity:0; transform:translateY(10px)} to{opacity:1; transform:translateY(0)} }
+
+@media (max-width:430px){
+  .chipsStats{ grid-template-columns:repeat(2,1fr); }
+  .acciT{ flex-direction:column; }
+  .miniBtn{ min-width:52px; }
+}
 </style>
 </head>
 <body>
-<h1>🎛️ Panel DJ — sikodark radio</h1>
-<div class="sup">
-  <span class="estado" id="estado">Conectando…</span>
-  <button class="mini" onclick="location.reload()">🔄 Actualizar</button>
+
+<!-- ============ 🔒 PUERTA DEL ADMINISTRADOR ============ -->
+<div id="puerta">
+  <div class="cajaPuerta" id="cajaPuerta">
+    <div class="candado">🔐</div>
+    <h1>PANEL DEL <span>ADMINISTRADOR</span></h1>
+    <p>Manejo aparte de SikoChat: usuarios, bloqueos y borrado.<br>Esta página no está en el menú del chat.</p>
+    <input type="password" id="claveAdmin" placeholder="Clave de administrador" autocomplete="off">
+    <button id="btnEntrar" type="button">ENTRAR 🛠️</button>
+    <div id="msjPuerta"></div>
+  </div>
 </div>
 
-<div class="cards">
-  <div class="card"><div class="n" id="cOyentes">—</div><div class="l">Oyentes únicos</div></div>
-  <div class="card"><div class="n vivo" id="cVivos">—</div><div class="l">🟢 En vivo ahora</div></div>
-  <div class="card"><div class="n" id="cLikes">—</div><div class="l">Me gusta ❤️</div></div>
+<!-- ============ 🧰 EL PANEL ============ -->
+<div id="app" class="oculto">
+  <div class="cabPanel">
+    <div class="logo">🛠️</div>
+    <h1>PANEL DEL <span>ADMINISTRADOR</span></h1>
+    <div class="sub">SikoChat · conectado al mismo Firebase · <a href="./" target="_blank" rel="noopener">abrir el chat ↗</a></div>
+  </div>
+
+  <div class="chipsStats">
+    <div class="chipStat"><b id="stUsu">0</b><span>USUARIOS</span></div>
+    <div class="chipStat"><b id="stCon">0</b><span>CONECTADOS</span></div>
+    <div class="chipStat"><b id="stBloq">0</b><span>BLOQUEADOS</span></div>
+    <div class="chipStat"><b id="stMsj">0</b><span>MENSAJES</span></div>
+  </div>
+
+  <div class="tabsPanel">
+    <button class="tabBtn act" id="tabUsu" type="button">👥 Usuarios</button>
+    <button class="tabBtn" id="tabBloq" type="button">🚫 Bloqueados</button>
+    <button class="tabBtn" id="tabMsj" type="button">💬 Mensajes</button>
+  </div>
+
+  <!-- 👥 USUARIOS -->
+  <div id="pgUsu">
+    <div class="herramientas">
+      <input id="buscarUsu" type="search" placeholder="🔍 Buscar por nombre…" autocomplete="off">
+    </div>
+    <div class="notaTab">
+      🚫 <b>BLOQUEAR</b> = ban global: sus mensajes desaparecen para TODOS (grupo, privados, zumbidos e invitaciones a jugar) y él no puede escribir más. Puede volver a entrar pero no dice nada.
+      &nbsp;·&nbsp; 🗑️ <b>BORRAR</b> = lo saca de la lista y borra TODO lo que escribió (no puede volver con lo mismo).
+      Las dos piden confirmación (dos toques).
+    </div>
+    <div id="listaUsu" class="lista"><p class="vacio">Buscando gente… 📡</p></div>
+  </div>
+
+  <!-- 🚫 BLOQUEADOS -->
+  <div id="pgBloq" class="oculto">
+    <div class="notaTab">
+      Gente bloqueada por VOS como administrador. Nadie más puede desbloquear.
+      Sus mensajes viejos siguen en Firebase (podés borrarlos en 💬 Mensajes).
+    </div>
+    <div id="listaBloq" class="lista"></div>
+  </div>
+
+  <!-- 💬 MENSAJES -->
+  <div id="pgMsj" class="oculto">
+    <div class="herramientas">
+      <select id="filtroMsj">
+        <option value="">💬 Todos los mensajes</option>
+        <option value="__grupo">💬 Solo el GRUPO</option>
+      </select>
+      <button class="btnRefrescar" id="btnRefMsj" type="button" title="Refrescar">🔄</button>
+    </div>
+    <div class="notaTab">Últimos 150 mensajes, en vivo. 🗑️ borra ese mensaje PARA TODOS al instante (dos toques).</div>
+    <div id="listaMsj" class="lista"><p class="vacio">Leyendo mensajes… 📡</p></div>
+  </div>
+
+  <div class="piePanel">
+    <b>🛠️ Panel aparte (v42)</b> — guardá este link en privado: solo vos deberías entrar.<br>
+    La clave se cambia adentro de este archivo, arriba del todo (<b>CLAVE_ADMIN</b>).
+  </div>
 </div>
 
-<h2>👥 Oyentes registrados</h2>
-<div id="tUsuarios"></div>
+<div id="tostadas"></div>
 
-<h2>❤️ Me gusta</h2>
-<div class="ordenBtns">
-  <button class="mini activo" id="btnOrdenLikes">♥ Más gustados</button>
-  <button class="mini" id="btnOrdenFecha">🕘 Recientes</button>
-</div>
-<div id="tUltimos"></div>
-
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="chat-config.js"></script>
 <script>
-const firebaseConfig = {
+/* ============================================================
+   🛠️ PANEL DEL ADMINISTRADOR — lógica
+   ⚠️ CAMBIÁ LA CLAVE ACÁ ABAJO (queda a la vista en el código:
+      cualquiera que lea el archivo la ve. Es una puerta simple,
+      no un candado de banco — la seguridad de verdad es que
+      esta página no se comparte).
+   ============================================================ */
+var CLAVE_ADMIN = 'siko2026';
+
+/* ---------- Firebase (igual que el chat: chat-config.js + respaldo) ---------- */
+var CFG_RESPALDO = {
   apiKey: "AIzaSyC9Q9N1TTqWRUpeh2lo7tGuG8lwTrvbHrA",
   authDomain: "sikodarkradio-26a07.firebaseapp.com",
   projectId: "sikodarkradio-26a07",
-  storageBucket: "sikodarkradio-26a07.firebasestorage.app",
-  messagingSenderId: "941041207378",
-  appId: "1:941041207378:web:994e34372109d30acf778b"
+  storageBucket: "sikodarkradio-26a07.appspot.com"
 };
-
-function esc(s){return String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;"}[c]))}
-
-function aMs(v){
-  try{
-    if (!v) return 0;
-    if (v.toMillis) return v.toMillis();
-    if (typeof v === "number") return v;
-    const t = Date.parse(v);
-    return isNaN(t) ? 0 : t;
-  }catch(e){ return 0; }
-}
-
-function horaConexion(ms){
-  if (!ms) return "";
-  const f = new Date(ms), hoy = new Date();
-  const hora = f.toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});
-  if (f.toDateString() === hoy.toDateString()) return hora;
-  return f.toLocaleDateString([], {day:"2-digit", month:"2-digit"}) + " " + hora;
-}
-
-/* ⭐ Cuánto tiempo lleva conectado */
-function duracion(msInicio){
-  if (!msInicio) return "";
-  const seg = Math.floor((Date.now() - msInicio)/1000);
-  if (seg < 60) return "menos de 1 min";
-  const min = Math.floor(seg/60);
-  if (min < 60) return min + " min";
-  const h = Math.floor(min/60), m = min%60;
-  if (h < 24) return h + " h" + (m ? " " + m + " min" : "");
-  const d = Math.floor(h/24);
-  return d + (d>1 ? " días" : " día");
-}
-
+var firebaseConfig = (typeof window.SIKOCHAT_CONFIG === 'object' && window.SIKOCHAT_CONFIG && window.SIKOCHAT_CONFIG.apiKey && window.SIKOCHAT_CONFIG.projectId)
+  ? window.SIKOCHAT_CONFIG
+  : CFG_RESPALDO;
 firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+var db = firebase.firestore();
+var COL_USUARIOS = 'chat_usuarios';
+var COL_MSJ = 'chat_mensajes';
 
-/* ===== 🗄️ DATOS EN MEMORIA ===== */
-const usuariosRaw = {}, presencia = {}, ultimaVisita = {};
-let megustas = [];
-
-let USERS = [];
-const UID2USER = {};
-
-const VENTANA_SENAL = 90000;       /* señal vieja de "presencia" < 1.5 min = vivo */
-const VENTANA_ONLINE = 3*60*1000;  /* latido (heartbeat) < 3 min = vivo */
-
-function reconstruir(){
-  const byHuella = {};
-  Object.entries(usuariosRaw).forEach(([docId, d]) => {
-    const clave = d.huella || docId;
-    let u = byHuella[clave];
-    if (!u) u = byHuella[clave] = { huella:clave, docId:docId, nombre:"", bloqueado:false, lastMs:0, sesionMs:0, dispositivo:"?", online:true, uids:new Set() };
-    const ms = aMs(d.ultimaConexion) || aMs(d.fechaRegistro);
-    if (ms >= u.lastMs){
-      u.lastMs = ms; u.docId = docId;
-      if (d.nombre) u.nombre = d.nombre;
-      if (d.dispositivo) u.dispositivo = d.dispositivo;
-    } else if (!u.nombre && d.nombre){ u.nombre = d.nombre; }
-    if (d.bloqueado) u.bloqueado = true;
-    if (d.online === false) u.online = false;
-    const sMs = aMs(d.sesionInicio);
-    if (sMs && (!u.sesionMs || sMs < u.sesionMs)) u.sesionMs = sMs;
-    if (d.uid) u.uids.add(d.uid);
-    if (!d.huella) u.uids.add(docId);
-  });
-  USERS = Object.values(byHuella);
-  for (const k in UID2USER) delete UID2USER[k];
-  USERS.forEach(u => u.uids.forEach(uid => UID2USER[uid] = u));
+/* ---------- utilidades ---------- */
+function $(id){ return document.getElementById(id); }
+function escapar(t){ return String(t == null ? '' : t).replace(/[&<>"']/g, function(c){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]; }); }
+function fotoSegura(u){ return !!u && (String(u).indexOf('https://') === 0 || String(u).indexOf('data:image/') === 0) ? String(u) : ''; }
+function toast(txt, ms){
+  var d = document.createElement('div');
+  d.className = 'tostada';
+  d.textContent = txt;
+  $('tostadas').appendChild(d);
+  setTimeout(function(){ d.style.opacity = '0'; d.style.transition = 'opacity .3s'; }, ms || 3200);
+  setTimeout(function(){ if (d.parentNode) d.parentNode.removeChild(d); }, (ms || 3200) + 350);
 }
-
-function dispositivoDe(u){
-  if (u.dispositivo && u.dispositivo !== "?") return u.dispositivo;
-  for (const uid of u.uids){
-    const p = presencia[uid];
-    if (p && p.dispositivo) return p.dispositivo;
-    const v = ultimaVisita[uid];
-    if (v && v.dispositivo) return v.dispositivo;
-  }
-  return "?";
+function vistoHace(ms){
+  if (!ms) return 'hace mucho';
+  var s = Math.floor((Date.now() - ms) / 1000);
+  if (s < 90) return 'hace un rato';
+  var m2 = Math.floor(s / 60);
+  if (m2 < 60) return 'hace ' + m2 + ' min';
+  var h2 = Math.floor(m2 / 60);
+  if (h2 < 24) return 'hace ' + h2 + (h2 === 1 ? ' hora' : ' horas');
+  var d2 = Math.floor(h2 / 24);
+  return 'hace ' + d2 + (d2 === 1 ? ' día' : ' días');
 }
-const icono = d => d === "celular" ? "📱" : d === "PC" ? "💻" : d === "TV" ? "📺" : "❔";
-const ORDEN = { celular: 0, PC: 1, TV: 2 };
-
-/* ⭐ ¿Está en vivo AHORA? Latido reciente (o señal vieja de presencia) */
-function estaVivo(u){
-  for (const uid of u.uids){
-    const p = presencia[uid];
-    if (p && p.escuchando !== false && Date.now() - (p.ultimaSenal || 0) < VENTANA_SENAL) return true;
-  }
-  if (u.online !== false && u.lastMs && (Date.now() - u.lastMs) < VENTANA_ONLINE) return true;
-  return false;
+function horaCorta(tsm){
+  var d = (tsm && tsm.toMillis) ? new Date(tsm.toMillis()) : null;
+  if (!d) return '—';
+  var dd = ('0' + d.getDate()).slice(-2) + '/' + ('0' + (d.getMonth() + 1)).slice(-2);
+  return dd + ' ' + ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2);
 }
-
-function inicioSesion(u, uid){
-  if (u.sesionMs) return u.sesionMs;
-  const p = presencia[uid];
-  if (p && p.primeraSenal) return aMs(p.primeraSenal) || aMs(p.ultimaSenal);
-  return u.lastMs;
-}
-
-function nombreDeUid(uid){
-  return (UID2USER[uid] && UID2USER[uid].nombre) ||
-         (presencia[uid] && presencia[uid].nombre) || "Anónimo";
-}
-
-/* ===== 🔴 ESCUCHA EN VIVO ===== */
-db.collection("usuarios").onSnapshot(s => {
-  s.forEach(d => usuariosRaw[d.id] = d.data());
-  reconstruir(); render();
-});
-db.collection("presencia").onSnapshot(s => { s.forEach(d => presencia[d.id] = d.data()); render(); });
-db.collection("megustas").onSnapshot(s => { megustas = s.docs.map(d => d.data()); render(); });
-
-db.collection("visitas").orderBy("fecha","desc").limit(300).get().then(s => {
-  s.forEach(d => {
-    const v = d.data(); if (!v.uid) return;
-    const prev = ultimaVisita[v.uid];
-    if (!prev || String(v.fecha || "") > String(prev.fecha || "")) ultimaVisita[v.uid] = v;
-  });
-  render();
-}).catch(function(){});
-
-/* Refresca los tiempos cada 15s aunque no haya cambios en Firebase */
-setInterval(render, 15000);
-
-/* ===== 🎨 RENDER ===== */
-function render(){
-  document.getElementById("estado").textContent =
-    "✅ Datos actualizados: " + new Date().toLocaleTimeString() + " · en vivo";
-
-  document.getElementById("cOyentes").textContent = USERS.length;
-  const vivos = USERS.filter(estaVivo).length;
-  document.getElementById("cVivos").textContent = vivos;
-  document.getElementById("cLikes").textContent = megustas.length;
-
-  const ordenados = USERS.slice().sort((a,b) => {
-    const va = estaVivo(a) ? 0 : 1, vb = estaVivo(b) ? 0 : 1;
-    if (va !== vb) return va - vb;
-    if (b.lastMs !== a.lastMs) return b.lastMs - a.lastMs;
-    const da = ORDEN[dispositivoDe(a)] ?? 9, dbo = ORDEN[dispositivoDe(b)] ?? 9;
-    if (da !== dbo) return da - dbo;
-    return (a.nombre||"Anónimo").localeCompare(b.nombre||"Anónimo");
-  });
-
-  document.getElementById("tUsuarios").innerHTML = ordenados.length
-    ? '<table><tr><th>Estado</th><th></th><th>Oyente</th><th>Conexión</th><th>Control</th></tr>' +
-      ordenados.map(u => {
-        const vivo = estaVivo(u);
-        const disp = dispositivoDe(u);
-        const hora = horaConexion(u.lastMs);
-        const tiempo = duracion(inicioSesion(u, u.docId));
-        const estado = vivo
-          ? '<span class="onlineBadge"><span class="pt"></span>EN LÍNEA</span>' +
-            (tiempo ? '<span class="tiempoLinea">⏱ ' + tiempo + '</span>' : '')
-          : '<span class="offlineBadge">○ ' + (hora ? "Visto " + hora : "desconectado") + '</span>';
-        return '<tr>' +
-          '<td>' + estado + '</td>' +
-          '<td class="ico" title="' + esc(disp) + '">' + icono(disp) + '</td>' +
-          '<td><span class="nombreUser">' + esc(u.nombre || "Anónimo") + '</span>' +
-            (u.bloqueado ? ' <span class="bloqueadoTxt">🚫 bloqueado</span>' : '') + '</td>' +
-          '<td class="conexion">' + (vivo
-            ? 'Conectado <b>' + (hora || "ahora") + '</b>'
-            : (hora ? '<span style="color:var(--muted)">' + hora + '</span>' : "—")) + '</td>' +
-          '<td>' +
-            '<button class="mini ' + (u.bloqueado ? "ok" : "peligro") + '" onclick="bloquearUsuario(\'' + u.docId + '\', ' + !!u.bloqueado + ')">' + (u.bloqueado ? "✅" : "🚫") + '</button>' +
-            '<button class="mini" onclick="renombrarUsuario(\'' + u.docId + '\')">✏️</button>' +
-          '</td></tr>';
-      }).join("") + '</table>'
-    : '<div class="vacio">Aún no hay oyentes registrados.</div>';
-
-  /* --- ❤️ Me gusta ordenable (deduplicado por usuario+tema) --- */
-  const porTema = {};
-  megustas.forEach(m => {
-    const art = (m.artista || "Desconocido").trim();
-    const tema = (m.tema || "").trim();
-    if (!tema) return;
-    const k = art + "||" + tema;
-    if (!porTema[k]) porTema[k] = { artista: art, tema: tema, n: 0, uids: new Set(), fecha: 0 };
-    porTema[k].n++;
-    if (m.uid) porTema[k].uids.add(m.uid);
-    const f = aMs(m.fecha);
-    if (f > porTema[k].fecha) porTema[k].fecha = f;
-  });
-  const temas = Object.values(porTema).sort((a,b) =>
-    ordenTemas === "likes"
-      ? (b.n - a.n) || (b.fecha - a.fecha)   /* ⭐ más gustados primero */
-      : (b.fecha - a.fecha) || (b.n - a.n)   /* ⭐ recientes primero */
-  );
-  document.getElementById("tUltimos").innerHTML = temas.length
-    ? '<table><tr><th>#</th><th>Tema</th><th>Oyentes</th><th>❤️</th><th>Fecha</th></tr>' + temas.map((t,i) => {
-        let f = "—"; if (t.fecha) f = horaConexion(t.fecha) + " h";
-        const chips = [...t.uids].map(u => '<span class="chip">' + esc(nombreDeUid(u)) + '</span>').join("");
-        return '<tr><td class="pos">' + (i+1) + '</td>' +
-          '<td>❤️ ' + esc(t.tema) + '<span class="sub2">' + esc(t.artista) + '</span></td>' +
-          '<td>' + (chips ? '<div class="chips">' + chips + '</div>' : '—') + '</td>' +
-          '<td class="num">' + t.n + '</td>' +
-          '<td class="pos">' + f + '</td></tr>';
-      }).join("") + '</table>'
-    : '<div class="vacio">Todavía no hay me gusta.</div>';
-}
-
-/* ===== 🔀 ORDEN DE "ME GUSTA" ===== */
-let ordenTemas = "likes";
-document.getElementById("btnOrdenLikes").onclick = function(){
-  ordenTemas = "likes";
-  this.classList.add("activo");
-  document.getElementById("btnOrdenFecha").classList.remove("activo");
-  render();
-};
-document.getElementById("btnOrdenFecha").onclick = function(){
-  ordenTemas = "fecha";
-  this.classList.add("activo");
-  document.getElementById("btnOrdenLikes").classList.remove("activo");
-  render();
-};
-
-/* ===== 🛠️ CONTROLES ===== */
-window.bloquearUsuario = async function(id, estaBloqueado){
-  try{
-    if (estaBloqueado){
-      await db.collection("usuarios").doc(id).set({ bloqueado: false }, { merge:true });
-      return;
+/* confirmación en DOS toques: el botón se arma y hay que tocarlo de nuevo */
+function armar(btn, fn){
+  btn.addEventListener('click', function(){
+    if (btn.classList.contains('armado')) {
+      btn.classList.remove('armado');
+      btn.innerHTML = btn.getAttribute('data-orig') || btn.innerHTML;
+      fn();
+    } else {
+      btn.setAttribute('data-orig', btn.innerHTML);
+      btn.classList.add('armado');
+      btn.innerHTML = '¿SEGURO?';
+      setTimeout(function(){
+        if (btn.parentNode) {
+          btn.classList.remove('armado');
+          btn.innerHTML = btn.getAttribute('data-orig') || btn.innerHTML;
+        }
+      }, 4000);
     }
-    if (confirm("¿Bloquear a este oyente? No podrá usar la radio.")){
-      await db.collection("usuarios").doc(id).set({ bloqueado: true }, { merge:true });
-    }
-  }catch(e){ alert("Error: " + e.message); }
-};
+  });
+}
 
-window.renombrarUsuario = async function(id){
-  const u = USERS.find(x => x.docId === id);
-  const actual = (u && u.nombre) || "Anónimo";
-  const nuevo = prompt("Nombre del oyente:", actual);
-  if (nuevo && nuevo.trim().length >= 2){
-    await db.collection("usuarios").doc(id).set({ nombre: nuevo.trim().slice(0,20) }, { merge:true });
+/* ---------- estado ---------- */
+var usuariosLista = [];
+var usuariosPorId = {};
+var mensajesLista = [];
+var vistoUsu = {}; /* v42: por si borro a alguien, no re-render raro */
+var unsubUsu = null, unsubMsj = null;
+
+/* ---------- 👥 USUARIOS en vivo ---------- */
+function escucharUsuarios(){
+  if (unsubUsu) unsubUsu();
+  unsubUsu = db.collection(COL_USUARIOS).onSnapshot(function(snap){
+    var ahora = Date.now(), lista = [];
+    snap.forEach(function(d){
+      var u = d.data();
+      if (d.id === '__config__') return;
+      var ms = (u.ping && u.ping.toMillis) ? u.ping.toMillis() : 0;
+      if (!ms && !u.nombre) return; /* sin ping y sin nombre no es gente */
+      u._id = d.id;
+      u._ms = ms;
+      u._fresco = ms > 0 && (ahora - ms) <= 65000;
+      lista.push(u);
+    });
+    lista.sort(function(a, b){
+      if (a._fresco !== b._fresco) return a._fresco ? -1 : 1;
+      if (a._fresco && a.estado !== b.estado) return a.estado === 'online' ? -1 : 1;
+      return b._ms - a._ms;
+    });
+    usuariosLista = lista;
+    usuariosPorId = {};
+    for (var i = 0; i < lista.length; i++) usuariosPorId[lista[i]._id] = lista[i];
+    pintarStats();
+    pintarUsuarios();
+    pintarBloqueados();
+    llenarFiltro();
+  }, function(err){
+    $('listaUsu').innerHTML = '<p class="vacio">⚠️ No pude leer los usuarios: ' + escapar(err.code) + '</p>';
+  });
+}
+
+function nombreDe(id){ var u = usuariosPorId[id]; return (u && u.nombre) ? u.nombre : '—'; }
+
+function pintarStats(){
+  var con = 0, bloq = 0;
+  for (var i = 0; i < usuariosLista.length; i++) {
+    if (usuariosLista[i]._fresco) con++;
+    if (usuariosLista[i].adminBloqueado) bloq++;
   }
-};
+  $('stUsu').textContent = usuariosLista.length;
+  $('stCon').textContent = con;
+  $('stBloq').textContent = bloq;
+  $('stMsj').textContent = mensajesLista.length;
+}
 
-firebase.auth().signInAnonymously()
-  .catch(e => { document.getElementById("estado").textContent = "❌ Error: " + e.message; });
-</script>
+function filaUsuario(u){
+  var fu = fotoSegura(u.foto);
+  var av = fu ? '<img src="' + escapar(u.foto) + '" alt="">' : escapar(u.avatar || '🙂');
+  var estado = u._fresco ? (u.estado === 'online' ? 'En línea' : 'Ausente') : 'Visto ' + vistoHace(u._ms);
+  var clsP = u._fresco ? (u.estado === 'online' ? 'on' : 'au') : '';
+  var tarjeta = document.createElement('div');
+  tarjeta.className = 'tarjeta' + (u.adminBloqueado ? ' bloqGlobal' : '');
+  tarjeta.innerHTML =
+    '<div class="avatarT">' + av + '</div>' +
+    '<div class="infoT">' +
+      '<div class="nombreT">' + escapar(u.nombre || 'Anónimo') +
+        (u.adminBloqueado ? '<span class="badgeB">⛔ BLOQUEADO POR ADMIN</span>' : '') +
+      '</div>' +
+      '<div class="subT"><span class="punto ' + clsP + '"></span>' + escapar(estado) +
+        ' · <span class="idT">id ' + escapar(String(u._id).slice(0, 8)) + '…</span></div>' +
+    '</div>' +
+    '<div class="acciT">' +
+      (u.adminBloqueado
+        ? '<button class="miniBtn ok" data-acc="desbloq" title="Quitar el bloqueo global">✅</button>'
+        : '<button class="miniBtn peligro" data-acc="bloq" title="Ban global: nadie verá más sus mensajes">🚫</button>') +
+      '<button class="miniBtn peligro" data-acc="borrar" title="Borrar a esta persona y todo lo que escribió">🗑️</button>' +
+    '</div>';
+  var bBloq = tarjeta.querySelector('[data-acc="bloq"]');
+  var bDes = tarjeta.querySelector('[data-acc="desbloq"]');
+  var bBor = tarjeta.querySelector('[data-acc="borrar"]');
+  if (bBloq) armar(bBloq, function(){ bloquearGlobal(u._id); });
+  if (bDes) bDes.addEventListener('click', function(){ desbloquearGlobal(u._id); });
+  if (bBor) armar(bBor, function(){ borrarUsuario(u._id); });
+  return tarjeta;
+}
 
-<!-- ===== ⇩ INSTALAR PANEL COMO APP ===== -->
-<button id="btnInstalarPanel" style="display:none;position:fixed;bottom:18px;right:18px;z-index:100000;background:var(--pri);color:#191919;border:0;border-radius:999px;padding:12px 20px;font-weight:700;box-shadow:0 8px 25px rgba(0,0,0,.4)">⇩ Instalar panel</button>
-<script>
+function pintarUsuarios(){
+  var cont = $('listaUsu');
+  cont.innerHTML = '';
+  var q = ($('buscarUsu').value || '').toLowerCase();
+  var n = 0;
+  for (var i = 0; i < usuariosLista.length; i++) {
+    var u = usuariosLista[i];
+    if (q && String(u.nombre || '').toLowerCase().indexOf(q) === -1) continue;
+    cont.appendChild(filaUsuario(u));
+    n++;
+  }
+  if (!n) cont.innerHTML = '<p class="vacio">' + (q ? 'Nadie con ese nombre 🤷' : 'Todavía no entró nadie 😴') + '</p>';
+}
+
+/* ---------- 🚫 bloqueo GLOBAL del administrador ---------- */
+function bloquearGlobal(uid){
+  db.collection(COL_USUARIOS).doc(uid).update({ adminBloqueado: true }).then(function(){
+    toast('🚫 ' + nombreDe(uid) + ' BLOQUEADO — sus mensajes ya no se ven y no puede escribir');
+  }).catch(function(e){
+    toast('⚠️ No pude bloquear: ' + (e && e.code ? e.code : 'error'), 4200);
+  });
+}
+function desbloquearGlobal(uid){
+  db.collection(COL_USUARIOS).doc(uid).update({ adminBloqueado: false }).then(function(){
+    toast('✅ ' + nombreDe(uid) + ' desbloqueado — ya puede hablar de nuevo');
+  }).catch(function(e){
+    toast('⚠️ No pude desbloquear: ' + (e && e.code ? e.code : 'error'), 4200);
+  });
+}
+
+/* ---------- 🗑️ borrar usuario (mensajes + ficha) ---------- */
+function borrarUsuario(uid){
+  var nom = nombreDe(uid);
+  toast('🗑️ Borrando a ' + nom + '…', 6000);
+  var p1 = db.collection(COL_MSJ).where('de', '==', uid).get();
+  var p2 = db.collection(COL_MSJ).where('para', '==', uid).get();
+  Promise.all([p1, p2]).then(function(rs){
+    var unicos = {};
+    rs[0].forEach(function(d){ unicos[d.id] = d.ref; }); /* todo lo que escribió */
+    rs[1].forEach(function(d){ unicos[d.id] = d.ref; }); /* todo lo que le escribieron (privado) */
+    var refs = [], k;
+    for (k in unicos) if (unicos.hasOwnProperty(k)) refs.push(unicos[k]);
+    var total = refs.length, hechos = 0, fallas = 0;
+    if (!refs.length) {
+      return db.collection(COL_USUARIOS).doc(uid).delete();
+    }
+    refs.forEach(function(ref){
+      ref.delete().then(function(){
+        hechos++;
+        if (hechos === total) return db.collection(COL_USUARIOS).doc(uid).delete();
+      }).catch(function(){
+        fallas++;
+        if (hechos + fallas === total) return db.collection(COL_USUARIOS).doc(uid).delete();
+      });
+    });
+  }).then(function(){
+    toast('🗑️ ' + nom + ' borrado: su ficha y sus mensajes ya no existen', 5000);
+  }).catch(function(e){
+    toast('⚠️ No pude borrar todo: ' + (e && e.code ? e.code : 'error'), 4500);
+  });
+}
+
+function pintarBloqueados(){
+  var cont = $('listaBloq');
+  cont.innerHTML = '';
+  var n = 0;
+  for (var i = 0; i < usuariosLista.length; i++) {
+    var u = usuariosLista[i];
+    if (!u.adminBloqueado) continue;
+    cont.appendChild(filaUsuario(u));
+    n++;
+  }
+  if (!n) cont.innerHTML = '<p class="vacio">No hay nadie bloqueado 🧡<br>En 👥 Usuarios tocá 🚫 para banear a alguien.</p>';
+}
+
+/* ---------- 💬 MENSAJES en vivo (últimos 150) ---------- */
+function escucharMensajes(){
+  if (unsubMsj) unsubMsj();
+  unsubMsj = db.collection(COL_MSJ).orderBy('ts', 'desc').limit(150).onSnapshot(function(snap){
+    var lista = [];
+    snap.forEach(function(d){
+      var m = d.data();
+      m._id = d.id;
+      lista.push(m);
+    });
+    mensajesLista = lista; /* ya vienen de nuevo a viejo */
+    pintarStats();
+    pintarMensajes();
+  }, function(err){
+    $('listaMsj').innerHTML = '<p class="vacio">⚠️ No pude leer los mensajes: ' + escapar(err.code) + '</p>';
+  });
+}
+function llenarFiltro(){
+  var sel = $('filtroMsj');
+  var actual = sel.value;
+  var ops = '<option value="">💬 Todos los mensajes</option><option value="__grupo">💬 Solo el GRUPO</option>';
+  for (var i = 0; i < usuariosLista.length; i++) {
+    var u = usuariosLista[i];
+    ops += '<option value="' + escapar(u._id) + '">' + (u.adminBloqueado ? '⛔ ' : '') + escapar(u.nombre || 'Anónimo') + '</option>';
+  }
+  sel.innerHTML = ops;
+  sel.value = actual;
+  if (sel.value !== actual) sel.value = '';
+}
+function previewMsj(m){
+  switch (m.tipo) {
+    case 'foto': return '🖼️ Foto' + (m.texto ? ' · ' + m.texto : '');
+    case 'dibujo': return '🎨 Dibujo de la pizarra';
+    case 'stiker': return (m.emo || '😀') + ' Stiker';
+    case 'gif': return '🎞️ GIF';
+    case 'nudge': return '💢 Zumbido';
+    case 'radio': return '📻 Invitación a la radio';
+    default: return m.texto || '(vacío)';
+  }
+}
+function pintarMensajes(){
+  var cont = $('listaMsj');
+  cont.innerHTML = '';
+  var f = $('filtroMsj').value;
+  var n = 0;
+  for (var i = 0; i < mensajesLista.length; i++) {
+    var m = mensajesLista[i];
+    var de = m.de || '', para = m.para || '';
+    if (f === '__grupo' && para) continue;
+    if (f && f !== '__grupo' && de !== f && para !== f) continue;
+    var hayFoto = m.tipo === 'foto' && m.img && String(m.img).indexOf('data:image') === 0;
+    var tarjeta = document.createElement('div');
+    tarjeta.className = 'tarjeta tarjMsj';
+    tarjeta.innerHTML =
+      '<div class="cabMsj">' +
+        '<span class="quien">' + escapar(m.nombre || nombreDe(de) || 'alguien') + '</span>' +
+        '<span>→</span>' +
+        (para ? '<span class="destino">🔒 privado con ' + escapar(nombreDe(para) || 'usuario') + '</span>'
+              : '<span class="destino">💬 GRUPO</span>') +
+        '<span class="horaM">' + horaCorta(m.ts) + '</span>' +
+      '</div>' +
+      '<div class="cuerpoMsj">' + escapar(previewMsj(m)) +
+        (hayFoto ? '<img class="prevFoto" src="' + escapar(m.img) + '" alt="">' : '') +
+      '</div>' +
+      '<div class="acciT"><button class="miniBtn peligro" data-del="1" title="Borrar este mensaje para todos">🗑️</button></div>';
+    var b = tarjeta.querySelector('[data-del]');
+    (function(mid){
+      armar(b, function(){
+        db.collection(COL_MSJ).doc(mid).delete().then(function(){
+          toast('🗑️ Mensaje borrado para todos');
+        }).catch(function(e){
+          toast('⚠️ No pude borrar: ' + (e && e.code ? e.code : 'error'), 4200);
+        });
+      });
+    })(m._id);
+    cont.appendChild(tarjeta);
+    n++;
+  }
+  if (!n) cont.innerHTML = '<p class="vacio">' + (f ? 'No hay mensajes de ese filtro 🤷' : 'No hay mensajes todavía 💤') + '</p>';
+}
+
+/* ---------- pestañas ---------- */
+function marcarTab(cual){
+  var tabs = { usu: $('tabUsu'), bloq: $('tabBloq'), msj: $('tabMsj') };
+  for (var k in tabs) if (tabs.hasOwnProperty(k)) tabs[k].classList.toggle('act', k === cual);
+  $('pgUsu').classList.toggle('oculto', cual !== 'usu');
+  $('pgBloq').classList.toggle('oculto', cual !== 'bloq');
+  $('pgMsj').classList.toggle('oculto', cual !== 'msj');
+}
+$('tabUsu').onclick = function(){ marcarTab('usu'); };
+$('tabBloq').onclick = function(){ marcarTab('bloq'); };
+$('tabMsj').onclick = function(){ marcarTab('msj'); };
+$('buscarUsu').addEventListener('input', pintarUsuarios);
+$('filtroMsj').addEventListener('change', pintarMensajes);
+$('btnRefMsj').onclick = function(){ escucharMensajes(); toast('🔄 Mensajes refrescados'); };
+
+/* ---------- 🔒 la puerta ---------- */
+function abrirPanel(){
+  $('puerta').classList.add('oculto');
+  $('app').classList.remove('oculto');
+  escucharUsuarios();
+  escucharMensajes();
+}
+function intentarEntrar(){
+  var v = $('claveAdmin').value;
+  if (v === CLAVE_ADMIN) {
+    try { sessionStorage.setItem('siko_admin_ok', '1'); } catch (e) {}
+    abrirPanel();
+  } else {
+    $('msjPuerta').textContent = '❌ Clave incorrecta';
+    var caja = $('cajaPuerta');
+    caja.classList.remove('err');
+    void caja.offsetWidth; /* reinicia la animación */
+    caja.classList.add('err');
+    $('claveAdmin').value = '';
+    $('claveAdmin').focus();
+  }
+}
+$('btnEntrar').onclick = intentarEntrar;
+$('claveAdmin').addEventListener('keydown', function(e){ if (e.key === 'Enter') intentarEntrar(); });
 (function(){
-  let dpPanel = null;
-  window.addEventListener("beforeinstallprompt", function(e){
-    e.preventDefault();
-    dpPanel = e;
-    var b = document.getElementById("btnInstalarPanel");
-    if (b) b.style.display = "block";
-  });
-  var b = document.getElementById("btnInstalarPanel");
-  if (b) b.onclick = function(){
-    if (dpPanel){ dpPanel.prompt(); b.style.display = "none"; }
-  };
+  var ok = false;
+  try { ok = sessionStorage.getItem('siko_admin_ok') === '1'; } catch (e) {}
+  if (ok) abrirPanel(); else setTimeout(function(){ $('claveAdmin').focus(); }, 250);
 })();
-</script>
-<script>
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
-}
 </script>
 </body>
 </html>

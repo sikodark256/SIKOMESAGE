@@ -23,7 +23,7 @@ const USU_COL = 'chat_usuarios';                   /* las suscripciones viven ac
 const CLAVE = 'sikodark-push-2026';                /* tiene que ser igual a PUSH_CLAVE en index.html */
 const MAILTO = 'mailto:sikodark-chat@push.local';  /* contacto VAPID (obligatorio, no se muestra) */
 const TTL = '2419200';                             /* 28 días de vida del aviso */
-const VERSION = 24;
+const VERSION = 41; /* v41: el worker entiende las listas del panel (muteados/bloqueados) */
 
 /* ---- utilidades base64url ---- */
 function b64uDecode(s){
@@ -132,12 +132,17 @@ async function leerSubs(){
     if (uid.indexOf('__') === 0) return; /* docs internos (config) afuera */
     const vals = (d.fields && d.fields.push && d.fields.push.arrayValue &&
                   d.fields.push.arrayValue.values) || [];
+    /* v41: listas del PANEL DE CONTROL de cada celu (silenciados/bloqueados) viajan con la suscripción */
+    const listaDe = f => ((d.fields && d.fields[f] && d.fields[f].arrayValue &&
+                           d.fields[f].arrayValue.values) || []).map(x => x.stringValue || '');
+    const muted = listaDe('muteados');
+    const bloq = listaDe('bloqueados');
     vals.forEach(it => {
       const g = it.mapValue && it.mapValue.fields;
       if (!g) return;
       const sv = x => (g[x] && g[x].stringValue) || '';
       const ep = sv('endpoint'), p256dh = sv('p256dh'), auth = sv('auth');
-      if (ep && p256dh && auth) out.push({ uid: uid, endpoint: ep, p256dh: p256dh, auth: auth });
+      if (ep && p256dh && auth) out.push({ uid: uid, endpoint: ep, p256dh: p256dh, auth: auth, muted: muted, bloqueados: bloq }); /* v41 */
     });
   });
   return out;
@@ -200,7 +205,14 @@ export default {
     catch (e) { return json({ error: String(e.message || e) }, 500); }
 
     /* privado → todos los dispositivos de ese usuario · grupo → todos menos el que manda */
-    const destino = subs.filter(s => m.para ? s.uid === m.para : (s.uid !== m.de && s.uid.indexOf('__') !== 0));
+    /* v41: el push también respeta el PANEL DE CONTROL de cada celu —
+       si el que escribe está bloqueado 🚫 o silenciado 🔕 AHÍ, ese celu no recibe nada */
+    const destino = subs.filter(s => {
+      if (!(m.para ? s.uid === m.para : (s.uid !== m.de && s.uid.indexOf('__') !== 0))) return false;
+      if (m.de && s.bloqueados && s.bloqueados.indexOf(m.de) !== -1) return false;
+      if (m.de && s.muted && s.muted.indexOf(m.de) !== -1) return false;
+      return true;
+    });
     if (!destino.length) return json({ ok: true, enviados: 0, nota: 'nadie subscripto todavía' });
 
     const payload = {
