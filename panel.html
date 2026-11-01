@@ -13,10 +13,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
-   🛠️ SIKOCHAT · PANEL DEL ADMINISTRADOR (v42) — PÁGINA APARTE
+   🛠️ SIKOCHAT · PANEL DEL ADMINISTRADOR (v43) — PÁGINA APARTE
    Negra + naranja como el chat. Se conecta al MISMO Firebase
    (chat-config.js) y maneja: 👥 usuarios · 🚫 bloqueo global
-   · 🗑️ borrado de gente y mensajes.
+   · 🗑️ borrado de gente y mensajes · 🧬 HUELLA DIGITAL:
+   cada persona trae su código fijo de dispositivo + el registro
+   de sus nombres anteriores — si cambia de nombre (o vuelve a
+   entrar con otro, o vuelve después de ser borrada) la huella
+   la delata: 🔗 misma huella / ⚠️ REINCIDENTE.
    Esta página NO está en el menú del chat: guardá el link.
    ============================================================ */
 :root{
@@ -143,6 +147,15 @@ body{
 .punto.on{ background:var(--verde); box-shadow:0 0 6px rgba(70,196,110,.7); }
 .punto.au{ background:var(--naranja); }
 .idT{ color:#6a6a74; }
+.huellaT{ color:var(--naranja); font-weight:700; letter-spacing:.4px; }
+.histT{
+  font-size:11px; color:#d8c9ad; background:rgba(245,157,61,.08);
+  border:1px dashed rgba(245,157,61,.4); border-radius:9px;
+  padding:6px 9px; margin-top:8px; line-height:1.6; word-break:break-word;
+}
+.histT b{ color:var(--naranja2); }
+.histT.reincT{ color:#ffc9cb; background:rgba(229,72,77,.1); border-color:rgba(229,72,77,.5); }
+.histT.reincT b{ color:#ff8a8e; }
 .acciT{ display:flex; gap:6px; flex:none; }
 .miniBtn{
   min-width:44px; min-height:40px; padding:0 10px; border-radius:11px; cursor:pointer;
@@ -196,7 +209,7 @@ body{
   <div class="cajaPuerta" id="cajaPuerta">
     <div class="candado">🔐</div>
     <h1>PANEL DEL <span>ADMINISTRADOR</span></h1>
-    <p>Manejo aparte de SikoChat: usuarios, bloqueos y borrado.<br>Esta página no está en el menú del chat.</p>
+    <p>Manejo aparte de SikoChat: usuarios, bloqueos, borrado y 🧬 huella digital.<br>Esta página no está en el menú del chat.</p>
     <input type="password" id="claveAdmin" placeholder="Clave de administrador" autocomplete="off">
     <button id="btnEntrar" type="button">ENTRAR 🛠️</button>
     <div id="msjPuerta"></div>
@@ -226,13 +239,14 @@ body{
 
   <!-- 👥 USUARIOS -->
   <div id="pgUsu">
-    <div class="herramientas">
-      <input id="buscarUsu" type="search" placeholder="🔍 Buscar por nombre…" autocomplete="off">
-    </div>
     <div class="notaTab">
       🚫 <b>BLOQUEAR</b> = ban global: sus mensajes desaparecen para TODOS (grupo, privados, zumbidos e invitaciones a jugar) y él no puede escribir más. Puede volver a entrar pero no dice nada.
       &nbsp;·&nbsp; 🗑️ <b>BORRAR</b> = lo saca de la lista y borra TODO lo que escribió (no puede volver con lo mismo).
-      Las dos piden confirmación (dos toques).
+      &nbsp;·&nbsp; 🧬 <b>HUELLA DIGITAL</b>: el código fijo del dispositivo de cada persona — <b>no cambia si cambia de nombre</b>: si se renombra aparece su historial 🙋, si vuelve a entrar con otro nombre aparece 🔗 <b>misma huella</b> y si vuelve después de ser borrado aparece ⚠️ <b>REINCIDENTE</b>.
+      Las dos acciones fuertes piden confirmación (dos toques).
+    </div>
+    <div class="herramientas" style="margin-top:10px">
+      <input id="buscarUsu" type="search" placeholder="🔍 Buscar por nombre, nombre viejo o huella…" autocomplete="off">
     </div>
     <div id="listaUsu" class="lista"><p class="vacio">Buscando gente… 📡</p></div>
   </div>
@@ -260,7 +274,7 @@ body{
   </div>
 
   <div class="piePanel">
-    <b>🛠️ Panel aparte (v42)</b> — guardá este link en privado: solo vos deberías entrar.<br>
+    <b>🛠️ Panel aparte (v43 · con 🧬 huella digital)</b> — guardá este link en privado: solo vos deberías entrar.<br>
     La clave se cambia adentro de este archivo, arriba del todo (<b>CLAVE_ADMIN</b>).
   </div>
 </div>
@@ -350,6 +364,8 @@ var usuariosLista = [];
 var usuariosPorId = {};
 var mensajesLista = [];
 var vistoUsu = {}; /* v42: por si borro a alguien, no re-render raro */
+var huellasMap = {};  /* v43: huella → [ {id, nombre} ] — gente que comparte la MISMA huella */
+var borradosReg = {}; /* v43: huella → { nombre, f } — huellas de gente ya BORRADA del chat */
 var unsubUsu = null, unsubMsj = null;
 
 /* ---------- 👥 USUARIOS en vivo ---------- */
@@ -359,7 +375,7 @@ function escucharUsuarios(){
     var ahora = Date.now(), lista = [];
     snap.forEach(function(d){
       var u = d.data();
-      if (d.id === '__config__') return;
+      if (String(d.id).indexOf('__') === 0) return; /* v43: docs internos (__config__, __borrados__) afuera */
       var ms = (u.ping && u.ping.toMillis) ? u.ping.toMillis() : 0;
       if (!ms && !u.nombre) return; /* sin ping y sin nombre no es gente */
       u._id = d.id;
@@ -375,6 +391,14 @@ function escucharUsuarios(){
     usuariosLista = lista;
     usuariosPorId = {};
     for (var i = 0; i < lista.length; i++) usuariosPorId[lista[i]._id] = lista[i];
+    /* v43: ¿quién comparte la misma huella? — la misma persona con otro nombre o que volvió a entrar */
+    huellasMap = {};
+    for (var ih = 0; ih < lista.length; ih++) {
+      var hz = lista[ih].huella;
+      if (!hz) continue;
+      if (!huellasMap[hz]) huellasMap[hz] = [];
+      huellasMap[hz].push({ id: lista[ih]._id, nombre: lista[ih].nombre || 'Anónimo' });
+    }
     pintarStats();
     pintarUsuarios();
     pintarBloqueados();
@@ -385,6 +409,12 @@ function escucharUsuarios(){
 }
 
 function nombreDe(id){ var u = usuariosPorId[id]; return (u && u.nombre) ? u.nombre : '—'; }
+
+function fechaCorta(ms){ /* v43: fecha corta dd/mm hh:mm desde milisegundos */
+  if (!ms) return '?';
+  var d = new Date(ms);
+  return ('0' + d.getDate()).slice(-2) + '/' + ('0' + (d.getMonth() + 1)).slice(-2) + ' ' + ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2);
+}
 
 function pintarStats(){
   var con = 0, bloq = 0;
@@ -403,6 +433,34 @@ function filaUsuario(u){
   var av = fu ? '<img src="' + escapar(u.foto) + '" alt="">' : escapar(u.avatar || '🙂');
   var estado = u._fresco ? (u.estado === 'online' ? 'En línea' : 'Ausente') : 'Visto ' + vistoHace(u._ms);
   var clsP = u._fresco ? (u.estado === 'online' ? 'on' : 'au') : '';
+  /* v43 · 🧬 huella digital + historial + coincidencias */
+  var hz = u.huella || '';
+  var chipHuella = hz
+    ? ' · <span class="huellaT" title="Huella digital: el código fijo de su dispositivo — no cambia aunque cambie de nombre">🧬 ' + escapar(hz) + '</span>'
+    : ' · <span class="idT" title="Entra al chat con la v43 y su huella aparece sola (cada ping la manda)">🧬 sin huella todavía</span>';
+  var bloques = '';
+  var hist43 = (u.historialNombres && u.historialNombres instanceof Array) ? u.historialNombres : [];
+  if (hist43.length) {
+    var partes43 = [];
+    for (var q43 = hist43.length - 1; q43 >= 0 && partes43.length < 4; q43--) {
+      if (hist43[q43] && hist43[q43].n) partes43.push('<b>' + escapar(hist43[q43].n) + '</b> <span class="idT">' + fechaCorta(hist43[q43].f) + '</span>');
+    }
+    if (partes43.length) {
+      bloques += '<div class="histT">🙋 Cambió de nombre — antes se llamaba: ' + partes43.join(' · ') +
+        (hist43.length > 4 ? ' <span class="idT">(+' + (hist43.length - 4) + ' antes)</span>' : '') + '</div>';
+    }
+  }
+  if (hz && huellasMap[hz] && huellasMap[hz].length > 1) {
+    var otros43 = [];
+    for (var j43 = 0; j43 < huellasMap[hz].length; j43++) {
+      if (huellasMap[hz][j43].id !== u._id) otros43.push('<b>' + escapar(huellasMap[hz][j43].nombre) + '</b> <span class="idT">' + escapar(String(huellasMap[hz][j43].id).slice(0, 6)) + '…</span>');
+    }
+    if (otros43.length) bloques += '<div class="histT">🔗 <b>Misma huella</b> — es la misma persona que: ' + otros43.join(' · ') + '</div>';
+  }
+  if (hz && borradosReg && borradosReg[hz]) {
+    var b43 = borradosReg[hz];
+    bloques += '<div class="histT reincT">⚠️ <b>REINCIDENTE</b>: esta huella fue BORRADA del chat como <b>' + escapar(b43.nombre || '—') + '</b> el ' + fechaCorta(b43.f) + ' — volvió con otro nombre</div>';
+  }
   var tarjeta = document.createElement('div');
   tarjeta.className = 'tarjeta' + (u.adminBloqueado ? ' bloqGlobal' : '');
   tarjeta.innerHTML =
@@ -412,7 +470,8 @@ function filaUsuario(u){
         (u.adminBloqueado ? '<span class="badgeB">⛔ BLOQUEADO POR ADMIN</span>' : '') +
       '</div>' +
       '<div class="subT"><span class="punto ' + clsP + '"></span>' + escapar(estado) +
-        ' · <span class="idT">id ' + escapar(String(u._id).slice(0, 8)) + '…</span></div>' +
+        ' · <span class="idT">id ' + escapar(String(u._id).slice(0, 8)) + '…</span>' + chipHuella + '</div>' +
+      bloques +
     '</div>' +
     '<div class="acciT">' +
       (u.adminBloqueado
@@ -436,11 +495,20 @@ function pintarUsuarios(){
   var n = 0;
   for (var i = 0; i < usuariosLista.length; i++) {
     var u = usuariosLista[i];
-    if (q && String(u.nombre || '').toLowerCase().indexOf(q) === -1) continue;
+    if (q) { /* v43: busca por nombre actual, nombre VIEJO (historial) o huella */
+      var coincide = String(u.nombre || '').toLowerCase().indexOf(q) !== -1 ||
+        (u.huella && String(u.huella).toLowerCase().indexOf(q) !== -1);
+      if (!coincide && u.historialNombres && u.historialNombres.length) {
+        for (var hq = 0; hq < u.historialNombres.length; hq++) {
+          if (u.historialNombres[hq] && u.historialNombres[hq].n && String(u.historialNombres[hq].n).toLowerCase().indexOf(q) !== -1) { coincide = true; break; }
+        }
+      }
+      if (!coincide) continue;
+    }
     cont.appendChild(filaUsuario(u));
     n++;
   }
-  if (!n) cont.innerHTML = '<p class="vacio">' + (q ? 'Nadie con ese nombre 🤷' : 'Todavía no entró nadie 😴') + '</p>';
+  if (!n) cont.innerHTML = '<p class="vacio">' + (q ? 'Nadie con ese nombre, nombre viejo o huella 🤷' : 'Todavía no entró nadie 😴') + '</p>';
 }
 
 /* ---------- 🚫 bloqueo GLOBAL del administrador ---------- */
@@ -462,6 +530,14 @@ function desbloquearGlobal(uid){
 /* ---------- 🗑️ borrar usuario (mensajes + ficha) ---------- */
 function borrarUsuario(uid){
   var nom = nombreDe(uid);
+  var uBorr = usuariosPorId[uid];
+  if (uBorr && uBorr.huella) { /* v43: anoto la huella del borrado — si vuelve con otro nombre, la ficha nueva la delata (⚠️ REINCIDENTE) */
+    try {
+      var reg43 = {};
+      reg43[uBorr.huella] = { nombre: uBorr.nombre || 'Anónimo', f: Date.now() };
+      db.collection(COL_USUARIOS).doc('__borrados__').set(reg43, { merge: true }).catch(function(){});
+    } catch (e) {}
+  }
   toast('🗑️ Borrando a ' + nom + '…', 6000);
   var p1 = db.collection(COL_MSJ).where('de', '==', uid).get();
   var p2 = db.collection(COL_MSJ).where('para', '==', uid).get();
@@ -600,12 +676,22 @@ $('buscarUsu').addEventListener('input', pintarUsuarios);
 $('filtroMsj').addEventListener('change', pintarMensajes);
 $('btnRefMsj').onclick = function(){ escucharMensajes(); toast('🔄 Mensajes refrescados'); };
 
+function cargarBorrados(){ /* v43: leo el registro de huellas borradas (chat_usuarios/__borrados__) */
+  db.collection(COL_USUARIOS).doc('__borrados__').get().then(function(docu){
+    borradosReg = (docu && docu.exists && docu.data()) ? docu.data() : {};
+    if (!borradosReg || typeof borradosReg !== 'object') borradosReg = {};
+    pintarUsuarios();
+    pintarBloqueados();
+  }).catch(function(){ borradosReg = {}; });
+}
+
 /* ---------- 🔒 la puerta ---------- */
 function abrirPanel(){
   $('puerta').classList.add('oculto');
   $('app').classList.remove('oculto');
   escucharUsuarios();
   escucharMensajes();
+  cargarBorrados(); /* v43 */
 }
 function intentarEntrar(){
   var v = $('claveAdmin').value;
