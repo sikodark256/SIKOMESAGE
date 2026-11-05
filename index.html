@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- SikoChat v44 · 🏆 RETO DE DIBUJO + 💬 MENSAJE FLOTANTE MIENTRAS DIBUJÁS + 🗺️ PIZARRA MÁS GRANDE Y EXPANDIBLE + 🖼️ DIBUJOS EN HD + ⛶ PANTALLA COMPLETA EN LAS PUBLICACIONES + 🧹 PANEL DEL CHAT FUERA + 📲 LINK EN EL COMPARTIR: + 🏆 RETO «¿QUIÉN DIBUJA MEJOR?»: botón nuevo 🏆 en la pizarra — elegís a quien quieras desafiar y tu dibujo le llega como DESAFÍO PRIVADO en una tarjeta “🏆 RETO DE DIBUJO”; a la otra persona le aparece el botón 🎨 ACEPTAR EL RETO, se le abre su pizarra con el cartel ⚔️ “respondiendo el reto de…” y cuando manda su dibujo queda la RESPUESTA al reto al lado del desafío — el chat vota al mejor con ❤️ 🔥 + 💬 SI TE ESCRIBEN MIENTRAS DIBUJÁS: tarjeta FLOTANTE sobre la pizarra con el nombre, el mensaje y un campo para responder AL TOQUE (➤) — se CIERRA con ✖ y se ARRASTRA con el dedo a cualquier rincón: no tenés que cortar tu dibujo para contestar (respeta los silenciados 🔕) + 🗺️ PIZARRA MÁS GRANDE: el papel pasó de 640px a 900px de ancho y 68vh de alto, y el botón nuevo ⤢ lo agranda a TODO lo que dé la pantalla (queda guardado en tu celu) + 🖼️ DIBUJOS EN HD DE VERDAD: el papel interno pasó de 480×360 a 960×720 (¡4 veces más píxeles!) — los dibujos salen nítidos para GUARDAR 💾 (botón nuevo en la pizarra) y COMPARTIR 📤 (a WhatsApp con la imagen incluida); el peso se ajusta solo (calidad y escala) para que Firestore nunca lo rechace + ⛶ PANTALLA COMPLETA EN LAS PUBLICACIONES: cuando tocás un dibujo publicado, al lado de 💾 Guardar está el botón ⛶ que lo pone EN TODO EL MONITOR/TV (funciona con los Fullscreen de siempre, también en TVs viejas) + 🧹 PANEL DE CONTROL DEL CHAT FUERA: se fue el 🛠️ de la barra de arriba y el ⚙ de CONTACTOS — el administrador maneja TODO desde panel.html que es PÁGINA APARTE (v42); lo que sí usabas quedó a mano: en cada CHAT PRIVADO hay botón nuevo ⚙ con 🔕 silenciar · 🚫 bloquear (2 toques) · 🗑️ borrar la conversación (2 toques) y la huella 🧬 con los nombres anteriores de esa persona + 📲 COMPARTIR ARREGLADO: el link https://sikochat.vercel.app ahora viaja SIEMPRE en el texto de WhatsApp EN SU PROPIA LÍNEA (aunque se comparta con imagen) y también sale en la tarjetita de la página · + v43 · 🧬 HUELLA DIGITAL: cada dispositivo trae un código propio (H-xxxx-xxxx) que NO cambia aunque la persona cambie de nombre — cuando alguien se cambia el nombre (en su perfil o al entrar), el nombre ANTERIOR queda registrado en su ficha de Firebase (historialNombres) con la fecha, así se sabe siempre que es la MISMA persona con otro nombre · en el 🛠️ panel de control de cada chat la fila del contacto muestra “🧬 antes: …” · en el PANEL DEL ADMINISTRADOR (panel.html) se ve la huella completa de cada uno, el historial de nombres viejos, y si alguien vuelve a entrar con otro nombre o vuelve después de ser BORRADO, la huella lo delata: aparece 🔗 misma huella o ⚠️ REINCIDENTE · + v42 · 🛠️ PANEL DEL ADMINISTRADOR APARTE (panel.html) + ⛔ BAN GLOBAL: página NUEVA aparte (panel.html) solo para el dueño — se abre por su propia dirección y NO está en el menú del chat: entrás con clave (se cambia adentro del archivo, arriba: CLAVE_ADMIN) y manejás todo: 👥 USUARIOS (todos en vivo con quién está conectado, buscador y a cada uno 🚫 BAN GLOBAL y 🗑️ BORRAR a la persona con TODO lo que escribió — ficha y mensajes de una), 🚫 BLOQUEADOS (la lista de baneados con ✅ para perdonar) y 💬 MENSAJES (los últimos 150 en vivo del grupo y los privados con 🗑️ para borrar cualquiera PARA TODOS al instante) · el chat de cada uno ahora entiende el BAN GLOBAL: los mensajes de un bloqueado por el admin NO se ven (ni grupo ni privados), no avisan, no zumban, no pueden invitar a jugar y si intenta escribir le sale el cartel ⛔ — en la lista de contactos aparece con la señal ⛔ · + v41 · 🛠️ PANEL DE CONTROL DEL CHAT: botón nuevo 🛠️ ARRIBA (al lado de la campanita 🔔) y ⚙ en CONTACTOS que abren el PANEL con 3 pestañas — 👥 CONTACTOS: todos con su estado en vivo y 4 botones por persona (💬 abrir su chat · 🔕 SILENCIAR: sus mensajes llegan sin aviso ni sonido y sigue contando lo no leído · 🚫 BLOQUEAR: sus mensajes desaparecen del chat, ni privados ni grupo ni zumbidos ni invitaciones a jugar, y nadie se entera · 🗑️ BORRAR LA CONVERSACIÓN: borra de Firebase los DOS lados del privado) · 🚫 BLOQUEADOS: la lista con ✅ desbloquear a un toque · 🔔 AVISOS: llavecita de avisos y de sonido, lista de silenciados, 📵 silenciar/activar a todos, 🔔 probar aviso y 🧭 Central avanzada · las listas se guardan en tu dispositivo Y en tu ficha de Firebase (campos muteados/bloqueados) para que el SERVIDOR DE PUSH v41 también las respete con el chat totalmente cerrado (si ya usabas push: 🔔 Avisos → 📲 ACTIVAR PUSH → volvé a copiar y deploy) · 🧹 MANTENIMIENTO: borrar MIS mensajes del grupo de una · las acciones fuertes 🚫 🗑️ 🧹 piden confirmación con DOS toques · + v40 · ✍️ PANEL DE FUENTES EN LÍNEA + 📏 TAMAÑO CON DESLIZADOR + 🧽 INTENSIDAD DE LA GOMA + 📌 TEXTO QUE SE QUEDA DONDE LO PONÉS: en la sección TEXTO de la pizarra el botón de fuente ahora es un BOTÓN PROPIO (Aa + nombre) — lo tocás y el panel aparece AHÍ MISMO, adentro del panel de capas (se acabó el selector nativo que saltaba a un costado del cel): TIPO DE LETRA con cada fuente mostrada con su propia letra (las de terror 🎃 incluidas) + TAMAÑO con deslizador 12–96 y botones A−/A+ + COLOR con las mismas 14 bolitas del riel, todo junto y compacto para ahorrar campo (la vista previa sigue abajo, en vivo) · la caja de texto flotante ya NO salta a un costado: quedó ANCLADA AL PAPEL (contaba mal la posición cuando el papel queda centrado o con zoom), un TOQUE ya no la corre (solo se mueve cuando de verdad arrastrás, con umbral de 6px) y tocar el campo SÍ abre el teclado (antes lo bloqueaba); si cambiás de herramienta a medio escribir, tu texto no se pierde (borrador) · el botón TRAZO ahora trae DESLIZADOR DE TAMAÑO 1–30 con bolita de vista previa (como la Fuerza del licuar; los atajos Fino/Medio/Grueso siguen) y ABAJO el deslizador nuevo de INTENSIDAD DE LA GOMA 5–100% (bajo = apenas roza, alto = borra de golpe) · + v39 · 🧭 CAPAS SIEMPRE A LA VISTA + 🌀 LICUAR COMO PHOTOSHOP + 🎨 COLOR EN EL RIEL + 📻 RADIO ONLINE + 🧷 FIGURITAS FUERA: en el cel la pizarra muestra ahora una PASTILLA "🧱 CAPAS" FLOTANDO en el rincón del papel (al lado del zoom) MIENTRAS la hoja de capas está escondida — un toque y sube la hoja: las capas ya NO se pierden nunca más (el botón 🧱 de la barra de arriba sigue igual) · la herramienta 👆 Dedo pasó a ser 🌀 LICUAR de verdad, como el licuar de Photoshop: tocás el dibujo y arrastrás para EMPUJAR y estirar los píxeles, ahora con BORDE SUAVE de pincel (el botón Fuerza sigue y decide cuánto empuja: 5% = mezcla sutil, 100% = estirón fuerte) · el COLOR volvió al RIEL de herramientas: botón nuevo 🎨 al lado de Trazo y Fuerza que abre la paleta completa (14 bolitas + cuadro de color + barra arcoíris + bola grande en vivo) justo DONDE ESTÁN LOS PINCELES — igual en el cel y en la PC, y el panel queda más limpio · la sección 🧷 FIGURITAS SALIÓ del panel (quedan solo CAPAS + TEXTO, nada amontonado) · y arriba, AL COSTADO DEL LOGO DE LA RADIO, entró el chip "RADIO ONLINE" con una lucecita naranja que PARPADEA como botoncito — lo tocás y sintonizás Sikodark Radio al toque · + v38 · 👆 FUERZA DEL DEDO + 📦 MOVER CADA CAPA POR SEPARADO + 📱 PIZARRA ORDENADA EN EL CEL: la herramienta 👆 Dedo ahora tiene CONTROL DE INTENSIDAD — botón nuevo "Fuerza" en el riel con un deslizador de 5% a 100% que decide cuánto jala el color ya pintado (bajo = mezcla sutil, alto = estira fuerte; queda guardado en el celu) · herramienta nueva 📦 M. CAPA: agarrás la CAPA ELEGIDA y la arrastrás ENTERA a otro lado del papel mientras las demás capas quedan QUIETAS (se deshace con ↩️ como cualquier trazo) · y en el CEL la pizarra se reordenó como una APP DE VERDAD: nada amontonado ni scroll de página — arriba la barra, debajo el riel de herramientas, el PAPEL ocupa todo el resto de la pantalla y abajo solo ENVIAR/Cerrar; el zoom queda FLOTANDO en el rincón del papel y las CAPAS + TEXTO + FIGURITAS + COLORES entran como HOJA INFERIOR que sube desde abajo con su barrita (como en las apps pro de dibujo) sin empujar ni tapar nada · + v37 · ✍️ VISTA PREVIA DE LA LETRA + 🎃 FUENTES DE TERROR + 🧷 FIGURITAS PREARMADAS: en el panel de la derecha (la misma área de las CAPAS) la sección TEXTO ahora muestra una VISTA PREVIA grande donde se ve EXACTAMENTE cómo va a salir la letra — con la fuente elegida, el tamaño y el color de la paleta, y cambia EN VIVO mientras escribís o probás fuentes · entraron 5 FUENTES DE TERROR para Halloween (Creepster, Nosifer, Eater, Butcherman y Frijole) que se ven tal cual en el papel y en el propio menú · y ABAJO del texto entró la sección nueva 🧷 FIGURITAS: 24 logitos prearmados (estrellitas, corazones, luna, fuego, murciélago, calabaza, fantasma, calavera, araña, telaraña y emojis de siempre) — tocás una, queda FLOTANDO sobre el papel, la ARRASTRÁS a cualquier lugar, la agrandás o achicás con A+ / A− y con ✔ la fijás en la capa elegida (se puede deshacer como cualquier trazo) · + v36 · 🎨 PALETA EN EL PANEL + 👆 DEDO (LICUAR) + CERRAR ABAJO: la paleta de colores SALIÓ del menú del riel (la X amarilla de tu captura) y ahora vive EN EL PANEL DE LA DERECHA debajo de las capas y el texto — con los 14 colores de siempre, el cuadro de degradado, la barra del arcoíris y un CÍRCULO GRANDE que muestra EN VIVO el color elegido · herramienta nueva 👆 DEDO (licuar como en Photoshop): tocás el color ya pintado y lo JALÁS para estirarlo y mezclarlo · el botón CERRAR volvió a estar ABAJO al lado de ENVIAR DIBUJO (arriba queda el ✕ chiquito de siempre) · si la pantalla es baja el riel scrollea adentro y ningún icono queda recortado · + v35 · 🖌️ PIZARRA COMO LA CAPTURA DEL DUEÑO: el panel de dibujo quedó IGUAL a la imagen que mandó — herramientas en una COLUMNA de iconos a la IZQUIERDA (lápiz, pincel, brocha, difuminado, bote, goma, texto y mover — al tocar cada uno se ilumina en naranja), ARRIBA quedaron los botones deshacer ↩️ · limpiar 🗑️ · importar imagen 🖼️ · capas 🧱 (muestra/esconde el panel) · ⛶ pantalla completa · ✕ cerrar, las CAPAS y el TEXTO (fuente + color) siguen a la DERECHA y abajo el botón grande ENVIAR DIBUJO — en el cel el riel se corre de lado y las capas arrancan escondidas como siempre · TODO lo demás de la pizarra sigue exacto: papel blanco, zoom, capas, texto arrastrable, deshacer por capa · + v34 · 🎙️ RADIO Y COMPARTIR ARRIBA: los botones 📻 Radio y 📤 Compartir SALIERON de la barra de abajo (quedó más limpia) y ahora son DOS LOGITOS en la barra del título — la radio usa el logo de los auriculares naranjas del propio SikoChat (chip negro) y al lado está el logito de compartir · 📲 COMPARTIR CON IMAGEN: al compartir por WhatsApp sale la tarjetita “Dibuja · Escucha Radio · Chatea” con la carita de SikoChat y ABAJO el link (en el cel va con imagen incluida gracias al compartir nativo; en PC/TV WhatsApp arma la tarjetita sola leyendo los datos nuevos de la página) · + v33 · 🎨 PIZARRA REDISEÑADA ESTILO MODERNO: ya no está todo amontonado — herramientas en tarjetas separadas con ICONOS SVG modernos (nada de caritas negras en la TV), el GROSOR y el COLOR entrán DENTRO de un botón (menú desplegable) y hay un botón ⛶ PANTALLA COMPLETA que funciona en PC, TV y cel · ✍️ HERRAMIENTA DE TEXTO: elegís la FUENTE y sale con el COLOR de la paleta, el texto queda FLOTANDO sobre el papel, lo ARRASTRÁS a cualquier lugar, lo AGRANDÁS con A+ / A− y lo fijás con ✔ (entra en la capa elegida y se puede deshacer) · 🧱 CAPAS PLEGABLES: el visor de capas ahora tiene FLECHA para esconderlo — en el cel arranca escondido y YA NO TAPA la pantalla · 🖼️ IMPORTAR IMAGEN filtra por defecto JPG / PNG / WEBP · 😀 EMOJIS SIEMPRE A COLOR: el chat usa Twemoji (los dibujitos de X/Twitter) así en las TVs que mostraban los emojis NEGROS ahora se ven a color — mensajes, contactos, emotis y stikers · 🎞️ GIFs INFINITOS: la pestaña GIFs ahora tiene BUSCADOR de Tenor (Google) — gratis con tu propia clave en el archivo nuevo gif-config.js (pasos en el README); sin clave siguen los GIFs de Sikodark de siempre · + v32 · 🔍 ZOOM + PAPEL BLANCO EN LA PIZARRA (igual diseño, como la imagen de referencia): el dibujo ahora es una hoja BLANCA dentro de una ventana con marco naranja · botones 🔍➕ Acercar / 🔍➖ Alejar con el porcentaje al medio (100% → 800%) y ⤢ Ajustar para volver al tamaño justo · con zoom el papel se arrastra con ✋ Mover (o los scroll de la ventana) · en el cel se estira/aplasta con 2 DEDOS (pellizco) y en PC Ctrl + rueda del mouse acerca justo al punto del puntero · desde 300% el papel muestra píxeles grandes para rematar detalles chicos · + v31 · 🎨 PIZARRA PRO CON CAPAS: la pizarrita ahora es un mini programa de dibujo de verdad — 🧱 CAPAS (arranca con 2, hasta 6: ojito para mostrar/ocultar, ➕ nueva, 🗑️ borrar, miniatura de cada una, se dibuja en la capa elegida y quedan como papeles transparentes superpuestos), 🖌️ BROCHA con cerdas (textura, no tira lisa), 💨 DIFUMINADO tipo aerógrafo para sombras y pasos suaves, 🎨 SELECTOR DE COLOR con cuadro de degradado + barra arcoíris (cualquier color, como la imagen pedida), 🖼️ IMPORTAR IMAGEN (la foto entra en una capa de abajo para calcar encima), la goma borra la capa elegida, Limpiar vacía solo la capa elegida, deshacer por capa y al mandar se aplanan las capas visibles · + v30 · 🔀 CHAT CON PROYECTO PROPIO DE FIREBASE (REGLAS SEPARADAS DE LA RADIO): la config de Firebase salió del código a un archivo aparte chat-config.js — creás un proyecto nuevo, pegás las claves ahí y el chat deja de depender del proyecto de la radio PARA SIEMPRE (cada vez que cambiabas las reglas de la radio el chat se rompía: esto lo arregla de raíz); mientras no cambies el archivo el chat sigue EXACTAMENTE igual que siempre (respaldo automático), y el botón 📲 ACTIVAR PUSH copia el servidor con el proyecto nuevo puesto solo · + v29 · 👥 LOS CONTACTOS NO SE BORRAN MÁS: el chat tenía una "limpieza automática" que BORRABA de Firebase a cada contacto que no entraba hace más de 24 horas — por eso la lista quedaba solo con los que estaban escribiendo en el momento y "desaparecían" los demás; ahora los contactos QUEDAN SIEMPRE en la lista con su "visto hace" (estilo MSN: los desconectados también se ven) y solo se limpian los mensajes viejos (12 h) y las partidas abandonadas (6 h) · + v28 · 📺 TABLERO ARREGLADO PARA TV: en varias televisiones el tablero salía APLASTADO (una tira chata) porque el navegador de la TV es viejo y no conoce la medida "aspect-ratio" — ahora el chat MIDE cada casilla y le pone el alto justo con JavaScript: casilleros bien cuadrados en cualquier TV, PC o cel, y la mesa grande arranca desde 900px de ancho · + v27 · 🏁 TERMINAR PARTIDA: mientras jugás hay un botón 🏁 TERMINAR junto a Salir — la partida se cierra PARA LOS DOS (al otro le queda el resultado y la revancha) · + v27 · YA NO REAPARECE SOLA: si salís de una partida a medio jugar no se reabre sola cuando recargás el chat (queda guardado en tu dispositivo; si el otro mueve te avisa con una tostada y volvés tocando 🎮) · + v27 · 📺 MESA A PANTALLA GRANDE: en PC y TV el tablero, las fichas, el marcador y los botones se agrandan para aprovechar la pantalla · + v26 · 🎮 JUEGOS EN LÍNEA DE 2: damas · ajedrez · ta-te-ti · conecta 4 · piedra-papel-tijera — invitás desde el chat privado o la lista de contactos, al otro le salta la invitación tipo llamada, juegan en vivo cada uno desde su pantalla (sincronizado con Firestore, colección chat_juegos), con marcador, revancha y recuperación de partidas · + v25 · ← INICIO ARRIBA: botón para VOLVER a los contactos cuando entrás al grupo o a un privado (arriba a la izquierda, como WhatsApp; en el cel) · VOLUMEN: en 🎵 Tonos ahora hay un slider de volumen (0–100%) para los sonidos y avisos del chat, se guarda en tu dispositivo y en 0 queda todo mudo · + v24 PUSH ACTIVABLE DESDE EL CHAT: el servidor de empuje se configura ADENTRO (🔔 Avisos → 📲 ACTIVAR PUSH: copiar código → crear el worker gratis en Cloudflare → pegar la URL → GUARDAR Y PROBAR); la URL queda guardada en Firestore (chat_usuarios/__config__) y sirve para TODOS — ya no hay que editar el código ni volver a subir archivos por esto; las suscripciones de cada cel ahora se guardan en chat_usuarios/{uid}.push (sin colección nueva ni reglas extra) y el servidor es verificado en vivo desde la Central (estado: OK / viejo / caído, con detalle) · + v23 BANDEJA LIMPIA TIPO WHATSAPP: sin avisos de "se conectó", título = SOLO el nombre del que escribe, foto del remitente como imagen, grupo = 💬 CHAT GRUPAL con "juan: mensaje"; el rótulo de la dirección (github.io) lo pinta el NAVEGADOR por seguridad y no se puede sacar por código — con la app instalada Chrome puede mostrar "SikoChat" · + v22 PUSH REAL: cada cel se suscribe al empuje (Web Push con llaves VAPID) y el servidor manda el aviso cifrado aunque la PWA esté totalmente cerrada · + SIN DUPLICADO EN LA LISTA: tu nombre aparece UNA sola vez y los contadores ya no te cuentan a vos · + CENTRAL DE AVISOS: estado real del dispositivo, PROBAR AVISO AHORA, ayuda Android/iPhone y 🫀 MODO SIEMPRE ACTIVO · + NAVEGACIÓN TIPO APP EN EL CEL: lista ↔ chat con botón 👥 CONTACTOS · + PANEL DEL CEL ESTILO MSN · SIN contraseña (opcional) · badge de no leídos · PIZARRITA PAINT · TODOS en la lista con visto hace · reacciones ❤️ reenviar ↪️ borrar 🗑️ favoritos ⭐ · emotis/stikers/gifs/fotos · tonos · radio · temas · perfil · privado · instalar como app -->
+<!-- SikoChat v48 · 🎨 PIZARRA ORDENADA: FORMAS · CUENTAGOTAS · DIFUMINAR · PAPEL FIJO Y LIMPIO — + ⬟ FORMAS: botón nuevo en el riel con selector de LÍNEA, FLECHA, RECTÁNGULO, ELIPSE y TRIÁNGULO (con modo RELLENO o contorno): arrastrás sobre el papel y la figura sale con tu color y tu trazo, con vista previa en vivo ANTES de soltar + 💧 CUENTAGOTAS: toca cualquier color del dibujo y queda elegido para tus pinceles (muestra el código HEX) + 🌫️ DIFUMINAR: desenfoque de verdad — pasás el pincel y lo pintado queda SUAVE como foto fuera de foco (el Nivel decide cuánto, sirve para nubes, brillos y sombras); el viejo "difuminado" ahora se llama AERÓGRAFO para no confundir + 📌 PAPEL FIJO: al 100% la hoja queda CLAVADA — overflow oculto, sin rebotes ni corrimientos: el papel NO se mueve si no hiciste zoom (el paseo con dedos/Ctrl+rueda sigue igual al acercar) + 🧹 PAPEL LIMPIO: ya no flota NADA sobre la hoja — el cartelito de estado, las píldoras 🧱 CAPAS y Aa LETRA, el zoom y el chip del reto viven ahora en una FRANJA ORDENADA debajo del papel (los paneles siguen apareciendo solo cuando los llamás) + ⋯ MÁS HERRAMIENTAS: el riel quedó con lo simple (lápiz, pincel, goma, bote, formas, texto) y TODO lo complejo (brocha, aerógrafo, difuminar, licuar, cuentagotas, mover papel, mover capa) entra en un solo botón ⋯ con rejilla de nombres — nada amontonado + 🎛️ FUERZA INTELIGENTE: el botón de Fuerza solo aparece cuando sirve (Licuar o Difuminar) y el cartelito de estado siempre dice qué estás usando + 📺 ADAPTA A TV: en pantallas de 1600px o más todos los botones, píldoras y menús crecen solos (cel y PC siguen igual) · + v47 · 🪄 DAR VIDA A TUS DIBUJOS (estilo FlipSketch): botón nuevo ✨ ANIMAR en la pizarra — lo tocas y tu dibujo se abre en la app SikoAnimar YA RECORTADO del papel y CAMINANDO: eliges caminar, volar, saltar, bailar o nadar, ajustas la velocidad y sales GIF o VIDEO gratis para compartir por WhatsApp (el dibujo viaja por dentro de tu celu, nada se sube a internet; también puedes mandarlo a video con IA) · + v46 · 🖌️ PIZARRA PROFESIONAL "HOJA PURA" — ORDENADA Y FÁCIL COMO UN JUEGO: + 🖼️ LA HOJA ENTRA ENTERA, CON SU TAMAÑO ORIGINAL: se acabó la barra de deslizamiento molestando al dibujar — la pizarra ahora MIDE la pantalla y planta la hoja blanca 4:3 bien centrada, del tamaño más grande que entra COMPLETA (en el cel, en la PC y en la TV); el papel ya no se recorta ni se esconde detrás de deslizadores + 🖥️ MARCO DE APP EN CUALQUIER PANTALLA: nada de scroll de página — la pizarra ocupa EXACTAMENTE la pantalla (100dvh) y se reparte sola: arriba la barra de botones, al medio la mesa (riel de herramientas a la izquierda SIEMPRE, sin apilarse ni saltarse), abajo Cerrar y ENVIAR; todo a la vista aunque la pantalla sea baja, ancha o gigante + 🎨 ESCRITORIO DE VERDAD: la hoja blanca flota con su sombra sobre un escritorio oscuro, como en los programas pro de dibujo — se ve exactamente dónde termina el papel; los deslizadores SOLO aparecen cuando acercás el zoom (para pasear por la hoja) y ahora van finos y translúcidos; el botón Ajustar vuelve siempre a la hoja entera + 🧒 CARTELITO DE ESTADO PARA NIÑOS: una pastilla debajo del papel muestra ✏️ Lápiz · Trazo 5 · y la bolita del color elegido — se actualiza sola al cambiar de herramienta, de tamaño o de color (en la goma dice su intensidad, "Goma 80%"): el que recién empieza SIEMPRE sabe qué está agarrando · + v45 · 🖌️ PIZARRA MÁS CÓMODA Y ORDENADA: + 📏 ICONOS MÁS GRANDES QUE SE ADAPTAN SOLOS: la medida de los botones crece con el ancho de la pantalla (en el cel agarran mejor con el dedo, en la PC un poco más y en la TV / monitor grande SE AGRANDAN SOLOS — también siguen el zoom del navegador) + 🧱 CAPAS CERRADAS AL ABRIR en TODAS las pantallas: se acabó la columnita de la derecha que robaba lugar — ahora es una TARJETA FLOTANTE sobre el papel con su sombra, la llamás con la píldora nueva «🧱 CAPAS» del rincón (o el botón 🧱 de arriba) y la cerrás con la flechita: papel limpio y al máximo + 🔤 LA LETRA IGUAL, FLOTANTE: píldora nueva «Aa LETRA» en el rincón del papel — la tocás y AHÍ RECÍEN aparece flotante el cambio de fuente (tipo con su propia letra, tamaño con deslizador, color y vista previa), con su cerrar propio; las dos tarjetas NUNCA quedan abiertas juntas (abre una, se guarda la otra) + 🎨 PALETA CON LOGITO PROPIO Y ORDEN PRO: el botón de color ahora es una PALETITA con puntitos de verdad (rojo, amarillo, verde, azul — se entiende sin leer, aun en la TV) y el menú se reordenó como los programas de dibujo: ARRIBA el color elegido con su código (#HEX) y la bola grande, AL MEDIO COLORES RÁPIDOS (las bolitas, ahora más grandes) y ABAJO ARMAR UN COLOR (cuadro de degradado + barra arcoíris) + 📱 EN EL CEL LA BARRA DE ARRIBA YA NO CORTA NADA: el título se corre a un lado y los botones (↩️ restaurar · 🗑️ eliminar capa · 🖼️ importar · 💾 guardar · 📤 compartir · 🏆 reto · ⤢ agrandar · 🧱 capas · ⛶ pantalla · ✕ cerrar) se acomodan EN FILAS y más gruesos — TODOS a la vista, nada escondido en scroll · + v44 · 🏆 RETO DE DIBUJO + 💬 MENSAJE FLOTANTE MIENTRAS DIBUJÁS + 🗺️ PIZARRA MÁS GRANDE Y EXPANDIBLE + 🖼️ DIBUJOS EN HD + ⛶ PANTALLA COMPLETA EN LAS PUBLICACIONES + 🧹 PANEL DEL CHAT FUERA + 📲 LINK EN EL COMPARTIR: + 🏆 RETO «¿QUIÉN DIBUJA MEJOR?»: botón nuevo 🏆 en la pizarra — elegís a quien quieras desafiar y tu dibujo le llega como DESAFÍO PRIVADO en una tarjeta “🏆 RETO DE DIBUJO”; a la otra persona le aparece el botón 🎨 ACEPTAR EL RETO, se le abre su pizarra con el cartel ⚔️ “respondiendo el reto de…” y cuando manda su dibujo queda la RESPUESTA al reto al lado del desafío — el chat vota al mejor con ❤️ 🔥 + 💬 SI TE ESCRIBEN MIENTRAS DIBUJÁS: tarjeta FLOTANTE sobre la pizarra con el nombre, el mensaje y un campo para responder AL TOQUE (➤) — se CIERRA con ✖ y se ARRASTRA con el dedo a cualquier rincón: no tenés que cortar tu dibujo para contestar (respeta los silenciados 🔕) + 🗺️ PIZARRA MÁS GRANDE: el papel pasó de 640px a 900px de ancho y 68vh de alto, y el botón nuevo ⤢ lo agranda a TODO lo que dé la pantalla (queda guardado en tu celu) + 🖼️ DIBUJOS EN HD DE VERDAD: el papel interno pasó de 480×360 a 960×720 (¡4 veces más píxeles!) — los dibujos salen nítidos para GUARDAR 💾 (botón nuevo en la pizarra) y COMPARTIR 📤 (a WhatsApp con la imagen incluida); el peso se ajusta solo (calidad y escala) para que Firestore nunca lo rechace + ⛶ PANTALLA COMPLETA EN LAS PUBLICACIONES: cuando tocás un dibujo publicado, al lado de 💾 Guardar está el botón ⛶ que lo pone EN TODO EL MONITOR/TV (funciona con los Fullscreen de siempre, también en TVs viejas) + 🧹 PANEL DE CONTROL DEL CHAT FUERA: se fue el 🛠️ de la barra de arriba y el ⚙ de CONTACTOS — el administrador maneja TODO desde panel.html que es PÁGINA APARTE (v42); lo que sí usabas quedó a mano: en cada CHAT PRIVADO hay botón nuevo ⚙ con 🔕 silenciar · 🚫 bloquear (2 toques) · 🗑️ borrar la conversación (2 toques) y la huella 🧬 con los nombres anteriores de esa persona + 📲 COMPARTIR ARREGLADO: el link https://sikochat.vercel.app ahora viaja SIEMPRE en el texto de WhatsApp EN SU PROPIA LÍNEA (aunque se comparta con imagen) y también sale en la tarjetita de la página · + v43 · 🧬 HUELLA DIGITAL: cada dispositivo trae un código propio (H-xxxx-xxxx) que NO cambia aunque la persona cambie de nombre — cuando alguien se cambia el nombre (en su perfil o al entrar), el nombre ANTERIOR queda registrado en su ficha de Firebase (historialNombres) con la fecha, así se sabe siempre que es la MISMA persona con otro nombre · en el 🛠️ panel de control de cada chat la fila del contacto muestra “🧬 antes: …” · en el PANEL DEL ADMINISTRADOR (panel.html) se ve la huella completa de cada uno, el historial de nombres viejos, y si alguien vuelve a entrar con otro nombre o vuelve después de ser BORRADO, la huella lo delata: aparece 🔗 misma huella o ⚠️ REINCIDENTE · + v42 · 🛠️ PANEL DEL ADMINISTRADOR APARTE (panel.html) + ⛔ BAN GLOBAL: página NUEVA aparte (panel.html) solo para el dueño — se abre por su propia dirección y NO está en el menú del chat: entrás con clave (se cambia adentro del archivo, arriba: CLAVE_ADMIN) y manejás todo: 👥 USUARIOS (todos en vivo con quién está conectado, buscador y a cada uno 🚫 BAN GLOBAL y 🗑️ BORRAR a la persona con TODO lo que escribió — ficha y mensajes de una), 🚫 BLOQUEADOS (la lista de baneados con ✅ para perdonar) y 💬 MENSAJES (los últimos 150 en vivo del grupo y los privados con 🗑️ para borrar cualquiera PARA TODOS al instante) · el chat de cada uno ahora entiende el BAN GLOBAL: los mensajes de un bloqueado por el admin NO se ven (ni grupo ni privados), no avisan, no zumban, no pueden invitar a jugar y si intenta escribir le sale el cartel ⛔ — en la lista de contactos aparece con la señal ⛔ · + v41 · 🛠️ PANEL DE CONTROL DEL CHAT: botón nuevo 🛠️ ARRIBA (al lado de la campanita 🔔) y ⚙ en CONTACTOS que abren el PANEL con 3 pestañas — 👥 CONTACTOS: todos con su estado en vivo y 4 botones por persona (💬 abrir su chat · 🔕 SILENCIAR: sus mensajes llegan sin aviso ni sonido y sigue contando lo no leído · 🚫 BLOQUEAR: sus mensajes desaparecen del chat, ni privados ni grupo ni zumbidos ni invitaciones a jugar, y nadie se entera · 🗑️ BORRAR LA CONVERSACIÓN: borra de Firebase los DOS lados del privado) · 🚫 BLOQUEADOS: la lista con ✅ desbloquear a un toque · 🔔 AVISOS: llavecita de avisos y de sonido, lista de silenciados, 📵 silenciar/activar a todos, 🔔 probar aviso y 🧭 Central avanzada · las listas se guardan en tu dispositivo Y en tu ficha de Firebase (campos muteados/bloqueados) para que el SERVIDOR DE PUSH v41 también las respete con el chat totalmente cerrado (si ya usabas push: 🔔 Avisos → 📲 ACTIVAR PUSH → volvé a copiar y deploy) · 🧹 MANTENIMIENTO: borrar MIS mensajes del grupo de una · las acciones fuertes 🚫 🗑️ 🧹 piden confirmación con DOS toques · + v40 · ✍️ PANEL DE FUENTES EN LÍNEA + 📏 TAMAÑO CON DESLIZADOR + 🧽 INTENSIDAD DE LA GOMA + 📌 TEXTO QUE SE QUEDA DONDE LO PONÉS: en la sección TEXTO de la pizarra el botón de fuente ahora es un BOTÓN PROPIO (Aa + nombre) — lo tocás y el panel aparece AHÍ MISMO, adentro del panel de capas (se acabó el selector nativo que saltaba a un costado del cel): TIPO DE LETRA con cada fuente mostrada con su propia letra (las de terror 🎃 incluidas) + TAMAÑO con deslizador 12–96 y botones A−/A+ + COLOR con las mismas 14 bolitas del riel, todo junto y compacto para ahorrar campo (la vista previa sigue abajo, en vivo) · la caja de texto flotante ya NO salta a un costado: quedó ANCLADA AL PAPEL (contaba mal la posición cuando el papel queda centrado o con zoom), un TOQUE ya no la corre (solo se mueve cuando de verdad arrastrás, con umbral de 6px) y tocar el campo SÍ abre el teclado (antes lo bloqueaba); si cambiás de herramienta a medio escribir, tu texto no se pierde (borrador) · el botón TRAZO ahora trae DESLIZADOR DE TAMAÑO 1–30 con bolita de vista previa (como la Fuerza del licuar; los atajos Fino/Medio/Grueso siguen) y ABAJO el deslizador nuevo de INTENSIDAD DE LA GOMA 5–100% (bajo = apenas roza, alto = borra de golpe) · + v39 · 🧭 CAPAS SIEMPRE A LA VISTA + 🌀 LICUAR COMO PHOTOSHOP + 🎨 COLOR EN EL RIEL + 📻 RADIO ONLINE + 🧷 FIGURITAS FUERA: en el cel la pizarra muestra ahora una PASTILLA "🧱 CAPAS" FLOTANDO en el rincón del papel (al lado del zoom) MIENTRAS la hoja de capas está escondida — un toque y sube la hoja: las capas ya NO se pierden nunca más (el botón 🧱 de la barra de arriba sigue igual) · la herramienta 👆 Dedo pasó a ser 🌀 LICUAR de verdad, como el licuar de Photoshop: tocás el dibujo y arrastrás para EMPUJAR y estirar los píxeles, ahora con BORDE SUAVE de pincel (el botón Fuerza sigue y decide cuánto empuja: 5% = mezcla sutil, 100% = estirón fuerte) · el COLOR volvió al RIEL de herramientas: botón nuevo 🎨 al lado de Trazo y Fuerza que abre la paleta completa (14 bolitas + cuadro de color + barra arcoíris + bola grande en vivo) justo DONDE ESTÁN LOS PINCELES — igual en el cel y en la PC, y el panel queda más limpio · la sección 🧷 FIGURITAS SALIÓ del panel (quedan solo CAPAS + TEXTO, nada amontonado) · y arriba, AL COSTADO DEL LOGO DE LA RADIO, entró el chip "RADIO ONLINE" con una lucecita naranja que PARPADEA como botoncito — lo tocás y sintonizás Sikodark Radio al toque · + v38 · 👆 FUERZA DEL DEDO + 📦 MOVER CADA CAPA POR SEPARADO + 📱 PIZARRA ORDENADA EN EL CEL: la herramienta 👆 Dedo ahora tiene CONTROL DE INTENSIDAD — botón nuevo "Fuerza" en el riel con un deslizador de 5% a 100% que decide cuánto jala el color ya pintado (bajo = mezcla sutil, alto = estira fuerte; queda guardado en el celu) · herramienta nueva 📦 M. CAPA: agarrás la CAPA ELEGIDA y la arrastrás ENTERA a otro lado del papel mientras las demás capas quedan QUIETAS (se deshace con ↩️ como cualquier trazo) · y en el CEL la pizarra se reordenó como una APP DE VERDAD: nada amontonado ni scroll de página — arriba la barra, debajo el riel de herramientas, el PAPEL ocupa todo el resto de la pantalla y abajo solo ENVIAR/Cerrar; el zoom queda FLOTANDO en el rincón del papel y las CAPAS + TEXTO + FIGURITAS + COLORES entran como HOJA INFERIOR que sube desde abajo con su barrita (como en las apps pro de dibujo) sin empujar ni tapar nada · + v37 · ✍️ VISTA PREVIA DE LA LETRA + 🎃 FUENTES DE TERROR + 🧷 FIGURITAS PREARMADAS: en el panel de la derecha (la misma área de las CAPAS) la sección TEXTO ahora muestra una VISTA PREVIA grande donde se ve EXACTAMENTE cómo va a salir la letra — con la fuente elegida, el tamaño y el color de la paleta, y cambia EN VIVO mientras escribís o probás fuentes · entraron 5 FUENTES DE TERROR para Halloween (Creepster, Nosifer, Eater, Butcherman y Frijole) que se ven tal cual en el papel y en el propio menú · y ABAJO del texto entró la sección nueva 🧷 FIGURITAS: 24 logitos prearmados (estrellitas, corazones, luna, fuego, murciélago, calabaza, fantasma, calavera, araña, telaraña y emojis de siempre) — tocás una, queda FLOTANDO sobre el papel, la ARRASTRÁS a cualquier lugar, la agrandás o achicás con A+ / A− y con ✔ la fijás en la capa elegida (se puede deshacer como cualquier trazo) · + v36 · 🎨 PALETA EN EL PANEL + 👆 DEDO (LICUAR) + CERRAR ABAJO: la paleta de colores SALIÓ del menú del riel (la X amarilla de tu captura) y ahora vive EN EL PANEL DE LA DERECHA debajo de las capas y el texto — con los 14 colores de siempre, el cuadro de degradado, la barra del arcoíris y un CÍRCULO GRANDE que muestra EN VIVO el color elegido · herramienta nueva 👆 DEDO (licuar como en Photoshop): tocás el color ya pintado y lo JALÁS para estirarlo y mezclarlo · el botón CERRAR volvió a estar ABAJO al lado de ENVIAR DIBUJO (arriba queda el ✕ chiquito de siempre) · si la pantalla es baja el riel scrollea adentro y ningún icono queda recortado · + v35 · 🖌️ PIZARRA COMO LA CAPTURA DEL DUEÑO: el panel de dibujo quedó IGUAL a la imagen que mandó — herramientas en una COLUMNA de iconos a la IZQUIERDA (lápiz, pincel, brocha, difuminado, bote, goma, texto y mover — al tocar cada uno se ilumina en naranja), ARRIBA quedaron los botones deshacer ↩️ · limpiar 🗑️ · importar imagen 🖼️ · capas 🧱 (muestra/esconde el panel) · ⛶ pantalla completa · ✕ cerrar, las CAPAS y el TEXTO (fuente + color) siguen a la DERECHA y abajo el botón grande ENVIAR DIBUJO — en el cel el riel se corre de lado y las capas arrancan escondidas como siempre · TODO lo demás de la pizarra sigue exacto: papel blanco, zoom, capas, texto arrastrable, deshacer por capa · + v34 · 🎙️ RADIO Y COMPARTIR ARRIBA: los botones 📻 Radio y 📤 Compartir SALIERON de la barra de abajo (quedó más limpia) y ahora son DOS LOGITOS en la barra del título — la radio usa el logo de los auriculares naranjas del propio SikoChat (chip negro) y al lado está el logito de compartir · 📲 COMPARTIR CON IMAGEN: al compartir por WhatsApp sale la tarjetita “Dibuja · Escucha Radio · Chatea” con la carita de SikoChat y ABAJO el link (en el cel va con imagen incluida gracias al compartir nativo; en PC/TV WhatsApp arma la tarjetita sola leyendo los datos nuevos de la página) · + v33 · 🎨 PIZARRA REDISEÑADA ESTILO MODERNO: ya no está todo amontonado — herramientas en tarjetas separadas con ICONOS SVG modernos (nada de caritas negras en la TV), el GROSOR y el COLOR entrán DENTRO de un botón (menú desplegable) y hay un botón ⛶ PANTALLA COMPLETA que funciona en PC, TV y cel · ✍️ HERRAMIENTA DE TEXTO: elegís la FUENTE y sale con el COLOR de la paleta, el texto queda FLOTANDO sobre el papel, lo ARRASTRÁS a cualquier lugar, lo AGRANDÁS con A+ / A− y lo fijás con ✔ (entra en la capa elegida y se puede deshacer) · 🧱 CAPAS PLEGABLES: el visor de capas ahora tiene FLECHA para esconderlo — en el cel arranca escondido y YA NO TAPA la pantalla · 🖼️ IMPORTAR IMAGEN filtra por defecto JPG / PNG / WEBP · 😀 EMOJIS SIEMPRE A COLOR: el chat usa Twemoji (los dibujitos de X/Twitter) así en las TVs que mostraban los emojis NEGROS ahora se ven a color — mensajes, contactos, emotis y stikers · 🎞️ GIFs INFINITOS: la pestaña GIFs ahora tiene BUSCADOR de Tenor (Google) — gratis con tu propia clave en el archivo nuevo gif-config.js (pasos en el README); sin clave siguen los GIFs de Sikodark de siempre · + v32 · 🔍 ZOOM + PAPEL BLANCO EN LA PIZARRA (igual diseño, como la imagen de referencia): el dibujo ahora es una hoja BLANCA dentro de una ventana con marco naranja · botones 🔍➕ Acercar / 🔍➖ Alejar con el porcentaje al medio (100% → 800%) y ⤢ Ajustar para volver al tamaño justo · con zoom el papel se arrastra con ✋ Mover (o los scroll de la ventana) · en el cel se estira/aplasta con 2 DEDOS (pellizco) y en PC Ctrl + rueda del mouse acerca justo al punto del puntero · desde 300% el papel muestra píxeles grandes para rematar detalles chicos · + v31 · 🎨 PIZARRA PRO CON CAPAS: la pizarrita ahora es un mini programa de dibujo de verdad — 🧱 CAPAS (arranca con 2, hasta 6: ojito para mostrar/ocultar, ➕ nueva, 🗑️ borrar, miniatura de cada una, se dibuja en la capa elegida y quedan como papeles transparentes superpuestos), 🖌️ BROCHA con cerdas (textura, no tira lisa), 💨 DIFUMINADO tipo aerógrafo para sombras y pasos suaves, 🎨 SELECTOR DE COLOR con cuadro de degradado + barra arcoíris (cualquier color, como la imagen pedida), 🖼️ IMPORTAR IMAGEN (la foto entra en una capa de abajo para calcar encima), la goma borra la capa elegida, Limpiar vacía solo la capa elegida, deshacer por capa y al mandar se aplanan las capas visibles · + v30 · 🔀 CHAT CON PROYECTO PROPIO DE FIREBASE (REGLAS SEPARADAS DE LA RADIO): la config de Firebase salió del código a un archivo aparte chat-config.js — creás un proyecto nuevo, pegás las claves ahí y el chat deja de depender del proyecto de la radio PARA SIEMPRE (cada vez que cambiabas las reglas de la radio el chat se rompía: esto lo arregla de raíz); mientras no cambies el archivo el chat sigue EXACTAMENTE igual que siempre (respaldo automático), y el botón 📲 ACTIVAR PUSH copia el servidor con el proyecto nuevo puesto solo · + v29 · 👥 LOS CONTACTOS NO SE BORRAN MÁS: el chat tenía una "limpieza automática" que BORRABA de Firebase a cada contacto que no entraba hace más de 24 horas — por eso la lista quedaba solo con los que estaban escribiendo en el momento y "desaparecían" los demás; ahora los contactos QUEDAN SIEMPRE en la lista con su "visto hace" (estilo MSN: los desconectados también se ven) y solo se limpian los mensajes viejos (12 h) y las partidas abandonadas (6 h) · + v28 · 📺 TABLERO ARREGLADO PARA TV: en varias televisiones el tablero salía APLASTADO (una tira chata) porque el navegador de la TV es viejo y no conoce la medida "aspect-ratio" — ahora el chat MIDE cada casilla y le pone el alto justo con JavaScript: casilleros bien cuadrados en cualquier TV, PC o cel, y la mesa grande arranca desde 900px de ancho · + v27 · 🏁 TERMINAR PARTIDA: mientras jugás hay un botón 🏁 TERMINAR junto a Salir — la partida se cierra PARA LOS DOS (al otro le queda el resultado y la revancha) · + v27 · YA NO REAPARECE SOLA: si salís de una partida a medio jugar no se reabre sola cuando recargás el chat (queda guardado en tu dispositivo; si el otro mueve te avisa con una tostada y volvés tocando 🎮) · + v27 · 📺 MESA A PANTALLA GRANDE: en PC y TV el tablero, las fichas, el marcador y los botones se agrandan para aprovechar la pantalla · + v26 · 🎮 JUEGOS EN LÍNEA DE 2: damas · ajedrez · ta-te-ti · conecta 4 · piedra-papel-tijera — invitás desde el chat privado o la lista de contactos, al otro le salta la invitación tipo llamada, juegan en vivo cada uno desde su pantalla (sincronizado con Firestore, colección chat_juegos), con marcador, revancha y recuperación de partidas · + v25 · ← INICIO ARRIBA: botón para VOLVER a los contactos cuando entrás al grupo o a un privado (arriba a la izquierda, como WhatsApp; en el cel) · VOLUMEN: en 🎵 Tonos ahora hay un slider de volumen (0–100%) para los sonidos y avisos del chat, se guarda en tu dispositivo y en 0 queda todo mudo · + v24 PUSH ACTIVABLE DESDE EL CHAT: el servidor de empuje se configura ADENTRO (🔔 Avisos → 📲 ACTIVAR PUSH: copiar código → crear el worker gratis en Cloudflare → pegar la URL → GUARDAR Y PROBAR); la URL queda guardada en Firestore (chat_usuarios/__config__) y sirve para TODOS — ya no hay que editar el código ni volver a subir archivos por esto; las suscripciones de cada cel ahora se guardan en chat_usuarios/{uid}.push (sin colección nueva ni reglas extra) y el servidor es verificado en vivo desde la Central (estado: OK / viejo / caído, con detalle) · + v23 BANDEJA LIMPIA TIPO WHATSAPP: sin avisos de "se conectó", título = SOLO el nombre del que escribe, foto del remitente como imagen, grupo = 💬 CHAT GRUPAL con "juan: mensaje"; el rótulo de la dirección (github.io) lo pinta el NAVEGADOR por seguridad y no se puede sacar por código — con la app instalada Chrome puede mostrar "SikoChat" · + v22 PUSH REAL: cada cel se suscribe al empuje (Web Push con llaves VAPID) y el servidor manda el aviso cifrado aunque la PWA esté totalmente cerrada · + SIN DUPLICADO EN LA LISTA: tu nombre aparece UNA sola vez y los contadores ya no te cuentan a vos · + CENTRAL DE AVISOS: estado real del dispositivo, PROBAR AVISO AHORA, ayuda Android/iPhone y 🫀 MODO SIEMPRE ACTIVO · + NAVEGACIÓN TIPO APP EN EL CEL: lista ↔ chat con botón 👥 CONTACTOS · + PANEL DEL CEL ESTILO MSN · SIN contraseña (opcional) · badge de no leídos · PIZARRITA PAINT · TODOS en la lista con visto hace · reacciones ❤️ reenviar ↪️ borrar 🗑️ favoritos ⭐ · emotis/stikers/gifs/fotos · tonos · radio · temas · perfil · privado · instalar como app -->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -502,27 +502,48 @@ img.emoji{height:1.15em;width:1.15em;margin:0 .08em;vertical-align:-0.18em;displ
    color entran DENTRO de un botón (menú desplegable), hay ⛶ pantalla completa
    y el visor de capas es PLEGABLE con flecha (en el cel ya no tapa nada). */
 #overlayDibujo{
-  position:fixed;inset:0;background:rgba(0,0,0,.94);z-index:80;display:flex;
-  flex-direction:column;align-items:center;justify-content:flex-start;padding:12px;gap:12px;overflow-y:auto;
+  position:fixed;inset:0;background:rgba(0,0,0,.985);z-index:80;display:flex;
+  flex-direction:column;align-items:center;justify-content:flex-start;padding:12px;gap:10px;
+  /* v46: MARCO DE APP — se acabó el scroll de página: la pizarra ocupa EXACTAMENTE la
+     pantalla que sea (cel, PC, TV) y lo de adentro se reparte el lugar solo. Nada queda
+     afuera, nada se corre: arriba la barra, al medio la mesa, abajo los botones. */
+  overflow:hidden;height:100vh;height:100dvh;
+  /* v45: ICONOS QUE SE ADAPTAN A LA PANTALLA — la medida crece sola con el ancho de la
+     ventana (clamp): en el cel quedan cómodos para el dedo, en la PC un poco más y en la
+     TV / monitor grande SUBEN SOLOS. También sigue el zoom del navegador. */
+  --btnIco: clamp(42px, 1.15vw + 30px, 56px);
+  --icoSz: clamp(20px, 0.55vw + 14px, 26px);
+  --btnTxt: clamp(13px, 0.22vw + 11.5px, 15.5px);
 }
-.dibujoCab{display:flex;align-items:center;gap:10px;width:min(97vw,1080px);justify-content:space-between}
+/* v45: los tamaños nuevos valen para TODA la pizarra (riel, barra de arriba, zoom) */
+#overlayDibujo svg.ico{width:var(--icoSz);height:var(--icoSz)}
+#overlayDibujo .btnDibujo{font-size:var(--btnTxt)}
+.dibujoCab{display:flex;align-items:center;gap:10px;width:100%;max-width:1400px;justify-content:space-between;flex:none}
 .dibujoCabAcc{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
-.dibujoTitulo{font-size:16px;font-weight:900;color:var(--naranja);letter-spacing:.5px;display:flex;align-items:center;gap:8px}
+.dibujoTitulo{font-size:clamp(16px, 0.45vw + 13px, 22px);font-weight:900;color:var(--naranja);letter-spacing:.5px;display:flex;align-items:center;gap:8px}
 .dibujoSub{font-size:11px;font-weight:700;color:var(--tx4);letter-spacing:0}
 .btnPantalla.fsActivo{border-color:var(--naranja);background:rgba(var(--acento-rgb),.24);color:var(--naranja)}
 /* v32: el lienzo es PAPEL BLANCO dentro de una ventana con scroll (como la imagen de
    referencia). La ventana #vpLienzo tiene el marco naranja; cuando el zoom agranda el
    papel, la ventana lo recorta y lo deja arrastrar/scroll — como en los programas de dibujo */
+/* v46 · ESCRITORIO + HOJA PURA: #vpLienzo es el escritorio (ocupa TODO el lugar libre)
+   y la hoja #lienzo flota CENTRADA encima con su tamaño original 4:3. Al 100% la hoja
+   entra EXACTA: sin barras de deslizamiento, sin recortes — nada estorba al dibujar.
+   Solo cuando acercás el zoom aparece el deslizador (ahí sí hace falta para pasear por
+   la hoja) y va fino y translúcido para no molestar. */
 #vpLienzo{
-  position:relative;
-  width:min(94vw,900px);max-height:68vh;overflow:auto;border:2px solid var(--naranja);border-radius:14px;
-  background:#fff;touch-action:pan-x pan-y;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;
+  position:relative;flex:1 1 auto;min-height:0;width:100%;
+  overflow:auto;border:2px solid var(--naranja);border-radius:14px;
+  background:#151515;display:flex;touch-action:pan-x pan-y;
+  overscroll-behavior:contain;-webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;scrollbar-color:rgba(245,157,61,.45) transparent;
 }
-#vpLienzo::-webkit-scrollbar{width:9px;height:9px}
-#vpLienzo::-webkit-scrollbar-track{background:rgba(0,0,0,.25)}
-#vpLienzo::-webkit-scrollbar-thumb{background:rgba(245,157,61,.55);border-radius:5px}
+#vpLienzo::-webkit-scrollbar{width:8px;height:8px}
+#vpLienzo::-webkit-scrollbar-track{background:transparent}
+#vpLienzo::-webkit-scrollbar-thumb{background:rgba(245,157,61,.45);border-radius:5px}
 #lienzo{
-  background:#fff;display:block;width:100%;height:auto;touch-action:none;cursor:crosshair;
+  background:#fff;display:block;margin:auto;touch-action:none;cursor:crosshair;
+  border-radius:6px;box-shadow:0 12px 44px rgba(0,0,0,.55);
   -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;
 }
 #lienzo.pix{image-rendering:pixelated} /* desde 300%: píxel grande para detalle fino */
@@ -539,8 +560,9 @@ img.emoji{height:1.15em;width:1.15em;margin:0 .08em;vertical-align:-0.18em;displ
 .filaHerr{display:flex;align-items:center;gap:5px;flex-wrap:wrap;justify-content:center;max-width:100%;padding:2px}
 .sepV{width:1px;height:24px;background:var(--borde2);flex:none;margin:0 3px}
 .herrDibujo{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
-.colorBtn{width:30px;height:30px;border-radius:50%;border:2px solid var(--borde2);cursor:pointer;padding:0;flex:none}
-.colorBtn.sel{border-color:var(--contra);transform:scale(1.18)}
+/* v45: bolitas de la paleta más grandes (se ven mejor en la TV) */
+.colorBtn{width:34px;height:34px;border-radius:50%;border:2px solid var(--borde2);cursor:pointer;padding:0;flex:none;transition:transform .12s}
+.colorBtn.sel{border-color:var(--contra);transform:scale(1.18);box-shadow:0 0 0 2px rgba(0,0,0,.55),0 0 10px rgba(245,157,61,.5)}
 .btnDibujo{
   display:inline-flex;align-items:center;gap:6px;
   background:#161616;border:1px solid #2e2e2e;color:#d8d8d8;padding:9px 11px;border-radius:11px;
@@ -549,18 +571,21 @@ img.emoji{height:1.15em;width:1.15em;margin:0 .08em;vertical-align:-0.18em;displ
 }
 .btnDibujo:hover{border-color:var(--naranja);color:var(--tx1)}
 .btnDibujo.activo{background:rgba(var(--acento-rgb),.16);border-color:var(--naranja);color:var(--naranja)}
-.btnDibujo.btnIconoD{width:37px;height:37px;padding:0;justify-content:center;border-radius:11px}
+/* v47: 🪄 el botón de ANIMAR se ilumina en naranja: es la puerta a SikoAnimar */
+.btnDibujo.btnAnimarD{border-color:var(--naranja);color:var(--naranja);box-shadow:0 0 10px rgba(245,157,61,.35)}
+/* v45: los botones de solo icono usan la medida adaptable (--btnIco) */
+.btnDibujo.btnIconoD{width:var(--btnIco);height:var(--btnIco);padding:0;justify-content:center;border-radius:12px}
 /* v35: RIEL de herramientas VERTICAL a la izquierda — igual a la captura del dueño:
    iconos apilados sin textos; Deshacer/Limpiar/Importar/Capas/⛶/✕ pasan ARRIBA;
    los menús de Trazo y Color abren hacia la DERECHA del riel */
-#herrHerram{flex-direction:column;padding:8px 7px;gap:0;max-height:calc(100vh - 215px)}
+#herrHerram{flex-direction:column;padding:8px 7px;gap:0;max-height:100%;flex:none}
 /* v36: si la pantalla es baja (o el navegador con zoom), la LISTA de herramientas scrollea
    adentro del riel — ningún icono queda recortado y Trazo queda siempre a la vista */
-#herrHerram .filaHerr{flex-direction:column;flex-wrap:nowrap;gap:5px;min-height:0;justify-content:flex-start;overflow-y:auto;scrollbar-width:none}
+#herrHerram .filaHerr{flex:1 1 auto;flex-direction:column;flex-wrap:nowrap;gap:5px;min-height:0;justify-content:flex-start;overflow-y:auto;scrollbar-width:none}
 /* (justify-content:flex-start es CLAVE: el center heredado de .filaHerr centra en vertical y
    el scroll pierde el tramo de arriba — bug clásico de flexbox con overflow) */
 #herrHerram .filaHerr::-webkit-scrollbar{display:none}
-#herrHerram .btnHerr,#herrHerram #btnPopGrosor,#herrHerram #btnPopColor,#herrHerram #btnPopFuerza{width:40px;height:40px;padding:0;justify-content:center}
+#herrHerram .btnHerr,#herrHerram #btnPopGrosor,#herrHerram #btnPopColor,#herrHerram #btnPopFuerza{width:calc(var(--btnIco) + 2px);height:calc(var(--btnIco) + 2px);padding:0;justify-content:center}
 #herrHerram .etqHerr{display:none}
 #herrHerram .sepV{width:28px;height:1px;margin:3px 0;flex:none}
 #herrHerram .popDibujo{left:calc(100% + 12px);top:50%;transform:translateY(-50%);max-height:calc(100vh - 30px);overflow-y:auto}
@@ -569,16 +594,19 @@ img.emoji{height:1.15em;width:1.15em;margin:0 .08em;vertical-align:-0.18em;displ
    Va DESPUÉS de las reglas del riel para ganar el cascade (misma especificidad).
    OJO: el scroll va en .filaHerr (la fila interna), NO en el riel — un riel con overflow
    RECORTARÍA los menús desplegables; así Trazo y Color quedan siempre a la vista. */
+/* v45: EN EL CEL los iconos van bien GROSOS para el dedo (46px) y el título se
+   esconde: esa franja es toda de los botones, así NINGUNO queda afuera */
 @media (max-width:620px){
-  #herrHerram{flex-direction:row;width:100%;max-width:none;padding:7px}
-  #herrHerram .btnHerr,#herrHerram #btnPopGrosor,#herrHerram #btnPopColor,#herrHerram #btnPopFuerza{width:42px;height:42px}
-  #herrHerram .filaHerr{flex:1 1 auto;min-width:0;flex-direction:row;flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;scrollbar-width:thin}
-  #herrHerram .filaHerr::-webkit-scrollbar{height:6px}
-  #herrHerram .filaHerr::-webkit-scrollbar-thumb{background:var(--borde2);border-radius:4px}
+  #overlayDibujo{--btnIco:46px;--icoSz:22px;--btnTxt:13px}
+  #herrHerram{flex-direction:row;width:100%;max-width:none;padding:7px;flex:none;max-height:none}
+  #herrHerram .btnHerr,#herrHerram #btnPopGrosor,#herrHerram #btnPopColor,#herrHerram #btnPopFuerza{width:46px;height:46px}
+  #herrHerram .filaHerr{flex:1 1 auto;min-width:0;flex-direction:row;flex-wrap:wrap;justify-content:center;overflow-x:visible;gap:5px;row-gap:6px}
+  /* v46: en el cel los PINCELES SE VEN TODOS (2 filas) — nada escondido tras el scroll:
+     el papel sigue igual de grande porque en vertical lo limita el ANCHO, no el alto */
   #herrHerram .sepV{width:1px;height:24px;margin:0 3px}
   #herrHerram .popDibujo{left:50%;top:calc(100% + 10px);transform:translateX(-50%);max-height:none;overflow:visible}
   #herrHerram .popDibujo.popArriba{top:auto;bottom:calc(100% + 10px);transform:translateX(-50%)}
-  .dibujoCabAcc .btnIconoD{width:34px;height:34px}
+  .dibujoCabAcc .btnIconoD{width:40px;height:40px}
   .dibujoTitulo .dibujoSub{display:none}
 }
 /* v33: iconos SVG modernos (heredan el color del botón) */
@@ -609,7 +637,7 @@ svg.ico{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-wi
 /* cuando usás el DEDO, el botón Fuerza se marca con un puntito naranja (pista de que ahí se ajusta) */
 .btnFuerza{position:relative}
 .btnFuerza.sugDedo::after{content:'';position:absolute;top:-3px;right:-3px;width:9px;height:9px;border-radius:50%;background:var(--naranja);border:2px solid #000;box-shadow:0 0 8px rgba(245,157,61,.9)}
-.accionesDibujo{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center}
+.accionesDibujo{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center;width:100%;max-width:1400px}
 .btnDibujoGhost{
   display:inline-flex;align-items:center;gap:6px;
   background:transparent;border:2px solid var(--borde2);color:var(--tx2);padding:11px 16px;border-radius:11px;
@@ -619,24 +647,41 @@ svg.ico{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-wi
 #btnEnviarDibujo{width:auto;padding:12px 22px;margin-top:0}
 /* v36: CERRAR al lado de ENVIAR, abajo (como la captura del dueño) */
 #btnCerrarAbajo{width:auto;padding:12px 30px;margin-top:0}
-/* v31: lienzo + panel de capas a la derecha (abajo en el cel) */
-.zonaDibujo{display:flex;gap:12px;align-items:flex-start;justify-content:center;flex-wrap:wrap;max-width:97vw}
-.colLienzo{display:flex;flex-direction:column;gap:10px;align-items:center;min-width:0}
-/* v33: panel de capas PLEGABLE — en el cel arranca plegado para no tapar la pantalla */
+/* v31: lienzo + paneles flotantes (v45: CAPAS y LETRA ya no roban ancho al papel) */
+/* v46: mesa ESTABLE — el riel queda a la izquierda SIEMPRE (no se corre ni se apila
+   cuando la pantalla cambia) y la columna del papel ocupa todo el resto. El papel se
+   mide solo para entrar entero: en el cel, en la PC y en la TV queda bien plantado. */
+.zonaDibujo{display:flex;gap:12px;align-items:stretch;justify-content:center;flex-wrap:nowrap;width:100%;max-width:1400px;min-height:0;position:relative}
+.colLienzo{display:flex;flex-direction:column;gap:8px;align-items:center;flex:1 1 auto;min-width:0;min-height:0;max-width:1080px;position:relative}
+#overlayDibujo.grande .colLienzo{max-width:none}
+/* ============================================================
+   v45 · CAPAS Y LETRA = OPCIONES FLOTANTES (PC · TV · cel)
+   La pizarra ABRE CON LAS CAPAS CERRADAS en todas las pantallas: nada de la
+   columnita al costado robando espacio. El panel vive como TARJETA FLOTANTE
+   sobre el papel (con sombra, arriba a la derecha) y solo aparece cuando lo
+   llamás: con el botón 🧱 de la barra, con la PÍLDORA "🧱 CAPAS" o "Aa LETRA"
+   (rincones del papel) o con la flecha del propio panel para cerrarlo.
+   Abren y cierran con animación suave y nunca los dos a la vez.
+   ============================================================ */
 .panelCapas{
-  background:var(--panel2);border:1px solid var(--borde2);border-radius:14px;padding:10px;
-  width:212px;display:flex;flex-direction:column;gap:8px;position:relative;transition:width .18s;
+  background:var(--panel2);border:1px solid var(--naranja);border-radius:14px;padding:10px;
+  width:218px;display:flex;flex-direction:column;gap:8px;
+  position:absolute;top:8px;right:10px;z-index:44;
+  max-height:calc(100vh - 190px);overflow-y:auto;scrollbar-width:thin;
+  box-shadow:0 18px 54px rgba(0,0,0,.72);
+  transition:transform .2s ease,opacity .2s ease,visibility 0s 0s;
 }
-.panelCapas.plegado{width:52px;padding:10px 6px;align-items:center}
+.panelCapas.plegado{
+  transform:translateX(24px);opacity:0;visibility:hidden;pointer-events:none;
+  transition:transform .2s ease,opacity .2s ease,visibility 0s .2s;
+}
 .capasCuerpo{display:flex;flex-direction:column;gap:8px;width:100%}
-.panelCapas.plegado .capasCuerpo{display:none}
 .btnPlegarCapas{
-  position:absolute;top:7px;right:7px;width:30px;height:30px;border-radius:9px;
+  position:absolute;top:7px;right:7px;width:32px;height:32px;border-radius:9px;
   background:var(--fondo);border:1px solid var(--borde2);color:var(--tx2);cursor:pointer;
   display:grid;place-items:center;padding:0;
 }
 .btnPlegarCapas:hover{border-color:var(--naranja);color:var(--naranja)}
-.panelCapas.plegado .btnPlegarCapas{position:static;margin:0 auto}
 .btnPlegarCapas svg.ico{transition:transform .18s}
 .panelCapas.plegado .btnPlegarCapas svg.ico{transform:rotate(180deg)}
 .capasTitulo{font-size:12px;font-weight:900;color:var(--naranja);letter-spacing:.5px;display:flex;align-items:center;gap:6px}
@@ -651,8 +696,8 @@ svg.ico{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-wi
 .capasAcc{display:flex;gap:6px}
 .btnCapa{flex:1;background:var(--fondo);border:1px solid var(--borde2);color:var(--tx1);padding:8px;border-radius:9px;cursor:pointer;font-weight:800;display:grid;place-items:center}
 .btnCapa:hover{border-color:var(--naranja);color:var(--naranja)}
-/* v33: sección TEXTO junto a las capas (fuente + color) */
-.ctrlTexto{border-top:1px dashed var(--borde2);padding-top:9px;display:flex;flex-direction:column;gap:7px}
+/* v33/v45: sección TEXTO — ahora vive en su PANEL FLOTANTE propio (#panelFuente) */
+.ctrlTexto{display:flex;flex-direction:column;gap:7px}
 .selFuente{
   width:100%;background:var(--fondo);border:1px solid var(--borde2);color:var(--tx1);
   border-radius:9px;padding:9px 8px;font-weight:800;font-size:12.5px;font-family:inherit;
@@ -668,13 +713,16 @@ svg.ico{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-wi
 .txtNota{font-size:10px;color:var(--tx4);line-height:1.5;margin:0}
 .txtNota b{color:var(--tx2)}
 .filaFuenteChip{display:flex;align-items:center;gap:6px;font-size:10.5px;color:var(--tx4);font-weight:700}
-/* v39: PALETA DE COLORES en el RIEL — botón 🎨 junto a Trazo y Fuerza (donde están los
-   pinceles): abre un menú con las bolitas de siempre, el cuadro de degradado, la barra
-   arcoíris y la BOLA GRANDE del color elegido. Igual de alcanzable en el cel y en la PC */
-.popColor{min-width:252px}
+/* v39/v45: PALETA DE COLORES en el RIEL — botón 🎨 con puntitos DE VERDAD (rojo,
+   amarillo, verde y azul: se entiende sin leer, aun en la TV) y menú REORDENADO
+   como los programas pro: cabecera con el color elegido (bola + código HEX),
+   COLORES RÁPIDOS (las bolitas de siempre) y abajo ARMAR UN COLOR (cuadro + arcoíris) */
+.popColor{min-width:276px}
 .popColor .herrDibujo{justify-content:center}
+.paletaCab{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:2px 2px 0}
+.paletaHex{display:block;font-size:11.5px;font-weight:900;color:var(--tx2);letter-spacing:1px;margin-top:3px;font-family:Montserrat,sans-serif}
 .bolaColor{
-  width:40px;height:40px;border-radius:50%;background:var(--naranja);border:2px solid rgba(255,255,255,.4);
+  width:44px;height:44px;border-radius:50%;background:var(--naranja);border:2px solid rgba(255,255,255,.4);
   margin-left:auto;flex:none;box-shadow:0 3px 12px rgba(0,0,0,.5);transition:background .12s;
 }
 /* v40: PANEL DE FUENTES EN LÍNEA — al tocar el botón de fuente, el panel aparece AHÍ MISMO
@@ -723,15 +771,49 @@ svg.ico{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-wi
 }
 #cajaTextoAcc button:hover{border-color:var(--naranja);color:var(--naranja)}
 #btnTextoOk{border-color:var(--naranja)!important;color:var(--naranja)!important;background:rgba(0,0,0,.25)!important}
-/* v39: PASTILLA "CAPAS" para el cel — mientras la hoja de capas está escondida, una pastilla
-   flotante al lado del zoom queda SIEMPRE a la vista: un toque y sube la hoja de capas.
-   (la visibilidad la maneja ponerPanelCapas con la clase .oculto) */
-.pillCapas{display:none}
+/* ============================================================
+   v45 · PÍLDORAS FLOTANTES SOBRE EL PAPEL — "🧱 CAPAS" y "Aa LETRA"
+   en TODAS las pantallas (antes solo el cel las tenía). Mientras el panel
+   está cerrado, la píldora queda a la vista en el rincón: UN TOQUE y abre
+   su tarjeta flotante; cuando el panel abre, la píldora se esconde (lo
+   manejan ponerPanelCapas / ponerPanelLetra). Así la pizarra arranca
+   LIMPIA: papel al máximo, nada de columnas que roben lugar.
+   ============================================================ */
+.pillCapas{
+  position:absolute;top:8px;right:8px;z-index:33;
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(20,20,20,.92);backdrop-filter:blur(6px);
+  border:1px solid rgba(245,157,61,.55);border-radius:20px;
+  color:var(--tx1);font-family:inherit;font-weight:900;font-size:12.5px;letter-spacing:.6px;
+  padding:10px 14px;cursor:pointer;
+}
+.pillCapas svg.ico{width:15px;height:15px}
+.pillCapas:active{transform:scale(.94)}
+.pillCapas.oculto{display:none}
+#btnPillLetra{top:56px} /* la segunda píldora queda apilada bajo CAPAS */
+.pillLetraAa{font-size:14px;line-height:1;color:var(--naranja);max-width:56px;overflow:hidden;display:inline-block}
+/* ============================================================
+   v46 · CARTELITO DE ESTADO — para que hasta un niño sepa QUÉ está usando
+   Una pastilla fina debajo del papel: [emoji] Herramienta · Trazo N · bola del color.
+   Solo informa (nunca estorba): se actualiza sola al cambiar de herramienta,
+   de tamaño o de color. En la goma muestra su intensidad ("Goma 80%").
+   ============================================================ */
+#estadoPizarra{
+  display:inline-flex;align-items:center;gap:8px;flex:none;
+  background:rgba(20,20,20,.9);border:1px solid var(--borde2);border-radius:999px;
+  padding:6px 14px;font-size:12.5px;font-weight:900;color:var(--tx1);letter-spacing:.4px;
+  user-select:none;-webkit-user-select:none;max-width:100%;
+}
+#estadoPizarra .epBola{width:16px;height:16px;border-radius:50%;background:var(--naranja);border:2px solid rgba(255,255,255,.45);flex:none;box-shadow:0 0 6px rgba(0,0,0,.6)}
+#estadoPizarra .epSep{width:1px;height:14px;background:var(--borde2);flex:none}
+#estadoPizarra #epNombre{color:var(--naranja)}
+#estadoPizarra #epEmoji{font-size:14px;line-height:1}
+@media (max-width:620px){ #estadoPizarra{font-size:11.5px;padding:5px 12px;gap:6px} }
 .pickerColor{display:flex;flex-direction:column;gap:6px;align-items:center}
 #cuadroColor,#barraMatiz{border:1px solid var(--borde2);border-radius:8px;touch-action:none;cursor:crosshair;max-width:100%;width:100%;display:block}
-/* centrada cuando entra en pantalla, con scroll cuando no (el auto-margin no recorta la punta) */
-#overlayDibujo > .dibujoCab{margin-top:auto}
-#overlayDibujo > .accionesDibujo{margin-bottom:auto}
+/* v46: cabecera y pie FIJOS — el que reparte el lugar es el marco de la app */
+#overlayDibujo > .dibujoCab{flex:none}
+#overlayDibujo > .accionesDibujo{flex:none}
 /* ============================================================
    v38 · CEL: PIZARRA REORDENADA COMO APP DE VERDAD (nada amontonado)
    La pantalla queda dividida en franjas fijas y el papel ocupa TODO el resto:
@@ -750,21 +832,23 @@ svg.ico{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-wi
   #overlayDibujo{padding:8px;gap:8px;overflow:hidden}
   #overlayDibujo > .dibujoCab{margin-top:0;width:100%;flex:none}
   #overlayDibujo > .accionesDibujo{margin-bottom:0;width:100%;max-width:none;flex:none}
-  .dibujoTitulo{font-size:14px;flex:none}
-  .dibujoCabAcc{overflow-x:auto;scrollbar-width:none;flex:1 1 auto;justify-content:flex-end;flex-wrap:nowrap}
-  .dibujoCabAcc::-webkit-scrollbar{display:none}
-  .dibujoCabAcc .btnIconoD{width:33px;height:33px}
+  /* v45: el título se esconde en el cel — esa franja es ENTERA de los botones
+     (antes con justify-content:flex-end + scroll horizontal los primeros iconos
+     quedaban CORTADOS e inalcanzables: ↩️ restaurar y 🗑️ eliminar no se veían) */
+  .dibujoTitulo{display:none}
+  .dibujoCabAcc{flex:1 1 auto;justify-content:flex-end;flex-wrap:wrap;row-gap:6px;max-height:none;overflow:visible}
+  .dibujoCabAcc .btnIconoD{width:40px;height:40px}
   .zonaDibujo{position:relative;flex:1 1 auto;min-height:0;flex-wrap:nowrap;flex-direction:column;align-items:stretch;gap:8px;width:100%;max-width:none}
   .colLienzo{flex:1 1 auto;min-height:0;width:100%;position:relative}
-  #vpLienzo{width:100%;max-height:100%;min-height:0;flex:0 1 auto;margin:auto 0}
+  #vpLienzo{flex:1 1 auto;min-height:0}
   /* zoom FLOTANTE en el rincón del papel (como las apps de dibujo de verdad) */
   #herrZoom{
     position:absolute;right:8px;bottom:8px;z-index:32;padding:4px 5px;gap:3px;
     background:rgba(20,20,20,.9);backdrop-filter:blur(6px);border-color:rgba(245,157,61,.55);
   }
-  #herrZoom .btnIconoD{width:31px;height:31px}
-  #herrZoom .zoomEtq{min-width:42px;font-size:12.5px;padding:0}
-  #herrZoom #btnZoomReset{font-size:0;gap:0;padding:0;width:31px;height:31px;justify-content:center}
+  #herrZoom .btnIconoD{width:36px;height:36px}
+  #herrZoom .zoomEtq{min-width:46px;font-size:13px;padding:0}
+  #herrZoom #btnZoomReset{font-size:0;gap:0;padding:0;width:36px;height:36px;justify-content:center}
   /* abajo: ENVIAR ancho y protagonista, Cerrar al lado */
   .accionesDibujo{gap:8px;flex-wrap:nowrap}
   #btnEnviarDibujo{flex:1 1 auto;padding:13px 10px}
@@ -793,25 +877,78 @@ svg.ico{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-wi
   .panelCapas.plegado .btnPlegarCapas svg.ico{transform:rotate(90deg)}
   .capasCuerpo{flex:1 1 auto;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding-right:2px}
   #listaCapas{max-height:120px}
-  /* v39: la pastilla CAPAS — siempre a la vista mientras la hoja está escondida.
-     Vive en el rincón del papel, al lado del zoom flotante (que está a la derecha) */
+  /* v39/v45: las píldoras en el cel van ABAJO a la izquierda (encima del papel,
+     al lado libre; el zoom sigue a la derecha) */
   .pillCapas{
-    position:absolute;left:8px;bottom:8px;z-index:33;
-    display:inline-flex;align-items:center;gap:6px;
-    background:rgba(20,20,20,.92);backdrop-filter:blur(6px);
-    border:1px solid rgba(245,157,61,.55);border-radius:20px;
-    color:var(--tx1);font-family:inherit;font-weight:900;font-size:12px;letter-spacing:.6px;
-    padding:10px 14px;cursor:pointer;
+    position:absolute;left:8px;bottom:8px;top:auto;right:auto;
+    font-size:12px;padding:10px 14px;
   }
+  #btnPillLetra{top:auto;left:8px;bottom:58px}
   .pillCapas svg.ico{width:15px;height:15px}
   .pillCapas:active{transform:scale(.94)}
   .pillCapas.oculto{display:none}
 }
 
 
+/* ============================================================
+   v48 · FORMAS · CUENTAGOTAS · DIFUMINAR · PAPEL FIJO · MÁS HERRAMIENTAS
+   ============================================================ */
+/* v48: PAPEL FIJO — al 100% la hoja no se mueve NI de casualidad: sin scroll,
+   sin rebotes del navegador, sin corrimientos al dibujar en los bordes.
+   El paseo por la hoja (scroll, ✋, 2 dedos, Ctrl+rueda) vuelve al acercar el zoom. */
+#vpLienzo.fijo{overflow:hidden;touch-action:none}
+/* v48: LIENZO DE VISTA PREVIA de las FORMAS — flota sobre el papel mientras
+   arrastrás la figura y NO toca el dibujo: al soltar se estampa en la capa */
+#lienzoPre{position:absolute;z-index:30;pointer-events:none;display:none;border-radius:6px}
+/* v48: ⋯ MÁS HERRAMIENTAS — rejilla de 2 columnas, cada herramienta con su nombre */
+.popMas{min-width:248px}
+.rejMas{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+#herrHerram .rejMas .btnHerr{width:auto;height:calc(var(--btnIco) + 2px);padding:0 12px;justify-content:flex-start;gap:9px;border-radius:11px}
+#herrHerram .rejMas .btnHerr .etqHerr{display:inline;font-size:11.5px;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* v48: puntito naranja en ⋯ cuando la herramienta activa vive adentro del MÁS */
+#btnMasHerr{position:relative}
+#btnMasHerr::after{content:'';position:absolute;top:-3px;right:-3px;width:10px;height:10px;border-radius:50%;background:var(--naranja);border:2px solid #000;box-shadow:0 0 8px rgba(245,157,61,.9);display:none}
+#btnMasHerr.activo::after{display:block}
+/* v48: ⬟ SELECTOR DE FORMAS */
+.popFormas{min-width:246px}
+#herrFormas{display:flex;gap:5px;flex-wrap:wrap;justify-content:center}
+#herrFormas .btnForma{width:44px;height:44px;padding:0;justify-content:center;border-radius:11px}
+/* ============================================================
+   v48 · FRANJA LIMPIA DEBAJO DEL PAPEL — NADA flota sobre la hoja:
+   estado + chip del reto + píldora CAPAS + píldora LETRA + zoom viven
+   en una fila ordenada bajo el papel (en el cel se reparte en 2 líneas).
+   Los paneles de CAPAS y LETRA siguen apareciendo SOLO cuando los llamás.
+   ============================================================ */
+#filaBajoPapel{display:flex;flex-wrap:wrap;gap:7px;align-items:center;justify-content:center;width:100%;min-height:34px}
+#filaBajoPapel #herrZoom{position:static;padding:3px 5px;gap:4px}
+#filaBajoPapel .pillCapas{position:static}
+#filaBajoPapel #btnPillLetra{top:auto;left:auto;bottom:auto}
+#filaBajoPapel #chipReto{position:static;max-width:100%}
+/* v48: en el cel la franja se COMPACTA (dos filas bajas — el papel gana lugar) */
+@media (max-width:620px){
+  #filaBajoPapel{gap:5px;min-height:0}
+  #filaBajoPapel #estadoPizarra{font-size:11px;padding:5px 10px;gap:6px}
+  #filaBajoPapel .pillCapas{font-size:11px;padding:8px 11px}
+  #filaBajoPapel #herrZoom{padding:2px 3px;gap:2px}
+  #filaBajoPapel #herrZoom .btnIconoD{width:32px;height:32px}
+  #filaBajoPapel #herrZoom .zoomEtq{min-width:40px;font-size:12px}
+}
+/* v48: TV / MONITOR GRANDE — en pantallas de 1600px o más todo crece un poco:
+   botones, iconos, píldoras, menús y cartelito (el cel y la PC quedan igual) */
+@media (min-width:1600px){
+  #overlayDibujo{--btnIco:64px;--icoSz:30px;--btnTxt:16.5px}
+  #estadoPizarra{font-size:15px;padding:8px 18px}
+  #estadoPizarra .epBola{width:20px;height:20px}
+  #filaBajoPapel .pillCapas{font-size:15px;padding:12px 18px}
+  #filaBajoPapel .zoomEtq{font-size:16px;min-width:64px}
+  .popDibujo{padding:16px}
+  #herrHerram .rejMas .btnHerr .etqHerr{font-size:14px}
+  #herrFormas .btnForma{width:54px;height:54px}
+}
+
 /* ===== v44 · PIZARRA GRANDE + CHIP RETO + ⚙ PRIVADO + MENSAJE FLOTANTE + ⛶ LIGHTBOX ===== */
 .colLienzo{position:relative} /* v44: ancla del chip del reto */
-@media (min-width:621px){ #overlayDibujo.grande #vpLienzo{width:min(97vw,1500px);max-height:84vh} }
+@media (min-width:621px){ #overlayDibujo.grande .colLienzo{max-width:none} }
 #btnPizarraGrande.fsActivo{border-color:var(--naranja);background:rgba(var(--acento-rgb),.24);color:var(--naranja)}
 #chipReto{position:absolute;top:8px;left:8px;z-index:6;display:flex;align-items:center;gap:6px;background:var(--burb);border:1px solid var(--naranja);border-radius:999px;padding:6px 10px;font-size:12px;font-weight:800;color:var(--tx1);box-shadow:0 4px 14px rgba(0,0,0,.5);max-width:74%}
 #chipReto .chR{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -859,7 +996,7 @@ svg.ico{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-wi
 #lightbox:fullscreen #lightboxImg{max-width:100vw;max-height:100vh;border:none;border-radius:0}
 #lightbox:-webkit-full-screen{background:#000}
 #lightbox:-webkit-full-screen #lightboxImg{max-width:100vw;max-height:100vh;border:none;border-radius:0}
-@media (max-width:620px){ /* v44 en cel: el papel grande ya llena todo, y el flotante va ARRIBA para no tapar ENVIAR */ #overlayDibujo.grande #vpLienzo{width:100%;max-height:100%} #msjFlotante{right:8px;bottom:92px} }
+@media (max-width:620px){ /* v44/v46 en cel: el papel ya llena solo, y el flotante va ARRIBA para no tapar ENVIAR */ #msjFlotante{right:8px;bottom:92px} }
 
 /* ============ LIGHTBOX + TOAST ============ */
 #lightbox{
@@ -1325,6 +1462,10 @@ svg.ico{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-wi
       <button class="btnDibujo btnIconoD" id="btnGuardarPizarra" type="button" title="Guardar el dibujo en tu celu (en HD)">
         <svg class="ico" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/></svg>
       </button>
+      <!-- v47: 🪄 DAR VIDA — el dibujo se abre en SikoAnimar ya recortado y caminando -->
+      <button class="btnDibujo btnIconoD btnAnimarD" id="btnAnimarDibujo" type="button" title="🪄 Dar vida: abre SikoAnimar con este dibujo caminando, volando o bailando (gratis)">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/></svg>
+      </button>
       <button class="btnDibujo btnIconoD" id="btnCompartirDibujo" type="button" title="Compartir el dibujo por WhatsApp (con la imagen)">
         <svg class="ico" viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
       </button>
@@ -1349,42 +1490,32 @@ svg.ico{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-wi
       <div class="cardDibujo" id="herrHerram">
         <!-- v36: RIEL VERTICAL — solo iconos; el botón Color se fue al panel (la X amarilla de la captura) y entró el DEDO (licuar) -->
         <div class="filaHerr">
+          <!-- v48: RIEL CON LO SIMPLE — lo complejo vive en el botón ⋯ MÁS (popMas) -->
           <button class="btnDibujo btnHerr activo" data-herr="lapiz" type="button" title="Lápiz">
             <svg class="ico" viewBox="0 0 24 24"><path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg><span class="etqHerr">Lápiz</span>
           </button>
           <button class="btnDibujo btnHerr" data-herr="pincel" type="button" title="Pincel">
             <svg class="ico" viewBox="0 0 24 24"><path d="m9.06 11.9 8.07-8.06a2.85 2.85 0 1 1 4.03 4.03l-8.06 8.08"/><path d="M7.07 14.94c-1.66 0-3 1.35-3 3.02 0 1.33-2.5 1.52-2 2.02 1.08 1.1 2.49 2.02 4 2.02 2.2 0 4-1.8 4-4.04a3.01 3.01 0 0 0-3.02-3.02z"/></svg><span class="etqHerr">Pincel</span>
           </button>
-          <button class="btnDibujo btnHerr" data-herr="brocha" type="button" title="Brocha con cerdas">
-            <svg class="ico" viewBox="0 0 24 24"><rect x="8" y="2" width="8" height="7" rx="1.5"/><path d="M9 9v4h6V9"/><path d="M12 13v8"/></svg><span class="etqHerr">Brocha</span>
-          </button>
-          <button class="btnDibujo btnHerr" data-herr="difum" type="button" title="Difuminado tipo aerógrafo">
-            <svg class="ico" viewBox="0 0 24 24"><circle cx="7" cy="18" r="1.7" fill="currentColor" stroke="none"/><circle cx="12" cy="15.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="18" cy="7.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="11" cy="10.5" r="1" fill="currentColor" stroke="none"/><circle cx="7" cy="12.5" r="1" fill="currentColor" stroke="none"/></svg><span class="etqHerr">Difum.</span>
-          </button>
-          <button class="btnDibujo btnHerr" data-herr="dedo" type="button" title="Licuar (como en Photoshop): tocá el dibujo y arrastrá para EMPUJAR y estirar los píxeles — la Fuerza decide cuánto empuja">
-            <svg class="ico" viewBox="0 0 24 24"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg><span class="etqHerr">Licuar</span>
+          <button class="btnDibujo btnHerr" data-herr="goma" type="button" title="Goma (borra la capa elegida)">
+            <svg class="ico" viewBox="0 0 24 24"><path d="M21 21H8a2 2 0 0 1-1.42-.587l-3.994-3.999a2 2 0 0 1 0-2.828l10-10a2 2 0 0 1 2.829 0l5.999 6a2 2 0 0 1 0 2.828L12.834 21"/><path d="m5.082 11.09 8.828 8.828"/></svg><span class="etqHerr">Goma</span>
           </button>
           <button class="btnDibujo btnHerr" data-herr="bote" type="button" title="Bote de pintura (rellenar)">
             <svg class="ico" viewBox="0 0 24 24"><path d="m19 11-8-8-8.6 8.6a2 2 0 0 0 0 2.8l5.2 5.2c.8.8 2 .8 2.8 0L19 11Z"/><path d="m5 2 5 5"/><path d="M2 13h15"/><path d="M22 20a2 2 0 1 1-4 0c0-1.6 1.7-2.4 2-4 .3 1.6 2 2.4 2 4Z"/></svg><span class="etqHerr">Bote</span>
           </button>
-          <button class="btnDibujo btnHerr" data-herr="goma" type="button" title="Goma (borra la capa elegida)">
-            <svg class="ico" viewBox="0 0 24 24"><path d="M21 21H8a2 2 0 0 1-1.42-.587l-3.994-3.999a2 2 0 0 1 0-2.828l10-10a2 2 0 0 1 2.829 0l5.999 6a2 2 0 0 1 0 2.828L12.834 21"/><path d="m5.082 11.09 8.828 8.828"/></svg><span class="etqHerr">Goma</span>
+          <!-- v48: ⬟ FORMAS — línea, flecha, rectángulo, elipse y triángulo -->
+          <button class="btnDibujo btnHerr" data-herr="formas" id="btnHerrFormas" type="button" title="FORMAS: elegí línea, flecha, rectángulo, elipse o triángulo y arrastrá sobre el papel — sale con tu color y tu trazo">
+            <svg class="ico" viewBox="0 0 24 24"><rect x="3" y="3" width="9.5" height="9.5" rx="1.5"/><circle cx="16.2" cy="16.2" r="4.8"/></svg><span class="etqHerr">Formas</span>
           </button>
           <button class="btnDibujo btnHerr" data-herr="texto" type="button" title="Escribir en el dibujo (se arrastra a cualquier lugar y se agranda)">
             <svg class="ico" viewBox="0 0 24 24"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg><span class="etqHerr">Texto</span>
-          </button>
-          <button class="btnDibujo btnHerr" data-herr="mano" type="button" title="Arrastrá el papel cuando estás con zoom">
-            <svg class="ico" viewBox="0 0 24 24"><polyline points="5 9 2 12 5 15"/><polyline points="9 5 12 2 15 5"/><polyline points="15 19 12 22 9 19"/><polyline points="19 9 22 12 19 15"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="2" x2="12" y2="22"/></svg><span class="etqHerr">Mover</span>
-          </button>
-          <button class="btnDibujo btnHerr" data-herr="movercapa" type="button" title="Mover la CAPA elegida ENTERA: arrastrá y toda la capa se corre; las demás quedan quietas (↩️ deshace)">
-            <svg class="ico" viewBox="0 0 24 24"><path d="m12 2 8.5 4.5L12 11 3.5 6.5 12 2Z"/><path d="M12 11v10"/><path d="m8 17 4 4 4-4"/></svg><span class="etqHerr">M.Capa</span>
           </button>
         </div>
         <span class="sepV"></span>
         <button class="btnDibujo btnIconoD" id="btnPopGrosor" type="button" title="Tamaño del trazo y de la goma">
           <svg class="ico" viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg><span class="etqHerr">Trazo</span>
         </button>
-        <button class="btnDibujo btnIconoD btnFuerza" id="btnPopFuerza" type="button" title="Intensidad del Licuar: de mezcla sutil a estirón fuerte">
+        <button class="btnDibujo btnIconoD btnFuerza" id="btnPopFuerza" type="button" title="Intensidad del Licuar y del Difuminar (solo aparece con esas herramientas)">
           <svg class="ico" viewBox="0 0 24 24"><line x1="4" y1="7" x2="20" y2="7"/><circle cx="9" cy="7" r="2.4" fill="currentColor" stroke="none"/><line x1="4" y1="17" x2="20" y2="17"/><circle cx="15" cy="17" r="2.4" fill="currentColor" stroke="none"/></svg><span class="etqHerr">Fuerza</span>
         </button>
         <!-- v40: el TAMAÑO ahora es DESLIZADOR (como la Fuerza del licuar) con bolita de
@@ -1408,39 +1539,98 @@ svg.ico{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-wi
             <input type="range" id="rangoGoma" class="rangoDedo" min="5" max="100" step="1" value="100">
             <span class="pctFuerza" id="gomaPct">100%</span>
           </div>
-          <p class="txtNota">El <b>Tamaño</b> vale para lápiz, plumón, brocha, difuminado y goma (en la goma sale más grueso). La <b>Intensidad de la goma</b> decide cuánto borra: bajo = va rozando, alto = borra de golpe. Se guarda solo en tu celu.</p>
+          <p class="txtNota">El <b>Tamaño</b> vale para lápiz, plumón, brocha, aerógrafo y goma (en la goma sale más grueso), y da el grosor del borde de las <b>Formas</b>. La <b>Intensidad de la goma</b> decide cuánto borra: bajo = va rozando, alto = borra de golpe. Se guarda solo en tu celu.</p>
         </div>
         <!-- v38: INTENSIDAD DEL LICUAR — deslizador 5–100% (cuánto empuja) -->
         <div class="popDibujo popFuerza oculto" id="popFuerza">
-          <span class="popTitulo">INTENSIDAD DEL LICUAR</span>
+          <span class="popTitulo">INTENSIDAD · LICUAR / DIFUMINAR</span>
           <div class="filaFuerza">
             <input type="range" id="rangoDedo" class="rangoDedo" min="5" max="100" step="1" value="60">
             <span class="pctFuerza" id="dedoPct">60%</span>
           </div>
           <div class="miniFuerza"><span>Suave</span><span>Medio</span><span>Fuerte</span></div>
-          <p class="txtNota">Con la herramienta <b>Licuar</b>: cuánto EMPUJA el trazo. Bajo = mezcla sutil, alto = estira fuerte. Se guarda solo en tu celu.</p>
+          <p class="txtNota">Con <b>Licuar</b>: cuánto EMPUJA el trazo (bajo = mezcla sutil, alto = estira fuerte). Con <b>Difuminar</b>: cuánto DESENFOCA. Se guarda solo en tu celu.</p>
         </div>
         <!-- v39: COLOR en el RIEL (donde están los pinceles) — la paleta completa como menú:
              bolitas de siempre + cuadro de degradado + barra arcoíris + bola grande en vivo -->
-        <button class="btnDibujo btnIconoD" id="btnPopColor" type="button" title="Color del trazo: bolitas, cuadro de color y arcoíris">
-          <svg class="ico" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/><circle cx="13.5" cy="6.5" r=".9" fill="currentColor" stroke="none"/><circle cx="17.5" cy="10.5" r=".9" fill="currentColor" stroke="none"/><circle cx="8.5" cy="7.5" r=".9" fill="currentColor" stroke="none"/><circle cx="6.5" cy="12.5" r=".9" fill="currentColor" stroke="none"/></svg><span class="etqHerr">Color</span>
+        <!-- v45: el botón de la paleta ahora SE ENTIENDE SOLO: paletita con puntitos de
+             verdad (rojo, amarillo, verde, azul) — nada de adivinar qué icono es -->
+        <button class="btnDibujo btnIconoD" id="btnPopColor" type="button" title="PALETA DE COLORES: rápidos + armar un color nuevo">
+          <svg class="ico" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z" fill="none"/><circle cx="13.5" cy="6.5" r="1.7" fill="#ff4d4d" stroke="none"/><circle cx="17.6" cy="10.6" r="1.7" fill="#ffe14d" stroke="none"/><circle cx="8.4" cy="7.4" r="1.7" fill="#4dc3ff" stroke="none"/><circle cx="6.4" cy="12.6" r="1.7" fill="#4dd964" stroke="none"/></svg><span class="etqHerr">Color</span>
         </button>
+        <!-- v48: ⋯ MÁS HERRAMIENTAS — lo complejo guardado en UN botón para ahorrar espacio -->
+        <button class="btnDibujo btnIconoD" id="btnMasHerr" type="button" title="MÁS HERRAMIENTAS: brocha, aerógrafo, difuminar, licuar, cuentagotas, mover papel y mover capa">
+          <svg class="ico" viewBox="0 0 24 24"><circle cx="4.5" cy="12" r="1.9" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.9" fill="currentColor" stroke="none"/><circle cx="19.5" cy="12" r="1.9" fill="currentColor" stroke="none"/></svg><span class="etqHerr">Más</span>
+        </button>
+        <!-- v45: PALETA REORDENADA COMO LOS PROGRAMAS PRO:
+             1) cabecera: nombre + código del color elegido + bola grande
+             2) COLORES RÁPIDOS: las bolitas de siempre
+             3) ARMAR UN COLOR: cuadro de degradado + barra arcoíris -->
         <div class="popDibujo popColor oculto" id="popColor">
-          <div class="capasTitulo">
-            <svg class="ico" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/><circle cx="13.5" cy="6.5" r=".9" fill="currentColor" stroke="none"/><circle cx="17.5" cy="10.5" r=".9" fill="currentColor" stroke="none"/><circle cx="8.5" cy="7.5" r=".9" fill="currentColor" stroke="none"/><circle cx="6.5" cy="12.5" r=".9" fill="currentColor" stroke="none"/></svg>
-            COLORES
+          <div class="paletaCab">
+            <div>
+              <span class="popTitulo">PALETA DE COLORES</span>
+              <span class="paletaHex" id="paletaHex">#F59D3D</span>
+            </div>
             <span class="bolaColor" id="bolaColor" title="El color elegido"></span>
           </div>
+          <hr class="sepPop">
+          <span class="miniTit">COLORES RÁPIDOS</span>
           <div class="herrDibujo" id="herrColores"></div>
+          <hr class="sepPop">
+          <span class="miniTit">ARMAR UN COLOR NUEVO</span>
           <div class="pickerColor">
             <canvas id="cuadroColor" width="220" height="110"></canvas>
             <canvas id="barraMatiz" width="220" height="16"></canvas>
           </div>
         </div>
+        <!-- v48: ⋯ MÁS HERRAMIENTAS — las herramientas complejas con su nombre -->
+        <div class="popDibujo popMas oculto" id="popMas">
+          <span class="popTitulo">MÁS HERRAMIENTAS</span>
+          <div class="rejMas">
+            <button class="btnDibujo btnHerr" data-herr="brocha" type="button" title="Brocha con cerdas (textura, no tira lisa)">
+              <svg class="ico" viewBox="0 0 24 24"><rect x="8" y="2" width="8" height="7" rx="1.5"/><path d="M9 9v4h6V9"/><path d="M12 13v8"/></svg><span class="etqHerr">Brocha</span>
+            </button>
+            <button class="btnDibujo btnHerr" data-herr="difum" type="button" title="Aerógrafo: nube suave de color para sombras, cielo y brillos (antes se llamaba Difuminado)">
+              <svg class="ico" viewBox="0 0 24 24"><circle cx="7" cy="18" r="1.7" fill="currentColor" stroke="none"/><circle cx="12" cy="15.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="18" cy="7.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="11" cy="10.5" r="1" fill="currentColor" stroke="none"/><circle cx="7" cy="12.5" r="1" fill="currentColor" stroke="none"/></svg><span class="etqHerr">Aerógrafo</span>
+            </button>
+            <button class="btnDibujo btnHerr" data-herr="difumar" type="button" title="🌫️ DIFUMINAR: pasá el pincel y lo pintado queda DESENFOCADO y suave — el Nivel decide cuánto">
+              <svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" opacity=".25"/><circle cx="12" cy="12" r="5.2" opacity=".55"/><circle cx="12" cy="12" r="2.4"/></svg><span class="etqHerr">Difuminar</span>
+            </button>
+            <button class="btnDibujo btnHerr" data-herr="dedo" type="button" title="Licuar (como en Photoshop): tocá el dibujo y arrastrá para EMPUJAR y estirar los píxeles — la Fuerza decide cuánto empuja">
+              <svg class="ico" viewBox="0 0 24 24"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg><span class="etqHerr">Licuar</span>
+            </button>
+            <button class="btnDibujo btnHerr" data-herr="gota" type="button" title="💧 CUENTAGOTAS: tocá cualquier color del dibujo y queda elegido para tus pinceles">
+              <svg class="ico" viewBox="0 0 24 24"><path d="m2 22 1-1h3l9-9"/><path d="M3 21v-3l9-9"/><path d="m15 6 3.4-3.4a2.1 2.1 0 1 1 3 3L18 9l.4.4a2.1 2.1 0 1 1-3 3l-3.8-3.8a2.1 2.1 0 1 1 3-3l.4.4Z"/></svg><span class="etqHerr">Cuentagotas</span>
+            </button>
+            <button class="btnDibujo btnHerr" data-herr="mano" type="button" title="Arrastrá el papel cuando estás con zoom">
+              <svg class="ico" viewBox="0 0 24 24"><polyline points="5 9 2 12 5 15"/><polyline points="9 5 12 2 15 5"/><polyline points="15 19 12 22 9 19"/><polyline points="19 9 22 12 19 15"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="2" x2="12" y2="22"/></svg><span class="etqHerr">Mover papel</span>
+            </button>
+            <button class="btnDibujo btnHerr" data-herr="movercapa" type="button" title="Mover la CAPA elegida ENTERA: arrastrá y toda la capa se corre; las demás quedan quietas (↩️ deshace)">
+              <svg class="ico" viewBox="0 0 24 24"><path d="m12 2 8.5 4.5L12 11 3.5 6.5 12 2Z"/><path d="M12 11v10"/><path d="m8 17 4 4 4-4"/></svg><span class="etqHerr">Mover capa</span>
+            </button>
+          </div>
+          <p class="txtNota">Lo complejo vive acá adentro para que el riel quede limpio. La herramienta que uses queda marcada con un puntito en el botón ⋯.</p>
+        </div>
+        <!-- v48: ⬟ SELECTOR DE FORMAS (abre con el botón Formas del riel) -->
+        <div class="popDibujo popFormas oculto" id="popFormas">
+          <span class="popTitulo">FORMAS</span>
+          <div id="herrFormas">
+            <button class="btnDibujo btnForma activo" data-forma="rect" type="button" title="Rectángulo"><svg class="ico" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="2"/></svg></button>
+            <button class="btnDibujo btnForma" data-forma="elipse" type="button" title="Elipse / círculo"><svg class="ico" viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="8.5" ry="6.5"/></svg></button>
+            <button class="btnDibujo btnForma" data-forma="linea" type="button" title="Línea recta"><svg class="ico" viewBox="0 0 24 24"><line x1="5" y1="19" x2="19" y2="5"/></svg></button>
+            <button class="btnDibujo btnForma" data-forma="flecha" type="button" title="Flecha"><svg class="ico" viewBox="0 0 24 24"><line x1="5" y1="19" x2="18" y2="6"/><polyline points="11 6 18 6 18 13"/></svg></button>
+            <button class="btnDibujo btnForma" data-forma="triangulo" type="button" title="Triángulo"><svg class="ico" viewBox="0 0 24 24"><path d="M12 5 20 19H4Z"/></svg></button>
+          </div>
+          <button class="btnDibujo" id="btnFormaRelleno" type="button" title="Relleno: la figura sale pintada adentro. Apagado = solo el contorno">⬜ Contorno</button>
+          <p class="txtNota">Elegí la forma y <b>arrastrá</b> sobre el papel: sale con tu color y tu trazo. <b>Relleno</b> = figura pintada; apagado = solo el borde.</p>
+        </div>
       </div>
     <div class="colLienzo">
       <div id="vpLienzo">
         <canvas id="lienzo" width="960" height="720"></canvas>
+        <!-- v48: vista previa de las FORMAS — flota sobre el papel mientras arrastrás -->
+        <canvas id="lienzoPre" width="960" height="720"></canvas>
         <div id="cajaTexto">
           <input id="textoInput" type="text" maxlength="60" placeholder="Escribí tu texto…" autocomplete="off">
           <div id="cajaTextoAcc">
@@ -1451,25 +1641,36 @@ svg.ico{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-wi
           </div>
         </div>
       </div>
-      <!-- v44: CHIP DEL RETO — flota sobre el papel mientras hay un reto armado o una respuesta en curso -->
-      <div id="chipReto" class="oculto"><span class="chR">🏆 Reto</span><button id="btnQuitarReto" type="button" title="Quitar el reto">✖</button></div>
-      <!-- v39: PASTILLA CAPAS — en el cel queda SIEMPRE a la vista (al lado del zoom flotante)
-           mientras la hoja de capas está escondida; un toque y sube la hoja con las capas -->
-      <button class="pillCapas" id="btnHojaCapas" type="button" title="Abrir las capas">
-        <svg class="ico" viewBox="0 0 24 24"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg>CAPAS
-      </button>
-      <div class="cardDibujo" id="herrZoom">
-        <button class="btnDibujo btnIconoD" id="btnZoomMenos" type="button" title="Alejar">
-          <svg class="ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M8 11h6"/></svg>
+      <!-- ============================================================
+           v48 · FRANJA LIMPIA DEBAJO DEL PAPEL — la hoja queda SIN NADA ENCIMA:
+           cartelito de estado, chip del reto, píldoras 🧱 CAPAS y Aa LETRA y el
+           zoom viven en esta fila ordenada (en el cel se reparte en 2 líneas).
+           ============================================================ -->
+      <div id="filaBajoPapel">
+        <!-- v46: CARTELITO DE ESTADO — qué herramienta, qué trazo, qué color (se lee solo) -->
+        <div id="estadoPizarra"><span id="epEmoji">✏️</span><span id="epNombre">Lápiz</span><span class="epSep"></span><span id="epTrazo">Trazo 2</span><span class="epSep"></span><span class="epBola" id="epBola"></span></div>
+        <!-- v44: CHIP DEL RETO — solo aparece mientras hay un reto armado o una respuesta en curso -->
+        <div id="chipReto" class="oculto"><span class="chR">🏆 Reto</span><button id="btnQuitarReto" type="button" title="Quitar el reto">✖</button></div>
+        <!-- v45: PÍLDORAS — Mientras el panel está cerrado, la píldora queda a la vista: UN TOQUE y abre -->
+        <button class="pillCapas" id="btnHojaCapas" type="button" title="Abrir las capas">
+          <svg class="ico" viewBox="0 0 24 24"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg>CAPAS
         </button>
-        <span class="zoomEtq" id="zoomEtq">100%</span>
-        <button class="btnDibujo btnIconoD" id="btnZoomMas" type="button" title="Acercar">
-          <svg class="ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+        <button class="pillCapas" id="btnPillLetra" type="button" title="Cambiar la letra del texto (fuente, tamaño y color)">
+          <span class="pillLetraAa" id="pillLetraAa">Aa</span>LETRA
         </button>
-        <button class="btnDibujo" id="btnZoomReset" type="button" title="Volver al tamaño normal">
-          <svg class="ico" viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/></svg>
-          Ajustar
-        </button>
+        <div class="cardDibujo" id="herrZoom">
+          <button class="btnDibujo btnIconoD" id="btnZoomMenos" type="button" title="Alejar">
+            <svg class="ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M8 11h6"/></svg>
+          </button>
+          <span class="zoomEtq" id="zoomEtq">100%</span>
+          <button class="btnDibujo btnIconoD" id="btnZoomMas" type="button" title="Acercar">
+            <svg class="ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+          </button>
+          <button class="btnDibujo" id="btnZoomReset" type="button" title="Volver al tamaño normal">
+            <svg class="ico" viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/></svg>
+            Ajustar
+          </button>
+        </div>
       </div>
 
     </div>
@@ -1491,12 +1692,29 @@ svg.ico{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-wi
             <svg class="ico" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
           </button>
         </div>
+        <!-- v45: el TEXTO salió de aquí — ahora vive en su tarjeta flotante propia (#panelFuente),
+             que se abre con la píldora "Aa LETRA". El panel de capas queda LIVIANO: solo capas. -->
+      </div>
+    </div>
+    <!-- ============================================================
+         v45 · PANEL FLOTANTE DE LA LETRA (FUENTES)
+         Igual que las capas: tarjeta flotante sobre el papel que SOLO
+         aparece cuando la llamás con la píldora "Aa LETRA" (o el botón
+         de fuente de adentro para ver la lista). En el cel sube como
+         hoja desde abajo, igual que las capas.
+         ============================================================ -->
+    <div class="panelCapas plegado" id="panelFuente">
+      <button class="btnPlegarCapas" id="btnPlegarFuente" type="button" title="Cerrar la letra">
+        <svg class="ico" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+      </button>
+      <div class="capasCuerpo">
         <div class="ctrlTexto">
           <div class="capasTitulo">
             <svg class="ico" viewBox="0 0 24 24"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
-            TEXTO
+            LETRA DEL TEXTO
           </div>
-          <!-- v40: botón de FUENTE — al tocarlo, el panel aparece AHÍ MISMO (tipo + tamaño + color juntos) -->
+          <!-- v40/v45: el LOGITO de la fuente — al tocarlo se despliega la lista de letras
+               (tipo + tamaño + color juntos), todo dentro de esta misma tarjeta flotante -->
           <button class="btnSelFuente" id="btnSelFuente" type="button" title="Elegir fuente, tamaño y color del texto">
             <span class="ejFuente" id="ejFuente">Aa</span>
             <span class="nomFuente" id="nomFuente">Montserrat</span>
@@ -1504,7 +1722,7 @@ svg.ico{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-wi
           </button>
           <!-- v37: VISTA PREVIA — mirás cómo sale la letra ANTES de fijarla (fuente + tamaño + color de la paleta, en vivo) -->
           <div id="prevFuente" class="prevFuente" title="Así sale la letra con la fuente y el color elegidos"></div>
-          <!-- v40: PANEL DE FUENTES EN LÍNEA — tipo (cada una con su letra), TAMAÑO y COLOR, todo aquí mismo -->
+          <!-- v40: lista de fuentes — tipo (cada una con su letra), TAMAÑO y COLOR -->
           <div class="popFuente oculto" id="popFuente">
             <span class="miniTit">TIPO DE LETRA</span>
             <div class="listaFuentes" id="listaFuentes"></div>
@@ -1521,8 +1739,6 @@ svg.ico{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-wi
           <div class="filaFuenteChip">El texto usa el color <span class="chipColor" id="chipColorTxt"></span> de la paleta</div>
           <p class="txtNota">Elegí la herramienta <b>Texto</b>, escribí y tocá <b>✔</b> para fijarlo en la capa. Arrastralo con el dedo o el mouse para ponerlo en cualquier lugar y usá <b>A+</b> / <b>A−</b> para agrandarlo.</p>
         </div>
-        <!-- v39: la sección FIGURITAS salió del panel (el panel queda limpio: CAPAS + TEXTO) y
-             la PALETA DE COLORES se mudó al RIEL de herramientas — botón 🎨 junto a Trazo y Fuerza -->
       </div>
     </div>
   </div>
@@ -4863,6 +5079,44 @@ var zoomBaseW = 0; /* ancho del papel al 100% (se mide al abrir, con la ventana 
 var vpLienzo = $('vpLienzo');
 var arrastrar = null; /* datos del arrastre con ✋ Mover */
 function pintarZoomEtq(){ $('zoomEtq').textContent = Math.round(zoomAct * 100) + '%'; }
+/* ============================================================
+   v46 · LA HOJA SIEMPRE ENTRA ENTERA (medirPapel)
+   Antes el papel medía "el ancho de la ventana" FIJO: si la pantalla era baja,
+   la hoja quedaba más ALTA que el marco y aparecía la BARRA DE DESLIZAMIENTO
+   justo cuando estabas dibujando. Ahora la pizarra MIDE el escritorio y
+   calcula el tamaño original 4:3 más grande que entra ENTERO: hoja pura,
+   centrada, sin deslizadores al 100%. Se vuelve a medir sola al abrir, al
+   girar el cel, en pantalla completa, con el ⤢ y al cambiar la ventana.
+   ============================================================ */
+function medirPapel(){
+  var an = vpLienzo.clientWidth - 26, al = vpLienzo.clientHeight - 26; /* aire alrededor de la hoja */
+  if (an < 60) an = 60;
+  if (al < 60) al = 60;
+  var w = an, h = w * 3 / 4; /* el papel es 4:3 (adentro 960×720 en HD) */
+  if (h > al) { h = al; w = h * 4 / 3; }
+  zoomBaseW = w;
+  lienzo.style.width = Math.round(w * zoomAct) + 'px';
+  if (zoomAct <= 1.001) { vpLienzo.scrollLeft = 0; vpLienzo.scrollTop = 0; }
+  pintarZoomEtq();
+  aplicarEstiloTexto();
+  pegarZoom();
+  ponerFijo(); posicionarPre(); /* v48: al 100% papel CLAVADO; la vista previa sigue a la hoja */
+}
+/* v46 · CARTELITO DE ESTADO: herramienta + tamaño + color en una pastilla */
+var NOMBRE_HERR = { lapiz:'Lápiz', pincel:'Pincel', brocha:'Brocha', difum:'Aerógrafo', difumar:'Difuminar', dedo:'Licuar', bote:'Bote', goma:'Goma', texto:'Texto', mano:'Mover', movercapa:'M. Capa', formas:'Formas', gota:'Cuentagotas' };
+var EMOJI_HERR = { lapiz:'✏️', pincel:'🖌️', brocha:'🖍️', difum:'💨', difumar:'🌫️', dedo:'👆', bote:'🪣', goma:'🧽', texto:'🔤', mano:'✋', movercapa:'📦', formas:'⬟', gota:'💧' };
+function pintarEstado(){
+  var e = $('epEmoji'), nn = $('epNombre'), tt = $('epTrazo'), bb = $('epBola');
+  if (!e) return;
+  e.textContent = EMOJI_HERR[herrAct] || '🎨';
+  nn.textContent = NOMBRE_HERR[herrAct] || herrAct;
+  tt.textContent = (herrAct === 'goma') ? ('Goma ' + intGoma + '%')
+    : (herrAct === 'difumar') ? ('Nivel ' + fuerzaDedo + '%') /* v48: cuánto desenfoca */
+    : (herrAct === 'formas') ? (NOMBRE_FORMA[formaAct] + (formaRelleno ? ' + relleno' : '')) /* v48 */
+    : (herrAct === 'gota') ? 'tocá un color' /* v48 */
+    : ('Trazo ' + grosorAct);
+  bb.style.background = colorAct;
+}
 /* pone un zoom (1 a 8). Si le pasás clienteX/Y mantiene fijo el contenido de ese punto de
    la pantalla (para el pellizco y el Ctrl+rueda); si no, ancla al CENTRO de la ventana */
 function ponerZoom(z, clienteX, clienteY){
@@ -4877,30 +5131,20 @@ function ponerZoom(z, clienteX, clienteY){
   zoomAct = z;
   lienzo.style.width = Math.round(zoomBaseW * z) + 'px';
   lienzo.classList.toggle('pix', z >= 3);
-  vpLienzo.scrollLeft = cxL * z - (ax - vr.left);
-  vpLienzo.scrollTop = cyL * z - (ay - vr.top);
+  if (z <= 1.001) { vpLienzo.scrollLeft = 0; vpLienzo.scrollTop = 0; } /* v46: al 100% la hoja entra ENTERA */
+  else {
+    vpLienzo.scrollLeft = cxL * z - (ax - vr.left);
+    vpLienzo.scrollTop = cyL * z - (ay - vr.top);
+  }
   pintarZoomEtq();
   aplicarEstiloTexto(); /* v37: el texto flotante sigue al zoom */
   pegarZoom(); /* v38: el zoom flotante se pega a la esquina del papel */
+  ponerFijo(); posicionarPre(); /* v48: fijo al 100%, libre solo con zoom */
 }
 /* v38 · ZOOM FLOTANTE EN EL CEL: el botón de zoom vive ABSOLUTO en el rincón de la
    ventana del papel (como en las apps de dibujo). Como el papel queda centrado con
    aire arriba y abajo, su posición se calcula: se PEGA justo al borde del papel. */
-function pegarZoom(){
-  var hz = $('herrZoom');
-  if (!hz) return;
-  if (window.innerWidth <= 620) {
-    try {
-      var cr = vpLienzo.getBoundingClientRect();
-      var pr = hz.parentElement.getBoundingClientRect();
-      hz.style.top = Math.max(4, cr.bottom - pr.top - hz.offsetHeight - 8) + 'px';
-      hz.style.bottom = 'auto';
-      hz.style.right = '8px';
-      return;
-    } catch (e) {}
-  }
-  hz.style.top = ''; hz.style.bottom = ''; /* en PC/TV manda el CSS de siempre */
-}
+function pegarZoom(){ /* v48: el zoom y las píldoras viven en la FRANJA ordenada bajo el papel — ya no se pegan flotando sobre la hoja */ }
 function pasoZoom(dir){
   var idx = 0;
   for (var k = 0; k < ZOOMS.length; k++) {
@@ -4910,10 +5154,9 @@ function pasoZoom(dir){
 }
 $('btnZoomMas').onclick = function(){ pasoZoom(1); };
 $('btnZoomMenos').onclick = function(){ pasoZoom(-1); };
-$('btnZoomReset').onclick = function(){
+$('btnZoomReset').onclick = function(){ /* v46: Ajustar = hoja ENTERA, centrada, sin deslizadores */
   ponerZoom(1);
-  vpLienzo.scrollLeft = 0;
-  vpLienzo.scrollTop = Math.max(0, (lienzo.offsetHeight - vpLienzo.clientHeight) / 2);
+  vpLienzo.scrollLeft = 0; vpLienzo.scrollTop = 0;
 };
 /* PC: Ctrl + rueda acerca al punto donde está el puntero (rueda sola = scroll normal) */
 vpLienzo.addEventListener('wheel', function(e){
@@ -5089,6 +5332,7 @@ function elegirColor(c){
   matizAct = hsv.h; satAct = hsv.s; valAct = hsv.v;
   pintarCuadro(); pintarBarra(); pintarColores();
   actualizarChipsColor();
+  pintarEstado(); /* v46: la bola del cartelito toma el color nuevo */
   aplicarEstiloTexto(); /* el texto sale siempre con el color elegido */
 }
 function pintarColores(){
@@ -5143,6 +5387,7 @@ function tomarColor(){
   colorAct = hsvHex(matizAct, satAct, valAct);
   pintarColores();
   actualizarChipsColor();
+  pintarEstado(); /* v46 */
 }
 /* v33/v36: los chips de color siguen al color elegido — el chip del botón Color se fue con el
    riel y en su lugar la BOLA GRANDE de la paleta (en el panel) muestra el color en vivo */
@@ -5152,6 +5397,8 @@ function actualizarChipsColor(){
     if (chipTxt) chipTxt.style.background = colorAct;
     var bola = $('bolaColor');
     if (bola) bola.style.background = colorAct;
+    var hx = $('paletaHex'); /* v45: el código del color elegido, en la cabecera de la paleta */
+    if (hx) hx.textContent = String(colorAct || '').toUpperCase();
     marcarColoresTxt(); /* v40: la mini paleta del texto sigue al color */
     actualizarPrevFuente(); /* v37: la vista previa de la letra también sigue al color */
   } catch (e) {}
@@ -5206,13 +5453,23 @@ function elegirHerr(h){
   herrAct = h;
   var bs = document.querySelectorAll('.btnHerr');
   for (var i = 0; i < bs.length; i++) bs[i].classList.toggle('activo', bs[i].getAttribute('data-herr') === h);
+  var bm = $('btnMasHerr'); /* v48: el ⋯ se ilumina cuando la herramienta activa vive adentro del MÁS */
+  if (bm) bm.classList.toggle('activo', MAS_HERR.indexOf(h) >= 0);
+  var bf = $('btnPopFuerza'); /* v48: la Fuerza SOLO aparece con Licuar o Difuminar — un botón menos a la vista */
+  if (bf) {
+    bf.style.display = (h === 'dedo' || h === 'difumar') ? '' : 'none';
+    bf.classList.toggle('sugDedo', h === 'dedo' || h === 'difumar');
+  }
   /* v32: con ✋ Mover el cursor es una mano (y agarra mientras arrastrás) · v33: texto = cursor de texto */
   lienzo.style.cursor = h === 'bote' ? 'pointer' : (h === 'mano' ? 'grab' : (h === 'texto' ? 'text' : (h === 'movercapa' ? 'move' : 'crosshair')));
-  var bf = $('btnPopFuerza'); /* v38: pista — con el Dedo activo, la Fuerza es el ajuste clave */
-  if (bf) bf.classList.toggle('sugDedo', h === 'dedo');
   actualizarBolaTrazo(); /* v40: la bolita del tamaño sigue a la herramienta (goma más gruesa, etc.) */
+  pintarEstado(); /* v46: el cartelito de abajo sigue a la herramienta */
   /* v33: la caja de texto SOLO se ve con la herramienta Texto */
   if (h === 'texto') abrirTexto(); else cerrarTexto();
+  /* v48: el selector de FORMAS solo acompaña a su herramienta */
+  if (h !== 'formas') { var pf = $('popFormas'); if (pf) pf.classList.add('oculto'); }
+  /* v48: con la mano al 100% no hay nada que mover — se avisa una vez */
+  if (h === 'mano' && zoomAct <= 1.001) toast('🔍 Al 100% la hoja entra ENTERA: no hay nada que mover. Acercá el zoom (🔍+) y ahí el papel se pasea');
 }
 function abrirDibujo(){
   $('overlayDibujo').classList.remove('oculto');
@@ -5227,17 +5484,15 @@ function abrirDibujo(){
   llenarFuentes();
   precargarFuentes(); /* v37: que las fuentes (sobre todo las de terror) estén listas */
   cerrarTexto(); cerrarPops();
-  cerrarPopFuente(); /* v40: el panel de fuentes arranca cerrado */
+  cerrarPopFuente(); /* v40: la lista de fuentes arranca recogida */
+  ponerPanelCapas(true); /* v45: las capas abren CERRADAS en TODAS las pantallas (píldora flotante) */
+  ponerPanelLetra(true); /* v45: la tarjeta de la letra también */
   actualizarBolaTrazo(); ponerIntGoma(intGoma); /* v40: deslizadores de tamaño y goma listos */
-  /* v33: el visor de capas PLEGA en pantallas angostas (en el cel ya no tapa la pantalla) */
-  ponerPanelCapas(window.innerWidth <= 620);
-  /* v32: la pizarra SIEMPRE abre al 100%, papel centrado en la ventana */
-  zoomAct = 1; lienzo.style.width = ''; lienzo.classList.remove('pix');
-  zoomBaseW = lienzo.getBoundingClientRect().width; /* medir con la ventana ya visible */
-  vpLienzo.scrollLeft = 0;
-  vpLienzo.scrollTop = Math.max(0, (lienzo.offsetHeight - vpLienzo.clientHeight) / 2);
-  pintarZoomEtq();
-  pegarZoom(); /* v38: el zoom flotante arranca pegado al papel */
+  /* v46: abre al 100% con la HOJA ENTERA, centrada y sin barras de deslizamiento */
+  zoomAct = 1; lienzo.classList.remove('pix');
+  medirPapel();
+  pintarEstado(); /* v46: el cartelito arranca con la herramienta de siempre */
+  setTimeout(medirPapel, 80); setTimeout(medirPapel, 320); /* por si el navegador termina de acomodar la pantalla */
 }
 function cerrarDibujo(){
   $('overlayDibujo').classList.add('oculto');
@@ -5258,6 +5513,168 @@ for (var ih = 0; ih < botonesHerr.length; ih++) {
     b.onclick = function(){ elegirHerr(b.getAttribute('data-herr')); };
   })(botonesHerr[ih]);
 }
+
+/* ============================================================
+   v48 · FORMAS · CUENTAGOTAS · DIFUMINAR · PAPEL FIJO · MÁS HERRAMIENTAS
+   ============================================================ */
+var MAS_HERR = ['brocha', 'difum', 'difumar', 'dedo', 'gota', 'mano', 'movercapa']; /* herramientas que viven adentro del ⋯ */
+var NOMBRE_FORMA = { rect: 'Rectángulo', elipse: 'Elipse', linea: 'Línea', flecha: 'Flecha', triangulo: 'Triángulo' };
+var formaAct = 'rect', formaRelleno = false, formaIni = null, formaFin = null, formaViva = false;
+
+/* v48: PAPEL FIJO — al 100% la hoja se CLAVA (sin scroll, sin rebotes); con zoom vuelve la libertad */
+function ponerFijo(){
+  vpLienzo.classList.toggle('fijo', zoomAct <= 1.001);
+}
+
+/* v48: vista previa de las FORMAS en un lienzo flotante (no toca el dibujo hasta soltar) */
+var preC2 = null;
+function preCtx(){
+  var p = $('lienzoPre');
+  if (p && !preC2) preC2 = p.getContext('2d');
+  return preC2;
+}
+function posicionarPre(){
+  var p = $('lienzoPre');
+  if (!p || !lienzo.style.width) return;
+  p.style.left = lienzo.offsetLeft + 'px';
+  p.style.top = lienzo.offsetTop + 'px';
+  p.style.width = lienzo.style.width;
+  p.style.height = Math.round(parseFloat(lienzo.style.width) * 3 / 4) + 'px';
+}
+function limpiarPre(){
+  var p = $('lienzoPre');
+  if (!p) return;
+  p.style.display = 'none';
+  var c = preCtx();
+  if (c) c.clearRect(0, 0, p.width, p.height);
+}
+function dibujarFormaPre(x0, y0, x1, y1){
+  var p = $('lienzoPre');
+  if (!p) return;
+  posicionarPre();
+  p.style.display = 'block';
+  var c = preCtx();
+  if (!c) return;
+  c.clearRect(0, 0, p.width, p.height);
+  dibujarForma(c, x0, y0, x1, y1);
+}
+/* el dibujo de la figura en sí (coordenadas reales 960×720) — lo usa la vista previa Y el estampado final */
+function dibujarForma(C, x0, y0, x1, y1){
+  var w = anchoTrazo();
+  C.lineCap = 'round'; C.lineJoin = 'round';
+  C.lineWidth = w; C.strokeStyle = colorAct; C.fillStyle = colorAct;
+  var aX = Math.min(x0, x1), aY = Math.min(y0, y1), aW = Math.abs(x1 - x0), aH = Math.abs(y1 - y0);
+  if (formaAct === 'linea') {
+    C.beginPath(); C.moveTo(x0, y0); C.lineTo(x1, y1); C.stroke();
+    return;
+  }
+  if (formaAct === 'flecha') {
+    C.beginPath(); C.moveTo(x0, y0); C.lineTo(x1, y1); C.stroke();
+    var an = Math.atan2(y1 - y0, x1 - x0), Lp = Math.max(10, w * 3.2);
+    C.beginPath();
+    C.moveTo(x1, y1); C.lineTo(x1 - Lp * Math.cos(an - 0.45), y1 - Lp * Math.sin(an - 0.45));
+    C.moveTo(x1, y1); C.lineTo(x1 - Lp * Math.cos(an + 0.45), y1 - Lp * Math.sin(an + 0.45));
+    C.stroke();
+    return;
+  }
+  if (formaAct === 'rect') {
+    if (formaRelleno) C.fillRect(aX, aY, aW, aH); else C.strokeRect(aX, aY, aW, aH);
+    return;
+  }
+  if (formaAct === 'elipse') {
+    C.beginPath(); C.ellipse(aX + aW / 2, aY + aH / 2, aW / 2, aH / 2, 0, 0, 6.2832);
+    if (formaRelleno) C.fill(); else C.stroke();
+    return;
+  }
+  C.beginPath(); /* triángulo */
+  C.moveTo(aX + aW / 2, aY); C.lineTo(aX + aW, aY + aH); C.lineTo(aX, aY + aH); C.closePath();
+  if (formaRelleno) C.fill(); else C.stroke();
+}
+function confirmarForma(commit){
+  if (!formaViva) return;
+  formaViva = false; pintando = false;
+  limpiarPre();
+  var fin = formaFin || formaIni;
+  if (commit && formaIni && fin && (Math.abs(fin.x - formaIni.x) > 1 || Math.abs(fin.y - formaIni.y) > 1)) {
+    guardarUndo();
+    dibujarForma(lctx(), formaIni.x, formaIni.y, fin.x, fin.y);
+    repintar();
+  }
+  formaIni = null; formaFin = null;
+}
+
+/* v48: 🌫️ DIFUMINAR — desenfoque de verdad: lo pintado queda SUAVE como foto fuera
+   de foco. El NIVEL (el botón Fuerza) decide cuánto desenfoca y el Tamaño el ancho. */
+var FILTRO_OK = (function(){ try { var c = document.createElement('canvas').getContext('2d'); c.filter = 'blur(1px)'; return c.filter === 'blur(1px)'; } catch (e) { return false; } })();
+var difuTmp = document.createElement('canvas'), difuT = difuTmp.getContext('2d');
+var difuS = document.createElement('canvas'), difuSc = difuS.getContext('2d');
+function trazoDifumar(x1, y1, x2, y2){
+  var L = capas[capaAct].cv, C = lctx();
+  var r = Math.max(10, grosorAct * 3) * ESCALA;
+  var dif = r * (0.12 + 0.48 * fuerzaDedo / 100); /* v48: de roce sutil a desenfoque fuerte */
+  var dx = x2 - x1, dy = y2 - y1;
+  var dist = Math.sqrt(dx * dx + dy * dy) || 1;
+  var n = Math.max(1, Math.ceil(dist / Math.max(3, r * 0.25)));
+  var W = lienzo.width, H = lienzo.height;
+  for (var i = 0; i <= n; i++) {
+    var t = i / n, x = x1 + dx * t, y = y1 + dy * t;
+    var s = Math.ceil(r * 2) + 4, c0 = s / 2;
+    var sx = Math.round(x - c0), sy = Math.round(y - c0);
+    var ax0 = Math.max(0, sx), ay0 = Math.max(0, sy);
+    var ax1 = Math.min(W, sx + s), ay1 = Math.min(H, sy + s);
+    if (ax1 <= ax0 || ay1 <= ay0) continue;
+    var ox = ax0 - sx, oy = ay0 - sy, cw = ax1 - ax0, ch = ay1 - ay0;
+    if (difuTmp.width !== s) { difuTmp.width = s; difuTmp.height = s; }
+    difuT.clearRect(0, 0, s, s);
+    if (FILTRO_OK) {
+      difuT.filter = 'blur(' + Math.max(1.5, dif).toFixed(1) + 'px)';
+      difuT.drawImage(L, ax0, ay0, cw, ch, ox, oy, cw, ch);
+      difuT.filter = 'none';
+    } else { /* Safari viejo sin ctx.filter: achicar y agrandar = desenfoque casero */
+      var k = Math.max(2, Math.round(dif / 2.2));
+      var sw = Math.max(1, Math.floor(cw / k)), sh = Math.max(1, Math.floor(ch / k));
+      if (difuS.width !== sw || difuS.height !== sh) { difuS.width = sw; difuS.height = sh; }
+      difuSc.clearRect(0, 0, sw, sh);
+      difuSc.imageSmoothingEnabled = true;
+      difuSc.drawImage(L, ax0, ay0, cw, ch, 0, 0, sw, sh);
+      difuT.imageSmoothingEnabled = true;
+      difuT.drawImage(difuS, 0, 0, sw, sh, ox, oy, cw, ch);
+    }
+    /* borde suave del pincel (velo radial, como el licuar) */
+    difuT.globalCompositeOperation = 'destination-in';
+    var velo = difuT.createRadialGradient(c0, c0, r * 0.15, c0, c0, c0);
+    velo.addColorStop(0, 'rgba(0,0,0,1)');
+    velo.addColorStop(1, 'rgba(0,0,0,0)');
+    difuT.fillStyle = velo;
+    difuT.fillRect(0, 0, s, s);
+    difuT.globalCompositeOperation = 'source-over';
+    C.drawImage(difuTmp, ox, oy, cw, ch, ax0, ay0, cw, ch);
+  }
+}
+
+/* v48: cableado de los botones nuevos */
+$('btnMasHerr').onclick = function(ev){ ev.stopPropagation(); togglePop('popMas', this); };
+$('btnHerrFormas').onclick = function(ev){ ev.stopPropagation(); elegirHerr('formas'); togglePop('popFormas', this); };
+$('popFormas').addEventListener('click', function(ev){ ev.stopPropagation(); }); /* elegir forma NO cierra el menú */
+(function(){
+  var bfs = document.querySelectorAll('.btnForma');
+  for (var i = 0; i < bfs.length; i++) {
+    (function(b){
+      b.onclick = function(){
+        formaAct = b.getAttribute('data-forma');
+        for (var j = 0; j < bfs.length; j++) bfs[j].classList.toggle('activo', bfs[j] === b);
+        pintarEstado();
+      };
+    })(bfs[i]);
+  }
+})();
+$('btnFormaRelleno').onclick = function(){
+  formaRelleno = !formaRelleno;
+  this.classList.toggle('activo', formaRelleno);
+  this.textContent = formaRelleno ? '🟧 Relleno' : '⬜ Contorno';
+  pintarEstado();
+};
+
 elegirHerr('lapiz');
 
 /* ============================================================
@@ -5298,41 +5715,58 @@ document.addEventListener('msfullscreenchange', fsCambio);
 
 /* v33: si la ventana cambia (pantalla completa, girar el cel, TV), se vuelve a medir
    el papel al 100% para que el zoom siga siendo exacto */
-function remedirZoom(){
+function remedirZoom(){ /* v46: la hoja se vuelve a medir para seguir entrando entera */
   if ($('overlayDibujo').classList.contains('oculto')) return;
-  var r = lienzo.getBoundingClientRect();
-  if (!r.width) return;
-  zoomBaseW = r.width / zoomAct;
-  lienzo.style.width = Math.round(zoomBaseW * zoomAct) + 'px';
-  pintarZoomEtq();
-  pegarZoom(); /* v38 */
+  medirPapel();
 }
 window.addEventListener('resize', remedirZoom);
 
-/* ---------- 🧱 CAPAS PLEGABLES (la flecha que pediste para el cel) ---------- */
+/* ---------- 🧱 CAPAS + Aa LETRA: PANELES FLOTANTES (v45) ----------
+   En TODAS las pantallas la pizarra abre con los DOS cerrados: los paneles son
+   tarjetas flotantes sobre el papel y las PÍLDORAS "🧱 CAPAS" / "Aa LETRA" del
+   rincón los llaman. Nunca quedan los dos abiertos a la vez (el que abre,
+   cierra al otro) — así el papel siempre queda despejado. */
 var panelCapasEl = $('panelCapas');
+var panelLetraEl = $('panelFuente');
 function panelPlegado(){ return panelCapasEl.classList.contains('plegado'); }
+function letraPlegado(){ return panelLetraEl.classList.contains('plegado'); }
 function ponerPanelCapas(plegar){
   panelCapasEl.classList.toggle('plegado', !!plegar);
   var b = $('btnPlegarCapas');
-  if (b) b.title = plegar ? 'Mostrar las capas' : 'Ocultar las capas (en el cel estorba menos)';
+  if (b) b.title = plegar ? 'Mostrar las capas' : 'Ocultar las capas';
   var h = $('btnCapasToggle'); /* v35: el botón de capas de la barra de arriba */
   if (h) h.title = plegar ? 'Mostrar las capas' : 'Ocultar las capas';
-  var pill = $('btnHojaCapas'); /* v39: la pastilla se ve SOLO cuando la hoja está escondida */
+  var pill = $('btnHojaCapas'); /* la píldora se ve SOLO cuando el panel está cerrado */
   if (pill) pill.classList.toggle('oculto', !plegar);
+  setTimeout(pegarZoom, 60); setTimeout(pegarZoom, 300); /* v45: re-pega la píldora que vuelve */
+  if (!plegar && !letraPlegado()) ponerPanelLetra(true); /* v45: abren de a uno */
+}
+function ponerPanelLetra(plegar){
+  panelLetraEl.classList.toggle('plegado', !!plegar);
+  var b = $('btnPlegarFuente');
+  if (b) b.title = plegar ? 'Abrir la letra' : 'Cerrar la letra';
+  var pill = $('btnPillLetra'); /* la píldora Aa se ve SOLO cuando el panel está cerrado */
+  if (pill) pill.classList.toggle('oculto', !plegar);
+  setTimeout(pegarZoom, 60); setTimeout(pegarZoom, 300); /* v45: re-pega la píldora que vuelve */
+  if (!plegar) cerrarPopFuente(); /* v45: al abrir la tarjeta, la lista arranca recogida */
+  if (!plegar && !panelPlegado()) ponerPanelCapas(true); /* v45: abren de a uno */
 }
 $('btnPlegarCapas').onclick = function(ev){ ev.stopPropagation(); ponerPanelCapas(!panelPlegado()); };
 $('btnCapasToggle').onclick = function(ev){ ev.stopPropagation(); ponerPanelCapas(!panelPlegado()); };
-$('btnHojaCapas').onclick = function(ev){ ev.stopPropagation(); ponerPanelCapas(false); }; /* v39: la pastilla abre la hoja de capas */
+$('btnHojaCapas').onclick = function(ev){ ev.stopPropagation(); ponerPanelCapas(false); }; /* la píldora abre el panel de capas */
+$('btnPlegarFuente').onclick = function(ev){ ev.stopPropagation(); ponerPanelLetra(!letraPlegado()); };
+$('btnPillLetra').onclick = function(ev){ ev.stopPropagation(); ponerPanelLetra(false); }; /* la píldora Aa abre la tarjeta de la letra */
 
 /* ---------- MENÚS DESPLEGABLES (Trazo · Color · Fuerza — v39: la paleta volvió al riel) ---------- */
 function cerrarPops(){
   var ps = document.querySelectorAll('.popDibujo');
   for (var i = 0; i < ps.length; i++) ps[i].classList.add('oculto');
-  var b1 = $('btnPopGrosor'), b2 = $('btnPopColor'), b3 = $('btnPopFuerza');
+  var b1 = $('btnPopGrosor'), b2 = $('btnPopColor'), b3 = $('btnPopFuerza'), b4 = $('btnMasHerr');
   if (b1) b1.classList.remove('activo');
   if (b2) b2.classList.remove('activo');
   if (b3) b3.classList.remove('activo');
+  /* v48: el ⋯ conserva su puntito si la herramienta activa vive adentro del MÁS */
+  if (b4) b4.classList.toggle('activo', MAS_HERR.indexOf(herrAct) >= 0);
 }
 function togglePop(id, btn){
   var p = $(id);
@@ -5401,9 +5835,10 @@ function precargarFuentes(){
 /* v40: nombres/etiquetas del botón de fuente — la letra Aa sale CON SU PROPIA FUENTE */
 function nomFuentePintar(){
   var b = $('btnSelFuente'); if (!b) return;
-  var ej = $('ejFuente'), nom = $('nomFuente');
+  var ej = $('ejFuente'), nom = $('nomFuente'), pill = $('pillLetraAa'); /* v45: la píldora Aa también */
   if (ej) { ej.style.fontFamily = '"' + fuenteAct + '", sans-serif'; ej.style.fontWeight = pesoFuente(); }
   if (nom) nom.textContent = fuenteAct;
+  if (pill) { pill.style.fontFamily = '"' + fuenteAct + '", sans-serif'; pill.style.fontWeight = pesoFuente(); }
 }
 function elegirFuente(f){
   fuenteAct = f;
@@ -5640,6 +6075,7 @@ function ponerTrazo(v){
   grosorAct = Math.max(1, Math.min(30, v));
   try { localStorage.setItem('siko_grosor', String(grosorAct)); } catch (e) {}
   actualizarBolaTrazo();
+  pintarEstado(); /* v46 */
 }
 function ponerIntGoma(v){
   intGoma = Math.max(5, Math.min(100, v));
@@ -5647,6 +6083,7 @@ function ponerIntGoma(v){
   var r = $('rangoGoma'), t = $('gomaPct');
   if (r) r.value = intGoma;
   if (t) t.textContent = intGoma + '%';
+  pintarEstado(); /* v46: en la goma el cartelito muestra su intensidad */
 }
 var botonesGrosor = document.querySelectorAll('.btnGrosor');
 for (var ig = 0; ig < botonesGrosor.length; ig++) {
@@ -5819,6 +6256,7 @@ function trazo(x1, y1, x2, y2){
   if (herrAct === 'brocha') { trazoBrocha(x1, y1, x2, y2); return; }
   if (herrAct === 'difum') { trazoDifum(x1, y1, x2, y2); return; }
   if (herrAct === 'dedo') { trazoDedo(x1, y1, x2, y2); return; } /* v36 */
+  if (herrAct === 'difumar') { trazoDifumar(x1, y1, x2, y2); return; } /* v48: desenfoque real */
   C.strokeStyle = colorAct;
   C.lineWidth = anchoTrazo();
   C.lineCap = 'round';
@@ -5885,6 +6323,21 @@ lienzo.addEventListener('contextmenu', function(e){ e.preventDefault(); });
 function alBajar(p){
   var d = aDev(p); /* v44: los pinceles trabajan en píxeles reales */
   if (herrAct === 'texto') return; /* v33: con Texto no se dibuja (la caja flota encima) */
+  if (herrAct === 'gota') { /* v48: 💧 CUENTAGOTAS — tocá un color del papel y queda elegido */
+    var gx = Math.max(0, Math.min(lienzo.width - 1, Math.round(d.x)));
+    var gy = Math.max(0, Math.min(lienzo.height - 1, Math.round(d.y)));
+    var g = ctx2.getImageData(gx, gy, 1, 1).data;
+    var hexG = (g[3] < 12) ? '#ffffff' : rgbHex(g[0], g[1], g[2]);
+    elegirColor(hexG);
+    toast('💧 Color tomado: ' + hexG.toUpperCase() + ' — elegí tu pincel y seguí');
+    return;
+  }
+  if (herrAct === 'formas') { /* v48: ⬟ FORMAS — arranca la figura (se ve en la vista previa) */
+    formaIni = { x: d.x, y: d.y }; formaFin = { x: d.x, y: d.y }; formaViva = true;
+    pintando = true;
+    dibujarFormaPre(d.x, d.y, d.x, d.y);
+    return;
+  }
   guardarUndo();
   if (herrAct === 'bote') { rellenar(d.x, d.y); repintar(); return; }
   if (herrAct === 'movercapa') { /* v38: agarré la capa entera para arrastrarla */
@@ -5901,6 +6354,7 @@ function alBajar(p){
 function alMover(p){
   if (!pintando || herrAct === 'bote') return;
   var d = aDev(p); /* v44 */
+  if (herrAct === 'formas') { formaFin = { x: d.x, y: d.y }; dibujarFormaPre(formaIni.x, formaIni.y, d.x, d.y); return; } /* v48: la figura se ve ANTES de soltar */
   if (herrAct === 'movercapa') { moverCapaMov(d.x, d.y); return; } /* v38: corre SOLO la capa elegida */
   trazo(ultimoX, ultimoY, d.x, d.y);
   ultimoX = d.x; ultimoY = d.y;
@@ -5932,8 +6386,8 @@ if (window.PointerEvent) {
     if (!pintando || !e.isPrimary) return;
     alMover(posLapiz(e));
   });
-  lienzo.addEventListener('pointerup', function(){ pintando = false; arrastrar = null; if (herrAct === 'movercapa') moverCapaFin(); else if (herrAct === 'mano') lienzo.style.cursor = 'grab'; });
-  lienzo.addEventListener('pointercancel', function(){ pintando = false; arrastrar = null; if (herrAct === 'movercapa') moverCapaFin(); else if (herrAct === 'mano') lienzo.style.cursor = 'grab'; });
+  lienzo.addEventListener('pointerup', function(){ if (herrAct === 'formas') confirmarForma(true); /* v48: estampa la figura */ pintando = false; arrastrar = null; if (herrAct === 'movercapa') moverCapaFin(); else if (herrAct === 'mano') lienzo.style.cursor = 'grab'; });
+  lienzo.addEventListener('pointercancel', function(){ if (herrAct === 'formas') confirmarForma(false); /* v48: el sistema canceló → no estampa */ pintando = false; arrastrar = null; if (herrAct === 'movercapa') moverCapaFin(); else if (herrAct === 'mano') lienzo.style.cursor = 'grab'; });
 } else {
   lienzo.addEventListener('mousedown', function(e){
     e.preventDefault();
@@ -5957,7 +6411,7 @@ if (window.PointerEvent) {
     if (!pintando) return;
     alMover(posLapiz(e));
   });
-  document.addEventListener('mouseup', function(){ pintando = false; arrastrar = null; if (herrAct === 'movercapa') moverCapaFin(); });
+  document.addEventListener('mouseup', function(){ if (herrAct === 'formas') confirmarForma(true); pintando = false; arrastrar = null; if (herrAct === 'movercapa') moverCapaFin(); });
   lienzo.addEventListener('touchstart', function(e){
     e.preventDefault();
     if (herrAct === 'mano') {
@@ -5979,8 +6433,8 @@ if (window.PointerEvent) {
     e.preventDefault();
     alMover(posLapiz(e.changedTouches[0]));
   }, { passive: false });
-  lienzo.addEventListener('touchend', function(){ pintando = false; arrastrar = null; if (herrAct === 'movercapa') moverCapaFin(); });
-  lienzo.addEventListener('touchcancel', function(){ pintando = false; arrastrar = null; if (herrAct === 'movercapa') moverCapaFin(); });
+  lienzo.addEventListener('touchend', function(){ if (herrAct === 'formas') confirmarForma(true); pintando = false; arrastrar = null; if (herrAct === 'movercapa') moverCapaFin(); });
+  lienzo.addEventListener('touchcancel', function(){ if (herrAct === 'formas') confirmarForma(false); pintando = false; arrastrar = null; if (herrAct === 'movercapa') moverCapaFin(); });
 }
 
 /* v31 · 🖼️ IMPORTAR IMAGEN: mete una foto en una capa de ABAJO para calcar
@@ -6031,6 +6485,15 @@ function exportarDibujo(){
 $('btnGuardarPizarra').onclick = function(){ /* v44: 💾 guardar el dibujo en HD */
   var img = exportarDibujo();
   if (img) guardarImagen(img);
+};
+$('btnAnimarDibujo').onclick = function(){ /* v47: 🪄 dar vida — SikoAnimar abre el dibujo ya recortado y caminando */
+  var img = exportarDibujo();
+  if (!img) return;
+  try { localStorage.setItem('sikoanimar_handoff', JSON.stringify({ img: img, ts: Date.now() })); } catch (e) {}
+  var abierta = false;
+  try { abierta = !!window.open('animar/index.html', '_blank'); } catch (e) {}
+  if (abierta) toast('🪄 SikoAnimar abrió con tu dibujo: elige cómo se mueve (gratis)', 4200);
+  else location.href = 'animar/index.html';
 };
 $('btnCompartirDibujo').onclick = function(){ /* v44: 📤 compartir el dibujo (WhatsApp) */
   var img = exportarDibujo();

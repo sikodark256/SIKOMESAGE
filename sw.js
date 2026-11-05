@@ -1,5 +1,7 @@
 /* ============================================================
-   SERVICE WORKER — SIKODARK CHAT (MSN) · chat-v43
+   + v48: 🎨 PIZARRA ORDENADA — ⬟ FORMAS (línea, flecha, rectángulo, elipse, triángulo, con relleno y vista previa) · 💧 CUENTAGOTAS (toca un color del papel y queda elegido) · 🌫️ DIFUMINAR (desenfoque real, con Nivel; el viejo difuminado ahora es AERÓGRAFO) · 📌 PAPEL FIJO al 100% (sin scroll ni rebotes: la hoja NO se mueve si no hiciste zoom) · 🧹 PAPEL LIMPIO (estado, CAPAS, LETRA, zoom y chip del reto ya NO flotan sobre la hoja: franja ordenada debajo) · ⋯ MÁS HERRAMIENTAS (lo complejo —brocha, aerógrafo, difuminar, licuar, cuentagotas, mover— en UN botón) · FUERZA solo aparece con Licuar/Difuminar · 📺 adaptación extra a TV (≥1600px todo crece)
+   SERVICE WORKER — SIKODARK CHAT (MSN) · chat-v48
+   + v47: 🪄 ANIMAR DIBUJO — botón nuevo ✨ en la pizarra (btnAnimarDibujo): aplana el dibujo en HD, lo guarda en localStorage (sikoanimar_handoff, caduca en 5 min) y abre /animar/ — SikoAnimar v5 lo recibe, lo recorta del papel y lo pone a caminar (gratis, sin que nada salga del celu)
    + v43: 🧬 HUELLA DIGITAL — cada dispositivo tiene su código fijo (H-xxxx-xxxx) que NO cambia aunque la persona cambie de nombre: el nombre viejo queda registrado en su ficha (historialNombres) con fecha, y en el panel del admin se ve la huella de cada uno, su historial de nombres, con quién comparte huella (🔗 misma persona con otro nombre) y si volvió después de ser borrada (⚠️ REINCIDENTE, registro chat_usuarios/__borrados__)
    + v42: 🛠️ PANEL DEL ADMINISTRADOR APARTE (panel.html) + ⛔ BAN GLOBAL — página nueva panel.html solo para el dueño (clave adentro del archivo) para ver la gente, banearla globalmente y borrar usuarios o mensajes de una; el chat entiende el ban global (adminBloqueado en la ficha) y los mensajes borrados por el admin desaparecen EN VIVO; panel.html entra en la lista de archivos guardados
    + v40: ✍️ PANEL DE FUENTES EN LÍNEA + 📏 TAMAÑO CON DESLIZADOR + 🧽 INTENSIDAD DE LA GOMA — el botón de fuente de la pizarra abre AHÍ MISMO el panel con TIPO DE LETRA (cada una con su letra) + TAMAÑO con deslizador + COLOR con bolitas, todo junto · la caja de texto flotante quedó ANCLADA AL PAPEL y un toque ya no la corre (umbral de arrastre 6px) · el botón Trazo trae deslizador de TAMAÑO 1–30 con bolita de vista previa y el deslizador nuevo de INTENSIDAD DE LA GOMA 5–100%
@@ -29,7 +31,7 @@
    + reacciones/me gusta, reenviar, borrar, guardar y favoritos
    Subí este número (v5, v6…) cada vez que cambies el index.html
    ============================================================ */
-var CACHE = 'sikodark-chat-v44';
+var CACHE = 'sikodark-chat-v48';
 var ARCHIVOS = ['./', './index.html', './panel.html', './chat-config.js', './gif-config.js', './twemoji.min.js', './manifest.json', './icon-192.png', './icon-512.png', './favicon.png', './apple-touch-icon.png', './icon-maskable-192.png', './icon-maskable-512.png', './logo-blanco.png', './logo-negro.png', './logo-cara.png', './logo-radio.png', './compartir-sikochat.jpg'];
 
 self.addEventListener('install', function(e){
