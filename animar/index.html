@@ -1,0 +1,2147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d0d0d">
+<meta name="description" content="SikoAnimar — Anima tus imágenes gratis: efectos mágicos, muñecos que caminan y vuelan, títeres con articulaciones que bailan y saludan, y animación con IA. PWA de la familia SikoChat.">
+<meta property="og:title" content="SikoAnimar — Anima tus imágenes">
+<meta property="og:description" content="Convierte cualquier foto o dibujo en GIF o video animado. Gratis.">
+<meta property="og:image" content="./icons/icon-512.png">
+<title>SikoAnimar — Anima tus imágenes</title>
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" type="image/png" href="./icons/favicon-32.png">
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --naranja:#f59d3d; --naranja-osc:#d68226; --negro:#0d0d0d; --panel:#191919;
+    --panel2:#222; --texto:#f4f4f4; --gris:#9a9a9a; --borde:#2d2d2d;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  html,body{margin:0; padding:0}
+  body{
+    background:var(--negro); color:var(--texto);
+    font-family:'Montserrat','Segoe UI',system-ui,sans-serif;
+    min-height:100vh; padding-bottom:40px;
+  }
+  header{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 16px; border-bottom:2px solid var(--borde);
+    position:sticky; top:0; background:rgba(13,13,13,.95); backdrop-filter:blur(6px); z-index:20;
+  }
+  .logo{font-size:22px; font-weight:800; letter-spacing:.3px}
+  .logo b{color:var(--naranja)}
+  .logo .rayo{filter:drop-shadow(0 0 6px rgba(245,157,61,.7))}
+  #btnInstall{
+    background:var(--naranja); color:#111; border:none; border-radius:12px;
+    padding:10px 14px; font-family:inherit; font-weight:800; font-size:14px; cursor:pointer;
+  }
+  .tabs{display:flex; gap:8px; padding:12px 16px 0; max-width:760px; margin:0 auto; width:100%}
+  .tab{
+    flex:1; background:var(--panel); color:var(--gris); border:2px solid var(--borde);
+    border-radius:14px; padding:12px 6px; font-family:inherit; font-weight:600; font-size:15px; cursor:pointer;
+  }
+  .tab small{font-weight:400; font-size:11px}
+  .tab.active{background:var(--naranja); color:#111; border-color:var(--naranja); font-weight:800}
+  main{max-width:760px; margin:0 auto; padding:14px 16px}
+  .card{
+    background:var(--panel); border:2px solid var(--borde); border-radius:18px; padding:16px; margin-bottom:14px;
+  }
+  h2{font-size:15px; font-weight:800; margin:18px 0 10px; color:var(--naranja)}
+  h2:first-child{margin-top:0}
+  #picker{
+    border:3px dashed var(--naranja); border-radius:16px; padding:34px 14px; text-align:center;
+    cursor:pointer; transition:background .2s;
+  }
+  #picker:active{background:rgba(245,157,61,.12)}
+  #picker .cam{font-size:44px; display:block; margin-bottom:8px}
+  #picker .txt{font-weight:800; font-size:17px}
+  #picker .sub{color:var(--gris); font-size:12.5px; margin-top:6px}
+  #imgChosen{display:flex; align-items:center; gap:12px}
+  #imgThumb{
+    width:84px; height:84px; object-fit:cover; border-radius:14px;
+    border:2px solid var(--naranja); flex-shrink:0;
+  }
+  #imgChosen .datos{flex:1; min-width:0}
+  #imgChosen .nombre{font-weight:600; font-size:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  #btnCambiar{
+    margin-top:8px; background:var(--panel2); color:var(--naranja); border:1.5px solid var(--naranja);
+    border-radius:10px; padding:8px 12px; font-family:inherit; font-weight:600; font-size:13px; cursor:pointer;
+  }
+  .fx-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:8px}
+  @media (max-width:420px){ .fx-grid{grid-template-columns:repeat(3,1fr); gap:6px} }
+  .fx-card{
+    background:var(--panel2); border:2px solid var(--borde); border-radius:14px;
+    padding:12px 4px; text-align:center; cursor:pointer; transition:transform .12s, border-color .12s;
+  }
+  .fx-card .emo{font-size:26px; display:block}
+  .fx-card .nom{font-size:11.5px; font-weight:600; margin-top:5px; color:var(--texto)}
+  .fx-card.sel{border-color:var(--naranja); background:rgba(245,157,61,.16); transform:scale(1.04)}
+  .fx-card.sel .nom{color:var(--naranja); font-weight:800}
+  .chips{display:flex; gap:8px; flex-wrap:wrap}
+  .chip{
+    background:var(--panel2); border:2px solid var(--borde); color:var(--texto);
+    border-radius:999px; padding:9px 14px; font-family:inherit; font-size:13.5px; font-weight:600; cursor:pointer;
+  }
+  .chip.sel{border-color:var(--naranja); background:rgba(245,157,61,.16); color:var(--naranja); font-weight:800}
+  .slider-row{display:flex; align-items:center; gap:10px; margin-top:4px}
+  input[type=range]{
+    flex:1; appearance:none; -webkit-appearance:none; height:8px; border-radius:6px;
+    background:linear-gradient(90deg,var(--naranja) 50%, var(--panel2) 50%); outline:none;
+  }
+  input[type=range]::-webkit-slider-thumb{
+    appearance:none; -webkit-appearance:none; width:26px; height:26px; border-radius:50%;
+    background:var(--naranja); border:3px solid #111; cursor:pointer;
+  }
+  #preview{
+    width:100%; max-width:460px; display:block; margin:0 auto; border-radius:16px;
+    border:2px solid var(--borde); background:#000;
+  }
+  .btnrow{display:flex; gap:10px; margin-top:12px}
+  .btn{
+    flex:1; border:none; border-radius:14px; padding:15px 10px; font-family:inherit;
+    font-weight:800; font-size:15.5px; cursor:pointer; transition:filter .15s;
+  }
+  .btn:active{filter:brightness(.85)}
+  .btn.primario{background:var(--naranja); color:#111}
+  .btn.secundario{background:var(--panel2); color:var(--naranja); border:2px solid var(--naranja)}
+  .btn:disabled{opacity:.45; cursor:not-allowed}
+  #progWrap{margin-top:14px}
+  #progTrack{background:var(--panel2); border-radius:8px; height:14px; overflow:hidden}
+  #progBar{height:100%; width:0%; background:linear-gradient(90deg,var(--naranja-osc),var(--naranja)); transition:width .25s}
+  #progTxt{font-size:12.5px; color:var(--gris); margin-top:6px; display:block; text-align:center}
+  #resultBox{text-align:center; margin-top:14px}
+  #resGif,#resVideo,#iaVideo{
+    max-width:100%; max-height:60vh; border-radius:16px; border:2px solid var(--naranja); background:#000;
+  }
+  .info{
+    background:rgba(245,157,61,.1); border:2px solid rgba(245,157,61,.5); border-radius:14px;
+    padding:12px 14px; font-size:13.5px; line-height:1.55; margin-bottom:14px;
+  }
+  .info a{color:var(--naranja); font-weight:800}
+  .info ol{margin:8px 0 0; padding-left:20px; text-align:left}
+  label{display:block; font-size:13.5px; font-weight:800; margin:14px 0 6px; color:var(--naranja)}
+  input[type=text], input[type=password], select{
+    width:100%; background:var(--panel2); border:2px solid var(--borde); color:var(--texto);
+    border-radius:12px; padding:13px 12px; font-family:inherit; font-size:15px;
+  }
+  input:focus, select:focus{outline:none; border-color:var(--naranja)}
+  .aviso{font-size:11.5px; color:var(--gris); margin-top:5px}
+  #iaStatus{
+    margin-top:14px; background:var(--panel2); border-radius:14px; padding:14px;
+    font-size:14px; text-align:center; border:1.5px solid var(--borde);
+  }
+  #iaSaldo{
+    margin-top:12px; background:var(--panel2); border:1.5px solid var(--borde);
+    border-radius:12px; padding:10px 12px; font-size:13px; line-height:1.55; text-align:center;
+  }
+  #iaSaldo b{color:var(--naranja)}
+  #iaStatus .girito{
+    display:inline-block; width:22px; height:22px; border:3px solid var(--borde);
+    border-top-color:var(--naranja); border-radius:50%; animation:girar 1s linear infinite;
+    vertical-align:middle; margin-right:9px;
+  }
+  @keyframes girar{to{transform:rotate(360deg)}}
+  footer{text-align:center; color:var(--gris); font-size:11.5px; padding:18px 10px 6px}
+  footer b{color:var(--naranja)}
+  #toast{
+    position:fixed; left:50%; bottom:26px; transform:translateX(-50%);
+    background:#222; color:var(--texto); border:2px solid var(--naranja);
+    padding:12px 18px; border-radius:14px; font-size:13.5px; font-weight:600;
+    max-width:86vw; text-align:center; z-index:99; box-shadow:0 6px 24px rgba(0,0,0,.6);
+  }
+  #muCut,#tiEdit{
+    width:100%; max-width:340px; display:block; margin:0 auto; border-radius:14px;
+    border:2px solid var(--borde); touch-action:none; cursor:crosshair;
+    background:repeating-conic-gradient(#2b2b2b 0 25%, #1e1e1e 0 50%) 0 0 / 22px 22px;
+  }
+  /* fondo claro para ver dibujos con trazo oscuro al poner los puntitos */
+  #tiEdit{
+    background:repeating-conic-gradient(#f7f6f2 0 25%, #e4e2da 0 50%) 0 0 / 22px 22px;
+  }
+  /* asistente guiado estilo Meta canvas */
+  #tiWiz{
+    margin-top:12px; background:linear-gradient(135deg,#2a1e0d,#191410);
+    border:2px solid var(--naranja); border-radius:14px; padding:12px 14px;
+    text-align:center; font-size:14.5px; font-weight:800; color:var(--texto); line-height:1.45;
+  }
+  #tiWiz.listo{ border-color:#43a047; background:linear-gradient(135deg,#12200f,#101709); }
+  #tiWiz .paso{ color:var(--naranja); }
+  .ti-chip{ font-size:16px; min-width:44px; }
+  .ti-chip.done{ opacity:1; border-color:#43a047; }
+  .ti-chip.now{ opacity:1; border-color:var(--naranja); animation:tiPulso 1s ease-in-out infinite; }
+  .ti-chip.skip{ opacity:.22; text-decoration:line-through; }
+  @keyframes tiPulso{ 50%{ transform:scale(1.12); } }
+  .mu-tools{display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-top:12px}
+  #pizCanvas{
+    width:100%; display:block; border-radius:14px; border:2px solid var(--borde);
+    background:#fff; touch-action:none; cursor:crosshair; aspect-ratio:4/3;
+  }
+  @media (max-width:430px){
+    .tab{font-size:12.5px; padding:10px 4px}
+    .tab small{font-size:9.5px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo"><span class="rayo">⚡</span> Siko<b>Animar</b></div>
+  <button id="btnInstall" data-qa="btn-install" hidden>📥 Instalar</button>
+</header>
+
+<nav class="tabs">
+  <button class="tab active" id="tabFx" data-qa="tab-fx">🎨 Efectos <small>(gratis)</small></button>
+  <button class="tab" id="tabMu" data-qa="tab-mu">🧸 Muñeco <small>(gratis)</small></button>
+  <button class="tab" id="tabTi" data-qa="tab-ti">🎭 Títere <small>(gratis)</small></button>
+  <button class="tab" id="tabSk" data-qa="tab-sk">✏️ Dibuja <small>(gratis)</small></button>
+  <button class="tab" id="tabIA" data-qa="tab-ia">🤖 IA <small>(Pollen)</small></button>
+</nav>
+
+<main>
+  <!-- IMAGEN -->
+  <section class="card">
+    <div id="picker" data-qa="picker">
+      <span class="cam">📷</span>
+      <span class="txt">Elige una foto o dibujo</span>
+      <div class="sub">Toca aquí · también puedes arrastrarla o pegarla (Ctrl+V)</div>
+    </div>
+    <div id="imgChosen" hidden>
+      <img id="imgThumb" data-qa="img-thumb" alt="Tu imagen">
+      <div class="datos">
+        <div class="nombre" id="imgNombre">imagen</div>
+        <button id="btnCambiar">🔄 Cambiar imagen</button>
+      </div>
+    </div>
+    <input type="file" id="fileInput" data-qa="file-input" accept="image/*" hidden>
+  </section>
+
+  <!-- MODO EFECTOS -->
+  <section id="panelFx">
+    <section class="card">
+      <h2>1️⃣ Elige el efecto mágico</h2>
+      <div class="fx-grid" id="fxGrid" data-qa="fx-grid"></div>
+
+      <h2>2️⃣ Ajusta la velocidad y la fuerza</h2>
+      <div class="chips" id="speedChips">
+        <button class="chip" data-speed="6">🐢 Lento</button>
+        <button class="chip sel" data-speed="4">🚶 Normal</button>
+        <button class="chip" data-speed="2.5">🐇 Rápido</button>
+      </div>
+      <div class="slider-row" style="margin-top:12px">
+        <span style="font-size:18px">🪶</span>
+        <input type="range" id="intensidad" min="0.5" max="1.6" step="0.05" value="1" data-qa="intensidad">
+        <span style="font-size:18px">💪</span>
+      </div>
+
+    </section>
+  </section>
+
+  <!-- MODO MUÑECO -->
+  <section id="panelMu" hidden>
+    <section class="card">
+      <div class="info">
+        🧸 <b>¡Tu dibujo cobra vida!</b> Recortamos tu muñeco del papel y lo ponemos a
+        <b>caminar, volar, saltar, bailar o nadar</b>. Gratis y sin internet —
+        perfecto para los dibujos de los peques.
+      </div>
+      <h2>1️⃣ Revisa el recorte</h2>
+      <canvas id="muCut" data-qa="mu-cut" width="320" height="200"></canvas>
+      <div class="mu-tools">
+        <button class="chip sel" id="muBorrar" data-qa="mu-borrar">🧽 Borrar pedacitos</button>
+        <button class="chip" id="muTraer" data-qa="mu-traer">🖌️ Traer de vuelta</button>
+        <button class="chip" id="muUndo" data-qa="mu-undo">↩️ Deshacer</button>
+      </div>
+      <div class="aviso" style="text-align:center">Toca el muñeco con el dedo para corregir el recorte.</div>
+      <label for="muTol">✂️ Fuerza del recorte</label>
+      <div class="slider-row">
+        <span style="font-size:17px">🪶</span>
+        <input type="range" id="muTol" min="8" max="90" step="1" value="34" data-qa="mu-tol">
+        <span style="font-size:17px">💪</span>
+      </div>
+      <div class="aviso">Si queda papel alrededor → más fuerza 💪. Si come partes del dibujo → menos fuerza 🪶. (Al cambiarla, se recorta de nuevo.)</div>
+    </section>
+    <section class="card">
+      <h2>2️⃣ ¿Cómo se mueve tu muñeco?</h2>
+      <div class="fx-grid" id="muGrid" data-qa="mu-grid"></div>
+      <div class="chips" id="muSpeed" style="margin-top:12px">
+        <button class="chip" data-speed="7">🐢 Lento</button>
+        <button class="chip sel" data-speed="4">🚶 Normal</button>
+        <button class="chip" data-speed="2.5">🐇 Rápido</button>
+      </div>
+    </section>
+  </section>
+
+  <!-- MODO DIBUJA (pizarra mágica) -->
+  <section id="panelSk" hidden>
+    <section class="card">
+      <div class="info">
+        ✏️ <b>¡Pizarra mágica!</b> Dibuja con el dedo: la app <b>memoriza cada trazo</b>.
+        Al darle vida, tu dibujo <b>se dibuja solito</b> trazo por trazo y después
+        <b>cobra vida</b>. Escribe qué es (🐭 ratón, 🐦 pájaro…) y sabe cómo moverse.<br>
+        💡 Inspirada en <a href="https://hmrishavbandy.github.io/flipsketch-web/" target="_blank" rel="noopener">FlipSketch</a>
+        (CVPR 2025): dibuja, describe y cobra vida.
+      </div>
+      <canvas id="pizCanvas" data-qa="piz-canvas" width="720" height="540"></canvas>
+      <div class="chips" id="skColores" style="margin-top:12px">
+        <button class="chip sel" data-col="#1a1a1a" style="color:#1a1a1a">⬤</button>
+        <button class="chip" data-col="#f59d3d" style="color:#f59d3d">⬤</button>
+        <button class="chip" data-col="#e24a3e" style="color:#e24a3e">⬤</button>
+        <button class="chip" data-col="#2f7fd1" style="color:#2f7fd1">⬤</button>
+        <button class="chip" data-col="#43a047" style="color:#43a047">⬤</button>
+        <button class="chip" data-col="#8d5524" style="color:#8d5524">⬤</button>
+      </div>
+      <label for="skW">✏️ Grosor del lápiz</label>
+      <div class="slider-row">
+        <span style="font-size:16px">•</span>
+        <input type="range" id="skW" min="3" max="24" step="1" value="8" data-qa="sk-w">
+        <span style="font-size:20px">⬤</span>
+      </div>
+      <div class="mu-tools">
+        <button class="chip" id="skGoma" data-qa="sk-goma">🧽 Goma</button>
+        <button class="chip" id="skUndo" data-qa="sk-undo">↩️ Deshacer</button>
+        <button class="chip" id="skClear" data-qa="sk-clear">🗑️ Borrar todo</button>
+        <button class="chip sel" id="skSolo" data-qa="sk-solo">▶️ Se dibuja solo</button>
+      </div>
+    </section>
+    <section class="card">
+      <h2>🪄 Dale vida a tu dibujo</h2>
+      <label for="skPrompt">¿Qué es tu dibujo?</label>
+      <input type="text" id="skPrompt" data-qa="sk-prompt" placeholder="Ej: un ratoncito" maxlength="60">
+      <div class="chips" id="skChips" style="margin-top:9px">
+        <button class="chip">🐭 Ratón</button>
+        <button class="chip">🐦 Pájaro</button>
+        <button class="chip">🐸 Rana</button>
+        <button class="chip">🐟 Pez</button>
+        <button class="chip">💃 Bailarina</button>
+      </div>
+      <div class="btnrow" style="margin-top:14px">
+        <button class="btn primario" id="skVida" data-qa="sk-vida">🪄 ¡Dar vida!</button>
+        <button class="btn secundario" id="skIA" data-qa="sk-ia">🤖 Video IA</button>
+      </div>
+      <div class="aviso">El movimiento también se cambia en la pestaña 🧸 Muñeco: caminar, volar, saltar, bailar o nadar.<br>🤖 Video IA: manda tu dibujo a la pestaña IA para hacerlo video de verdad (gasta Pollen).</div>
+    </section>
+  </section>
+
+  <!-- MODO TÍTERE (estilo Meta AnimatedDrawings) -->
+  <section id="panelTi" hidden>
+    <section class="card">
+      <div class="info">
+        🎭 <b>¡Tu muñeco con articulaciones!</b> Igual que <a href="https://sketch.metademolab.com" target="_blank" rel="noopener">Meta AnimatedDrawings</a>:
+        pones los <b>puntitos</b> (cabeza, manos, pies y cadera) y tu dibujo
+        <b>baila, saluda y salta</b> moviendo brazos y piernas de verdad.
+        Gratis, sin clave y sin internet. Y aquí no vale solo gente: ¡pollos, ratones, monstruos… lo que sea!
+      </div>
+      <h2>1️⃣ Pon los puntitos en tu muñeco</h2>
+      <canvas id="tiEdit" data-qa="ti-edit" width="320" height="200"></canvas>
+      <div id="tiWiz" data-qa="ti-wiz" hidden></div>
+      <div class="chips" id="tiChips" data-qa="ti-chips"></div>
+      <div class="mu-tools">
+        <button class="chip" id="tiMagia" data-qa="ti-magia">🎯 Puntos mágicos</button>
+        <button class="chip" id="tiUndo" data-qa="ti-undo">↩️ Último punto</button>
+        <button class="chip" id="tiReinicia" data-qa="ti-reinicia">🔄 Empezar de nuevo</button>
+        <button class="chip" id="tiSinBrazos" data-qa="ti-sinbrazos">🐔 Sin brazos</button>
+      </div>
+      <div class="aviso" style="text-align:center">Toca el dibujo para poner cada puntito, uno por uno. Al final arrástralos para ajustar. Como <a href="https://sketch.metademolab.com" target="_blank" rel="noopener">Meta AnimatedDrawings</a>… ¡pero gratis y con pollos! 🐔</div>
+    </section>
+    <section class="card">
+      <h2>2️⃣ ¿Cómo se mueve tu títere?</h2>
+      <div class="fx-grid" id="tiGrid" data-qa="ti-grid"></div>
+      <div class="chips" id="tiSpeed" style="margin-top:12px">
+        <button class="chip" data-speed="7">🐢 Lento</button>
+        <button class="chip sel" data-speed="4">🚶 Normal</button>
+        <button class="chip" data-speed="2.5">🐇 Rápido</button>
+      </div>
+    </section>
+  </section>
+
+  <!-- SALIDA COMPARTIDA (Efectos, Muñeco, Títere y Dibuja) -->
+  <section id="panelOut">
+    <section class="card">
+      <h2>👀 Vista previa en vivo</h2>
+      <canvas id="preview" data-qa="preview" width="440" height="330"></canvas>
+
+      <h2>✨ Crea tu animación</h2>
+      <div class="btnrow">
+        <button class="btn primario" id="btnGif" data-qa="btn-gif" disabled>🎞️ Crear GIF</button>
+        <button class="btn secundario" id="btnVideo" data-qa="btn-video" disabled>🎬 Crear Video</button>
+      </div>
+      <div id="progWrap" hidden>
+        <div id="progTrack"><div id="progBar" data-qa="prog-bar"></div></div>
+        <span id="progTxt"></span>
+      </div>
+      <div id="resultBox" hidden data-qa="result-box">
+        <img id="resGif" data-qa="gif-result" hidden alt="Tu GIF animado">
+        <video id="resVideo" data-qa="video-result" hidden controls loop playsinline></video>
+        <div class="btnrow">
+          <button class="btn primario" id="btnSave" data-qa="btn-save">⬇️ Guardar</button>
+          <button class="btn secundario" id="btnShare" data-qa="btn-share">📤 Compartir</button>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <!-- MODO IA -->
+  <section id="panelIA" hidden>
+    <section class="card">
+      <div class="info">
+        🤖 La IA convierte tu imagen en un <b>video de verdad</b> (tarda de 1 a 3 minutos) y <b>gasta Pollen</b>.<br>
+        Consigue Pollen <b>GRATIS</b> así:
+        <ol>
+          <li>Entra a <a href="https://enter.pollinations.ai" target="_blank" rel="noopener">enter.pollinations.ai</a> → <b>Quests</b> (misiones): cada misión te da Pollen</li>
+          <li>Tu cuenta también recibe <b>Pollen cada día</b> según tu nivel</li>
+          <li>Crea tu clave <b>sk_...</b> y pégala aquí abajo</li>
+        </ol>
+        ⚠️ El video con IA es lo que más Pollen gasta. Si no te alcanza, usa la pestaña 🎨 <b>Efectos</b> que es 100% gratis siempre.<br>
+        💡 ¿Quieres que tu dibujo <b>camine o vuele</b> como un muñequito? Usa la pestaña 🧸 <b>Muñeco</b>: gratis y sin clave.
+      </div>
+
+      <label for="iaKey">🔑 Tu clave</label>
+      <input type="password" id="iaKey" data-qa="ia-key" placeholder="sk_..." autocomplete="off">
+      <div class="aviso">🔒 Se guarda solo en tu dispositivo, no se envía a ningún otro lado.</div>
+      <div class="btnrow"><button class="btn secundario" id="btnSaldo" data-qa="btn-saldo">💰 Ver mi saldo</button></div>
+      <div id="iaSaldo" data-qa="ia-saldo" hidden></div>
+
+      <label for="iaPrompt">💬 ¿Cómo quieres que se mueva?</label>
+      <input type="text" id="iaPrompt" data-qa="ia-prompt" placeholder="Ej: viento suave moviendo todo un poquito" maxlength="200">
+      <div class="chips" id="iaChips" style="margin-top:9px">
+        <button class="chip">🍃 Viento suave</button>
+        <button class="chip">✨ Destellos mágicos</button>
+        <button class="chip">🌊 Flotando en el agua</button>
+        <button class="chip">💃 Que baile feliz</button>
+        <button class="chip">☁️ Nubes moviéndose</button>
+      </div>
+
+      <label for="iaModel">🎛️ Estilo de la IA</label>
+      <select id="iaModel" data-qa="ia-model">
+        <option value="alibaba/wan-2.2-fast">⚡ Rápido y económico (recomendado)</option>
+        <option value="alibaba/wan-2.6">⚖️ Equilibrado (con sonido)</option>
+        <option value="google/veo-3.1-fast">🎬 Máxima calidad (gasta más)</option>
+      </select>
+
+      <label for="iaDur">⏱️ Duración</label>
+      <select id="iaDur" data-qa="ia-dur">
+        <option value="4">4 segundos</option>
+        <option value="6">6 segundos</option>
+        <option value="8">8 segundos</option>
+      </select>
+
+      <div class="btnrow">
+        <button class="btn primario" id="btnIA" data-qa="btn-ia">🚀 Animar con IA</button>
+      </div>
+      <div id="iaStatus" hidden data-qa="ia-status"></div>
+      <div id="iaResultBox" hidden>
+        <video id="iaVideo" data-qa="ia-video" controls loop playsinline></video>
+        <div class="btnrow">
+          <button class="btn primario" id="btnIaSave" data-qa="btn-ia-save">⬇️ Guardar MP4</button>
+          <button class="btn secundario" id="btnIaShare" data-qa="btn-ia-share">📤 Compartir</button>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <footer>Hecho con ❤ para la familia <b>SikoChat</b> · Los modos Efectos, Muñeco, Títere y Dibuja funcionan sin internet</footer>
+</main>
+
+<div id="toast" hidden></div>
+
+<script src="./gif.js"></script>
+<script>
+(function(){
+"use strict";
+var $ = function(id){ return document.getElementById(id); };
+var QA = location.search.indexOf('qa=1') !== -1;
+
+/* ============ ESTADO ============ */
+var img = null, imgBitmap = null, offCanvas = null, imgFileName = 'animacion';
+var fxActual = 'acercar', duracion = 4, intensidad = 1;
+var ultimoBlob = null, ultimoExt = 'gif', ultimoTipo = '';
+var iaBlob = null;
+var rafId = null;
+var modo = 'fx';           /* 'fx' | 'mu' | 'sk' | 'ia' */
+var muActual = 'caminar';
+var spriteOrig = null;     /* recorte automático, sin retoques */
+var spriteEd = null;       /* sprite con retoques del dedo */
+var sprCrop = null;        /* sprite recortado para animar */
+var muUndoPila = [];
+var muHerr = 'borrar';
+var muTolVal = 34;
+var muTimer = null;
+var spriteDe = null;       /* de dónde salió el sprite: 'img' | 'sk' */
+var tiActual = 'bailar';   /* movimiento del títere */
+var tiPts = null;          /* articulaciones normalizadas 0..1 */
+var tiSucio = true;        /* hay que reconstruir las piezas */
+var tiPiezas = null, tiPiv = null;
+var tiEsc = 1;
+/* asistente guiado estilo Meta canvas: puntitos uno por uno */
+var TI_SEC = ['cabeza','cadera','pieI','pieD','manoI','manoD'];
+var TI_LBL = {
+  cabeza:'🧠 Toca la CABEZA de tu muñeco',
+  cadera:'🩲 Toca la CADERA (la mitad del cuerpo)',
+  pieI:'🦶 Toca UN pie (o pata)',
+  pieD:'🦶 Toca el OTRO pie',
+  manoI:'👋 Toca UNA mano (o ala)',
+  manoD:'👋 Toca la OTRA mano'
+};
+var tiWiz = 0;              /* índice del puntito que toca poner; -1 = listo */
+var tiSinBrazos = false;    /* pollos, peces y amigos sin brazos */
+
+/* ============ EFECTOS ============ */
+function drawBase(c, W, H, s, dx, dy, rot, filter){
+  var cover = Math.max(W/imgBitmap.width, H/imgBitmap.height) * (s||1);
+  var w = imgBitmap.width*cover, h = imgBitmap.height*cover;
+  c.save();
+  if(filter) c.filter = filter;
+  c.translate(W/2 + (dx||0), H/2 + (dy||0));
+  if(rot) c.rotate(rot);
+  c.drawImage(imgBitmap, -w/2, -h/2, w, h);
+  c.restore();
+  c.filter = 'none';
+}
+var DOS_PI = Math.PI*2;
+var FXS = {
+  acercar:  { emoji:'🔍', nombre:'Acercar',
+    draw:function(c,W,H,t,k){ drawBase(c,W,H, 1+0.24*k*t, W*0.02*k*t, 0, 0); } },
+  alejar:   { emoji:'🔎', nombre:'Alejar',
+    draw:function(c,W,H,t,k){ drawBase(c,W,H, 1+0.24*k*(1-t), -W*0.02*k*t, 0, 0); } },
+  girar:    { emoji:'🌀', nombre:'Girar',
+    draw:function(c,W,H,t,k){ drawBase(c,W,H, 1.45, 0, 0, DOS_PI*t); } },
+  latir:    { emoji:'💓', nombre:'Latir',
+    draw:function(c,W,H,t,k){ var s = 1 + 0.08*k*(0.5-0.5*Math.cos(2*DOS_PI*t)); drawBase(c,W,H,s,0,0,0); } },
+  temblar:  { emoji:'🫨', nombre:'Temblar',
+    draw:function(c,W,H,t,k){ drawBase(c,W,H,1.07,
+      W*0.013*k*Math.sin(6*DOS_PI*t), H*0.013*k*Math.sin(5*DOS_PI*t+1), 0); } },
+  rebotar:  { emoji:'🏀', nombre:'Rebotar',
+    draw:function(c,W,H,t,k){ drawBase(c,W,H,1.12, 0, -H*0.09*k*Math.abs(Math.sin(2*DOS_PI*t)), 0); } },
+  flotar:   { emoji:'👻', nombre:'Flotar',
+    draw:function(c,W,H,t,k){ drawBase(c,W,H, 1+0.05*k*(0.5-0.5*Math.cos(DOS_PI*t)),
+      0, H*0.03*k*Math.sin(DOS_PI*t), 0.012*k*Math.sin(DOS_PI*t)); } },
+  arcoiris: { emoji:'🌈', nombre:'Arcoíris',
+    draw:function(c,W,H,t,k){ drawBase(c,W,H,1.03,0,0,0,'hue-rotate('+(t*360)+'deg) saturate(1.25)'); } },
+  destello: { emoji:'✨', nombre:'Destello',
+    draw:function(c,W,H,t,k){
+      drawBase(c,W,H,1.02,0,0,0);
+      var pos = -0.4 + 1.8*t;
+      var g = c.createLinearGradient(W*pos-W*0.3, 0, W*pos+W*0.3, H);
+      g.addColorStop(0,'rgba(255,255,255,0)');
+      g.addColorStop(0.5,'rgba(255,240,200,'+(0.30*k)+')');
+      g.addColorStop(1,'rgba(255,255,255,0)');
+      c.save(); c.fillStyle = g; c.fillRect(0,0,W,H); c.restore();
+    } },
+  onda:     { emoji:'🌊', nombre:'Onda',
+    draw:function(c,W,H,t,k){
+      if(!offCanvas) return;
+      var slices = 28, sh = H/slices;
+      for(var i=0;i<slices;i++){
+        var dx = Math.sin(t*DOS_PI + i*0.42)*W*0.022*k;
+        c.drawImage(offCanvas, 0, i*offCanvas.height/slices, offCanvas.width, offCanvas.height/slices,
+                    dx, i*sh, W, sh+1);
+      }
+    } }
+};
+function buildFxGrid(){
+  var grid = $('fxGrid');
+  Object.keys(FXS).forEach(function(key){
+    var b = document.createElement('button');
+    b.className = 'fx-card' + (key===fxActual?' sel':'');
+    b.setAttribute('data-fx', key);
+    b.setAttribute('data-qa', 'fx-'+key);
+    b.innerHTML = '<span class="emo">'+FXS[key].emoji+'</span><span class="nom">'+FXS[key].nombre+'</span>';
+    b.addEventListener('click', function(){
+      fxActual = key;
+      var cards = grid.querySelectorAll('.fx-card');
+      for(var i=0;i<cards.length;i++) cards[i].classList.remove('sel');
+      b.classList.add('sel');
+    });
+    grid.appendChild(b);
+  });
+}
+
+/* ============ MODO MUÑECO ============ */
+function trabajoCanvas(){
+  var maxD = 720;
+  var s = Math.min(1, maxD/Math.max(img.width, img.height));
+  var cv = document.createElement('canvas');
+  cv.width = Math.max(2, Math.round(img.width*s));
+  cv.height = Math.max(2, Math.round(img.height*s));
+  cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height);
+  return cv;
+}
+/* Recorte inteligente: crece desde los bordes del papel, aguanta
+   sombras y degradados, y de paso quita papel encerrado (pase global) */
+function recortarFondo(){
+  if(!img) return;
+  recortarBase(trabajoCanvas(), 'img');
+}
+function recortarBase(base, fuente){
+  var W = base.width, H = base.height, N = W*H;
+  var sc = base.getContext('2d');
+  var dat = sc.getImageData(0,0,W,H), d = dat.data;
+  var tol = muTolVal*1.35;
+  var bg = new Uint8Array(N);
+  var cola = new Int32Array(N*3);
+  var ini = 0, fin = 0, x, y, p, k;
+  for(x=0;x<W;x++){ cola[fin++]=x; cola[fin++]=(H-1)*W+x; }
+  for(y=1;y<H-1;y++){ cola[fin++]=y*W; cola[fin++]=y*W+W-1; }
+  while(ini<fin){
+    p = cola[ini++];
+    if(bg[p]) continue;
+    bg[p] = 1;
+    var px = p%W, py = (p-px)/W;
+    var r = d[p*4], g = d[p*4+1], b = d[p*4+2], a = d[p*4+3];
+    for(k=0;k<4;k++){
+      var nx = px + (k===0 ? 1 : k===1 ? -1 : 0);
+      var ny = py + (k===2 ? 1 : k===3 ? -1 : 0);
+      if(nx<0||ny<0||nx>=W||ny>=H) continue;
+      var q = ny*W+nx;
+      if(bg[q] || fin>=cola.length) continue;
+      if(d[q*4+3] < 40 && a < 40){ cola[fin++]=q; continue; }
+      var dif = Math.abs(d[q*4]-r)*2 + Math.abs(d[q*4+1]-g)*3 + Math.abs(d[q*4+2]-b);
+      if(dif < tol) cola[fin++]=q;
+    }
+  }
+  var sr=0, sg=0, sb=0, n=0;
+  for(x=0;x<W;x++){ p=x*4; sr+=d[p]; sg+=d[p+1]; sb+=d[p+2]; n++;
+                    p=((H-1)*W+x)*4; sr+=d[p]; sg+=d[p+1]; sb+=d[p+2]; n++; }
+  for(y=0;y<H;y++){ p=(y*W)*4; sr+=d[p]; sg+=d[p+1]; sb+=d[p+2]; n++;
+                    p=(y*W+W-1)*4; sr+=d[p]; sg+=d[p+1]; sb+=d[p+2]; n++; }
+  sr/=n; sg/=n; sb/=n;
+  var tolG = tol*0.6;
+  for(p=0;p<N;p++){
+    if(bg[p]) continue;
+    if(Math.abs(d[p*4]-sr)*2 + Math.abs(d[p*4+1]-sg)*3 + Math.abs(d[p*4+2]-sb) < tolG) bg[p]=1;
+  }
+  for(p=0;p<N;p++){ if(bg[p]) d[p*4+3]=0; }
+  for(y=1;y<H-1;y++){
+    for(x=1;x<W-1;x++){
+      p=y*W+x;
+      if(d[p*4+3]<250) continue;
+      if(d[(p-1)*4+3]<10 || d[(p+1)*4+3]<10 || d[(p-W)*4+3]<10 || d[(p+W)*4+3]<10) d[p*4+3]=140;
+    }
+  }
+  sc.putImageData(dat,0,0);
+  spriteOrig = document.createElement('canvas');
+  spriteOrig.width=W; spriteOrig.height=H;
+  spriteOrig.getContext('2d').drawImage(base,0,0);
+  spriteEd = document.createElement('canvas');
+  spriteEd.width=W; spriteEd.height=H;
+  spriteEd.getContext('2d').drawImage(base,0,0);
+  spriteDe = fuente;
+  muUndoPila.length = 0;
+  tiSucio = true;
+  reencuadrar();
+  dibujarMuCut();
+  if(modo === 'ti'){
+    tiPts = {};
+    tiWiz = 0;
+    tiSucio = true;
+    tiPintarEditor();
+    tiWizMostrar();
+  }
+  $('btnGif').disabled = false;
+  $('btnVideo').disabled = !window.MediaRecorder;
+}
+function reencuadrar(){
+  sprCrop = null;
+  if(!spriteEd) return;
+  var W = spriteEd.width, H = spriteEd.height;
+  var d = spriteEd.getContext('2d').getImageData(0,0,W,H).data;
+  var minX=W, minY=H, maxX=-1, maxY=-1, y, x;
+  for(y=0;y<H;y++){
+    for(x=0;x<W;x++){
+      if(d[(y*W+x)*4+3] > 14){
+        if(x<minX)minX=x; if(x>maxX)maxX=x; if(y<minY)minY=y; if(y>maxY)maxY=y;
+      }
+    }
+  }
+  if(maxX<0){ sprCrop = spriteEd; return; }
+  var pad = 3;
+  minX=Math.max(0,minX-pad); minY=Math.max(0,minY-pad);
+  maxX=Math.min(W-1,maxX+pad); maxY=Math.min(H-1,maxY+pad);
+  sprCrop = document.createElement('canvas');
+  sprCrop.width = maxX-minX+1; sprCrop.height = maxY-minY+1;
+  sprCrop.getContext('2d').drawImage(spriteEd, minX, minY, sprCrop.width, sprCrop.height, 0, 0, sprCrop.width, sprCrop.height);
+}
+function dibujarMuCut(){
+  var cv = $('muCut');
+  if(!spriteEd){
+    cv.width = 320; cv.height = 200;
+    var c0 = cv.getContext('2d');
+    c0.clearRect(0,0,320,200);
+    c0.fillStyle = '#9a9a9a'; c0.font = '700 15px Montserrat,sans-serif'; c0.textAlign='center';
+    c0.fillText(img ? 'Tu recorte aparecerá aquí ✂️' : 'Sube un dibujo para empezar 📷', 160, 100);
+    return;
+  }
+  var s = Math.min(1, 320/spriteEd.width, 290/spriteEd.height);
+  cv.width = Math.max(40, Math.round(spriteEd.width*s));
+  cv.height = Math.max(40, Math.round(spriteEd.height*s));
+  cv.getContext('2d').drawImage(spriteEd, 0, 0, cv.width, cv.height);
+}
+
+/* --- escenas y movimientos --- */
+function dibujarCielo(c,W,H){
+  var g = c.createLinearGradient(0,0,0,H);
+  g.addColorStop(0,'#8ed7f7'); g.addColorStop(0.65,'#cdeffd'); g.addColorStop(1,'#eafaf1');
+  c.fillStyle=g; c.fillRect(0,0,W,H);
+  c.fillStyle='rgba(255,215,107,.35)';
+  c.beginPath(); c.arc(W*0.85,H*0.14,Math.min(W,H)*0.115,0,DOS_PI); c.fill();
+  c.fillStyle='#ffd76b';
+  c.beginPath(); c.arc(W*0.85,H*0.14,Math.min(W,H)*0.075,0,DOS_PI); c.fill();
+}
+function nube(c,x,y,s){
+  c.fillStyle='rgba(255,255,255,.92)';
+  c.beginPath();
+  c.arc(x,y,s*0.5,0,DOS_PI); c.arc(x+s*0.5,y-s*0.18,s*0.42,0,DOS_PI); c.arc(x+s,y,s*0.5,0,DOS_PI);
+  c.rect(x-s*0.5,y,s*1.5,s*0.5);
+  c.fill();
+}
+function dibujarPradera(c,W,H){
+  dibujarCielo(c,W,H);
+  nube(c,W*0.18,H*0.16,W*0.10); nube(c,W*0.55,H*0.10,W*0.08);
+  var gy = H*0.76;
+  var g = c.createLinearGradient(0,gy,0,H);
+  g.addColorStop(0,'#7ecb63'); g.addColorStop(1,'#4d9e3f');
+  c.fillStyle=g; c.fillRect(0,gy,W,H-gy);
+  c.strokeStyle='rgba(46,110,40,.55)'; c.lineWidth=Math.max(1.5,W*0.004);
+  for(var i=0;i<14;i++){
+    var hx=(i*W/13+W*0.03)%W, hh=H*0.028+((i*37)%17)/17*H*0.02;
+    c.beginPath(); c.moveTo(hx,gy+2); c.quadraticCurveTo(hx+W*0.012,gy-hh*0.6,hx+W*0.02,gy-hh); c.stroke();
+  }
+  var cols=['#ff8fb3','#ffd76b','#ffffff'];
+  for(var j=0;j<7;j++){
+    var fx=((j*W/6.5)+W*0.05)%W, fy=gy+H*0.06+((j*53)%40)/40*H*0.08;
+    c.fillStyle='rgba(255,255,255,.25)'; c.beginPath(); c.arc(fx,fy,W*0.013,0,DOS_PI); c.fill();
+    c.fillStyle=cols[j%3]; c.beginPath(); c.arc(fx,fy,W*0.008,0,DOS_PI); c.fill();
+  }
+}
+function sombra(c,x,y,rx,ry,a){
+  c.fillStyle='rgba(0,0,0,'+a+')';
+  c.beginPath(); c.ellipse(x,y,rx,ry,0,0,DOS_PI); c.fill();
+}
+function pintarSprite(c,x,y,h,rot,sx,sy){
+  if(!sprCrop) return;
+  var w = h*sprCrop.width/sprCrop.height;
+  c.save();
+  if(modo === 'sk' && pzT !== null){
+    x += Math.sin(pzT*37)*h*0.006;
+    y += Math.cos(pzT*29)*h*0.005;
+    rot = (rot||0) + Math.sin(pzT*23)*0.012;
+  }
+  c.translate(x,y); if(rot) c.rotate(rot); c.scale(sx||1, sy||1);
+  c.drawImage(sprCrop, -w/2, -h/2, w, h);
+  c.restore();
+}
+function escenaDisco(c,W,H,t){
+  var g=c.createLinearGradient(0,0,0,H);
+  g.addColorStop(0,'#3b2b58'); g.addColorStop(1,'#8340a1');
+  c.fillStyle=g; c.fillRect(0,0,W,H);
+  var cols=['#ffd76b','#ff8fb3','#7be0ff','#a5f27b','#ffffff'];
+  for(var i=0;i<16;i++){
+    var s=(i*127.3)%1;
+    var cy=((s+t*0.55)%1)*H, cx=((i*0.618)%1)*W + Math.sin(t*DOS_PI*2+i)*W*0.02;
+    c.fillStyle=cols[i%5]; c.globalAlpha=0.85;
+    c.fillRect(cx, cy, W*0.012, W*0.02);
+  }
+  c.globalAlpha=1;
+  c.fillStyle='rgba(0,0,0,.28)'; c.fillRect(0,H*0.82,W,H*0.18);
+  c.fillStyle='rgba(255,255,255,.10)';
+  c.beginPath(); c.ellipse(W*0.5,H*0.86,W*0.34,H*0.05,0,0,DOS_PI); c.fill();
+}
+var MU = {
+  caminar:{ emoji:'🚶', nombre:'Caminar', draw:function(c,W,H,t){
+    dibujarPradera(c,W,H);
+    if(!sprCrop) return;
+    var h=H*0.34, w=h*sprCrop.width/sprCrop.height;
+    var gy=H*0.78;
+    var x=-w*0.6 + t*(W + w*1.2);
+    var paso=Math.sin(t*DOS_PI*4);
+    var y=gy - h*0.52 - Math.abs(paso)*h*0.07;
+    sombra(c, x, gy+H*0.012, w*0.38, H*0.016, 0.22);
+    pintarSprite(c, x, y, h, paso*0.055, 1, 1-0.03*Math.max(0,paso));
+  }},
+  volar:{ emoji:'🕊️', nombre:'Volar', draw:function(c,W,H,t){
+    dibujarCielo(c,W,H);
+    nube(c, ((W*0.25-t*W*0.35)%(W*1.3)+W*1.3)%(W*1.3)-W*0.15, H*0.18, W*0.09);
+    nube(c, ((W*0.7-t*W*0.5)%(W*1.3)+W*1.3)%(W*1.3)-W*0.15, H*0.10, W*0.07);
+    nube(c, ((W*1.05-t*W*0.25)%(W*1.3)+W*1.3)%(W*1.3)-W*0.15, H*0.30, W*0.11);
+    if(!sprCrop) return;
+    var h=H*0.30, w=h*sprCrop.width/sprCrop.height;
+    var x=-w*0.7 + t*(W + w*1.4);
+    var y=H*0.42 + Math.sin(t*DOS_PI*2)*H*0.085;
+    c.strokeStyle='rgba(255,255,255,.6)'; c.lineWidth=Math.max(1,W*0.004);
+    for(var i=0;i<3;i++){
+      var ly=y+(i-1)*h*0.32;
+      c.beginPath(); c.moveTo(x-w*0.62,ly); c.lineTo(x-w*0.62-W*0.05,ly); c.stroke();
+    }
+    sombra(c, x, H*0.90, w*0.30, H*0.012, 0.14);
+    pintarSprite(c, x, y, h, Math.cos(t*DOS_PI*2)*0.09, 1, 1+0.10*Math.sin(t*DOS_PI*7));
+  }},
+  saltar:{ emoji:'🦘', nombre:'Saltar', draw:function(c,W,H,t){
+    dibujarPradera(c,W,H);
+    if(!sprCrop) return;
+    var h=H*0.36, w=h*sprCrop.width/sprCrop.height;
+    var gy=H*0.80;
+    var p=(t*2)%1;
+    var salto=Math.sin(p*Math.PI);
+    var y=gy - h*0.5 - salto*H*0.22;
+    var sx=1-0.10*salto, sy=1+0.10*salto;
+    if(p<0.12){ sy=0.86; sx=1.10; }
+    if(p>0.86){ sy=0.90; sx=1.08; }
+    sombra(c, W*0.5, gy+H*0.012, w*0.40*(1-0.45*salto), H*0.016*(1-0.45*salto), 0.22*(1-0.5*salto));
+    pintarSprite(c, W*0.5, y, h, salto*0.08, sx, sy);
+  }},
+  bailar:{ emoji:'💃', nombre:'Bailar', draw:function(c,W,H,t){
+    escenaDisco(c,W,H,t);
+    if(!sprCrop) return;
+    var h=H*0.44, w=h*sprCrop.width/sprCrop.height;
+    var sway=Math.sin(t*DOS_PI*3);
+    var x=W*0.5 + Math.sin(t*DOS_PI*1.5)*W*0.045;
+    var y=H*0.60 - Math.abs(sway)*H*0.03;
+    sombra(c, W*0.5, H*0.865, w*0.34, H*0.014, 0.30);
+    pintarSprite(c, x, y, h, sway*0.17, 1+0.04*Math.sin(t*DOS_PI*6), 1-0.04*Math.sin(t*DOS_PI*6));
+  }},
+  nadar:{ emoji:'🏊', nombre:'Nadar', draw:function(c,W,H,t){
+    dibujarCielo(c,W,H);
+    var wy=H*0.22;
+    var g=c.createLinearGradient(0,wy,0,H);
+    g.addColorStop(0,'#57c7f0'); g.addColorStop(1,'#1c6fae');
+    c.fillStyle=g; c.fillRect(0,wy,W,H-wy);
+    c.fillStyle='rgba(255,255,255,.5)'; c.fillRect(0,wy,W,H*0.008);
+    c.strokeStyle='rgba(255,255,255,.55)'; c.lineWidth=Math.max(1,W*0.003);
+    for(var i=0;i<9;i++){
+      var s=(i*0.173)%1;
+      var by=H-(((s+t*0.45)%1)*(H-wy))*0.96 - wy*0.4;
+      var bx=((i*0.37)%1)*W + Math.sin(by*0.05+i)*W*0.02;
+      c.beginPath(); c.arc(bx,by,W*(0.006+0.006*((i*7)%3)/2),0,DOS_PI); c.stroke();
+    }
+    c.fillStyle='rgba(255,255,255,.10)';
+    c.beginPath(); c.moveTo(W*0.15,wy); c.lineTo(W*0.38,wy); c.lineTo(W*0.62,H); c.lineTo(W*0.2,H); c.fill();
+    if(!sprCrop) return;
+    var h=H*0.28, w=h*sprCrop.width/sprCrop.height;
+    var x=-w*0.6 + t*(W+w*1.2);
+    var y=H*0.52 + Math.sin(t*DOS_PI*2.5)*H*0.045;
+    sombra(c, x, H*0.90, w*0.30, H*0.012, 0.10);
+    pintarSprite(c, x, y, h, Math.sin(t*DOS_PI*2.5)*0.07, 1, 1+0.05*Math.sin(t*DOS_PI*5));
+  }}
+};
+function buildMuGrid(){
+  var grid = $('muGrid');
+  Object.keys(MU).forEach(function(key){
+    var b = document.createElement('button');
+    b.className = 'fx-card' + (key===muActual?' sel':'');
+    b.setAttribute('data-mu', key);
+    b.setAttribute('data-qa', 'mu-'+key);
+    b.innerHTML = '<span class="emo">'+MU[key].emoji+'</span><span class="nom">'+MU[key].nombre+'</span>';
+    b.addEventListener('click', function(){
+      muActual = key;
+      var cards = grid.querySelectorAll('.fx-card');
+      for(var i=0;i<cards.length;i++) cards[i].classList.remove('sel');
+      b.classList.add('sel');
+    });
+    grid.appendChild(b);
+  });
+}
+
+/* ============ MODO DIBUJA: pizarra mágica ============ */
+var DICC = {
+  caminar: ['raton','mouse','perro','gato','conejo','persona','nino','nina','mono','oso','leon','tigre','caballo','vaca','cerdo','gallina','pollo','pato','zorro','lobo','dino','dinosaurio','robot','abuela','abuelo','papa','mama','tio','tia','muneco','elefante','jirafa','oveja','cabra','hormiga','caracol','serpiente'],
+  volar: ['pajaro','pajar','ave','aguila','loro','paloma','gaviota','abeja','avispa','mariposa','mosca','libelula','murcielago','dragon','avion','avioneta','helicoptero','cohete','superheroe','hada','angel','ovni','cometa','dron'],
+  saltar: ['rana','sapo','canguro','grillo','pulga','conejito'],
+  bailar: ['bailarina','bailarin','baile','fiesta','musica'],
+  nadar: ['pez','pece','pescao','pescado','tiburon','delfin','ballena','pulpo','calamar','tortuga','submarino','pinguino','foca','medusa','sirena','cangrejo']
+};
+function normalizarTxt(s){
+  return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+}
+var pzStrokes = [], pzDibujo = null;
+var pzColor = '#1a1a1a', pzW = 8, pzGoma = false;
+var pzDibujarOn = true, pzDrawDur = 3, pzListo = false, pzT = null;
+function pizTrazar(c, esc, ox, oy){
+  ox = ox||0; oy = oy||0;
+  c.lineCap = 'round'; c.lineJoin = 'round';
+  for(var i=0;i<pzStrokes.length;i++){
+    var s = pzStrokes[i];
+    if(!s.pts.length) continue;
+    c.strokeStyle = s.color; c.lineWidth = Math.max(1, s.w*esc);
+    c.beginPath();
+    c.moveTo(ox+s.pts[0].x*esc, oy+s.pts[0].y*esc);
+    if(s.pts.length === 1) c.lineTo(ox+s.pts[0].x*esc+0.01, oy+s.pts[0].y*esc);
+    for(var j=1;j<s.pts.length;j++) c.lineTo(ox+s.pts[j].x*esc, oy+s.pts[j].y*esc);
+    c.stroke();
+  }
+}
+function pizRepintar(){
+  var cv = $('pizCanvas'), c = cv.getContext('2d');
+  c.fillStyle = '#fff'; c.fillRect(0,0,cv.width,cv.height);
+  pizTrazar(c, 1, 0, 0);
+}
+function pizRasterizar(){
+  var cv = document.createElement('canvas');
+  cv.width = 720; cv.height = 540;
+  var c = cv.getContext('2d');
+  c.fillStyle = '#fff'; c.fillRect(0,0,720,540);
+  pizTrazar(c, 1, 0, 0);
+  return cv;
+}
+function pizRehacerSprite(){
+  if(!pzStrokes.length){ pzListo = false; return; }
+  recortarBase(pizRasterizar(), 'sk');
+  pzListo = true;
+}
+function pizPuntosTotales(){
+  var n = 0;
+  for(var i=0;i<pzStrokes.length;i++) n += pzStrokes[i].pts.length;
+  return n;
+}
+function pizDibujarProgresivo(c, W, H, p){
+  c.fillStyle = '#fff'; c.fillRect(0,0,W,H);
+  var esc = Math.min(W/720, H/540);
+  var ox = (W-720*esc)/2, oy = (H-540*esc)/2;
+  var total = pizPuntosTotales();
+  var meta = Math.max(1, Math.round(total*p));
+  var conta = 0;
+  c.lineCap = 'round'; c.lineJoin = 'round';
+  for(var i=0;i<pzStrokes.length && conta<meta;i++){
+    var s = pzStrokes[i];
+    if(!s.pts.length) continue;
+    c.strokeStyle = s.color; c.lineWidth = Math.max(1, s.w*esc);
+    c.beginPath();
+    c.moveTo(ox+s.pts[0].x*esc, oy+s.pts[0].y*esc);
+    if(s.pts.length === 1){ conta++; c.lineTo(ox+s.pts[0].x*esc+0.01, oy+s.pts[0].y*esc); c.stroke(); continue; }
+    for(var j=1;j<s.pts.length;j++){
+      conta++;
+      c.lineTo(ox+s.pts[j].x*esc, oy+s.pts[j].y*esc);
+      if(conta >= meta) break;
+    }
+    c.stroke();
+  }
+}
+function pzPrompt(){
+  if(!pzStrokes.length){ toast('Primero dibuja algo ✏️'); return; }
+  var txt = normalizarTxt($('skPrompt').value);
+  var hallado = null;
+  if(txt){
+    /* variantes: palabras completas + sin diminutivos (pececito→pece, gatito→gat…) */
+    var tokens = txt.split(/[^a-z0-9ñ]+/);
+    var variantes = [];
+    for(var v=0;v<tokens.length;v++){
+      var tk = tokens[v];
+      if(tk.length >= 3) variantes.push(tk);
+      var sin = tk.replace(/(cito|cita|citos|citas|ito|ita|itos|itas|illo|illa|otes|ote|ota)$/, '');
+      if(sin.length >= 3 && sin !== tk) variantes.push(sin);
+    }
+    var claves = Object.keys(DICC);
+    for(var i=0;i<claves.length && !hallado;i++){
+      var lista = DICC[claves[i]];
+      for(var j=0;j<lista.length && !hallado;j++){
+        var w = lista[j];
+        for(var x2=0;x2<variantes.length;x2++){
+          var vr = variantes[x2];
+          if(vr.indexOf(w) !== -1 || (vr.length >= 3 && w.indexOf(vr) === 0)){ hallado = claves[i]; break; }
+        }
+      }
+    }
+    if(hallado){
+      muActual = hallado;
+      var cards = $('muGrid').querySelectorAll('.fx-card');
+      for(var k=0;k<cards.length;k++) cards[k].classList.toggle('sel', cards[k].getAttribute('data-mu') === hallado);
+      toast('¡' + MU[hallado].nombre + '! 🪄');
+    } else {
+      toast('No conozco ese bicho 😅 elige el movimiento abajo');
+    }
+  }
+  pizRehacerSprite();
+  ocultarResultado();
+  iniciarLoop();
+  setTimeout(function(){ $('preview').scrollIntoView({behavior:'smooth', block:'center'}); }, 80);
+}
+
+/* ============ MODO TÍTERE: muñeco con articulaciones (estilo Meta) ============ */
+/* Articulaciones normalizadas (0..1) para sobrevivir a re-recortes de la foto */
+function tiAbs(p){ return { x:p.x*sprCrop.width, y:p.y*sprCrop.height }; }
+function tiLinea(a,b,k){ return { x:a.x+(b.x-a.x)*k, y:a.y+(b.y-a.y)*k }; }
+function tiAdivinar(){
+  if(!sprCrop) return null;
+  var W=sprCrop.width, H=sprCrop.height;
+  var d = sprCrop.getContext('2d').getImageData(0,0,W,H).data;
+  var U = 60, y, x;
+  var topY = -1;
+  for(y=0; y<H && topY<0; y++){ for(x=0;x<W;x++){ if(d[(y*W+x)*4+3] > U){ topY=y; break; } } }
+  if(topY < 0) return null;
+  /* cabeza: centroide X de la franja superior */
+  var hx=0, hn=0;
+  for(y=topY; y<Math.min(H, topY+H*0.25); y++){
+    for(x=0;x<W;x++){ if(d[(y*W+x)*4+3] > U){ hx+=x; hn++; } }
+  }
+  if(!hn) return null;
+  hx/=hn;
+  var cabeza = { x:hx/W, y:Math.min(0.30, (topY + H*0.11)/H) };
+  /* manos: extremo izquierdo/derecho en la franja del torso */
+  var mIx=-1, mIy=0, mDx=-1, mDy=0;
+  for(y=Math.round(H*0.25); y<H*0.72; y++){
+    for(x=0;x<W;x++){
+      if(d[(y*W+x)*4+3] > U){
+        if(mIx<0 || x<mIx){ mIx=x; mIy=y; }
+        if(x>mDx){ mDx=x; mDy=y; }
+      }
+    }
+  }
+  if(mIx<0){ mIx=W*0.12; mIy=H*0.45; mDx=W*0.88; mDy=H*0.45; }
+  if(mDx<=mIx){ mIx=W*0.15; mDx=W*0.85; mIy=H*0.45; mDy=H*0.45; }
+  var manoI = { x:mIx/W, y:mIy/H }, manoD = { x:mDx/W, y:mDy/H };
+  /* pies: dos grupos en la franja baja */
+  var bI={sx:0,sy:0,n:0}, bD={sx:0,sy:0,n:0};
+  for(y=Math.round(H*0.80); y<H; y++){
+    for(x=0;x<W;x++){
+      if(d[(y*W+x)*4+3] > U){
+        if(x < W/2){ bI.sx+=x; bI.sy+=y; bI.n++; }
+        else { bD.sx+=x; bD.sy+=y; bD.n++; }
+      }
+    }
+  }
+  var pieI, pieD;
+  if(bI.n>4 && bD.n>4){
+    pieI = { x:(bI.sx/bI.n)/W, y:(bI.sy/bI.n)/H };
+    pieD = { x:(bD.sx/bD.n)/W, y:(bD.sy/bD.n)/H };
+  } else { pieI = { x:0.38, y:0.93 }; pieD = { x:0.62, y:0.93 }; }
+  if(Math.abs(pieI.x-pieD.x) < 0.06){ var cxb=(pieI.x+pieD.x)/2; pieI={x:cxb-0.07,y:pieI.y}; pieD={x:cxb+0.07,y:pieD.y}; }
+  /* cadera: centroide de la franja media-baja */
+  var cx2=0, cy2=0, cn=0;
+  for(y=Math.round(H*0.50); y<H*0.68; y++){
+    for(x=0;x<W;x++){ if(d[(y*W+x)*4+3] > U){ cx2+=x; cy2+=y; cn++; } }
+  }
+  var cadera = cn ? { x:cx2/cn/W, y:cy2/cn/H } : { x:0.5, y:0.58 };
+  if(cadera.y < cabeza.y + 0.15) cadera.y = Math.min(0.80, cabeza.y + 0.22);
+  if(cadera.y > 0.80) cadera.y = 0.72;
+  return { cabeza:cabeza, cadera:cadera, manoI:manoI, manoD:manoD, pieI:pieI, pieD:pieD };
+}
+function tiRadioCabeza(){
+  var a = tiAbs(tiPts.cabeza), b = tiAbs(tiPts.cadera);
+  var min = Math.min(sprCrop.width, sprCrop.height);
+  var r = Math.hypot(b.x-a.x, b.y-a.y)*0.42;
+  return Math.max(min*0.10, Math.min(min*0.24, r));
+}
+function tiCap(c, a, b, r){
+  var ang = Math.atan2(b.y-a.y, b.x-a.x);
+  c.beginPath();
+  c.arc(a.x, a.y, r, ang+Math.PI/2, ang-Math.PI/2);
+  c.arc(b.x, b.y, r, ang-Math.PI/2, ang+Math.PI/2);
+  c.closePath();
+}
+/* Pieza = recorte del sprite dentro de las formas "mantener", quitando "quitar" */
+function tiPieza(mantener, quitar){
+  var W = sprCrop.width, H = sprCrop.height;
+  var cv = document.createElement('canvas');
+  cv.width=W; cv.height=H;
+  var c = cv.getContext('2d');
+  c.drawImage(sprCrop, 0, 0);
+  var m = document.createElement('canvas');
+  m.width=W; m.height=H;
+  var cm = m.getContext('2d');
+  cm.fillStyle = '#fff';
+  for(var i=0;i<mantener.length;i++){ cm.beginPath(); mantener[i](cm); cm.fill(); }
+  c.save();
+  c.globalCompositeOperation = 'destination-in';
+  c.drawImage(m, 0, 0);
+  c.globalCompositeOperation = 'destination-out';
+  c.fillStyle = '#000';
+  for(i=0;i<quitar.length;i++){ c.beginPath(); quitar[i](c); c.fill(); }
+  c.restore();
+  return cv;
+}
+function tiCoreListo(){
+  return !!tiPts && tiPts.cabeza !== undefined && tiPts.cadera !== undefined &&
+         tiPts.pieI !== undefined && tiPts.pieD !== undefined;
+}
+function tiConstruir(){
+  if(!sprCrop || !tiCoreListo()){ tiPiezas = null; return; }
+  var P = {}, k;
+  var conBrazos = tiPts.manoI !== undefined && tiPts.manoD !== undefined && !tiSinBrazos;
+  var base = {
+    cabeza:tiPts.cabeza, cadera:tiPts.cadera, pieI:tiPts.pieI, pieD:tiPts.pieD,
+    manoI: tiPts.manoI || tiPts.cabeza, manoD: tiPts.manoD || tiPts.cabeza
+  };
+  for(k in base) P[k] = tiAbs(base[k]);
+  var min = Math.min(sprCrop.width, sprCrop.height);
+  var rC = tiRadioCabeza();
+  var dCC = Math.max(1, Math.hypot(P.cadera.x-P.cabeza.x, P.cadera.y-P.cabeza.y));
+  var cuello = tiLinea(P.cabeza, P.cadera, Math.min(0.9, rC*1.05/dCC));
+  var hI = tiLinea(cuello, P.manoI, 0.16), hD = tiLinea(cuello, P.manoD, 0.16);
+  var rB = Math.max(min*0.045, Math.min(min*0.14, Math.hypot(P.manoI.x-hI.x, P.manoI.y-hI.y)*0.32));
+  var cI = tiLinea(P.cadera, P.pieI, 0.12), cD = tiLinea(P.cadera, P.pieD, 0.12);
+  var rP = Math.max(min*0.045, Math.min(min*0.14, Math.hypot(P.pieI.x-cI.x, P.pieI.y-cI.y)*0.30));
+  var rectT = function(c){ c.rect(0, 0, sprCrop.width, sprCrop.height); };
+  var circ = function(pt, r){ return function(c){ c.arc(pt.x, pt.y, r, 0, DOS_PI); c.closePath(); }; };
+  var cap = function(a,b,r){ return function(c){ tiCap(c,a,b,r); }; };
+  var cabezaC = circ(P.cabeza, rC);
+  var quitarTorso = conBrazos
+    ? [circ(P.cabeza, rC*0.50), cap(hI,P.manoI,rB*0.80), cap(hD,P.manoD,rB*0.80), cap(cI,P.pieI,rP*0.80), cap(cD,P.pieD,rP*0.80)]
+    : [circ(P.cabeza, rC*0.50), cap(cI,P.pieI,rP*0.80), cap(cD,P.pieD,rP*0.80)];
+  tiPiezas = {
+    cabeza:  tiPieza([circ(P.cabeza, rC*1.10)], []),
+    torso:   tiPieza([rectT], quitarTorso),
+    brazoI:  conBrazos ? tiPieza([cap(hI,P.manoI,rB)], [cabezaC]) : null,
+    brazoD:  conBrazos ? tiPieza([cap(hD,P.manoD,rB)], [cabezaC]) : null,
+    piernaI: tiPieza([cap(cI,P.pieI,rP)], [cabezaC]),
+    piernaD: tiPieza([cap(cD,P.pieD,rP)], [cabezaC])
+  };
+  tiPiv = { cabeza:cuello, torso:P.cadera, brazoI:hI, brazoD:hD, piernaI:cI, piernaD:cD };
+}
+/* --- asistente guiado --- */
+function tiWizMostrar(){
+  var w = $('tiWiz');
+  w.hidden = false;
+  if(!sprCrop){
+    w.classList.remove('listo');
+    w.innerHTML = (img || pzStrokes.length) ? 'Recortando tu muñeco… ✂️' : 'Sube un dibujo para empezar 📷';
+    tiPintaChips();
+    return;
+  }
+  if(tiWiz < 0 || tiWiz >= TI_SEC.length){
+    tiWiz = -1;
+    w.classList.add('listo');
+    w.innerHTML = '¡Muñeco listo! 🎉 Arrastra los puntitos si quieres ajustarlos';
+  } else {
+    w.classList.remove('listo');
+    w.innerHTML = '<span class="paso">Paso ' + (tiWiz+1) + ' de ' + TI_SEC.length + ':</span> ' + TI_LBL[TI_SEC[tiWiz]];
+  }
+  tiPintaChips();
+}
+function tiPintaChips(){
+  var chips = $('tiChips').querySelectorAll('.ti-chip');
+  for(var i=0;i<chips.length;i++){
+    var k = TI_SEC[i];
+    var puesto = !!(tiPts && tiPts[k] !== undefined);
+    chips[i].classList.toggle('done', puesto);
+    chips[i].classList.toggle('now', tiWiz === i);
+    chips[i].classList.toggle('skip', tiSinBrazos && (k==='manoI' || k==='manoD'));
+    chips[i].title = TI_LBL[k].replace(/^[^ ]+ /, '');
+  }
+}
+function tiBuildChips(){
+  var cont = $('tiChips');
+  cont.innerHTML = '';
+  for(var i=0;i<TI_SEC.length;i++){
+    var b = document.createElement('button');
+    b.className = 'chip ti-chip';
+    b.setAttribute('data-qa', 'ti-chip-'+TI_SEC[i]);
+    b.textContent = TI_LBL[TI_SEC[i]].split(' ')[0];
+    (function(idx){
+      b.addEventListener('click', function(){
+        if(!sprCrop){ toast('Primero sube un dibujo 📷'); return; }
+        if(tiPts && tiPts[TI_SEC[idx]] !== undefined){
+          tiWiz = -1; tiWizMostrar();
+          toast('Ese ya está puesto — arrástralo para ajustarlo 🎯');
+          return;
+        }
+        tiWiz = idx;
+        tiWizMostrar();
+      });
+    })(i);
+    cont.appendChild(b);
+  }
+  tiPintaChips();
+}
+function tiPonerPunto(p, cv){
+  if(tiWiz < 0 || tiWiz >= TI_SEC.length) return;
+  var k = TI_SEC[tiWiz];
+  tiPts = tiPts || {};
+  tiPts[k] = { x:Math.max(0, Math.min(1, p.x/cv.width)), y:Math.max(0, Math.min(1, p.y/cv.height)) };
+  tiWiz++;
+  if(tiSinBrazos && k === 'pieD') tiWiz = TI_SEC.length;
+  tiSucio = true;
+  tiPintarEditor();
+  if(tiWiz >= TI_SEC.length){
+    tiWizMostrar();
+    toast('¡Muñeco listo! Elige cómo se mueve 👇');
+    setTimeout(function(){ $('preview').scrollIntoView({behavior:'smooth', block:'center'}); }, 300);
+  } else {
+    tiWizMostrar();
+  }
+}
+function tiPintarEditor(){
+  var cv = $('tiEdit'), c = cv.getContext('2d');
+  if(!sprCrop){
+    cv.width=320; cv.height=200;
+    c.clearRect(0,0,320,200);
+    c.fillStyle='#9a9a9a'; c.font='700 15px Montserrat,sans-serif'; c.textAlign='center';
+    c.fillText((img || pzStrokes.length) ? 'Recortando tu muñeco… ✂️' : 'Sube un dibujo para empezar 📷', 160, 100);
+    return;
+  }
+  var s = Math.min(1, 340/sprCrop.width, 250/sprCrop.height);
+  cv.width = Math.max(40, Math.round(sprCrop.width*s));
+  cv.height = Math.max(40, Math.round(sprCrop.height*s));
+  c.clearRect(0,0,cv.width,cv.height);
+  c.drawImage(sprCrop, 0, 0, cv.width, cv.height);
+  tiEsc = s;
+  if(!tiPts) return;
+  var A = {}, k;
+  for(k in tiPts){ if(tiPts[k]) A[k] = { x:tiPts[k].x*cv.width, y:tiPts[k].y*cv.height }; }
+  c.strokeStyle='rgba(245,157,61,.95)'; c.lineWidth=3; c.setLineDash([7,6]);
+  if(A.cabeza && A.cadera){
+    var en = tiLinea(A.cabeza, A.cadera, 0.55);
+    c.beginPath();
+    c.moveTo(A.cabeza.x, A.cabeza.y); c.lineTo(A.cadera.x, A.cadera.y);
+    if(A.manoI){ c.moveTo(en.x, en.y); c.lineTo(A.manoI.x, A.manoI.y); }
+    if(A.manoD){ c.moveTo(en.x, en.y); c.lineTo(A.manoD.x, A.manoD.y); }
+    if(A.pieI){ c.moveTo(A.cadera.x, A.cadera.y); c.lineTo(A.pieI.x, A.pieI.y); }
+    if(A.pieD){ c.moveTo(A.cadera.x, A.cadera.y); c.lineTo(A.pieD.x, A.pieD.y); }
+    c.stroke();
+  }
+  c.setLineDash([]);
+  var ico = { cabeza:'🧠', manoI:'👋', manoD:'👋', pieI:'🦶', pieD:'🦶', cadera:'🩲' };
+  for(k in A){
+    c.beginPath(); c.arc(A[k].x, A[k].y, 11, 0, DOS_PI);
+    c.fillStyle='rgba(13,13,13,.55)'; c.fill();
+    c.lineWidth=2.5; c.strokeStyle='#f59d3d'; c.stroke();
+    c.font='12px Montserrat,sans-serif'; c.textAlign='center'; c.textBaseline='middle';
+    c.fillText(ico[k], A[k].x, A[k].y+1);
+  }
+  /* punto que toca poner: aro pulsante arriba a la izquierda como recordatorio */
+  if(tiWiz >= 0 && tiWiz < TI_SEC.length){
+    c.beginPath(); c.arc(cv.width-18, 18, 9 + 3*Math.sin(Date.now()/180), 0, DOS_PI);
+    c.strokeStyle='rgba(245,157,61,.9)'; c.lineWidth=3; c.stroke();
+  }
+}
+(function(){
+  var cv = $('tiEdit'), arrastre = null;
+  function pos(ev){
+    var r = cv.getBoundingClientRect();
+    return { x:(ev.clientX-r.left)/r.width*cv.width, y:(ev.clientY-r.top)/r.height*cv.height };
+  }
+  cv.addEventListener('pointerdown', function(ev){
+    if(!sprCrop) return;
+    var p = pos(ev);
+    /* asistente activo: el toque PONE el puntito que falta */
+    if(tiWiz >= 0 && tiWiz < TI_SEC.length){
+      ev.preventDefault();
+      tiPonerPunto(p, cv);
+      return;
+    }
+    if(!tiPts) return;
+    var mejor = null, dMin = 30, k, dd;
+    for(k in tiPts){
+      if(!tiPts[k]) continue;
+      dd = Math.hypot(p.x - tiPts[k].x*cv.width, p.y - tiPts[k].y*cv.height);
+      if(dd < dMin){ dMin = dd; mejor = k; }
+    }
+    if(!mejor) return;
+    ev.preventDefault();
+    arrastre = mejor;
+    if(this.setPointerCapture) this.setPointerCapture(ev.pointerId);
+  });
+  cv.addEventListener('pointermove', function(ev){
+    if(!arrastre || !tiPts) return;
+    var p = pos(ev);
+    tiPts[arrastre] = { x:Math.max(0, Math.min(1, p.x/cv.width)), y:Math.max(0, Math.min(1, p.y/cv.height)) };
+    tiPintarEditor();
+  });
+  function fin(){
+    if(!arrastre) return;
+    arrastre = null;
+    tiSucio = true;
+  }
+  cv.addEventListener('pointerup', fin);
+  cv.addEventListener('pointercancel', fin);
+})();
+$('tiMagia').addEventListener('click', function(){
+  if(!sprCrop){ toast('Primero sube un dibujo 📷'); return; }
+  tiPts = tiAdivinar();
+  tiWiz = -1;
+  tiSucio = true;
+  tiPintarEditor();
+  tiWizMostrar();
+  toast('¡Puntitos colocados! Ajústalos arrastrando 🎯');
+});
+$('tiUndo').addEventListener('click', function(){
+  if(!sprCrop){ toast('Primero sube un dibujo 📷'); return; }
+  tiPts = tiPts || {};
+  for(var i=TI_SEC.length-1;i>=0;i--){
+    if(tiPts[TI_SEC[i]] !== undefined){
+      delete tiPts[TI_SEC[i]];
+      tiWiz = i;
+      tiSucio = true;
+      tiPintarEditor();
+      tiWizMostrar();
+      return;
+    }
+  }
+  toast('Aún no hay puntitos 🙂 toca tu dibujo');
+  tiWiz = 0;
+  tiWizMostrar();
+});
+$('tiReinicia').addEventListener('click', function(){
+  if(!sprCrop){ toast('Primero sube un dibujo 📷'); return; }
+  tiPts = {};
+  tiWiz = 0;
+  tiSucio = true;
+  tiPintarEditor();
+  tiWizMostrar();
+  toast('Toca tu dibujo para poner los puntitos 📍');
+});
+$('tiSinBrazos').addEventListener('click', function(){
+  tiSinBrazos = !tiSinBrazos;
+  this.classList.toggle('sel', tiSinBrazos);
+  if(tiSinBrazos && tiPts){ delete tiPts.manoI; delete tiPts.manoD; }
+  if(tiSinBrazos && tiWiz >= 4) tiWiz = TI_SEC.length;   /* ya no pedimos manos */
+  if(!tiSinBrazos && sprCrop && tiPts && tiPts.manoI === undefined && tiWiz < 0) tiWiz = 4;
+  tiSucio = true;
+  tiPintarEditor();
+  tiWizMostrar();
+  toast(tiSinBrazos ? 'Modo pollo/pez: sin brazos 🐔🐟' : 'Con brazos: toca las manos otra vez 👋');
+});
+var tiCtx = null;
+function pintarPiezaT(nom, ang){
+  var pz = tiPiezas[nom], pv = tiPiv[nom];
+  if(!pz || !pv || !tiCtx) return;
+  tiCtx.save();
+  tiCtx.translate(pv.x, pv.y);
+  if(ang) tiCtx.rotate(ang);
+  tiCtx.drawImage(pz, -pv.x, -pv.y);
+  tiCtx.restore();
+}
+/* Dibuja el títere entero. p: x o xPx, y o gy, rot, sx, sy, esc (altura del sprite
+   respecto a H) y ángulos de cabeza/brazos/piernas en radianes */
+function tiCuerpo(c, W, H, p){
+  var h = H*p.esc, s = h/sprCrop.height, w = sprCrop.width*s;
+  var ax = p.xPx !== undefined ? p.xPx : W*p.x;
+  var ay = p.gy !== undefined ? p.gy - (1-tiPts.cadera.y)*h : H*p.y;
+  if(p.sombra !== 0){
+    sombra(c, ax, H*(p.ySombra || 0.88), w*0.36, H*0.016, p.sombra === undefined ? 0.24 : p.sombra);
+  }
+  tiCtx = c;
+  c.save();
+  c.translate(ax, ay);
+  if(p.rot) c.rotate(p.rot);
+  c.scale(p.sx*s, p.sy*s);
+  c.translate(-tiPts.cadera.x*sprCrop.width, -tiPts.cadera.y*sprCrop.height);
+  pintarPiezaT('piernaI', p.piernaI);
+  pintarPiezaT('piernaD', p.piernaD);
+  pintarPiezaT('brazoI', p.brazoI);
+  pintarPiezaT('brazoD', p.brazoD);
+  pintarPiezaT('torso', 0);
+  pintarPiezaT('cabeza', p.cabeza);
+  c.restore();
+  tiCtx = null;
+}
+var TI = {
+  bailar:{ emoji:'💃', nombre:'Bailar', draw:function(c,W,H,t){
+    escenaDisco(c,W,H,t);
+    var sw = Math.sin(t*DOS_PI*3), s6 = Math.sin(t*DOS_PI*6);
+    tiCuerpo(c,W,H,{ x:0.5 + Math.sin(t*DOS_PI*1.5)*0.045, y:0.63 - Math.abs(sw)*0.028,
+      rot:sw*0.10, sx:1+0.03*s6, sy:1-0.03*s6, esc:0.46,
+      cabeza: sw*0.13, brazoI: 0.45 + s6*0.55, brazoD: -0.45 - s6*0.55,
+      piernaI: sw*0.20, piernaD: -sw*0.20, ySombra:0.865, sombra:0.30 });
+  }},
+  saltar:{ emoji:'🦘', nombre:'Saltar', draw:function(c,W,H,t){
+    dibujarPradera(c,W,H);
+    var f = (t*2)%1, salto = Math.sin(f*Math.PI);
+    var sy = 1+0.10*salto, sx = 1-0.08*salto;
+    if(f<0.12){ sy=0.86; sx=1.10; }
+    if(f>0.86){ sy=0.90; sx=1.08; }
+    tiCuerpo(c,W,H,{ x:0.5, gy:H*0.885 - salto*H*0.24, rot:salto*0.05, sx:sx, sy:sy, esc:0.40,
+      cabeza: -0.06*salto, brazoI: 1.35 + salto*0.85, brazoD: -1.35 - salto*0.85,
+      piernaI: -0.30*salto, piernaD: 0.30*salto, ySombra:0.90,
+      sombra: 0.22*(1-0.5*salto) });
+  }},
+  caminar:{ emoji:'🚶', nombre:'Caminar', draw:function(c,W,H,t){
+    dibujarPradera(c,W,H);
+    var h = H*0.36, s = h/sprCrop.height, w = sprCrop.width*s;
+    var paso = Math.sin(t*DOS_PI*4);
+    tiCuerpo(c,W,H,{ xPx: -w*0.6 + t*(W + w*1.2), gy:H*0.80 - Math.abs(paso)*h*0.07,
+      rot: paso*0.04, sx:1, sy:1-0.03*Math.max(0,paso), esc:0.36,
+      cabeza: paso*0.05, brazoI: paso*0.45, brazoD: -paso*0.45,
+      piernaI: -paso*0.55, piernaD: paso*0.55, ySombra:0.815, sombra:0.22 });
+  }},
+  volar:{ emoji:'🕊️', nombre:'Volar', draw:function(c,W,H,t){
+    dibujarCielo(c,W,H);
+    nube(c, ((W*0.25-t*W*0.35)%(W*1.3)+W*1.3)%(W*1.3)-W*0.15, H*0.18, W*0.09);
+    nube(c, ((W*0.7-t*W*0.5)%(W*1.3)+W*1.3)%(W*1.3)-W*0.15, H*0.10, W*0.07);
+    nube(c, ((W*1.05-t*W*0.25)%(W*1.3)+W*1.3)%(W*1.3)-W*0.15, H*0.30, W*0.11);
+    var aleteo = Math.sin(t*DOS_PI*6);
+    tiCuerpo(c,W,H,{ x:0.5, y:0.42 + Math.sin(t*DOS_PI*2)*0.075, rot:Math.cos(t*DOS_PI*2)*0.09,
+      sx:1, sy:1, esc:0.32, cabeza: aleteo*0.04,
+      brazoI: 2.45 - aleteo*0.30, brazoD: -2.45 + aleteo*0.30,
+      piernaI: 0.12, piernaD: -0.12, sombra:0 });
+  }},
+  correr:{ emoji:'🏃', nombre:'Correr', draw:function(c,W,H,t){
+    dibujarPradera(c,W,H);
+    var h = H*0.36, s = h/sprCrop.height, w = sprCrop.width*s;
+    var paso = Math.sin(t*DOS_PI*8);
+    tiCuerpo(c,W,H,{ xPx: -w*0.6 + t*(W + w*1.2), gy:H*0.80 - Math.abs(paso)*h*0.12,
+      rot: 0.10 + paso*0.03, sx:1, sy:1-0.04*Math.max(0,paso), esc:0.36,
+      cabeza: 0.06 + paso*0.04,
+      brazoI: -paso*0.75, brazoD: paso*0.75,
+      piernaI: -paso*0.85, piernaD: paso*0.85, ySombra:0.815, sombra:0.20 });
+  }},
+  saludar:{ emoji:'👋', nombre:'Saludar', draw:function(c,W,H,t){
+    dibujarPradera(c,W,H);
+    tiCuerpo(c,W,H,{ x:0.5, gy:H*0.885, rot:0, sx:1, sy:1, esc:0.48,
+      cabeza: Math.sin(t*DOS_PI*3)*0.05, brazoI: 0.12,
+      brazoD: -(1.05 + Math.sin(t*DOS_PI*3)*0.45),
+      piernaI: 0, piernaD: 0, ySombra:0.90, sombra:0.26 });
+  }},
+  girar:{ emoji:'🌀', nombre:'Girar', draw:function(c,W,H,t){
+    dibujarCielo(c,W,H);
+    tiCuerpo(c,W,H,{ x:0.5, y:0.58, rot:DOS_PI*t, sx:1, sy:1, esc:0.42,
+      cabeza: 0, brazoI: 1.15, brazoD: -1.15,
+      piernaI: 0.35, piernaD: -0.35, ySombra:0.90, sombra:0.16 });
+  }}
+};
+function buildTiGrid(){
+  var grid = $('tiGrid');
+  Object.keys(TI).forEach(function(key){
+    var b = document.createElement('button');
+    b.className = 'fx-card' + (key===tiActual?' sel':'');
+    b.setAttribute('data-ti', key);
+    b.setAttribute('data-qa', 'ti-'+key);
+    b.innerHTML = '<span class="emo">'+TI[key].emoji+'</span><span class="nom">'+TI[key].nombre+'</span>';
+    b.addEventListener('click', function(){
+      tiActual = key;
+      var cards = grid.querySelectorAll('.fx-card');
+      for(var i=0;i<cards.length;i++) cards[i].classList.remove('sel');
+      b.classList.add('sel');
+    });
+    grid.appendChild(b);
+  });
+}
+
+/* ============ IMAGEN ============ */
+function cargarArchivo(file){
+  if(!file) return;
+  if(file.type && file.type.indexOf('image') !== 0){ toast('Ese archivo no es una imagen 🙈'); return; }
+  if(file.size > 15*1024*1024){ toast('La imagen es muy grande (máximo 15 MB)'); return; }
+  imgFileName = (file.name || 'animacion').replace(/\.[^.]+$/, '') || 'animacion';
+  var url = URL.createObjectURL(file);
+  var im = new Image();
+  im.onload = function(){
+    img = im;
+    imgBitmap = im;
+    offCanvas = document.createElement('canvas');
+    offCanvas.width = im.width; offCanvas.height = im.height;
+    offCanvas.getContext('2d').drawImage(im, 0, 0);
+    $('imgThumb').src = url;
+    $('imgNombre').textContent = imgFileName;
+    $('picker').hidden = true;
+    $('imgChosen').hidden = false;
+    $('btnGif').disabled = false;
+    $('btnVideo').disabled = !window.MediaRecorder;
+    ocultarResultado();
+    spriteOrig = spriteEd = sprCrop = null;
+    spriteDe = null;
+    muUndoPila.length = 0;
+    tiPts = null; tiSucio = true;
+    ajustarPreview();
+    iniciarLoop();
+    if(modo === 'mu' || modo === 'ti') recortarFondo();
+    else dibujarMuCut();
+  };
+  im.onerror = function(){ toast('No pude leer esa imagen 😕'); };
+  im.src = url;
+}
+function ajustarPreview(){
+  if(modo === 'mu' || modo === 'sk' || modo === 'ti'){ var pv0 = $('preview'); pv0.width = 440; pv0.height = 330; return; }
+  if(!imgBitmap) return;
+  var maxW = Math.min(440, document.querySelector('main').clientWidth - 40);
+  var asp = imgBitmap.width/imgBitmap.height;
+  var W = maxW, H = Math.round(maxW/asp);
+  if(H > maxW){ H = maxW; W = Math.round(maxW*asp); }
+  H -= H%2; W -= W%2;
+  var pv = $('preview');
+  pv.width = W; pv.height = H;
+}
+function exportSize(maxDim){
+  if(modo === 'mu' || modo === 'sk' || modo === 'ti'){ var W0 = maxDim, H0 = Math.round(maxDim*0.75); W0 -= W0%2; H0 -= H0%2; return {W:W0, H:H0}; }
+  var asp = imgBitmap.width/imgBitmap.height, W, H;
+  if(asp >= 1){ W = maxDim; H = Math.round(maxDim/asp); }
+  else { H = maxDim; W = Math.round(maxDim*asp); }
+  W -= W%2; H -= H%2;
+  return {W:W, H:H};
+}
+function renderFrame(c, W, H, t){
+  c.fillStyle = '#000';
+  c.fillRect(0,0,W,H);
+  if(modo === 'sk'){
+    if(!pzStrokes.length){
+      c.fillStyle = '#9a9a9a';
+      c.font = '700 ' + Math.round(W*0.048) + 'px Montserrat,sans-serif';
+      c.textAlign = 'center';
+      c.fillText('Dibuja algo en la pizarra ✏️', W/2, H/2);
+      return;
+    }
+    var cicloSk = cicloTotal();
+    var tDibujo = pzDibujarOn ? pzDrawDur/cicloSk : 0;
+    if(t < tDibujo){ pizDibujarProgresivo(c, W, H, t/tDibujo); return; }
+    var tVida = pzDibujarOn ? (t-tDibujo)/(1-tDibujo) : t;
+    pzT = tVida;
+    if(!pzListo) pizRehacerSprite();
+    if(sprCrop && spriteDe === 'sk'){
+      MU[muActual].draw(c, W, H, tVida);
+    } else {
+      var escS = Math.min(W/720, H/540);
+      c.fillStyle = '#fff'; c.fillRect(0,0,W,H);
+      pizTrazar(c, escS, (W-720*escS)/2, (H-540*escS)/2);
+    }
+    return;
+  }
+  if(modo === 'ti'){
+    if(!sprCrop){
+      c.fillStyle = '#9a9a9a';
+      c.font = '700 ' + Math.round(W*0.048) + 'px Montserrat,sans-serif';
+      c.textAlign = 'center';
+      c.fillText(img ? 'Recortando tu muñeco… ✂️' : 'Sube un dibujo o dibuja en la pizarra ✏️', W/2, H/2);
+      return;
+    }
+    if(!tiCoreListo()){
+      c.fillStyle = '#9a9a9a';
+      c.font = '700 ' + Math.round(W*0.048) + 'px Montserrat,sans-serif';
+      c.textAlign = 'center';
+      c.fillText('Pon los puntitos en tu muñeco 📍', W/2, H/2);
+      return;
+    }
+    if(!tiPts){ tiPts = tiAdivinar(); tiSucio = true; }
+    if(!tiPiezas || tiSucio){ tiConstruir(); tiSucio = false; }
+    TI[tiActual].draw(c, W, H, t);
+    return;
+  }
+  if(modo === 'mu'){
+    if(!img){
+      c.fillStyle = '#9a9a9a';
+      c.font = '700 ' + Math.round(W*0.048) + 'px Montserrat,sans-serif';
+      c.textAlign = 'center';
+      c.fillText('Sube un dibujo para empezar 📷', W/2, H/2);
+      return;
+    }
+    MU[muActual].draw(c, W, H, t);
+    if(!sprCrop){
+      c.fillStyle = 'rgba(0,0,0,.55)';
+      c.fillRect(0, H*0.42, W, H*0.16);
+      c.fillStyle = '#ffd76b';
+      c.font = '800 ' + Math.round(W*0.042) + 'px Montserrat,sans-serif';
+      c.textAlign = 'center';
+      c.fillText('Recortando tu muñeco… ✂️', W/2, H*0.52);
+    }
+    return;
+  }
+  FXS[fxActual].draw(c, W, H, t, intensidad);
+}
+function cicloTotal(){
+  return (modo === 'sk' && pzDibujarOn && pzStrokes.length) ? (pzDrawDur + duracion) : duracion;
+}
+function iniciarLoop(){
+  if(rafId) cancelAnimationFrame(rafId);
+  var pv = $('preview'), c = pv.getContext('2d');
+  function paso(ts){
+    var ciclo = cicloTotal();
+    var t = ((ts/1000) % ciclo) / ciclo;
+    if(imgBitmap || modo === 'sk' || modo === 'ti'){
+      renderFrame(c, pv.width, pv.height, t);
+    } else if(modo === 'mu'){
+      c.fillStyle = '#000'; c.fillRect(0,0,pv.width,pv.height);
+      c.fillStyle = '#9a9a9a';
+      c.font = '700 ' + Math.round(pv.width*0.048) + 'px Montserrat,sans-serif';
+      c.textAlign = 'center';
+      c.fillText('Sube un dibujo para empezar 📷', pv.width/2, pv.height/2);
+    }
+    rafId = requestAnimationFrame(paso);
+  }
+  rafId = requestAnimationFrame(paso);
+}
+
+/* ============ GIF ============ */
+function hayQueAnimar(){
+  if(modo === 'ti') return !!sprCrop;
+  if(modo === 'sk') return pzStrokes.length > 0;
+  return !!imgBitmap;
+}
+function crearGif(){
+  if(!hayQueAnimar()){ toast(modo === 'sk' ? 'Primero dibuja algo ✏️' : 'Elige una imagen primero 📷'); return; }
+  ocultarResultado();
+  var fps = QA ? 8 : 15;
+  var tam = exportSize(QA ? 220 : 480);
+  var cv = document.createElement('canvas');
+  cv.width = tam.W; cv.height = tam.H;
+  var c = cv.getContext('2d');
+  var frames = Math.max(2, Math.round(cicloTotal()*fps));
+  var gif = new GIF({ workers:2, quality:8, width:tam.W, height:tam.H, workerScript:'./gif.worker.js' });
+  for(var f=0; f<frames; f++){
+    renderFrame(c, tam.W, tam.H, f/frames);
+    gif.addFrame(c, {copy:true, delay: Math.round(1000/fps)});
+  }
+  mostrarProg(true);
+  gif.on('progress', function(p){ setProg(p, '🎞️ Creando tu GIF…'); });
+  gif.on('finished', function(blob){
+    mostrarProg(false);
+    mostrarResultado(blob, 'gif', 'image/gif');
+    toast('¡Tu GIF está listo! 🎉');
+  });
+  gif.render();
+}
+
+/* ============ VIDEO ============ */
+function pickMime(){
+  var mimes = ['video/webm;codecs=vp9','video/webm;codecs=vp8','video/webm','video/mp4'];
+  if(!window.MediaRecorder) return null;
+  for(var i=0;i<mimes.length;i++){ if(MediaRecorder.isTypeSupported(mimes[i])) return mimes[i]; }
+  return '';
+}
+function crearVideo(){
+  if(!window.MediaRecorder){ toast('Tu navegador no puede crear video, usa GIF 🎞️'); return; }
+  if(!hayQueAnimar()){ toast(modo === 'sk' ? 'Primero dibuja algo ✏️' : 'Elige una imagen primero 📷'); return; }
+  ocultarResultado();
+  var tam = exportSize(720);
+  var cv = document.createElement('canvas');
+  cv.width = tam.W; cv.height = tam.H;
+  var c = cv.getContext('2d');
+  var stream = cv.captureStream(30);
+  var mime = pickMime();
+  var rec;
+  try { rec = new MediaRecorder(stream, {mimeType:mime||undefined, videoBitsPerSecond:6000000}); }
+  catch(e){ toast('Tu navegador no puede crear video, usa GIF 🎞️'); return; }
+  var chunks = [];
+  rec.ondataavailable = function(ev){ if(ev.data && ev.data.size) chunks.push(ev.data); };
+  rec.onstop = function(){
+    mostrarProg(false);
+    var tipo = (rec.mimeType||'video/webm');
+    mostrarResultado(new Blob(chunks, {type:tipo}), tipo.indexOf('mp4')!==-1?'mp4':'webm', tipo);
+    toast('¡Tu video está listo! 🎉');
+  };
+  mostrarProg(true);
+  setProg(0.02, '🎬 Grabando el video…');
+  rec.start(120);
+  var t0 = null;
+  function paso(ts){
+    if(t0 === null) t0 = ts;
+    var el = ts - t0;
+    var cicloV = cicloTotal();
+    var t = ((el/1000) % cicloV) / cicloV;
+    renderFrame(c, tam.W, tam.H, t);
+    setProg(Math.min(0.98, el/(cicloV*1000)), '🎬 Grabando el video…');
+    if(el < cicloV*1000) requestAnimationFrame(paso);
+    else rec.stop();
+  }
+  requestAnimationFrame(paso);
+}
+
+/* ============ RESULTADO ============ */
+function mostrarResultado(blob, ext, tipo){
+  ultimoBlob = blob; ultimoExt = ext; ultimoTipo = tipo;
+  var esGif = ext === 'gif';
+  $('resGif').hidden = !esGif;
+  $('resVideo').hidden = esGif;
+  if(esGif) $('resGif').src = URL.createObjectURL(blob);
+  else {
+    var v = $('resVideo');
+    v.src = URL.createObjectURL(blob);
+    v.onloadedmetadata = function(){
+      /* los webm grabados reportan duración Infinity: forzamos el cálculo */
+      if(v.duration === Infinity){
+        v.currentTime = 1e7;
+        v.ontimeupdate = function(){ v.ontimeupdate = null; v.currentTime = 0; };
+      }
+    };
+  }
+  $('resultBox').hidden = false;
+}
+function ocultarResultado(){
+  $('resultBox').hidden = true;
+  $('resGif').hidden = true; $('resVideo').hidden = true;
+}
+function mostrarProg(ver, txt){
+  $('progWrap').hidden = !ver;
+  if(txt) $('progTxt').textContent = txt;
+  if(!ver) $('progBar').style.width = '0%';
+}
+function setProg(f, txt){
+  $('progBar').style.width = Math.round(f*100) + '%';
+  if(txt) $('progTxt').textContent = txt;
+}
+function descargar(blob, ext){
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = imgFileName + '_sikoanimar.' + ext;
+  document.body.appendChild(a); a.click(); a.remove();
+  toast('Guardado en tus descargas ⬇️');
+}
+async function compartir(blob, ext){
+  try{
+    var file = new File([blob], imgFileName+'_sikoanimar.'+ext, {type: blob.type || ultimoTipo});
+    if(navigator.canShare && navigator.canShare({files:[file]})){
+      await navigator.share({files:[file], title:'Mi animación SikoAnimar'});
+    } else { descargar(blob, ext); }
+  }catch(e){ if(e && e.name !== 'AbortError') descargar(blob, ext); }
+}
+
+/* ============ MODO IA ============ */
+function estadoIA(html){
+  var s = $('iaStatus');
+  if(html === null){ s.hidden = true; s.innerHTML = ''; return; }
+  s.hidden = false;
+  s.innerHTML = '<span class="girito"></span>' + html;
+}
+function fetchConTimeout(url, ms){
+  var ctrl = new AbortController();
+  var timer = setTimeout(function(){ ctrl.abort(); }, ms);
+  return fetch(url, {signal: ctrl.signal}).finally(function(){ clearTimeout(timer); });
+}
+async function subirImagenMedia(key){
+  var fd = new FormData();
+  fd.append('file', img._file || await (await fetch(img.src)).blob(), 'imagen.png');
+  var r = await fetch('https://media.pollinations.ai/upload', {
+    method:'POST', headers:{'Authorization':'Bearer '+key}, body: fd
+  });
+  if(r.status === 401) throw new Error('Tu clave no es válida. Revisa que empiece con sk_ 🔑');
+  if(r.status === 402) throw new Error('Sin Pollen 😅 Gana MÁS GRATIS en enter.pollinations.ai → Quests (misiones). O usa la pestaña Efectos que es gratis.');
+  if(!r.ok) throw new Error('No pude subir la imagen (error ' + r.status + '). Intenta otra vez.');
+  var texto = await r.text();
+  try{
+    var j = JSON.parse(texto);
+    if(j.url) return j.url;
+    if(j.id) return 'https://media.pollinations.ai/' + j.id;
+    if(j.location) return j.location;
+    if(j.filename) return 'https://media.pollinations.ai/' + j.filename;
+  }catch(e){}
+  if(texto.indexOf('http') === 0) return texto.trim();
+  var link = r.headers.get('Location') || r.headers.get('Link');
+  if(link) return link.replace(/^.*?(https:\/\/media[^>\s]+).*$/, '$1');
+  throw new Error('No entendí la respuesta del servidor de medios.');
+}
+async function animarIA(){
+  var key = $('iaKey').value.trim();
+  if(!key){ toast('Primero pega tu clave sk_ 🔑'); return; }
+  if(key.indexOf('sk_') !== 0){ toast('La clave debe empezar con sk_ 🔑'); return; }
+  if(!img){ toast('Elige una imagen primero 📷'); return; }
+  try{ localStorage.setItem('sikoanimar_key', key); }catch(e){}
+  $('btnIA').disabled = true;
+  $('iaResultBox').hidden = true;
+  var prompt = $('iaPrompt').value.trim() || 'movimiento suave y natural, animación sutil de alta calidad';
+  var model = $('iaModel').value;
+  var dur = $('iaDur').value;
+  try{
+    estadoIA('📤 Subiendo tu imagen…');
+    var mediaUrl = await subirImagenMedia(key);
+    estadoIA('🎬 La IA está creando tu video…<br><small>puede tardar de 1 a 3 minutos, no cierres la app</small>');
+    var url = 'https://gen.pollinations.ai/video/' + encodeURIComponent(prompt) +
+              '?model=' + encodeURIComponent(model) +
+              '&duration=' + dur +
+              '&image=' + encodeURIComponent(mediaUrl) +
+              '&key=' + encodeURIComponent(key);
+    var blob = null, ultimoError = null;
+    for(var intento = 0; intento < 3; intento++){
+      try{
+        var r = await fetchConTimeout(url, 240000);
+        if(r.ok){ blob = await r.blob(); break; }
+        if(r.status === 401) throw new Error('Tu clave no es válida. Revisa que empiece con sk_ 🔑');
+        if(r.status === 402) throw new Error('Sin Pollen 😅 Gana MÁS GRATIS en enter.pollinations.ai → Quests (misiones). O usa la pestaña Efectos que es gratis.');
+        if(r.status === 429 || r.status >= 500){ ultimoError = new Error('El servidor está ocupado (error ' + r.status + ').'); }
+        else { var t = ''; try{ t = await r.text(); }catch(e){} ultimoError = new Error('La IA no pudo generar el video (error ' + r.status + '). ' + t.slice(0,120)); }
+      }catch(e){
+        if(e.message && e.message.indexOf('clave') !== -1 || e.message && e.message.indexOf('Pollen') !== -1) throw e;
+        ultimoError = e.name === 'AbortError' ? new Error('Tardó demasiado. Reintentando…') : e;
+      }
+      if(intento < 2){
+        estadoIA('⏳ Reintentando (' + (intento+2) + ' de 3)…');
+        await new Promise(function(res){ setTimeout(res, 4000); });
+      }
+    }
+    if(!blob) throw ultimoError || new Error('No pude crear el video. Intenta otra vez.');
+    iaBlob = blob;
+    $('iaVideo').src = URL.createObjectURL(blob);
+    $('iaResultBox').hidden = false;
+    estadoIA(null);
+    toast('¡Video de la IA listo! 🎉');
+  }catch(e){
+    estadoIA(null);
+    toast(e.message || 'Algo salió mal 😕');
+  }finally{
+    $('btnIA').disabled = false;
+  }
+}
+
+async function verSaldo(){
+  var key = $('iaKey').value.trim();
+  var out = $('iaSaldo');
+  out.hidden = false;
+  if(!key){ out.textContent = 'Primero pega tu clave sk_ arriba 🔑'; return; }
+  out.textContent = '⏳ Consultando tu saldo…';
+  try{
+    var r = await fetch('https://gen.pollinations.ai/account/balance', {
+      headers: {'Authorization': 'Bearer ' + key}
+    });
+    if(r.status === 401){ out.textContent = '❌ Esa clave no es válida. Revisa que sea sk_...'; return; }
+    if(r.status === 403){
+      out.innerHTML = '🔒 Tu clave no tiene permiso para ver el saldo.<br>En <b>enter.pollinations.ai/keys</b> crea otra clave marcando la casilla <b>“See balance, usage, earnings and quests”</b>.';
+      return;
+    }
+    if(!r.ok){ out.textContent = 'No pude consultar el saldo (error ' + r.status + ').'; return; }
+    var j = await r.json();
+    var b = null, extra = '';
+    if(typeof j.balance === 'number') b = j.balance;
+    if(j.accountBalance){
+      if(b === null && typeof j.accountBalance.total === 'number') b = j.accountBalance.total;
+      if(j.accountBalance.tier) extra += ' · Nivel: ' + j.accountBalance.tier;
+      if(typeof j.accountBalance.paid === 'number') extra += ' · Pagado: ' + j.accountBalance.paid;
+    }
+    if(b === null){ out.textContent = 'El servidor respondió: ' + JSON.stringify(j).slice(0, 140); return; }
+    out.innerHTML = '💰 Tu saldo: <b>' + b + ' Pollen</b>' + extra +
+      '<br><small>Gana más GRATIS en el Dashboard → Quests (misiones). El Pollen también se renueva cada día según tu nivel.</small>';
+  }catch(e){
+    out.textContent = 'Sin internet no puedo consultar el saldo 📡';
+  }
+}
+
+/* ============ UI GENERAL ============ */
+var toastTimer = null;
+function toast(msg){
+  var t = $('toast');
+  t.textContent = msg; t.hidden = false;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ t.hidden = true; }, 3200);
+}
+function cambiarTab(m){
+  modo = m;
+  $('tabFx').classList.toggle('active', m==='fx');
+  $('tabMu').classList.toggle('active', m==='mu');
+  $('tabTi').classList.toggle('active', m==='ti');
+  $('tabSk').classList.toggle('active', m==='sk');
+  $('tabIA').classList.toggle('active', m==='ia');
+  $('panelFx').hidden = m !== 'fx';
+  $('panelMu').hidden = m !== 'mu';
+  $('panelTi').hidden = m !== 'ti';
+  $('panelSk').hidden = m !== 'sk';
+  $('panelOut').hidden = m === 'ia';
+  $('panelIA').hidden = m !== 'ia';
+  ocultarResultado();
+  if(m === 'mu' && img && spriteDe !== 'img') recortarFondo();
+  if(m === 'sk' && pzStrokes.length && spriteDe !== 'sk') pizRehacerSprite();
+  if(m === 'ti'){
+    if(img && !sprCrop) recortarFondo();
+    if(sprCrop && !tiPts){ tiPts = {}; tiWiz = 0; tiSucio = true; }
+    tiPintarEditor();
+    tiWizMostrar();
+  }
+  ajustarPreview();
+  iniciarLoop();
+}
+
+/* ============ EVENTOS ============ */
+buildFxGrid();
+buildMuGrid();
+buildTiGrid();
+tiBuildChips();
+
+$('picker').addEventListener('click', function(){ $('fileInput').click(); });
+$('btnCambiar').addEventListener('click', function(){ $('fileInput').click(); });
+$('fileInput').addEventListener('change', function(ev){
+  if(ev.target.files && ev.target.files[0]) cargarArchivo(ev.target.files[0]);
+  ev.target.value = '';
+});
+window.addEventListener('paste', function(ev){
+  var items = ev.clipboardData && ev.clipboardData.items;
+  if(!items) return;
+  for(var i=0;i<items.length;i++){
+    if(items[i].type.indexOf('image') === 0){ cargarArchivo(items[i].getAsFile()); break; }
+  }
+});
+var zona = document.body;
+zona.addEventListener('dragover', function(ev){ ev.preventDefault(); });
+zona.addEventListener('drop', function(ev){
+  ev.preventDefault();
+  if(ev.dataTransfer && ev.dataTransfer.files && ev.dataTransfer.files[0]) cargarArchivo(ev.dataTransfer.files[0]);
+});
+
+$('speedChips').addEventListener('click', function(ev){
+  var b = ev.target.closest('.chip'); if(!b) return;
+  duracion = parseFloat(b.getAttribute('data-speed'));
+  var chips = this.querySelectorAll('.chip');
+  for(var i=0;i<chips.length;i++) chips[i].classList.remove('sel');
+  b.classList.add('sel');
+});
+$('intensidad').addEventListener('input', function(){
+  intensidad = parseFloat(this.value);
+  var p = (intensidad - 0.5) / 1.1 * 100;
+  this.style.background = 'linear-gradient(90deg, var(--naranja) ' + p + '%, var(--panel2) ' + p + '%)';
+});
+
+$('btnGif').addEventListener('click', crearGif);
+$('btnVideo').addEventListener('click', crearVideo);
+$('btnSave').addEventListener('click', function(){ if(ultimoBlob) descargar(ultimoBlob, ultimoExt); });
+$('btnShare').addEventListener('click', function(){ if(ultimoBlob) compartir(ultimoBlob, ultimoExt); });
+
+$('tabFx').addEventListener('click', function(){ cambiarTab('fx'); });
+$('tabMu').addEventListener('click', function(){ cambiarTab('mu'); });
+$('tabTi').addEventListener('click', function(){ cambiarTab('ti'); });
+$('tabSk').addEventListener('click', function(){ cambiarTab('sk'); });
+$('tabIA').addEventListener('click', function(){ cambiarTab('ia'); });
+$('iaChips').addEventListener('click', function(ev){
+  var b = ev.target.closest('.chip'); if(!b) return;
+  $('iaPrompt').value = b.textContent.replace(/^[^\s]+\s/, '');
+});
+$('btnIA').addEventListener('click', animarIA);
+$('btnSaldo').addEventListener('click', verSaldo);
+$('btnIaSave').addEventListener('click', function(){ if(iaBlob) descargar(iaBlob, 'mp4'); });
+$('btnIaShare').addEventListener('click', function(){ if(iaBlob) compartir(iaBlob, 'mp4'); });
+
+/* ============ EVENTOS MUÑECO ============ */
+var muPintando = false, muUlt = null;
+function muPos(ev){
+  var cv = $('muCut'), r = cv.getBoundingClientRect();
+  var fx = spriteEd.width/cv.width;
+  return { x:(ev.clientX-r.left)/r.width*cv.width*fx, y:(ev.clientY-r.top)/r.height*cv.height*fx };
+}
+function muTrazo(a, b){
+  var c = spriteEd.getContext('2d');
+  var r = spriteEd.width*0.045;
+  var pasos = b ? Math.max(1, Math.ceil(Math.hypot(b.x-a.x, b.y-a.y)/(r*0.5))) : 1;
+  for(var i=0;i<=pasos;i++){
+    var x = b ? a.x+(b.x-a.x)*i/pasos : a.x;
+    var y = b ? a.y+(b.y-a.y)*i/pasos : a.y;
+    c.save();
+    c.beginPath(); c.arc(x, y, r, 0, DOS_PI);
+    if(muHerr === 'borrar'){ c.globalCompositeOperation='destination-out'; c.fillStyle='#000'; c.fill(); }
+    else { c.clip(); c.drawImage(spriteOrig, 0, 0); }
+    c.restore();
+  }
+}
+(function(){
+  var muCv = $('muCut');
+  muCv.addEventListener('pointerdown', function(ev){
+    if(!spriteEd) return;
+    ev.preventDefault();
+    try{
+      muUndoPila.push(spriteEd.getContext('2d').getImageData(0,0,spriteEd.width,spriteEd.height));
+    }catch(e){}
+    if(muUndoPila.length > 6) muUndoPila.shift();
+    muPintando = true;
+    muUlt = muPos(ev);
+    muTrazo(muUlt, null);
+    if(this.setPointerCapture) this.setPointerCapture(ev.pointerId);
+  });
+  muCv.addEventListener('pointermove', function(ev){
+    if(!muPintando || !spriteEd) return;
+    var p = muPos(ev);
+    muTrazo(muUlt, p);
+    muUlt = p;
+  });
+  function muFin(){
+    if(!muPintando) return;
+    muPintando = false; muUlt = null;
+    reencuadrar(); dibujarMuCut();
+  }
+  muCv.addEventListener('pointerup', muFin);
+  muCv.addEventListener('pointercancel', muFin);
+})();
+$('muBorrar').addEventListener('click', function(){
+  muHerr = 'borrar';
+  this.classList.add('sel'); $('muTraer').classList.remove('sel');
+});
+$('muTraer').addEventListener('click', function(){
+  muHerr = 'traer';
+  this.classList.add('sel'); $('muBorrar').classList.remove('sel');
+});
+$('muUndo').addEventListener('click', function(){
+  if(!muUndoPila.length || !spriteEd){ toast('Nada que deshacer 🙂'); return; }
+  spriteEd.getContext('2d').putImageData(muUndoPila.pop(), 0, 0);
+  reencuadrar(); dibujarMuCut();
+});
+$('muTol').addEventListener('input', function(){
+  muTolVal = parseInt(this.value, 10) || 30;
+  var p = (muTolVal - 8) / 82 * 100;
+  this.style.background = 'linear-gradient(90deg, var(--naranja) ' + p + '%, var(--panel2) ' + p + '%)';
+  clearTimeout(muTimer);
+  muTimer = setTimeout(function(){ if(img) recortarFondo(); }, 280);
+});
+(function(){
+  var el = $('muTol');
+  var p = (parseInt(el.value,10) - 8) / 82 * 100;
+  el.style.background = 'linear-gradient(90deg, var(--naranja) ' + p + '%, var(--panel2) ' + p + '%)';
+})();
+$('muSpeed').addEventListener('click', function(ev){
+  var b = ev.target.closest('.chip'); if(!b) return;
+  duracion = parseFloat(b.getAttribute('data-speed'));
+  var chips = this.querySelectorAll('.chip');
+  for(var i=0;i<chips.length;i++) chips[i].classList.remove('sel');
+  b.classList.add('sel');
+});
+$('tiSpeed').addEventListener('click', function(ev){
+  var b = ev.target.closest('.chip'); if(!b) return;
+  duracion = parseFloat(b.getAttribute('data-speed'));
+  var chips = this.querySelectorAll('.chip');
+  for(var i=0;i<chips.length;i++) chips[i].classList.remove('sel');
+  b.classList.add('sel');
+});
+
+/* ============ EVENTOS SKETCH ============ */
+(function(){
+  var cv = $('pizCanvas');
+  function pos(ev){
+    var r = cv.getBoundingClientRect();
+    return { x:(ev.clientX-r.left)/r.width*cv.width, y:(ev.clientY-r.top)/r.height*cv.height };
+  }
+  cv.addEventListener('pointerdown', function(ev){
+    ev.preventDefault();
+    if(this.setPointerCapture) this.setPointerCapture(ev.pointerId);
+    pzDibujo = { color: pzGoma ? '#ffffff' : pzColor, w: pzGoma ? pzW*3 : pzW, pts:[pos(ev)] };
+    pzStrokes.push(pzDibujo);
+    pizRepintar();
+  });
+  cv.addEventListener('pointermove', function(ev){
+    if(!pzDibujo) return;
+    var p = pos(ev), ult = pzDibujo.pts[pzDibujo.pts.length-1];
+    if(Math.hypot(p.x-ult.x, p.y-ult.y) < 2) return;
+    pzDibujo.pts.push(p);
+    pizRepintar();
+  });
+  function fin(){
+    if(!pzDibujo) return;
+    pzDibujo = null;
+    if(!img && imgFileName === 'animacion') imgFileName = 'mi_dibujo';
+    pzDrawDur = Math.min(5, Math.max(1.5, pzStrokes.length*0.35 + 1));
+    pizRehacerSprite();
+  }
+  cv.addEventListener('pointerup', fin);
+  cv.addEventListener('pointercancel', fin);
+})();
+$('skColores').addEventListener('click', function(ev){
+  var b = ev.target.closest('.chip'); if(!b) return;
+  pzColor = b.getAttribute('data-col');
+  pzGoma = false; $('skGoma').classList.remove('sel');
+  var chips = this.querySelectorAll('.chip');
+  for(var i=0;i<chips.length;i++) chips[i].classList.remove('sel');
+  b.classList.add('sel');
+});
+$('skW').addEventListener('input', function(){
+  pzW = parseInt(this.value, 10) || 8;
+  var p = (pzW - 3) / 21 * 100;
+  this.style.background = 'linear-gradient(90deg, var(--naranja) ' + p + '%, var(--panel2) ' + p + '%)';
+});
+(function(){
+  var el = $('skW');
+  var p = (parseInt(el.value,10) - 3) / 21 * 100;
+  el.style.background = 'linear-gradient(90deg, var(--naranja) ' + p + '%, var(--panel2) ' + p + '%)';
+})();
+$('skGoma').addEventListener('click', function(){
+  pzGoma = !pzGoma;
+  this.classList.toggle('sel', pzGoma);
+});
+$('skUndo').addEventListener('click', function(){
+  if(!pzStrokes.length){ toast('Nada que deshacer 🙂'); return; }
+  pzStrokes.pop();
+  pzDibujo = null;
+  pizRepintar();
+  pzDrawDur = Math.min(5, Math.max(1.5, pzStrokes.length*0.35 + 1));
+  pzListo = pzStrokes.length > 0;
+  if(pzListo) pizRehacerSprite();
+});
+var pzBorrarArmado = false, pzBorrarTimer = null;
+$('skClear').addEventListener('click', function(){
+  if(!pzStrokes.length){ toast('La pizarra ya está limpia 🧼'); return; }
+  if(!pzBorrarArmado){
+    pzBorrarArmado = true;
+    this.classList.add('sel');
+    toast('Toca otra vez para borrar TODO 🗑️');
+    var yo = this;
+    pzBorrarTimer = setTimeout(function(){ pzBorrarArmado = false; yo.classList.remove('sel'); }, 2600);
+    return;
+  }
+  clearTimeout(pzBorrarTimer);
+  pzBorrarArmado = false;
+  this.classList.remove('sel');
+  pzStrokes.length = 0; pzDibujo = null; pzListo = false;
+  pizRepintar();
+  toast('Pizarra limpia 🧼 dibuja otra cosa ✏️');
+});
+$('skSolo').addEventListener('click', function(){
+  pzDibujarOn = !pzDibujarOn;
+  this.classList.toggle('sel', pzDibujarOn);
+});
+$('skChips').addEventListener('click', function(ev){
+  var b = ev.target.closest('.chip'); if(!b) return;
+  $('skPrompt').value = b.textContent.replace(/^[^\s]+\s/, '');
+});
+$('skVida').addEventListener('click', pzPrompt);
+$('skIA').addEventListener('click', function(){ /* v5: el dibujo pasa a la pestaña IA listo para video */
+  if(!pzStrokes.length){ toast('Primero dibuja algo ✏️'); return; }
+  pizRasterizar().toBlob(function(b){
+    if(!b){ toast('No pude preparar el dibujo 😕'); return; }
+    var f = new File([b], 'mi_dibujo.png', {type:'image/png'});
+    cargarArchivo(f);
+    if(img) img._file = f;
+    var q = $('skPrompt').value.trim();
+    $('iaPrompt').value = (q ? 'animación estilo dibujo a lápiz de ' + q : 'animación estilo dibujo a lápiz') + ', el dibujo cobra vida y se mueve con naturalidad, estilo flip-book';
+    cambiarTab('ia');
+    toast('Tu dibujo ya está en la pestaña IA 🤖 pega tu clave y dale 🚀');
+  }, 'image/png');
+});
+
+/* ============ PWA ============ */
+var installEvt = null;
+window.addEventListener('beforeinstallprompt', function(ev){
+  ev.preventDefault();
+  installEvt = ev;
+  $('btnInstall').hidden = false;
+});
+$('btnInstall').addEventListener('click', function(){
+  if(!installEvt) return;
+  installEvt.prompt();
+  installEvt = null;
+  this.hidden = true;
+});
+if('serviceWorker' in navigator){
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('./sw.js').catch(function(){});
+  });
+}
+try{
+  var guardada = localStorage.getItem('sikoanimar_key');
+  if(guardada) $('iaKey').value = guardada;
+}catch(e){}
+/* v5: puente desde la pizarra de SikoChat — entra con el dibujo ya cargado y recortado */
+try{
+  var mano = JSON.parse(localStorage.getItem('sikoanimar_handoff') || 'null');
+  if(mano && mano.img && mano.img.indexOf('data:image') === 0 && Date.now() - (mano.ts||0) < 300000){
+    localStorage.removeItem('sikoanimar_handoff');
+    var bin = atob(mano.img.split(',')[1]);
+    var buf = new Uint8Array(bin.length);
+    for(var hb=0; hb<bin.length; hb++) buf[hb] = bin.charCodeAt(hb);
+    var hf = new File([buf], 'mi_pizarra.png', {type:'image/png'});
+    cambiarTab('mu');
+    cargarArchivo(hf);
+    setTimeout(function(){ toast('🪄 Tu dibujo del chat ya está aquí — elige cómo se mueve'); }, 500);
+  }
+}catch(e){}
+if(QA){
+  window.__qa = {
+    get modo(){ return modo; },
+    get tiPts(){ return tiPts ? JSON.parse(JSON.stringify(tiPts)) : null; },
+    get tiActual(){ return tiActual; },
+    get hayPiezas(){ return !!tiPiezas; },
+    get sprCropSize(){ return sprCrop ? { w:sprCrop.width, h:sprCrop.height } : null; },
+    get tiWiz(){ return tiWiz; },
+    get tiCoreListo(){ return tiCoreListo(); },
+    get tiSinBrazos(){ return tiSinBrazos; },
+    get tiConBrazos(){ return !!(tiPiezas && tiPiezas.brazoI); },
+    get tiNChips(){ return document.querySelectorAll('#tiChips .ti-chip').length; },
+    get tiWizTxt(){ var w = document.getElementById('tiWiz'); return w.hidden ? '' : w.textContent; },
+    tiPon: function(k, x, y){
+      if(TI_SEC.indexOf(k) === -1) return false;
+      tiPts = tiPts || {};
+      tiPts[k] = { x:x, y:y };
+      tiSucio = true;
+      if(tiWiz >= 0 && TI_SEC[tiWiz] === k) tiWiz++;
+      tiPintarEditor();
+      tiWizMostrar();
+      return true;
+    },
+    setTi: function(m){ tiActual = m; tiSucio = true; }
+  };
+}
+})();
+</script>
+</body>
+</html>

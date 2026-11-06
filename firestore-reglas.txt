@@ -1,6 +1,6 @@
 // ============================================================
 // SIKODARK · REGLAS COMPLETAS DE FIREBASE (RADIO + CHAT JUNTOS)
-// Actualizado: 28-oct-2026 (v29 del chat) · revisión de reglas del usuario
+// Actualizado: 5-nov-2026 (v51 del chat: entra chat_album) · revisión de reglas del usuario
 //
 // QUÉ ESTABA MAL EN LA VERSIÓN ANTERIOR DEL USUARIO:
 //   1) Los 3 bloques del CHAT quedaron AFUERA de match /databases/{database}/documents
@@ -97,6 +97,13 @@ service cloud.firestore {
     }
 
     match /chat_juegos/{doc} {
+      allow read, write: if true;
+    }
+
+    // ---------- SIKOCHAT · ÁLBUM DE DIBUJOS (v51) ----------
+    // historial de dibujos guardados en la nube por cada usuario:
+    // cada quien guarda los suyos (uid) y los ve desde cualquier aparato
+    match /chat_album/{doc} {
       allow read, write: if true;
     }
 

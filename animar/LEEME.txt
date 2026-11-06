@@ -1,0 +1,170 @@
+⚡ SIKOANIMAR — Cómo instalar la app de animar imágenes (v7)
+=============================================================
+
+QUÉ ES
+------
+Una PWA (app web instalable) para animar imágenes. Tiene 5 modos:
+
+  🎭 MODO TÍTERE — muñeco con articulaciones (gratis, sin clave, sin
+     internet) — ¡MEJORADO en v7! Es el estilo de Meta
+     AnimatedDrawings (sketch.metademolab.com/canvas) pero en TU app:
+       1) subes (o dibujas en la pizarra) a tu muñeco;
+       2) ASISTENTE PASO A PASO: la app te guía con frases
+          ("Toca la CABEZA", "Toca la CADERA"...) y tú VAS TOCANDO
+          cada puntito en tu dibujo — igual que Meta canvas;
+          ¿perezoso? 🎯 Puntos mágicos los coloca solos;
+          ¿pollo o pez? botón 🐔 SIN BRAZOS y listo;
+          ↩️ deshacer puntito y 🔄 empezar de nuevo incluidos;
+       3) al final ARRASTRAS los puntitos para afinar;
+       4) tu dibujo BAILA, SALUDA, SALTA, CAMINA, CORRE (¡nuevo!),
+          VUELA o GIRA moviendo brazos, piernas y cabeza por
+          separado, como un títere de papel.
+     Y a diferencia de Meta, aquí vale CUALQUIER dibujo: pollos,
+     ratones, monstruos… no solo personas. Y no manda nada a
+     ningún servidor: todo pasa en tu teléfono.
+
+  ✏️ MODO DIBUJA — pizarra mágica (gratis, sin clave, sin internet):
+     Dibujas con el dedo y la app MEMORIZA CADA TRAZO. Al darle vida:
+       1) tu dibujo SE DIBUJA SOLITO, trazo por trazo, como un
+          fotograma;
+       2) después COBRA VIDA y se mueve por escenas bonitas.
+     Escribe qué es ("un ratoncito", "un pececito"...) y elige sola el
+     movimiento: caminar, volar, saltar, bailar o nadar.
+
+  🧸 MODO MUÑECO (gratis, sin clave, funciona sin internet):
+     Sube el dibujo de tu hijo (¡el pollo, el gato, la familia!) y la app
+     LO RECORTA del papel sola y lo pone a CAMINAR, VOLAR, SALTAR,
+     BAILAR o NADAR. Exporta GIF o video.
+
+  🎨 MODO EFECTOS (gratis, sin clave, funciona sin internet):
+     convierte tu foto o dibujo en GIF o video con 10 efectos mágicos.
+
+  🤖 MODO IA (usa Pollinations, gasta Pollen):
+     convierte tu imagen en un video real de 4-8 segundos. Necesita
+     clave sk_ y Pollen (se gana gratis en Quests, ver abajo).
+
+CÓMO USAR EL MODO TÍTERE (lo nuevo de la v7)
+--------------------------------------------
+1. Pestaña 🎭 Títere → sube un dibujo (o usa uno ya recortado en
+   🧸 Muñeco, o dibújalo en ✏️ Dibuja).
+2. La app te guía PASO A PASO (Paso 1 de 6, Paso 2 de 6…):
+   🧠 toca la cabeza → 🩲 la cadera → 🦶 un pie → 🦶 el otro pie →
+   👋 una mano → 👋 la otra mano. Cada puntito se pega donde tocas.
+   Atajos: 🎯 Puntos mágicos (los pone solos), 🐔 Sin brazos
+   (para pollos/peces), ↩️ Último punto, 🔄 Empezar de nuevo,
+   y puedes tocar cualquier carita de arriba para poner ese punto.
+3. Cuando terminan los 6 pasos, ARRASTRA cada puntito si quedó
+   torcido (no hace falta ser exacto, con acercarse basta).
+4. Elige movimiento:
+     💃 Bailar · 👋 Saludar · 🦘 Saltar · 🚶 Caminar · 🏃 Correr ·
+     🕊️ Volar · 🌀 Girar
+   y la velocidad (🐢 / 🚶 / 🐇).
+5. Mira la vista previa: el muñeco se mueve como títere (brazos,
+   piernas y cabeza por separado). Toca 🎞️ Crear GIF o 🎬 Crear Video.
+
+CONSEJOS PARA QUE EL TÍTERE QUEDE LINDO:
+- Dibuja el muñeco ENTERO y con brazos y piernas separados del
+  cuerpo (como un muñeco de palitos o paper doll).
+- Si el dibujo tiene manchas o el sol de la esquina, bórralos con
+  🧽 en la pestaña 🧸 Muñeco antes de pasar al Títere.
+- No hace falta que los puntitos sean perfectos: con acercarse al
+  hombro/mano/cadera basta.
+
+🪄 ANIMAR UN DIBUJO DEL CHAT (SikoChat + SikoAnimar)
+----------------------------------------------------
+1. Dibuja en la pizarra del chat y toca el botón 🪄 (Animar).
+2. Se abre SikoAnimar con tu dibujo YA CARGADO Y RECORTADO, caminando.
+3. Elige pestaña (🧸 Muñeco o 🎭 Títere), movimiento y velocidad →
+   🎞️ GIF o 🎬 Video. ¡Eso es todo!
+   (tienes 5 minutos después de tocar 🪄 para abrir SikoAnimar)
+
+CÓMO USAR EL MODO DIBUJA (pizarra mágica)
+-----------------------------------------
+1. Pestaña ✏️ Dibuja → dibuja con el dedo o el mouse en el papel blanco.
+   Colores 🎨, grosor del lápiz, goma 🧽, deshacer ↩️ y borrar todo 🗑️.
+2. Escribe qué es tu dibujo (o toca una tarjeta: 🐭 Ratón, 🐦 Pájaro…)
+   y pulsa 🪄 ¡Dar vida!.
+   Entiende diminutivos: ratoncito, pececito, pajarito, gatito...
+   Si no lo reconoce, elige el movimiento en la pestaña 🧸 Muñeco.
+3. En la vista previa verás el ciclo completo: primero el dibujo se
+   dibuja solo trazo por trazo y después cobra vida moviéndose.
+4. Toca 🎞️ Crear GIF o 🎬 Crear Video → el GIF/video incluye las DOS
+   partes: dibujándose solo + vivito y moviéndose.
+5. ¿No quieres la parte de "se dibuja solo"? Desactiva el botón
+   ▶️ Se dibuja solo y anima directo.
+6. ¿Lo quieres como VIDEO de verdad? Toca 🤖 Video IA: tu dibujo pasa
+   a la pestaña IA listo para animar (gasta Pollen).
+7. 💡 Inspirada en FlipSketch (CVPR 2025): dibuja, describe y cobra vida.
+   La demo original (gratis, en inglés, con GPU en la nube):
+   https://hmrishavbandy.github.io/flipsketch-web/
+
+CONSEJO: dibuja el muñeco grande y con trazos gordos: se recorta y se
+ve mejor. Todo queda en tu teléfono: nada se sube a internet.
+
+CÓMO USAR EL MODO MUÑECO (el favorito de los peques)
+----------------------------------------------------
+1. Pestaña 🧸 Muñeco → toca 📷 y sube el dibujo (foto al papel o archivo).
+2. La app recorta el muñeco SOLA. Si sobra papel: sube la
+   "Fuerza del recorte" 💪. Si se come parte del dibujo: bájala 🪶.
+   ¿Un pelito de más? Bórralo con el dedo (🧽) y si te equivocas,
+   "Traer de vuelta" 🖌️ o "Deshacer" ↩️ lo arreglan.
+3. Elige movimiento: 🚶 Caminar · 🕊️ Volar · 🦘 Saltar · 💃 Bailar · 🏊 Nadar
+   y la velocidad (🐢 / 🚶 / 🐇).
+4. Mira la vista previa y toca 🎞️ Crear GIF o 🎬 Crear Video.
+   Se guarda en tus descargas y puedes compartirlo por WhatsApp.
+
+CONSEJO: dibujos gruesos y bien cerrados recortan perfecto. Si el
+papel tiene cuadros o rayas de cuaderno, sube la fuerza del recorte.
+
+PASO A PASO PARA PUBLICARLA
+---------------------------
+1. Este zip trae una CARPETA llamada "animar".
+2. BORRA la carpeta /animar/ vieja de tu repositorio y sube esta
+   COMPLETA a la raíz (junto a index.html y sw.js del chat). Que quede:
+   /animar/index.html, /animar/sw.js, etc.
+3. MUY IMPORTANTE: NO borres el archivo .nojekyll de tu repositorio.
+4. Espera 1-2 minutos a que se publique.
+5. Abre el navegador y entra a:
+      https://sikochat.vercel.app/animar/
+   (o tu dirección de GitHub Pages + /animar/)
+6. CIERRA el navegador y ábrelo de nuevo (hazlo 2 veces si algo
+   se ve raro: es el caché del Service Worker — esta versión es
+   sikoanimar-v7, se actualiza sola al reabrir).
+7. Para INSTALARLA como app: menú del navegador -> "Añadir a
+   pantalla de inicio" / "Instalar app", o toca el botón 📥 Instalar.
+
+CÓMO USAR LA IA (primera vez)
+-----------------------------
+1. Entra a  https://enter.pollinations.ai
+2. Crea tu cuenta (gratis, sin tarjeta).
+3. Consigue Pollen GRATIS en la seccion QUESTS (son mini-misiones;
+   cada una da Pollen) + tu cuenta recibe Pollen cada dia segun tu nivel.
+4. Crea una clave secreta que empieza con  sk_
+   (consejo: marca la casilla "See balance, usage, earnings and
+   quests" para que el boton "Ver mi saldo" funcione).
+5. Pégala en la pestaña 🤖 IA de la app.
+   La clave se guarda SOLO en tu dispositivo.
+
+OJO: el video con IA es lo que mas Pollen gasta de toda la
+plataforma. Si no te alcanza, los modos 🧸 Muñeco, 🎭 Títere y
+🎨 Efectos son 100% gratis y funcionan sin internet. El boton
+"💰 Ver mi saldo" te muestra cuanto Pollen tienes sin gastar nada.
+
+NOTAS TÉCNICAS
+--------------
+- La app vive en la carpeta /animar/ y tiene SU PROPIO Service
+  Worker (sikoanimar-v7), no interfiere con el del chat.
+- Los modos Muñeco, Títere, Efectos y Dibuja funcionan 100% sin
+  internet.
+- El modo IA necesita internet y tu clave con Pollen.
+- El recorte del Modo Muñeco y el esqueleto automático del Modo
+  Títere son algoritmos propios que corren en tu navegador (nada
+  se sube a ningún servidor).
+- ¿Cómo funciona el Títere por dentro? TÚ (o 🎯 Puntos mágicos)
+  pones las articulaciones (extremos izquierdo/derecho = manos,
+  dos grupos abajo = pies, franja superior = cabeza), el muñeco se
+  corta en 6 piezas (cabeza, torso, 2 brazos, 2 piernas) y cada
+  pieza gira alrededor de su punto: exactamente la idea de un
+  títere de papel.
+- Para actualizar la app algún día: cambia los archivos y sube
+  el número de versión del caché en sw.js (sikoanimar-v7...).

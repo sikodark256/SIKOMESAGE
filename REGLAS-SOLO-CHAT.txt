@@ -56,5 +56,11 @@ service cloud.firestore {
     match /chat_juegos/{doc} {
       allow read, write: if true;
     }
+
+    // ---------- SIKOCHAT · ÁLBUM DE DIBUJOS (v51) ----------
+    // historial de dibujos guardados en la nube por cada usuario
+    match /chat_album/{doc} {
+      allow read, write: if true;
+    }
   }
 }

@@ -1,0 +1,18 @@
+{
+  "name": "SikoAnimar — Anima tus imágenes",
+  "short_name": "SikoAnimar",
+  "description": "Anima tus imágenes: efectos, muñecos que caminan/vuelan, pizarra mágica donde tu dibujo se dibuja solo y títeres con articulaciones que bailan y saludan. Gratis.",
+  "lang": "es",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0d0d0d",
+  "theme_color": "#0d0d0d",
+  "categories": ["entertainment", "photo", "utilities"],
+  "icons": [
+    { "src": "./icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "./icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
