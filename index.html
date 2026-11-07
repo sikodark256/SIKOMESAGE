@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- SikoChat v53 · 🐸 ZUMA ARREGLADO: el juego se CONGELABA al avanzar (empiezaba bien y a los primeros estallidos la pantalla quedaba clavada) — había un error de escritura en el código del estallido de bolas (usaba 'suela' en vez de 'suelta') que tiraba un error cada vez que unías 3 o más del mismo color y MATABA el motor del arcade entero: corregido, ahora los estallidos, los COMBOS, las cascadas y las piedras rúnicas salen como siempre; y de paso el motor del arcade quedó BLINDADO: si cualquier juego tuviera un error interno, el bucle sigue vivo y la pantalla no se congela nunca más · + v52 · ⛏️ DIGGER EN EL ARCADE: entró el TERCER jueguito de 1 jugador — el clásico DIGGER de 1983 (portado del remaster en JavaScript de Lutz Roeder, MIT): cavás túneles, juntás los diamantes que pide cada sala, empujás piedras (que caen y pueden aplastarte o aplastar bichos: +99) y salís por la puerta para pasar a la SALA siguiente — las 60 salas del original, con sus mismos sprites GIF, sus mismos sonidos WAV (diamante/piedra/paso) y su mismo motor de tic de 50 ms; récord propio en el celu, ficha con ▶ JUGAR / pausa / fin de partida igual que Galaxy y Zuma; en PC y TV se juega con las flechas o WASD (P pausa, ⛶ pantalla entera) y en el celu con los botones ◀▲▼▶ del pad o deslizando el dedo hacia donde querés cavar (el mismo gesto del original), y si te atrapan un toque/tecla te da otra vida (20 vidas) · + v51 · 🕸️ MALLA CON PUNTOS DE ANCLAJE + 📔 ÁLBUM DE DIBUJOS EN LA NUBE: en el cajón ⋯ MÁS entró 🕸️ MALLA (estilo Clip Studio): pone una malla con puntos de anclaje sobre la CAPA elegida, arrastrás un punto y la figura se DEFORMA como un títere (cada triángulo se redibuja con su propia transformación afín, sin costuras), tocás un lugar limpio de la malla y CREÁS un anclaje nuevo ahí, selector de densidad (3×3 · 4×4 · 6×6), 🔄 Enderezar vuelve los puntos a su lugar, ✔ Deformar estampa la figura en la capa (se deshace con ↩️) y ✖ cancela sin tocar nada; funciona con dedo, lápiz y mouse, y sigue al papel con el zoom · 📔 MI ÁLBUM: botón nuevo en la barra de la pizarra al lado de 💾 — guarda el dibujo EN LA NUBE del chat (colección chat_album): es tu HISTORIAL PERSONAL por usuario y lo ves desde cualquier aparato — TV, PC o celu — aunque ahí no se puedan bajar archivos (en la TV el 💾 local no sirve); el álbum muestra hasta 30 dibujos con su miniatura, fecha y nombre (tocá el nombre para cambiarlo), y a cada uno le hacés ✏️ abrirlo en la pizarra como capa nueva para seguir editando, 💾 bajarlo local, 📤 mandarlo al chat o 🗑️ borrarlo con 2 toques; reglas nuevas de chat_album en firestore-reglas.txt · + v50 · 📺 ARCADE A PANTALLA ENTERA + 🐸 GIROS DE ZUMA CON EL DEDO: los dos jueguitos APROVECHAN TODA LA PANTALLA — la ventana del juego ya no es una cajita (72% de la pantalla en ventana normal), el botón ⛶ PANTALLA y el chip ⛶ nuevo DENTRO de la mesa meten el juego EN TODO el monitor/TV/celu de verdad: lienzo estirado al máximo y NÍTIDO (el dibujo interno crece en pantallas grandes en vez de pixelarse), los puntos flotan arriba y los botones abajo en franjas translúcidas que no tapan nada, y en el celu ZUMA pide modo horizontal solo; 🐸 en el CEL la rana de ZUMA GIRA CON EL DEDO: arrastrás en cualquier parte de la pantalla y la rana gira IGUAL que tu dedo (giro relativo — la mira nunca queda tapada por el dedo), un toque corto apunta y dispara al punto tocado, y en GALAXY tocás y arrastrás y la nave sigue el dedo disparando sola; 📺 en TVs de 1600px o más los botones, puntos y pad del arcade crecen solos, igual que la pizarra · + v49 · 🕹️ ARCADE EN EL CHAT: entran DOS jueguitos nuevos de 1 JUGADOR en la sección 🎮 Juegos — 👾 GALAXY: la flota alienígena ataca en oleadas; movete con ← → o A/D (en el cel arrastrás el dedo sobre la pantalla o usás los botones ◀ ▶), dispará con ESPACIO o ⚡ FUEGO, los marcianos en PICADA valen el doble, 3 vidas y cada oleada viene más rápida, con récord guardado en tu celu; 🐸 ZUMA MÍSTICO: apuntá con la rana de piedra y dispará piedras a la cadena, uní 3 o más del mismo color para hacerlas ESTALLAR, los extremos del mismo color se imantan y arman COMBOS en cascada (hasta x8), cazá las piedras rúnicas (💣 bomba en cadena · ⏳ tiempo lento · ↩️ retroceso · 🔺 rayo x3) y que la calavera del templo no devore tu cadena — 6 circuitos (El Umbral, La Espiral, La Serpiente, El Doble Lazo, La Corona y el Corazón del Templo) que se repiten cada vez más rápido; los dos con sonido de arcade propio (se silencia con 🔊 Sonido), pausa con P (y sola si cambiás de app), ⛶ PANTALLA COMPLETA para PC/TV, y al terminar podés 📤 COMPARTIR tu puntaje al chat para ver quién te supera · el botón 🕹️ de la barra del título abre el arcade en un toque (los juegos de 2 jugadores siguen igual, en cada chat con 🎮) · + v48 · 🎨 PIZARRA ORDENADA: FORMAS · CUENTAGOTAS · DIFUMINAR · PAPEL FIJO Y LIMPIO — + ⬟ FORMAS: botón nuevo en el riel con selector de LÍNEA, FLECHA, RECTÁNGULO, ELIPSE y TRIÁNGULO (con modo RELLENO o contorno): arrastrás sobre el papel y la figura sale con tu color y tu trazo, con vista previa en vivo ANTES de soltar + 💧 CUENTAGOTAS: toca cualquier color del dibujo y queda elegido para tus pinceles (muestra el código HEX) + 🌫️ DIFUMINAR: desenfoque de verdad — pasás el pincel y lo pintado queda SUAVE como foto fuera de foco (el Nivel decide cuánto, sirve para nubes, brillos y sombras); el viejo "difuminado" ahora se llama AERÓGRAFO para no confundir + 📌 PAPEL FIJO: al 100% la hoja queda CLAVADA — overflow oculto, sin rebotes ni corrimientos: el papel NO se mueve si no hiciste zoom (el paseo con dedos/Ctrl+rueda sigue igual al acercar) + 🧹 PAPEL LIMPIO: ya no flota NADA sobre la hoja — el cartelito de estado, las píldoras 🧱 CAPAS y Aa LETRA, el zoom y el chip del reto viven ahora en una FRANJA ORDENADA debajo del papel (los paneles siguen apareciendo solo cuando los llamás) + ⋯ MÁS HERRAMIENTAS: el riel quedó con lo simple (lápiz, pincel, goma, bote, formas, texto) y TODO lo complejo (brocha, aerógrafo, difuminar, licuar, cuentagotas, mover papel, mover capa) entra en un solo botón ⋯ con rejilla de nombres — nada amontonado + 🎛️ FUERZA INTELIGENTE: el botón de Fuerza solo aparece cuando sirve (Licuar o Difuminar) y el cartelito de estado siempre dice qué estás usando + 📺 ADAPTA A TV: en pantallas de 1600px o más todos los botones, píldoras y menús crecen solos (cel y PC siguen igual) · + v47 · 🪄 DAR VIDA A TUS DIBUJOS (estilo FlipSketch): botón nuevo ✨ ANIMAR en la pizarra — lo tocas y tu dibujo se abre en la app SikoAnimar YA RECORTADO del papel y CAMINANDO: eliges caminar, volar, saltar, bailar o nadar, ajustas la velocidad y sales GIF o VIDEO gratis para compartir por WhatsApp (el dibujo viaja por dentro de tu celu, nada se sube a internet; también puedes mandarlo a video con IA) · + v46 · 🖌️ PIZARRA PROFESIONAL "HOJA PURA" — ORDENADA Y FÁCIL COMO UN JUEGO: + 🖼️ LA HOJA ENTRA ENTERA, CON SU TAMAÑO ORIGINAL: se acabó la barra de deslizamiento molestando al dibujar — la pizarra ahora MIDE la pantalla y planta la hoja blanca 4:3 bien centrada, del tamaño más grande que entra COMPLETA (en el cel, en la PC y en la TV); el papel ya no se recorta ni se esconde detrás de deslizadores + 🖥️ MARCO DE APP EN CUALQUIER PANTALLA: nada de scroll de página — la pizarra ocupa EXACTAMENTE la pantalla (100dvh) y se reparte sola: arriba la barra de botones, al medio la mesa (riel de herramientas a la izquierda SIEMPRE, sin apilarse ni saltarse), abajo Cerrar y ENVIAR; todo a la vista aunque la pantalla sea baja, ancha o gigante + 🎨 ESCRITORIO DE VERDAD: la hoja blanca flota con su sombra sobre un escritorio oscuro, como en los programas pro de dibujo — se ve exactamente dónde termina el papel; los deslizadores SOLO aparecen cuando acercás el zoom (para pasear por la hoja) y ahora van finos y translúcidos; el botón Ajustar vuelve siempre a la hoja entera + 🧒 CARTELITO DE ESTADO PARA NIÑOS: una pastilla debajo del papel muestra ✏️ Lápiz · Trazo 5 · y la bolita del color elegido — se actualiza sola al cambiar de herramienta, de tamaño o de color (en la goma dice su intensidad, "Goma 80%"): el que recién empieza SIEMPRE sabe qué está agarrando · + v45 · 🖌️ PIZARRA MÁS CÓMODA Y ORDENADA: + 📏 ICONOS MÁS GRANDES QUE SE ADAPTAN SOLOS: la medida de los botones crece con el ancho de la pantalla (en el cel agarran mejor con el dedo, en la PC un poco más y en la TV / monitor grande SE AGRANDAN SOLOS — también siguen el zoom del navegador) + 🧱 CAPAS CERRADAS AL ABRIR en TODAS las pantallas: se acabó la columnita de la derecha que robaba lugar — ahora es una TARJETA FLOTANTE sobre el papel con su sombra, la llamás con la píldora nueva «🧱 CAPAS» del rincón (o el botón 🧱 de arriba) y la cerrás con la flechita: papel limpio y al máximo + 🔤 LA LETRA IGUAL, FLOTANTE: píldora nueva «Aa LETRA» en el rincón del papel — la tocás y AHÍ RECÍEN aparece flotante el cambio de fuente (tipo con su propia letra, tamaño con deslizador, color y vista previa), con su cerrar propio; las dos tarjetas NUNCA quedan abiertas juntas (abre una, se guarda la otra) + 🎨 PALETA CON LOGITO PROPIO Y ORDEN PRO: el botón de color ahora es una PALETITA con puntitos de verdad (rojo, amarillo, verde, azul — se entiende sin leer, aun en la TV) y el menú se reordenó como los programas de dibujo: ARRIBA el color elegido con su código (#HEX) y la bola grande, AL MEDIO COLORES RÁPIDOS (las bolitas, ahora más grandes) y ABAJO ARMAR UN COLOR (cuadro de degradado + barra arcoíris) + 📱 EN EL CEL LA BARRA DE ARRIBA YA NO CORTA NADA: el título se corre a un lado y los botones (↩️ restaurar · 🗑️ eliminar capa · 🖼️ importar · 💾 guardar · 📤 compartir · 🏆 reto · ⤢ agrandar · 🧱 capas · ⛶ pantalla · ✕ cerrar) se acomodan EN FILAS y más gruesos — TODOS a la vista, nada escondido en scroll · + v44 · 🏆 RETO DE DIBUJO + 💬 MENSAJE FLOTANTE MIENTRAS DIBUJÁS + 🗺️ PIZARRA MÁS GRANDE Y EXPANDIBLE + 🖼️ DIBUJOS EN HD + ⛶ PANTALLA COMPLETA EN LAS PUBLICACIONES + 🧹 PANEL DEL CHAT FUERA + 📲 LINK EN EL COMPARTIR: + 🏆 RETO «¿QUIÉN DIBUJA MEJOR?»: botón nuevo 🏆 en la pizarra — elegís a quien quieras desafiar y tu dibujo le llega como DESAFÍO PRIVADO en una tarjeta “🏆 RETO DE DIBUJO”; a la otra persona le aparece el botón 🎨 ACEPTAR EL RETO, se le abre su pizarra con el cartel ⚔️ “respondiendo el reto de…” y cuando manda su dibujo queda la RESPUESTA al reto al lado del desafío — el chat vota al mejor con ❤️ 🔥 + 💬 SI TE ESCRIBEN MIENTRAS DIBUJÁS: tarjeta FLOTANTE sobre la pizarra con el nombre, el mensaje y un campo para responder AL TOQUE (➤) — se CIERRA con ✖ y se ARRASTRA con el dedo a cualquier rincón: no tenés que cortar tu dibujo para contestar (respeta los silenciados 🔕) + 🗺️ PIZARRA MÁS GRANDE: el papel pasó de 640px a 900px de ancho y 68vh de alto, y el botón nuevo ⤢ lo agranda a TODO lo que dé la pantalla (queda guardado en tu celu) + 🖼️ DIBUJOS EN HD DE VERDAD: el papel interno pasó de 480×360 a 960×720 (¡4 veces más píxeles!) — los dibujos salen nítidos para GUARDAR 💾 (botón nuevo en la pizarra) y COMPARTIR 📤 (a WhatsApp con la imagen incluida); el peso se ajusta solo (calidad y escala) para que Firestore nunca lo rechace + ⛶ PANTALLA COMPLETA EN LAS PUBLICACIONES: cuando tocás un dibujo publicado, al lado de 💾 Guardar está el botón ⛶ que lo pone EN TODO EL MONITOR/TV (funciona con los Fullscreen de siempre, también en TVs viejas) + 🧹 PANEL DE CONTROL DEL CHAT FUERA: se fue el 🛠️ de la barra de arriba y el ⚙ de CONTACTOS — el administrador maneja TODO desde panel.html que es PÁGINA APARTE (v42); lo que sí usabas quedó a mano: en cada CHAT PRIVADO hay botón nuevo ⚙ con 🔕 silenciar · 🚫 bloquear (2 toques) · 🗑️ borrar la conversación (2 toques) y la huella 🧬 con los nombres anteriores de esa persona + 📲 COMPARTIR ARREGLADO: el link https://sikochat.vercel.app ahora viaja SIEMPRE en el texto de WhatsApp EN SU PROPIA LÍNEA (aunque se comparta con imagen) y también sale en la tarjetita de la página · + v43 · 🧬 HUELLA DIGITAL: cada dispositivo trae un código propio (H-xxxx-xxxx) que NO cambia aunque la persona cambie de nombre — cuando alguien se cambia el nombre (en su perfil o al entrar), el nombre ANTERIOR queda registrado en su ficha de Firebase (historialNombres) con la fecha, así se sabe siempre que es la MISMA persona con otro nombre · en el 🛠️ panel de control de cada chat la fila del contacto muestra “🧬 antes: …” · en el PANEL DEL ADMINISTRADOR (panel.html) se ve la huella completa de cada uno, el historial de nombres viejos, y si alguien vuelve a entrar con otro nombre o vuelve después de ser BORRADO, la huella lo delata: aparece 🔗 misma huella o ⚠️ REINCIDENTE · + v42 · 🛠️ PANEL DEL ADMINISTRADOR APARTE (panel.html) + ⛔ BAN GLOBAL: página NUEVA aparte (panel.html) solo para el dueño — se abre por su propia dirección y NO está en el menú del chat: entrás con clave (se cambia adentro del archivo, arriba: CLAVE_ADMIN) y manejás todo: 👥 USUARIOS (todos en vivo con quién está conectado, buscador y a cada uno 🚫 BAN GLOBAL y 🗑️ BORRAR a la persona con TODO lo que escribió — ficha y mensajes de una), 🚫 BLOQUEADOS (la lista de baneados con ✅ para perdonar) y 💬 MENSAJES (los últimos 150 en vivo del grupo y los privados con 🗑️ para borrar cualquiera PARA TODOS al instante) · el chat de cada uno ahora entiende el BAN GLOBAL: los mensajes de un bloqueado por el admin NO se ven (ni grupo ni privados), no avisan, no zumban, no pueden invitar a jugar y si intenta escribir le sale el cartel ⛔ — en la lista de contactos aparece con la señal ⛔ · + v41 · 🛠️ PANEL DE CONTROL DEL CHAT: botón nuevo 🛠️ ARRIBA (al lado de la campanita 🔔) y ⚙ en CONTACTOS que abren el PANEL con 3 pestañas — 👥 CONTACTOS: todos con su estado en vivo y 4 botones por persona (💬 abrir su chat · 🔕 SILENCIAR: sus mensajes llegan sin aviso ni sonido y sigue contando lo no leído · 🚫 BLOQUEAR: sus mensajes desaparecen del chat, ni privados ni grupo ni zumbidos ni invitaciones a jugar, y nadie se entera · 🗑️ BORRAR LA CONVERSACIÓN: borra de Firebase los DOS lados del privado) · 🚫 BLOQUEADOS: la lista con ✅ desbloquear a un toque · 🔔 AVISOS: llavecita de avisos y de sonido, lista de silenciados, 📵 silenciar/activar a todos, 🔔 probar aviso y 🧭 Central avanzada · las listas se guardan en tu dispositivo Y en tu ficha de Firebase (campos muteados/bloqueados) para que el SERVIDOR DE PUSH v41 también las respete con el chat totalmente cerrado (si ya usabas push: 🔔 Avisos → 📲 ACTIVAR PUSH → volvé a copiar y deploy) · 🧹 MANTENIMIENTO: borrar MIS mensajes del grupo de una · las acciones fuertes 🚫 🗑️ 🧹 piden confirmación con DOS toques · + v40 · ✍️ PANEL DE FUENTES EN LÍNEA + 📏 TAMAÑO CON DESLIZADOR + 🧽 INTENSIDAD DE LA GOMA + 📌 TEXTO QUE SE QUEDA DONDE LO PONÉS: en la sección TEXTO de la pizarra el botón de fuente ahora es un BOTÓN PROPIO (Aa + nombre) — lo tocás y el panel aparece AHÍ MISMO, adentro del panel de capas (se acabó el selector nativo que saltaba a un costado del cel): TIPO DE LETRA con cada fuente mostrada con su propia letra (las de terror 🎃 incluidas) + TAMAÑO con deslizador 12–96 y botones A−/A+ + COLOR con las mismas 14 bolitas del riel, todo junto y compacto para ahorrar campo (la vista previa sigue abajo, en vivo) · la caja de texto flotante ya NO salta a un costado: quedó ANCLADA AL PAPEL (contaba mal la posición cuando el papel queda centrado o con zoom), un TOQUE ya no la corre (solo se mueve cuando de verdad arrastrás, con umbral de 6px) y tocar el campo SÍ abre el teclado (antes lo bloqueaba); si cambiás de herramienta a medio escribir, tu texto no se pierde (borrador) · el botón TRAZO ahora trae DESLIZADOR DE TAMAÑO 1–30 con bolita de vista previa (como la Fuerza del licuar; los atajos Fino/Medio/Grueso siguen) y ABAJO el deslizador nuevo de INTENSIDAD DE LA GOMA 5–100% (bajo = apenas roza, alto = borra de golpe) · + v39 · 🧭 CAPAS SIEMPRE A LA VISTA + 🌀 LICUAR COMO PHOTOSHOP + 🎨 COLOR EN EL RIEL + 📻 RADIO ONLINE + 🧷 FIGURITAS FUERA: en el cel la pizarra muestra ahora una PASTILLA "🧱 CAPAS" FLOTANDO en el rincón del papel (al lado del zoom) MIENTRAS la hoja de capas está escondida — un toque y sube la hoja: las capas ya NO se pierden nunca más (el botón 🧱 de la barra de arriba sigue igual) · la herramienta 👆 Dedo pasó a ser 🌀 LICUAR de verdad, como el licuar de Photoshop: tocás el dibujo y arrastrás para EMPUJAR y estirar los píxeles, ahora con BORDE SUAVE de pincel (el botón Fuerza sigue y decide cuánto empuja: 5% = mezcla sutil, 100% = estirón fuerte) · el COLOR volvió al RIEL de herramientas: botón nuevo 🎨 al lado de Trazo y Fuerza que abre la paleta completa (14 bolitas + cuadro de color + barra arcoíris + bola grande en vivo) justo DONDE ESTÁN LOS PINCELES — igual en el cel y en la PC, y el panel queda más limpio · la sección 🧷 FIGURITAS SALIÓ del panel (quedan solo CAPAS + TEXTO, nada amontonado) · y arriba, AL COSTADO DEL LOGO DE LA RADIO, entró el chip "RADIO ONLINE" con una lucecita naranja que PARPADEA como botoncito — lo tocás y sintonizás Sikodark Radio al toque · + v38 · 👆 FUERZA DEL DEDO + 📦 MOVER CADA CAPA POR SEPARADO + 📱 PIZARRA ORDENADA EN EL CEL: la herramienta 👆 Dedo ahora tiene CONTROL DE INTENSIDAD — botón nuevo "Fuerza" en el riel con un deslizador de 5% a 100% que decide cuánto jala el color ya pintado (bajo = mezcla sutil, alto = estira fuerte; queda guardado en el celu) · herramienta nueva 📦 M. CAPA: agarrás la CAPA ELEGIDA y la arrastrás ENTERA a otro lado del papel mientras las demás capas quedan QUIETAS (se deshace con ↩️ como cualquier trazo) · y en el CEL la pizarra se reordenó como una APP DE VERDAD: nada amontonado ni scroll de página — arriba la barra, debajo el riel de herramientas, el PAPEL ocupa todo el resto de la pantalla y abajo solo ENVIAR/Cerrar; el zoom queda FLOTANDO en el rincón del papel y las CAPAS + TEXTO + FIGURITAS + COLORES entran como HOJA INFERIOR que sube desde abajo con su barrita (como en las apps pro de dibujo) sin empujar ni tapar nada · + v37 · ✍️ VISTA PREVIA DE LA LETRA + 🎃 FUENTES DE TERROR + 🧷 FIGURITAS PREARMADAS: en el panel de la derecha (la misma área de las CAPAS) la sección TEXTO ahora muestra una VISTA PREVIA grande donde se ve EXACTAMENTE cómo va a salir la letra — con la fuente elegida, el tamaño y el color de la paleta, y cambia EN VIVO mientras escribís o probás fuentes · entraron 5 FUENTES DE TERROR para Halloween (Creepster, Nosifer, Eater, Butcherman y Frijole) que se ven tal cual en el papel y en el propio menú · y ABAJO del texto entró la sección nueva 🧷 FIGURITAS: 24 logitos prearmados (estrellitas, corazones, luna, fuego, murciélago, calabaza, fantasma, calavera, araña, telaraña y emojis de siempre) — tocás una, queda FLOTANDO sobre el papel, la ARRASTRÁS a cualquier lugar, la agrandás o achicás con A+ / A− y con ✔ la fijás en la capa elegida (se puede deshacer como cualquier trazo) · + v36 · 🎨 PALETA EN EL PANEL + 👆 DEDO (LICUAR) + CERRAR ABAJO: la paleta de colores SALIÓ del menú del riel (la X amarilla de tu captura) y ahora vive EN EL PANEL DE LA DERECHA debajo de las capas y el texto — con los 14 colores de siempre, el cuadro de degradado, la barra del arcoíris y un CÍRCULO GRANDE que muestra EN VIVO el color elegido · herramienta nueva 👆 DEDO (licuar como en Photoshop): tocás el color ya pintado y lo JALÁS para estirarlo y mezclarlo · el botón CERRAR volvió a estar ABAJO al lado de ENVIAR DIBUJO (arriba queda el ✕ chiquito de siempre) · si la pantalla es baja el riel scrollea adentro y ningún icono queda recortado · + v35 · 🖌️ PIZARRA COMO LA CAPTURA DEL DUEÑO: el panel de dibujo quedó IGUAL a la imagen que mandó — herramientas en una COLUMNA de iconos a la IZQUIERDA (lápiz, pincel, brocha, difuminado, bote, goma, texto y mover — al tocar cada uno se ilumina en naranja), ARRIBA quedaron los botones deshacer ↩️ · limpiar 🗑️ · importar imagen 🖼️ · capas 🧱 (muestra/esconde el panel) · ⛶ pantalla completa · ✕ cerrar, las CAPAS y el TEXTO (fuente + color) siguen a la DERECHA y abajo el botón grande ENVIAR DIBUJO — en el cel el riel se corre de lado y las capas arrancan escondidas como siempre · TODO lo demás de la pizarra sigue exacto: papel blanco, zoom, capas, texto arrastrable, deshacer por capa · + v34 · 🎙️ RADIO Y COMPARTIR ARRIBA: los botones 📻 Radio y 📤 Compartir SALIERON de la barra de abajo (quedó más limpia) y ahora son DOS LOGITOS en la barra del título — la radio usa el logo de los auriculares naranjas del propio SikoChat (chip negro) y al lado está el logito de compartir · 📲 COMPARTIR CON IMAGEN: al compartir por WhatsApp sale la tarjetita “Dibuja · Escucha Radio · Chatea” con la carita de SikoChat y ABAJO el link (en el cel va con imagen incluida gracias al compartir nativo; en PC/TV WhatsApp arma la tarjetita sola leyendo los datos nuevos de la página) · + v33 · 🎨 PIZARRA REDISEÑADA ESTILO MODERNO: ya no está todo amontonado — herramientas en tarjetas separadas con ICONOS SVG modernos (nada de caritas negras en la TV), el GROSOR y el COLOR entrán DENTRO de un botón (menú desplegable) y hay un botón ⛶ PANTALLA COMPLETA que funciona en PC, TV y cel · ✍️ HERRAMIENTA DE TEXTO: elegís la FUENTE y sale con el COLOR de la paleta, el texto queda FLOTANDO sobre el papel, lo ARRASTRÁS a cualquier lugar, lo AGRANDÁS con A+ / A− y lo fijás con ✔ (entra en la capa elegida y se puede deshacer) · 🧱 CAPAS PLEGABLES: el visor de capas ahora tiene FLECHA para esconderlo — en el cel arranca escondido y YA NO TAPA la pantalla · 🖼️ IMPORTAR IMAGEN filtra por defecto JPG / PNG / WEBP · 😀 EMOJIS SIEMPRE A COLOR: el chat usa Twemoji (los dibujitos de X/Twitter) así en las TVs que mostraban los emojis NEGROS ahora se ven a color — mensajes, contactos, emotis y stikers · 🎞️ GIFs INFINITOS: la pestaña GIFs ahora tiene BUSCADOR de Tenor (Google) — gratis con tu propia clave en el archivo nuevo gif-config.js (pasos en el README); sin clave siguen los GIFs de Sikodark de siempre · + v32 · 🔍 ZOOM + PAPEL BLANCO EN LA PIZARRA (igual diseño, como la imagen de referencia): el dibujo ahora es una hoja BLANCA dentro de una ventana con marco naranja · botones 🔍➕ Acercar / 🔍➖ Alejar con el porcentaje al medio (100% → 800%) y ⤢ Ajustar para volver al tamaño justo · con zoom el papel se arrastra con ✋ Mover (o los scroll de la ventana) · en el cel se estira/aplasta con 2 DEDOS (pellizco) y en PC Ctrl + rueda del mouse acerca justo al punto del puntero · desde 300% el papel muestra píxeles grandes para rematar detalles chicos · + v31 · 🎨 PIZARRA PRO CON CAPAS: la pizarrita ahora es un mini programa de dibujo de verdad — 🧱 CAPAS (arranca con 2, hasta 6: ojito para mostrar/ocultar, ➕ nueva, 🗑️ borrar, miniatura de cada una, se dibuja en la capa elegida y quedan como papeles transparentes superpuestos), 🖌️ BROCHA con cerdas (textura, no tira lisa), 💨 DIFUMINADO tipo aerógrafo para sombras y pasos suaves, 🎨 SELECTOR DE COLOR con cuadro de degradado + barra arcoíris (cualquier color, como la imagen pedida), 🖼️ IMPORTAR IMAGEN (la foto entra en una capa de abajo para calcar encima), la goma borra la capa elegida, Limpiar vacía solo la capa elegida, deshacer por capa y al mandar se aplanan las capas visibles · + v30 · 🔀 CHAT CON PROYECTO PROPIO DE FIREBASE (REGLAS SEPARADAS DE LA RADIO): la config de Firebase salió del código a un archivo aparte chat-config.js — creás un proyecto nuevo, pegás las claves ahí y el chat deja de depender del proyecto de la radio PARA SIEMPRE (cada vez que cambiabas las reglas de la radio el chat se rompía: esto lo arregla de raíz); mientras no cambies el archivo el chat sigue EXACTAMENTE igual que siempre (respaldo automático), y el botón 📲 ACTIVAR PUSH copia el servidor con el proyecto nuevo puesto solo · + v29 · 👥 LOS CONTACTOS NO SE BORRAN MÁS: el chat tenía una "limpieza automática" que BORRABA de Firebase a cada contacto que no entraba hace más de 24 horas — por eso la lista quedaba solo con los que estaban escribiendo en el momento y "desaparecían" los demás; ahora los contactos QUEDAN SIEMPRE en la lista con su "visto hace" (estilo MSN: los desconectados también se ven) y solo se limpian los mensajes viejos (12 h) y las partidas abandonadas (6 h) · + v28 · 📺 TABLERO ARREGLADO PARA TV: en varias televisiones el tablero salía APLASTADO (una tira chata) porque el navegador de la TV es viejo y no conoce la medida "aspect-ratio" — ahora el chat MIDE cada casilla y le pone el alto justo con JavaScript: casilleros bien cuadrados en cualquier TV, PC o cel, y la mesa grande arranca desde 900px de ancho · + v27 · 🏁 TERMINAR PARTIDA: mientras jugás hay un botón 🏁 TERMINAR junto a Salir — la partida se cierra PARA LOS DOS (al otro le queda el resultado y la revancha) · + v27 · YA NO REAPARECE SOLA: si salís de una partida a medio jugar no se reabre sola cuando recargás el chat (queda guardado en tu dispositivo; si el otro mueve te avisa con una tostada y volvés tocando 🎮) · + v27 · 📺 MESA A PANTALLA GRANDE: en PC y TV el tablero, las fichas, el marcador y los botones se agrandan para aprovechar la pantalla · + v26 · 🎮 JUEGOS EN LÍNEA DE 2: damas · ajedrez · ta-te-ti · conecta 4 · piedra-papel-tijera — invitás desde el chat privado o la lista de contactos, al otro le salta la invitación tipo llamada, juegan en vivo cada uno desde su pantalla (sincronizado con Firestore, colección chat_juegos), con marcador, revancha y recuperación de partidas · + v25 · ← INICIO ARRIBA: botón para VOLVER a los contactos cuando entrás al grupo o a un privado (arriba a la izquierda, como WhatsApp; en el cel) · VOLUMEN: en 🎵 Tonos ahora hay un slider de volumen (0–100%) para los sonidos y avisos del chat, se guarda en tu dispositivo y en 0 queda todo mudo · + v24 PUSH ACTIVABLE DESDE EL CHAT: el servidor de empuje se configura ADENTRO (🔔 Avisos → 📲 ACTIVAR PUSH: copiar código → crear el worker gratis en Cloudflare → pegar la URL → GUARDAR Y PROBAR); la URL queda guardada en Firestore (chat_usuarios/__config__) y sirve para TODOS — ya no hay que editar el código ni volver a subir archivos por esto; las suscripciones de cada cel ahora se guardan en chat_usuarios/{uid}.push (sin colección nueva ni reglas extra) y el servidor es verificado en vivo desde la Central (estado: OK / viejo / caído, con detalle) · + v23 BANDEJA LIMPIA TIPO WHATSAPP: sin avisos de "se conectó", título = SOLO el nombre del que escribe, foto del remitente como imagen, grupo = 💬 CHAT GRUPAL con "juan: mensaje"; el rótulo de la dirección (github.io) lo pinta el NAVEGADOR por seguridad y no se puede sacar por código — con la app instalada Chrome puede mostrar "SikoChat" · + v22 PUSH REAL: cada cel se suscribe al empuje (Web Push con llaves VAPID) y el servidor manda el aviso cifrado aunque la PWA esté totalmente cerrada · + SIN DUPLICADO EN LA LISTA: tu nombre aparece UNA sola vez y los contadores ya no te cuentan a vos · + CENTRAL DE AVISOS: estado real del dispositivo, PROBAR AVISO AHORA, ayuda Android/iPhone y 🫀 MODO SIEMPRE ACTIVO · + NAVEGACIÓN TIPO APP EN EL CEL: lista ↔ chat con botón 👥 CONTACTOS · + PANEL DEL CEL ESTILO MSN · SIN contraseña (opcional) · badge de no leídos · PIZARRITA PAINT · TODOS en la lista con visto hace · reacciones ❤️ reenviar ↪️ borrar 🗑️ favoritos ⭐ · emotis/stikers/gifs/fotos · tonos · radio · temas · perfil · privado · instalar como app -->
+<!-- SikoChat v55 · ⬚ SELECCIÓN DE OBJETOS EN LA PIZARRA: herramienta nueva en ⋯ MÁS — marcás un rectángulo sobre el papel y ese pedazo SE LEVANTA del dibujo y queda FLOTANDO: lo ARRASTRÁS con el dedo a cualquier lado, lo AGRANDÁS o lo ACHICÁS con las manijas de las esquinas y lo GIRÁS con la bola amarilla de arriba (se endereza sola cerca de 0°, 15°, 90°…), sirve para acomodar texto ya estampado, caras, formas o lo que sea sin volver a dibujarlo — funciona en la capa elegida con dedo, lápiz y mouse, con caja propia: ✔ ESTAMPAR lo deja pintado (↩️ lo deshace como cualquier trazo), 🗑️ QUITAR saca el pedazo del dibujo y ✖ lo devuelve a su lugar, si cambiás de herramienta o de capa con algo flotando se estampa SOLO para que nunca se pierda, y tocar afuera de la selección arranca una marca nueva al toque · + v54 · 🎮 8 JUEGOS NUEVOS EN EL ARCADE: entran 🦍 DONKEY KONG (remake de Game Boy '94), 🌻 PLANTAS VS ZOMBIS, 🧱 BLOXD.IO, 🚽 PEET SNEAK, 🟪 PIXEL PATH, 💰 MONEY MOVERS 3 (los 6 juegan EN LÍNEA adentro del arcade: iframe con ⛶ pantalla entera, 🔄 Reiniciar y el truco del referer para que GameDistribution los deje entrar) y de yapa ☕ CUPHEAD (batalla aérea propia contra el DIABLITO: 3 fases, balas rosa que cargan la bomba ✨) y 🥬 POPEYE (mini propio con pisos, escaleras, corazones que tira Olive, espinaca que te pone fuerte y Brutus persiguiéndote) — los 2 propios van dibujados a mano en canvas en el archivo nuevo arcade-clasicos.js, con récord del celu y COMPARTIR igual que los demás; el picker 🎮 ahora se divide en ARCADE DEL CHAT (sin internet) y ARCADE EN LÍNEA (necesitan internet) · + v53 · 🐸 ZUMA ARREGLADO: el juego se CONGELABA al avanzar (empiezaba bien y a los primeros estallidos la pantalla quedaba clavada) — había un error de escritura en el código del estallido de bolas (usaba 'suela' en vez de 'suelta') que tiraba un error cada vez que unías 3 o más del mismo color y MATABA el motor del arcade entero: corregido, ahora los estallidos, los COMBOS, las cascadas y las piedras rúnicas salen como siempre; y de paso el motor del arcade quedó BLINDADO: si cualquier juego tuviera un error interno, el bucle sigue vivo y la pantalla no se congela nunca más · + v52 · ⛏️ DIGGER EN EL ARCADE: entró el TERCER jueguito de 1 jugador — el clásico DIGGER de 1983 (portado del remaster en JavaScript de Lutz Roeder, MIT): cavás túneles, juntás los diamantes que pide cada sala, empujás piedras (que caen y pueden aplastarte o aplastar bichos: +99) y salís por la puerta para pasar a la SALA siguiente — las 60 salas del original, con sus mismos sprites GIF, sus mismos sonidos WAV (diamante/piedra/paso) y su mismo motor de tic de 50 ms; récord propio en el celu, ficha con ▶ JUGAR / pausa / fin de partida igual que Galaxy y Zuma; en PC y TV se juega con las flechas o WASD (P pausa, ⛶ pantalla entera) y en el celu con los botones ◀▲▼▶ del pad o deslizando el dedo hacia donde querés cavar (el mismo gesto del original), y si te atrapan un toque/tecla te da otra vida (20 vidas) · + v51 · 🕸️ MALLA CON PUNTOS DE ANCLAJE + 📔 ÁLBUM DE DIBUJOS EN LA NUBE: en el cajón ⋯ MÁS entró 🕸️ MALLA (estilo Clip Studio): pone una malla con puntos de anclaje sobre la CAPA elegida, arrastrás un punto y la figura se DEFORMA como un títere (cada triángulo se redibuja con su propia transformación afín, sin costuras), tocás un lugar limpio de la malla y CREÁS un anclaje nuevo ahí, selector de densidad (3×3 · 4×4 · 6×6), 🔄 Enderezar vuelve los puntos a su lugar, ✔ Deformar estampa la figura en la capa (se deshace con ↩️) y ✖ cancela sin tocar nada; funciona con dedo, lápiz y mouse, y sigue al papel con el zoom · 📔 MI ÁLBUM: botón nuevo en la barra de la pizarra al lado de 💾 — guarda el dibujo EN LA NUBE del chat (colección chat_album): es tu HISTORIAL PERSONAL por usuario y lo ves desde cualquier aparato — TV, PC o celu — aunque ahí no se puedan bajar archivos (en la TV el 💾 local no sirve); el álbum muestra hasta 30 dibujos con su miniatura, fecha y nombre (tocá el nombre para cambiarlo), y a cada uno le hacés ✏️ abrirlo en la pizarra como capa nueva para seguir editando, 💾 bajarlo local, 📤 mandarlo al chat o 🗑️ borrarlo con 2 toques; reglas nuevas de chat_album en firestore-reglas.txt · + v50 · 📺 ARCADE A PANTALLA ENTERA + 🐸 GIROS DE ZUMA CON EL DEDO: los dos jueguitos APROVECHAN TODA LA PANTALLA — la ventana del juego ya no es una cajita (72% de la pantalla en ventana normal), el botón ⛶ PANTALLA y el chip ⛶ nuevo DENTRO de la mesa meten el juego EN TODO el monitor/TV/celu de verdad: lienzo estirado al máximo y NÍTIDO (el dibujo interno crece en pantallas grandes en vez de pixelarse), los puntos flotan arriba y los botones abajo en franjas translúcidas que no tapan nada, y en el celu ZUMA pide modo horizontal solo; 🐸 en el CEL la rana de ZUMA GIRA CON EL DEDO: arrastrás en cualquier parte de la pantalla y la rana gira IGUAL que tu dedo (giro relativo — la mira nunca queda tapada por el dedo), un toque corto apunta y dispara al punto tocado, y en GALAXY tocás y arrastrás y la nave sigue el dedo disparando sola; 📺 en TVs de 1600px o más los botones, puntos y pad del arcade crecen solos, igual que la pizarra · + v49 · 🕹️ ARCADE EN EL CHAT: entran DOS jueguitos nuevos de 1 JUGADOR en la sección 🎮 Juegos — 👾 GALAXY: la flota alienígena ataca en oleadas; movete con ← → o A/D (en el cel arrastrás el dedo sobre la pantalla o usás los botones ◀ ▶), dispará con ESPACIO o ⚡ FUEGO, los marcianos en PICADA valen el doble, 3 vidas y cada oleada viene más rápida, con récord guardado en tu celu; 🐸 ZUMA MÍSTICO: apuntá con la rana de piedra y dispará piedras a la cadena, uní 3 o más del mismo color para hacerlas ESTALLAR, los extremos del mismo color se imantan y arman COMBOS en cascada (hasta x8), cazá las piedras rúnicas (💣 bomba en cadena · ⏳ tiempo lento · ↩️ retroceso · 🔺 rayo x3) y que la calavera del templo no devore tu cadena — 6 circuitos (El Umbral, La Espiral, La Serpiente, El Doble Lazo, La Corona y el Corazón del Templo) que se repiten cada vez más rápido; los dos con sonido de arcade propio (se silencia con 🔊 Sonido), pausa con P (y sola si cambiás de app), ⛶ PANTALLA COMPLETA para PC/TV, y al terminar podés 📤 COMPARTIR tu puntaje al chat para ver quién te supera · el botón 🕹️ de la barra del título abre el arcade en un toque (los juegos de 2 jugadores siguen igual, en cada chat con 🎮) · + v48 · 🎨 PIZARRA ORDENADA: FORMAS · CUENTAGOTAS · DIFUMINAR · PAPEL FIJO Y LIMPIO — + ⬟ FORMAS: botón nuevo en el riel con selector de LÍNEA, FLECHA, RECTÁNGULO, ELIPSE y TRIÁNGULO (con modo RELLENO o contorno): arrastrás sobre el papel y la figura sale con tu color y tu trazo, con vista previa en vivo ANTES de soltar + 💧 CUENTAGOTAS: toca cualquier color del dibujo y queda elegido para tus pinceles (muestra el código HEX) + 🌫️ DIFUMINAR: desenfoque de verdad — pasás el pincel y lo pintado queda SUAVE como foto fuera de foco (el Nivel decide cuánto, sirve para nubes, brillos y sombras); el viejo "difuminado" ahora se llama AERÓGRAFO para no confundir + 📌 PAPEL FIJO: al 100% la hoja queda CLAVADA — overflow oculto, sin rebotes ni corrimientos: el papel NO se mueve si no hiciste zoom (el paseo con dedos/Ctrl+rueda sigue igual al acercar) + 🧹 PAPEL LIMPIO: ya no flota NADA sobre la hoja — el cartelito de estado, las píldoras 🧱 CAPAS y Aa LETRA, el zoom y el chip del reto viven ahora en una FRANJA ORDENADA debajo del papel (los paneles siguen apareciendo solo cuando los llamás) + ⋯ MÁS HERRAMIENTAS: el riel quedó con lo simple (lápiz, pincel, goma, bote, formas, texto) y TODO lo complejo (brocha, aerógrafo, difuminar, licuar, cuentagotas, mover papel, mover capa) entra en un solo botón ⋯ con rejilla de nombres — nada amontonado + 🎛️ FUERZA INTELIGENTE: el botón de Fuerza solo aparece cuando sirve (Licuar o Difuminar) y el cartelito de estado siempre dice qué estás usando + 📺 ADAPTA A TV: en pantallas de 1600px o más todos los botones, píldoras y menús crecen solos (cel y PC siguen igual) · + v47 · 🪄 DAR VIDA A TUS DIBUJOS (estilo FlipSketch): botón nuevo ✨ ANIMAR en la pizarra — lo tocas y tu dibujo se abre en la app SikoAnimar YA RECORTADO del papel y CAMINANDO: eliges caminar, volar, saltar, bailar o nadar, ajustas la velocidad y sales GIF o VIDEO gratis para compartir por WhatsApp (el dibujo viaja por dentro de tu celu, nada se sube a internet; también puedes mandarlo a video con IA) · + v46 · 🖌️ PIZARRA PROFESIONAL "HOJA PURA" — ORDENADA Y FÁCIL COMO UN JUEGO: + 🖼️ LA HOJA ENTRA ENTERA, CON SU TAMAÑO ORIGINAL: se acabó la barra de deslizamiento molestando al dibujar — la pizarra ahora MIDE la pantalla y planta la hoja blanca 4:3 bien centrada, del tamaño más grande que entra COMPLETA (en el cel, en la PC y en la TV); el papel ya no se recorta ni se esconde detrás de deslizadores + 🖥️ MARCO DE APP EN CUALQUIER PANTALLA: nada de scroll de página — la pizarra ocupa EXACTAMENTE la pantalla (100dvh) y se reparte sola: arriba la barra de botones, al medio la mesa (riel de herramientas a la izquierda SIEMPRE, sin apilarse ni saltarse), abajo Cerrar y ENVIAR; todo a la vista aunque la pantalla sea baja, ancha o gigante + 🎨 ESCRITORIO DE VERDAD: la hoja blanca flota con su sombra sobre un escritorio oscuro, como en los programas pro de dibujo — se ve exactamente dónde termina el papel; los deslizadores SOLO aparecen cuando acercás el zoom (para pasear por la hoja) y ahora van finos y translúcidos; el botón Ajustar vuelve siempre a la hoja entera + 🧒 CARTELITO DE ESTADO PARA NIÑOS: una pastilla debajo del papel muestra ✏️ Lápiz · Trazo 5 · y la bolita del color elegido — se actualiza sola al cambiar de herramienta, de tamaño o de color (en la goma dice su intensidad, "Goma 80%"): el que recién empieza SIEMPRE sabe qué está agarrando · + v45 · 🖌️ PIZARRA MÁS CÓMODA Y ORDENADA: + 📏 ICONOS MÁS GRANDES QUE SE ADAPTAN SOLOS: la medida de los botones crece con el ancho de la pantalla (en el cel agarran mejor con el dedo, en la PC un poco más y en la TV / monitor grande SE AGRANDAN SOLOS — también siguen el zoom del navegador) + 🧱 CAPAS CERRADAS AL ABRIR en TODAS las pantallas: se acabó la columnita de la derecha que robaba lugar — ahora es una TARJETA FLOTANTE sobre el papel con su sombra, la llamás con la píldora nueva «🧱 CAPAS» del rincón (o el botón 🧱 de arriba) y la cerrás con la flechita: papel limpio y al máximo + 🔤 LA LETRA IGUAL, FLOTANTE: píldora nueva «Aa LETRA» en el rincón del papel — la tocás y AHÍ RECÍEN aparece flotante el cambio de fuente (tipo con su propia letra, tamaño con deslizador, color y vista previa), con su cerrar propio; las dos tarjetas NUNCA quedan abiertas juntas (abre una, se guarda la otra) + 🎨 PALETA CON LOGITO PROPIO Y ORDEN PRO: el botón de color ahora es una PALETITA con puntitos de verdad (rojo, amarillo, verde, azul — se entiende sin leer, aun en la TV) y el menú se reordenó como los programas de dibujo: ARRIBA el color elegido con su código (#HEX) y la bola grande, AL MEDIO COLORES RÁPIDOS (las bolitas, ahora más grandes) y ABAJO ARMAR UN COLOR (cuadro de degradado + barra arcoíris) + 📱 EN EL CEL LA BARRA DE ARRIBA YA NO CORTA NADA: el título se corre a un lado y los botones (↩️ restaurar · 🗑️ eliminar capa · 🖼️ importar · 💾 guardar · 📤 compartir · 🏆 reto · ⤢ agrandar · 🧱 capas · ⛶ pantalla · ✕ cerrar) se acomodan EN FILAS y más gruesos — TODOS a la vista, nada escondido en scroll · + v44 · 🏆 RETO DE DIBUJO + 💬 MENSAJE FLOTANTE MIENTRAS DIBUJÁS + 🗺️ PIZARRA MÁS GRANDE Y EXPANDIBLE + 🖼️ DIBUJOS EN HD + ⛶ PANTALLA COMPLETA EN LAS PUBLICACIONES + 🧹 PANEL DEL CHAT FUERA + 📲 LINK EN EL COMPARTIR: + 🏆 RETO «¿QUIÉN DIBUJA MEJOR?»: botón nuevo 🏆 en la pizarra — elegís a quien quieras desafiar y tu dibujo le llega como DESAFÍO PRIVADO en una tarjeta “🏆 RETO DE DIBUJO”; a la otra persona le aparece el botón 🎨 ACEPTAR EL RETO, se le abre su pizarra con el cartel ⚔️ “respondiendo el reto de…” y cuando manda su dibujo queda la RESPUESTA al reto al lado del desafío — el chat vota al mejor con ❤️ 🔥 + 💬 SI TE ESCRIBEN MIENTRAS DIBUJÁS: tarjeta FLOTANTE sobre la pizarra con el nombre, el mensaje y un campo para responder AL TOQUE (➤) — se CIERRA con ✖ y se ARRASTRA con el dedo a cualquier rincón: no tenés que cortar tu dibujo para contestar (respeta los silenciados 🔕) + 🗺️ PIZARRA MÁS GRANDE: el papel pasó de 640px a 900px de ancho y 68vh de alto, y el botón nuevo ⤢ lo agranda a TODO lo que dé la pantalla (queda guardado en tu celu) + 🖼️ DIBUJOS EN HD DE VERDAD: el papel interno pasó de 480×360 a 960×720 (¡4 veces más píxeles!) — los dibujos salen nítidos para GUARDAR 💾 (botón nuevo en la pizarra) y COMPARTIR 📤 (a WhatsApp con la imagen incluida); el peso se ajusta solo (calidad y escala) para que Firestore nunca lo rechace + ⛶ PANTALLA COMPLETA EN LAS PUBLICACIONES: cuando tocás un dibujo publicado, al lado de 💾 Guardar está el botón ⛶ que lo pone EN TODO EL MONITOR/TV (funciona con los Fullscreen de siempre, también en TVs viejas) + 🧹 PANEL DE CONTROL DEL CHAT FUERA: se fue el 🛠️ de la barra de arriba y el ⚙ de CONTACTOS — el administrador maneja TODO desde panel.html que es PÁGINA APARTE (v42); lo que sí usabas quedó a mano: en cada CHAT PRIVADO hay botón nuevo ⚙ con 🔕 silenciar · 🚫 bloquear (2 toques) · 🗑️ borrar la conversación (2 toques) y la huella 🧬 con los nombres anteriores de esa persona + 📲 COMPARTIR ARREGLADO: el link https://sikochat.vercel.app ahora viaja SIEMPRE en el texto de WhatsApp EN SU PROPIA LÍNEA (aunque se comparta con imagen) y también sale en la tarjetita de la página · + v43 · 🧬 HUELLA DIGITAL: cada dispositivo trae un código propio (H-xxxx-xxxx) que NO cambia aunque la persona cambie de nombre — cuando alguien se cambia el nombre (en su perfil o al entrar), el nombre ANTERIOR queda registrado en su ficha de Firebase (historialNombres) con la fecha, así se sabe siempre que es la MISMA persona con otro nombre · en el 🛠️ panel de control de cada chat la fila del contacto muestra “🧬 antes: …” · en el PANEL DEL ADMINISTRADOR (panel.html) se ve la huella completa de cada uno, el historial de nombres viejos, y si alguien vuelve a entrar con otro nombre o vuelve después de ser BORRADO, la huella lo delata: aparece 🔗 misma huella o ⚠️ REINCIDENTE · + v42 · 🛠️ PANEL DEL ADMINISTRADOR APARTE (panel.html) + ⛔ BAN GLOBAL: página NUEVA aparte (panel.html) solo para el dueño — se abre por su propia dirección y NO está en el menú del chat: entrás con clave (se cambia adentro del archivo, arriba: CLAVE_ADMIN) y manejás todo: 👥 USUARIOS (todos en vivo con quién está conectado, buscador y a cada uno 🚫 BAN GLOBAL y 🗑️ BORRAR a la persona con TODO lo que escribió — ficha y mensajes de una), 🚫 BLOQUEADOS (la lista de baneados con ✅ para perdonar) y 💬 MENSAJES (los últimos 150 en vivo del grupo y los privados con 🗑️ para borrar cualquiera PARA TODOS al instante) · el chat de cada uno ahora entiende el BAN GLOBAL: los mensajes de un bloqueado por el admin NO se ven (ni grupo ni privados), no avisan, no zumban, no pueden invitar a jugar y si intenta escribir le sale el cartel ⛔ — en la lista de contactos aparece con la señal ⛔ · + v41 · 🛠️ PANEL DE CONTROL DEL CHAT: botón nuevo 🛠️ ARRIBA (al lado de la campanita 🔔) y ⚙ en CONTACTOS que abren el PANEL con 3 pestañas — 👥 CONTACTOS: todos con su estado en vivo y 4 botones por persona (💬 abrir su chat · 🔕 SILENCIAR: sus mensajes llegan sin aviso ni sonido y sigue contando lo no leído · 🚫 BLOQUEAR: sus mensajes desaparecen del chat, ni privados ni grupo ni zumbidos ni invitaciones a jugar, y nadie se entera · 🗑️ BORRAR LA CONVERSACIÓN: borra de Firebase los DOS lados del privado) · 🚫 BLOQUEADOS: la lista con ✅ desbloquear a un toque · 🔔 AVISOS: llavecita de avisos y de sonido, lista de silenciados, 📵 silenciar/activar a todos, 🔔 probar aviso y 🧭 Central avanzada · las listas se guardan en tu dispositivo Y en tu ficha de Firebase (campos muteados/bloqueados) para que el SERVIDOR DE PUSH v41 también las respete con el chat totalmente cerrado (si ya usabas push: 🔔 Avisos → 📲 ACTIVAR PUSH → volvé a copiar y deploy) · 🧹 MANTENIMIENTO: borrar MIS mensajes del grupo de una · las acciones fuertes 🚫 🗑️ 🧹 piden confirmación con DOS toques · + v40 · ✍️ PANEL DE FUENTES EN LÍNEA + 📏 TAMAÑO CON DESLIZADOR + 🧽 INTENSIDAD DE LA GOMA + 📌 TEXTO QUE SE QUEDA DONDE LO PONÉS: en la sección TEXTO de la pizarra el botón de fuente ahora es un BOTÓN PROPIO (Aa + nombre) — lo tocás y el panel aparece AHÍ MISMO, adentro del panel de capas (se acabó el selector nativo que saltaba a un costado del cel): TIPO DE LETRA con cada fuente mostrada con su propia letra (las de terror 🎃 incluidas) + TAMAÑO con deslizador 12–96 y botones A−/A+ + COLOR con las mismas 14 bolitas del riel, todo junto y compacto para ahorrar campo (la vista previa sigue abajo, en vivo) · la caja de texto flotante ya NO salta a un costado: quedó ANCLADA AL PAPEL (contaba mal la posición cuando el papel queda centrado o con zoom), un TOQUE ya no la corre (solo se mueve cuando de verdad arrastrás, con umbral de 6px) y tocar el campo SÍ abre el teclado (antes lo bloqueaba); si cambiás de herramienta a medio escribir, tu texto no se pierde (borrador) · el botón TRAZO ahora trae DESLIZADOR DE TAMAÑO 1–30 con bolita de vista previa (como la Fuerza del licuar; los atajos Fino/Medio/Grueso siguen) y ABAJO el deslizador nuevo de INTENSIDAD DE LA GOMA 5–100% (bajo = apenas roza, alto = borra de golpe) · + v39 · 🧭 CAPAS SIEMPRE A LA VISTA + 🌀 LICUAR COMO PHOTOSHOP + 🎨 COLOR EN EL RIEL + 📻 RADIO ONLINE + 🧷 FIGURITAS FUERA: en el cel la pizarra muestra ahora una PASTILLA "🧱 CAPAS" FLOTANDO en el rincón del papel (al lado del zoom) MIENTRAS la hoja de capas está escondida — un toque y sube la hoja: las capas ya NO se pierden nunca más (el botón 🧱 de la barra de arriba sigue igual) · la herramienta 👆 Dedo pasó a ser 🌀 LICUAR de verdad, como el licuar de Photoshop: tocás el dibujo y arrastrás para EMPUJAR y estirar los píxeles, ahora con BORDE SUAVE de pincel (el botón Fuerza sigue y decide cuánto empuja: 5% = mezcla sutil, 100% = estirón fuerte) · el COLOR volvió al RIEL de herramientas: botón nuevo 🎨 al lado de Trazo y Fuerza que abre la paleta completa (14 bolitas + cuadro de color + barra arcoíris + bola grande en vivo) justo DONDE ESTÁN LOS PINCELES — igual en el cel y en la PC, y el panel queda más limpio · la sección 🧷 FIGURITAS SALIÓ del panel (quedan solo CAPAS + TEXTO, nada amontonado) · y arriba, AL COSTADO DEL LOGO DE LA RADIO, entró el chip "RADIO ONLINE" con una lucecita naranja que PARPADEA como botoncito — lo tocás y sintonizás Sikodark Radio al toque · + v38 · 👆 FUERZA DEL DEDO + 📦 MOVER CADA CAPA POR SEPARADO + 📱 PIZARRA ORDENADA EN EL CEL: la herramienta 👆 Dedo ahora tiene CONTROL DE INTENSIDAD — botón nuevo "Fuerza" en el riel con un deslizador de 5% a 100% que decide cuánto jala el color ya pintado (bajo = mezcla sutil, alto = estira fuerte; queda guardado en el celu) · herramienta nueva 📦 M. CAPA: agarrás la CAPA ELEGIDA y la arrastrás ENTERA a otro lado del papel mientras las demás capas quedan QUIETAS (se deshace con ↩️ como cualquier trazo) · y en el CEL la pizarra se reordenó como una APP DE VERDAD: nada amontonado ni scroll de página — arriba la barra, debajo el riel de herramientas, el PAPEL ocupa todo el resto de la pantalla y abajo solo ENVIAR/Cerrar; el zoom queda FLOTANDO en el rincón del papel y las CAPAS + TEXTO + FIGURITAS + COLORES entran como HOJA INFERIOR que sube desde abajo con su barrita (como en las apps pro de dibujo) sin empujar ni tapar nada · + v37 · ✍️ VISTA PREVIA DE LA LETRA + 🎃 FUENTES DE TERROR + 🧷 FIGURITAS PREARMADAS: en el panel de la derecha (la misma área de las CAPAS) la sección TEXTO ahora muestra una VISTA PREVIA grande donde se ve EXACTAMENTE cómo va a salir la letra — con la fuente elegida, el tamaño y el color de la paleta, y cambia EN VIVO mientras escribís o probás fuentes · entraron 5 FUENTES DE TERROR para Halloween (Creepster, Nosifer, Eater, Butcherman y Frijole) que se ven tal cual en el papel y en el propio menú · y ABAJO del texto entró la sección nueva 🧷 FIGURITAS: 24 logitos prearmados (estrellitas, corazones, luna, fuego, murciélago, calabaza, fantasma, calavera, araña, telaraña y emojis de siempre) — tocás una, queda FLOTANDO sobre el papel, la ARRASTRÁS a cualquier lugar, la agrandás o achicás con A+ / A− y con ✔ la fijás en la capa elegida (se puede deshacer como cualquier trazo) · + v36 · 🎨 PALETA EN EL PANEL + 👆 DEDO (LICUAR) + CERRAR ABAJO: la paleta de colores SALIÓ del menú del riel (la X amarilla de tu captura) y ahora vive EN EL PANEL DE LA DERECHA debajo de las capas y el texto — con los 14 colores de siempre, el cuadro de degradado, la barra del arcoíris y un CÍRCULO GRANDE que muestra EN VIVO el color elegido · herramienta nueva 👆 DEDO (licuar como en Photoshop): tocás el color ya pintado y lo JALÁS para estirarlo y mezclarlo · el botón CERRAR volvió a estar ABAJO al lado de ENVIAR DIBUJO (arriba queda el ✕ chiquito de siempre) · si la pantalla es baja el riel scrollea adentro y ningún icono queda recortado · + v35 · 🖌️ PIZARRA COMO LA CAPTURA DEL DUEÑO: el panel de dibujo quedó IGUAL a la imagen que mandó — herramientas en una COLUMNA de iconos a la IZQUIERDA (lápiz, pincel, brocha, difuminado, bote, goma, texto y mover — al tocar cada uno se ilumina en naranja), ARRIBA quedaron los botones deshacer ↩️ · limpiar 🗑️ · importar imagen 🖼️ · capas 🧱 (muestra/esconde el panel) · ⛶ pantalla completa · ✕ cerrar, las CAPAS y el TEXTO (fuente + color) siguen a la DERECHA y abajo el botón grande ENVIAR DIBUJO — en el cel el riel se corre de lado y las capas arrancan escondidas como siempre · TODO lo demás de la pizarra sigue exacto: papel blanco, zoom, capas, texto arrastrable, deshacer por capa · + v34 · 🎙️ RADIO Y COMPARTIR ARRIBA: los botones 📻 Radio y 📤 Compartir SALIERON de la barra de abajo (quedó más limpia) y ahora son DOS LOGITOS en la barra del título — la radio usa el logo de los auriculares naranjas del propio SikoChat (chip negro) y al lado está el logito de compartir · 📲 COMPARTIR CON IMAGEN: al compartir por WhatsApp sale la tarjetita “Dibuja · Escucha Radio · Chatea” con la carita de SikoChat y ABAJO el link (en el cel va con imagen incluida gracias al compartir nativo; en PC/TV WhatsApp arma la tarjetita sola leyendo los datos nuevos de la página) · + v33 · 🎨 PIZARRA REDISEÑADA ESTILO MODERNO: ya no está todo amontonado — herramientas en tarjetas separadas con ICONOS SVG modernos (nada de caritas negras en la TV), el GROSOR y el COLOR entrán DENTRO de un botón (menú desplegable) y hay un botón ⛶ PANTALLA COMPLETA que funciona en PC, TV y cel · ✍️ HERRAMIENTA DE TEXTO: elegís la FUENTE y sale con el COLOR de la paleta, el texto queda FLOTANDO sobre el papel, lo ARRASTRÁS a cualquier lugar, lo AGRANDÁS con A+ / A− y lo fijás con ✔ (entra en la capa elegida y se puede deshacer) · 🧱 CAPAS PLEGABLES: el visor de capas ahora tiene FLECHA para esconderlo — en el cel arranca escondido y YA NO TAPA la pantalla · 🖼️ IMPORTAR IMAGEN filtra por defecto JPG / PNG / WEBP · 😀 EMOJIS SIEMPRE A COLOR: el chat usa Twemoji (los dibujitos de X/Twitter) así en las TVs que mostraban los emojis NEGROS ahora se ven a color — mensajes, contactos, emotis y stikers · 🎞️ GIFs INFINITOS: la pestaña GIFs ahora tiene BUSCADOR de Tenor (Google) — gratis con tu propia clave en el archivo nuevo gif-config.js (pasos en el README); sin clave siguen los GIFs de Sikodark de siempre · + v32 · 🔍 ZOOM + PAPEL BLANCO EN LA PIZARRA (igual diseño, como la imagen de referencia): el dibujo ahora es una hoja BLANCA dentro de una ventana con marco naranja · botones 🔍➕ Acercar / 🔍➖ Alejar con el porcentaje al medio (100% → 800%) y ⤢ Ajustar para volver al tamaño justo · con zoom el papel se arrastra con ✋ Mover (o los scroll de la ventana) · en el cel se estira/aplasta con 2 DEDOS (pellizco) y en PC Ctrl + rueda del mouse acerca justo al punto del puntero · desde 300% el papel muestra píxeles grandes para rematar detalles chicos · + v31 · 🎨 PIZARRA PRO CON CAPAS: la pizarrita ahora es un mini programa de dibujo de verdad — 🧱 CAPAS (arranca con 2, hasta 6: ojito para mostrar/ocultar, ➕ nueva, 🗑️ borrar, miniatura de cada una, se dibuja en la capa elegida y quedan como papeles transparentes superpuestos), 🖌️ BROCHA con cerdas (textura, no tira lisa), 💨 DIFUMINADO tipo aerógrafo para sombras y pasos suaves, 🎨 SELECTOR DE COLOR con cuadro de degradado + barra arcoíris (cualquier color, como la imagen pedida), 🖼️ IMPORTAR IMAGEN (la foto entra en una capa de abajo para calcar encima), la goma borra la capa elegida, Limpiar vacía solo la capa elegida, deshacer por capa y al mandar se aplanan las capas visibles · + v30 · 🔀 CHAT CON PROYECTO PROPIO DE FIREBASE (REGLAS SEPARADAS DE LA RADIO): la config de Firebase salió del código a un archivo aparte chat-config.js — creás un proyecto nuevo, pegás las claves ahí y el chat deja de depender del proyecto de la radio PARA SIEMPRE (cada vez que cambiabas las reglas de la radio el chat se rompía: esto lo arregla de raíz); mientras no cambies el archivo el chat sigue EXACTAMENTE igual que siempre (respaldo automático), y el botón 📲 ACTIVAR PUSH copia el servidor con el proyecto nuevo puesto solo · + v29 · 👥 LOS CONTACTOS NO SE BORRAN MÁS: el chat tenía una "limpieza automática" que BORRABA de Firebase a cada contacto que no entraba hace más de 24 horas — por eso la lista quedaba solo con los que estaban escribiendo en el momento y "desaparecían" los demás; ahora los contactos QUEDAN SIEMPRE en la lista con su "visto hace" (estilo MSN: los desconectados también se ven) y solo se limpian los mensajes viejos (12 h) y las partidas abandonadas (6 h) · + v28 · 📺 TABLERO ARREGLADO PARA TV: en varias televisiones el tablero salía APLASTADO (una tira chata) porque el navegador de la TV es viejo y no conoce la medida "aspect-ratio" — ahora el chat MIDE cada casilla y le pone el alto justo con JavaScript: casilleros bien cuadrados en cualquier TV, PC o cel, y la mesa grande arranca desde 900px de ancho · + v27 · 🏁 TERMINAR PARTIDA: mientras jugás hay un botón 🏁 TERMINAR junto a Salir — la partida se cierra PARA LOS DOS (al otro le queda el resultado y la revancha) · + v27 · YA NO REAPARECE SOLA: si salís de una partida a medio jugar no se reabre sola cuando recargás el chat (queda guardado en tu dispositivo; si el otro mueve te avisa con una tostada y volvés tocando 🎮) · + v27 · 📺 MESA A PANTALLA GRANDE: en PC y TV el tablero, las fichas, el marcador y los botones se agrandan para aprovechar la pantalla · + v26 · 🎮 JUEGOS EN LÍNEA DE 2: damas · ajedrez · ta-te-ti · conecta 4 · piedra-papel-tijera — invitás desde el chat privado o la lista de contactos, al otro le salta la invitación tipo llamada, juegan en vivo cada uno desde su pantalla (sincronizado con Firestore, colección chat_juegos), con marcador, revancha y recuperación de partidas · + v25 · ← INICIO ARRIBA: botón para VOLVER a los contactos cuando entrás al grupo o a un privado (arriba a la izquierda, como WhatsApp; en el cel) · VOLUMEN: en 🎵 Tonos ahora hay un slider de volumen (0–100%) para los sonidos y avisos del chat, se guarda en tu dispositivo y en 0 queda todo mudo · + v24 PUSH ACTIVABLE DESDE EL CHAT: el servidor de empuje se configura ADENTRO (🔔 Avisos → 📲 ACTIVAR PUSH: copiar código → crear el worker gratis en Cloudflare → pegar la URL → GUARDAR Y PROBAR); la URL queda guardada en Firestore (chat_usuarios/__config__) y sirve para TODOS — ya no hay que editar el código ni volver a subir archivos por esto; las suscripciones de cada cel ahora se guardan en chat_usuarios/{uid}.push (sin colección nueva ni reglas extra) y el servidor es verificado en vivo desde la Central (estado: OK / viejo / caído, con detalle) · + v23 BANDEJA LIMPIA TIPO WHATSAPP: sin avisos de "se conectó", título = SOLO el nombre del que escribe, foto del remitente como imagen, grupo = 💬 CHAT GRUPAL con "juan: mensaje"; el rótulo de la dirección (github.io) lo pinta el NAVEGADOR por seguridad y no se puede sacar por código — con la app instalada Chrome puede mostrar "SikoChat" · + v22 PUSH REAL: cada cel se suscribe al empuje (Web Push con llaves VAPID) y el servidor manda el aviso cifrado aunque la PWA esté totalmente cerrada · + SIN DUPLICADO EN LA LISTA: tu nombre aparece UNA sola vez y los contadores ya no te cuentan a vos · + CENTRAL DE AVISOS: estado real del dispositivo, PROBAR AVISO AHORA, ayuda Android/iPhone y 🫀 MODO SIEMPRE ACTIVO · + NAVEGACIÓN TIPO APP EN EL CEL: lista ↔ chat con botón 👥 CONTACTOS · + PANEL DEL CEL ESTILO MSN · SIN contraseña (opcional) · badge de no leídos · PIZARRITA PAINT · TODOS en la lista con visto hace · reacciones ❤️ reenviar ↪️ borrar 🗑️ favoritos ⭐ · emotis/stikers/gifs/fotos · tonos · radio · temas · perfil · privado · instalar como app -->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -918,6 +918,17 @@ svg.ico{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-wi
 #cajaMalla .btnDibujo{padding:8px 12px;flex-shrink:0}
 #cajaMalla .popTitulo{flex-shrink:0}
 #cajaMalla .miniSel{background:#2a2a2a;border:1px solid var(--borde2);color:var(--tx1);border-radius:8px;font-family:inherit;font-size:11px;font-weight:700;padding:6px 4px}
+/* ===== v54: ⬚ SELECCIÓN DE OBJETOS — el pedazo flotante, su caja con manijas y los botones ===== */
+#lienzoSel{position:absolute;z-index:35;pointer-events:none;display:none;border-radius:6px;touch-action:none;cursor:crosshair}
+#lienzoSel.activo{display:block;pointer-events:auto}
+#cajaSel{position:absolute;z-index:36;display:none;align-items:center;gap:6px;flex-wrap:wrap;max-width:94%;background:var(--caja);border:2px solid var(--naranja);border-radius:12px;padding:7px 9px;box-shadow:0 10px 34px rgba(0,0,0,.6)}
+#cajaSel.ver{display:flex}
+#cajaSel .btnPrincipal{width:auto;margin-top:0;padding:9px 16px;flex-shrink:0}
+#cajaSel .btnDibujo{padding:8px 12px;flex-shrink:0}
+#cajaSel .popTitulo{flex-shrink:0}
+@media (min-width:1600px){
+  #cajaSel .btnDibujo,#cajaSel .btnPrincipal{font-size:15px;min-height:46px}
+}
 /* ===== v51: 📔 ÁLBUM DE DIBUJOS (historial en la nube, por usuario) ===== */
 .cajaAlbum{width:min(94vw,760px)}
 #albumFila{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:10px}
@@ -1179,6 +1190,7 @@ svg.ico{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-wi
 /* v50: la caja del arcade crece — el juego aprovecha MÁS pantalla sin entrar en pantalla entera */
 .cajaArcade{width:min(96vw,720px)}
 .arcMesa{position:relative;width:100%;display:flex;align-items:center;justify-content:center;background:#07060c;border-radius:14px;border:1px solid rgba(245,157,61,.3);overflow:hidden;touch-action:none}
+.arcIframe{position:absolute;left:0;top:0;width:100%;height:100%;border:0;background:#0b0a12;z-index:2}
 #arcCanvas{display:block;touch-action:none;background:#050409}
 /* v50: chip ⛶ DENTRO de la mesa — pantalla entera al toque, sin bajar a buscar el botón */
 .arcFs{position:absolute;top:8px;right:8px;z-index:5;width:40px;height:40px;border-radius:10px;border:1px solid rgba(245,157,61,.5);background:rgba(5,4,10,.62);color:#ffd9a8;font-size:18px;cursor:pointer;font-family:inherit;display:grid;place-items:center;padding:0}
@@ -1408,7 +1420,7 @@ svg.ico{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-wi
         <button class="chipRadioLive" id="chipRadioLive" type="button" title="Radio online — tocá y sintonizá Sikodark Radio">
           <span class="luzViva"></span>RADIO ONLINE
         </button>
-        <button class="btnVentLog" id="btnArcadeTop" type="button" title="🕹️ Arcade — GALAXY y ZUMA MÍSTICO (1 jugador)">
+        <button class="btnVentLog" id="btnArcadeTop" type="button" title="🕹️ Arcade — 11 jueguitos de 1 jugador (5 del chat sin internet + 6 en línea)">
           <span style="font-size:15px;line-height:1">🕹️</span>
         </button>
         <button class="btnVentLog" id="btnCompartir" type="button" title="Compartir SikoChat por WhatsApp">
@@ -1534,7 +1546,7 @@ svg.ico{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-wi
 <!-- ================= PIZARRITA PAINT v33 (REDISEÑO MODERNO · CAPAS PLEGABLES · TEXTO · ZOOM · PANTALLA COMPLETA) ================= -->
 <div id="overlayDibujo" class="oculto">
   <div class="dibujoCab">
-    <div class="dibujoTitulo">🎨 PIZARRITA <span class="dibujoSub">capas · texto · zoom</span></div>
+    <div class="dibujoTitulo">🎨 PIZARRITA <span class="dibujoSub">capas · texto · selección · zoom</span></div>
     <!-- v35: ARRIBA quedaron Deshacer · Limpiar · Importar · Capas · ⛶ · ✕ (igual a la captura del dueño) -->
     <div class="dibujoCabAcc">
       <button class="btnDibujo btnIconoD" id="btnDeshacer" type="button" title="Deshacer (en la capa elegida)">
@@ -1704,6 +1716,9 @@ svg.ico{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-wi
             <button class="btnDibujo btnHerr" data-herr="malla" type="button" title="🕸️ MALLA (estilo Clip Studio): pone una malla con puntos de anclaje sobre la capa — arrastrá los puntos y la figura SE DEFORMA; tocá un lugar limpio de la malla para crear un anclaje nuevo; ✔ Deformar lo deja pintado">
               <svg class="ico" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg><span class="etqHerr">Malla</span>
             </button>
+            <button class="btnDibujo btnHerr" data-herr="seleccion" type="button" title="🔲 SELECCIONAR: marcá un pedazo del dibujo y MOVELO con el dedo, AGRANDALO con las esquinas y GIRALO con la bola de arriba — ✔ lo deja pintado">
+              <svg class="ico" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="2" stroke-dasharray="4 3.2"/><path d="m9.5 14.5 5-5"/><path d="M11 9.5h3.5V13"/></svg><span class="etqHerr">Seleccionar</span>
+            </button>
           </div>
           <p class="txtNota">Lo complejo vive acá adentro para que el riel quede limpio. La herramienta que uses queda marcada con un puntito en el botón ⋯.</p>
         </div>
@@ -1738,6 +1753,14 @@ svg.ico{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-wi
           <button class="btnDibujo" id="btnMallaReset" type="button" title="Volver todos los puntos a su lugar">🔄 Enderezar</button>
           <button class="btnPrincipal" id="btnMallaOk" type="button" title="Aplicar la deformación a la capa elegida (↩️ la deshace)">✔ Deformar</button>
           <button class="btnDibujo btnIconoD" id="btnMallaNo" type="button" title="Cancelar: no cambia nada">✖</button>
+        </div>
+        <!-- v54: editor de SELECCIÓN — el pedazo flotante se dibuja acá y la cajita de botones flota en la esquina -->
+        <canvas id="lienzoSel" width="960" height="720" aria-label="Selección con manijas para mover, agrandar y girar"></canvas>
+        <div id="cajaSel">
+          <span class="popTitulo">🔲 SELECCIÓN</span>
+          <button class="btnPrincipal" id="btnSelOk" type="button" title="Dejarlo pintado donde está (↩️ lo deshace)">✔ Estampar</button>
+          <button class="btnDibujo" id="btnSelBorrar" type="button" title="Sacar este pedazo del dibujo (↩️ lo devuelve)">🗑️ Quitar</button>
+          <button class="btnDibujo btnIconoD" id="btnSelNo" type="button" title="Devolverlo a su lugar: no cambia nada">✖</button>
         </div>
         <div id="cajaTexto">
           <input id="textoInput" type="text" maxlength="60" placeholder="Escribí tu texto…" autocomplete="off">
@@ -2051,6 +2074,7 @@ svg.ico{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-wi
       <button class="btnDibujoGhost" id="btnArcSalir" type="button">🚪 Salir</button>
       <button class="btnDibujoGhost" id="btnArcSonido" type="button">🔊 Sonido</button>
       <button class="btnDibujoGhost" id="btnArcPantalla" type="button">⛶ Pantalla</button>
+      <button class="btnDibujoGhost oculto" id="btnArcWebReload" type="button">🔄 Reiniciar</button>
     </div>
   </div>
 </div>
@@ -2369,6 +2393,7 @@ export { encryptWebPush, vapidJwt, b64uDecode, bufToB64u, hkdf, leerSubs };
 <script src="chat-config.js"></script> <!-- v30: LA CONFIG DEL CHAT vive acá — archivo aparte para migrar el chat a su propio proyecto de Firebase sin tocar código -->
 <script src="gif-config.js"></script> <!-- v33: la clave de Tenor para GIFs infinitos vive acá (gratis, pasos en el README) -->
 <script src="digger.js"></script> <!-- v52: ⛏️ DIGGER para el arcade — motor + datos en un archivo sin dependencias (por Lutz Roeder, MIT) -->
+<script src="arcade-clasicos.js"></script> <!-- v54: ☕ CUPHEAD + 🥬 POPEYE — minis propios del arcade, dibujados a mano en canvas -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
@@ -4473,7 +4498,7 @@ function pintarListaJuegos(){
   sep1.className = 'juegoSep';
   sep1.innerHTML = '<span>🕹️ ARCADE · PARA JUGAR SOLO</span>';
   l.appendChild(sep1);
-  var solos = ['galaxy', 'zuma', 'digger']; /* v52: + DIGGER */
+  var solos = ['galaxy', 'zuma', 'digger', 'cuphead', 'popeye']; /* v54: + CUPHEAD + POPEYE */
   for (var i2 = 0; i2 < solos.length; i2++) {
     (function(k2){
       var b2 = document.createElement('button');
@@ -4486,6 +4511,25 @@ function pintarListaJuegos(){
       };
       l.appendChild(b2);
     })(solos[i2]);
+  }
+  /* v54: 🌐 ARCADE EN LÍNEA — jueguitos reales embebidos */
+  var sepWeb = document.createElement('div');
+  sepWeb.className = 'juegoSep';
+  sepWeb.innerHTML = '<span>🌐 ARCADE EN LÍNEA · NECESITAN INTERNET</span>';
+  l.appendChild(sepWeb);
+  var webs = ['kong', 'pvz', 'bloxd', 'peet', 'pixel', 'movers'];
+  for (var i3 = 0; i3 < webs.length; i3++) {
+    (function(k3){
+      var b3 = document.createElement('button');
+      b3.type = 'button';
+      b3.className = 'btnJuegoGrande';
+      b3.innerHTML = '<span class="jgEmoGrande">' + ARCADE[k3].emo + '</span><span><span class="jgNomGrande">' + ARCADE[k3].nom + '</span><span class="jgDescGrande">' + ARCADE[k3].desc + ' · 🌐 juega en línea</span></span>';
+      b3.onclick = function(){
+        $('overlayJugar').classList.add('oculto');
+        abrirArcade(k3);
+      };
+      l.appendChild(b3);
+    })(webs[i3]);
   }
   if (!jugarSoloModo) {
     var sep2 = document.createElement('div');
@@ -4550,7 +4594,25 @@ var ARCADE = {
   /* v52: ⛏️ DIGGER — portado del remaster de Lutz Roeder (github.com/lutzroeder/digger, MIT).
      El motor, los sprites y los 60 niveles viven en digger.js (archivo aparte, en el cache del SW). */
   digger: { nom: 'DIGGER', emo: '⛏️', desc: 'cavá, juntá diamantes y escapá', ratio: [640, 512], clave: 'siko_arcade_digger',
-    lineas: ['Cavá túneles, juntá los diamantes y salí por la puerta.', 'Empujá las piedras con cuidado: si caen te aplastan.', 'Si una piedra cae sobre un bicho lo aplasta: +99 puntos.', 'Juntá los diamantes que pide la sala para abrir la salida.', 'PC y TV: flechas o WASD para cavar · P pausa.', 'En el cel: botones ◀▲▼▶ o deslizá el dedo hacia donde querés ir.', 'Te atraparon: un toque o una tecla y seguís con una vida menos.'] }
+    lineas: ['Cavá túneles, juntá los diamantes y salí por la puerta.', 'Empujá las piedras con cuidado: si caen te aplastan.', 'Si una piedra cae sobre un bicho lo aplasta: +99 puntos.', 'Juntá los diamantes que pide la sala para abrir la salida.', 'PC y TV: flechas o WASD para cavar · P pausa.', 'En el cel: botones ◀▲▼▶ o deslizá el dedo hacia donde querés ir.', 'Te atraparon: un toque o una tecla y seguís con una vida menos.'] },
+  /* v54: ☕ CUPHEAD + 🥬 POPEYE — minis homenaje propios (viven en arcade-clasicos.js) */
+  cuphead: { nom: 'CUPHEAD', emo: '☕', desc: 'batalla aérea contra el diablito', ratio: [480, 640], clave: 'siko_arcade_cuphead',
+    lineas: ['Manejás el avioncito de CUPHEAD: esquivá las balas del diablito.', 'Fase 1 anillos · fase 2 espirales · fase 3 lluvia y golpes.', 'Las balas ROSA no dañan si las acariciás: cargan la ✨ bomba.', 'Con ✨ llena soltás la bomba: limpia balas y pega fuerte.', 'PC: WASD o flechas + ESPACIO dispara · E suelta la ✨ · P pausa.', 'Cel: arrastrá el dedo y el avión te sigue (dispara sola).'] },
+  popeye: { nom: 'POPEYE', emo: '🥬', desc: 'corazones, espinaca y Brutus de paseo', ratio: [640, 480], clave: 'siko_arcade_popeye',
+    lineas: ['Olive lanza corazones desde arriba: juntá 10 para pasar de nivel.', 'Brutus te persigue por los pisos — las escaleras son tu escape.', 'Comé la espinaca: Brutus se pone azul, alcanzalo y pegale (+300).', 'Te toca sin espinaca: perdés una vida (tenés 3).', 'PC y TV: flechas o WASD para moverse · P pausa.', 'En el cel: botones ◀▲▼▶ o deslizá el dedo hacia donde querés ir.'] },
+  /* v54: 🌐 ARCADE EN LÍNEA — jueguitos reales embebidos con iframe (necesitan internet) */
+  kong: { nom: 'DONKEY KONG', emo: '🦍', desc: 'trepar, esquivar barriles y rescatar a la dama', web: 'https://naereen.github.io/Donkey-Kong-GB-1994-Clone-in-JavaScript/',
+    lineas: ['El gorila lanza barriles: trepá las escaleras y esquiválos.', 'El martillo te vuelve invencible por unos segundos.', 'Es el remake de Game Boy de 1994 refeito en JavaScript.', 'En el celu el propio juego muestra su botón táctil.', 'Juega EN LÍNEA — si no carga, tocá 🔄 Reiniciar.'] },
+  pvz: { nom: 'PLANTAS VS ZOMBIS', emo: '🌻', desc: 'defendé el jardín de las oleadas de zombis', web: 'https://plantsvszombiesjs.github.io/',
+    lineas: ['Plantá girasoles para juntar sol y lanzaguisantes para defender.', 'Elegí la planta de arriba y tocá una casilla del jardín.', 'Son 20 oleadas: aguantalas todas para ganar.', 'Juega EN LÍNEA — si no carga, tocá 🔄 Reiniciar.'] },
+  bloxd: { nom: 'BLOXD.IO', emo: '🧱', desc: 'mundos de bloques: construir, PvP y salas', web: 'https://bloxd.io/',
+    lineas: ['Mundo de bloques multijugador de verdad: entrás con la gente adentro.', 'WASD para moverte, espacio salta, clic mina y construye.', 'Dentro hay bedwars, skywars, cubos de crear y más salas.', 'Juega EN LÍNEA — la primera carga puede tardar unos segundos.', 'Si se cuelga, tocá 🔄 Reiniciar.'] },
+  peet: { nom: 'PEET SNEAK', emo: '🚽', desc: 'llevá a Peet escondido hasta el baño', web: 'https://play.famobi.com/peet-sneak',
+    lineas: ['Sigilo por turnos: movete solo cuando los guardias no miran.', 'Juntá las llaves, abrí puertas y llegá al baño sin ser visto.', 'Un solo botón: tocá para avanzar una casilla.', 'Juega EN LÍNEA — si no carga, tocá 🔄 Reiniciar.'] },
+  pixel: { nom: 'PIXEL PATH', emo: '🟪', desc: 'plataformas tramposas: llegá al portal', web: 'https://html5.gamedistribution.com/3ffc5c0944f54f06afb212ca7d80bb00/', referrer: true,
+    lineas: ['Plataformas que se caen, pinches que se mueven y sorpresas.', '← → o A/D para moverse, ↑ o W para saltar.', 'Son 50 salas que enseñan con cada caída.', 'Juega EN LÍNEA — si no carga, tocá 🔄 Reiniciar.'] },
+  movers: { nom: 'MONEY MOVERS 3', emo: '💰', desc: 'el guardia y su perro atrapan a los presos', web: 'https://html5.gamedistribution.com/db770064d7cd45a798b096d4397a0870/', referrer: true,
+    lineas: ['Manejás al guardia (WASD) y al perro (flechas).', 'El perro espanta a los presos y el guardia los encadena.', 'Juntá las bolsas de dinero y atrapá a todos para pasar de sala.', 'Juega EN LÍNEA — si no carga, tocá 🔄 Reiniciar.'] }
 };
 function arcHSleer(k){ try { var v = parseInt(localStorage.getItem(ARCADE[k].clave) || '0', 10); return isFinite(v) ? v : 0; } catch (e) { return 0; } }
 function arcHSguardar(k, v){
@@ -5846,16 +5908,22 @@ var arcTeclas = {}, arcLienzo = null, arcCtx = null, arcUltStats = '';
 
 function abrirArcade(k){
   if (arcJuego) cerrarArcade();
+  /* v54: 🌐 juegos en línea — no usan el lienzo, usan un iframe propio */
+  if (ARCADE[k] && ARCADE[k].web) { abrirWebArc(k); return; }
   arcClave = k;
-  /* v52: + DIGGER */
-  arcJuego = k === 'galaxy' ? crearGalaxy() : (k === 'digger' ? crearDigger() : crearZuma());
+  /* v52: + DIGGER · v54: + CUPHEAD + POPEYE */
+  arcJuego = k === 'galaxy' ? crearGalaxy() : (k === 'digger' ? crearDigger() : (k === 'cuphead' ? crearCuphead() : (k === 'popeye' ? crearPopeye() : crearZuma())));
   var info = ARCADE[k];
   $('arcTitulo').innerHTML = info.emo + ' ' + info.nom + ' · 🕹️ ARCADE';
   $('arcHints').textContent = k === 'galaxy'
     ? '← → o A/D mover · ESPACIO disparar · P pausa · cel: tocá y arrastrá el dedo (dispara sola) · ⛶ pantalla entera'
     : (k === 'digger'
       ? 'Flechas o WASD para cavar · juntá los 💎 y salí por la puerta · P pausa · cel: botones ◀▲▼▶ o deslizá el dedo · ⛶ pantalla entera'
-      : 'Cel: arrastrá el dedo para GIRAR la rana · toque corto = disparar · PC: clic apunta y dispara · X cambia bola · P pausa · ⛶ pantalla entera');
+      : (k === 'cuphead'
+        ? '← → ↑ ↓ o WASD volás · ESPACIO o FUEGO dispara · E o ✨ suelta la bomba · P pausa · cel: arrastrá el dedo y el avión te sigue (dispara sola) · ⛶ pantalla entera'
+        : (k === 'popeye'
+          ? '← → caminás · ↑ ↓ por las escaleras · juntá 10 corazones para pasar de nivel · comé la espinaca y pegale a Brutus · P pausa · cel: botones ◀▲▼▶ o deslizá el dedo · ⛶ pantalla entera'
+          : 'Cel: arrastrá el dedo para GIRAR la rana · toque corto = disparar · PC: clic apunta y dispara · X cambia bola · P pausa · ⛶ pantalla entera')));
   /* botones del pad según el juego */
   var pad = $('arcPad');
   pad.innerHTML = '';
@@ -5869,12 +5937,30 @@ function abrirArcade(k){
     pad.appendChild(arcBotonPad('▲', 'Cavar hacia arriba', function(){ if (arcJuego.esperandoVida()) arcJuego.revivir(); else arcJuego.tecla(2); }, function(){ arcJuego.soltarTecla(2); }));
     pad.appendChild(arcBotonPad('▼', 'Cavar hacia abajo', function(){ if (arcJuego.esperandoVida()) arcJuego.revivir(); else arcJuego.tecla(3); }, function(){ arcJuego.soltarTecla(3); }));
     pad.appendChild(arcBotonPad('▶', 'Cavar a la derecha', function(){ if (arcJuego.esperandoVida()) arcJuego.revivir(); else arcJuego.tecla(1); }, function(){ arcJuego.soltarTecla(1); }));
+  } else if (k === 'cuphead') {
+    /* v54: pad del avioncito — 4 direcciones + bomba ✨ + FUEGO */
+    pad.appendChild(arcBotonPad('◀', 'Volar a la izquierda', function(){ arcJuego.tx = null; arcJuego.direccion = -1; }, function(){ arcJuego.direccion = 0; }));
+    pad.appendChild(arcBotonPad('▲', 'Subir', function(){ arcJuego.ty = null; arcJuego.alto = -1; }, function(){ arcJuego.alto = 0; }));
+    pad.appendChild(arcBotonPad('▼', 'Bajar', function(){ arcJuego.ty = null; arcJuego.alto = 1; }, function(){ arcJuego.alto = 0; }));
+    pad.appendChild(arcBotonPad('▶', 'Volar a la derecha', function(){ arcJuego.tx = null; arcJuego.direccion = 1; }, function(){ arcJuego.direccion = 0; }));
+    pad.appendChild(arcBotonPad('✨', 'Bomba grande (EX)', function(){ if (arcJuego.bomba) arcJuego.bomba(); }, null));
+    pad.appendChild(arcBotonPad('⚡ FUEGO', 'Disparar', function(){ arcJuego.disparando = true; }, function(){ arcJuego.disparando = false; }, 'btnPadFuego'));
+  } else if (k === 'popeye') {
+    /* v54: pad de 4 direcciones para caminar y usar escaleras */
+    pad.appendChild(arcBotonPad('◀', 'Caminar a la izquierda', function(){ arcJuego.tecla(0); }, function(){ arcJuego.soltarTecla(0); }));
+    pad.appendChild(arcBotonPad('▲', 'Subir por la escalera', function(){ arcJuego.tecla(2); }, function(){ arcJuego.soltarTecla(2); }));
+    pad.appendChild(arcBotonPad('▼', 'Bajar por la escalera', function(){ arcJuego.tecla(3); }, function(){ arcJuego.soltarTecla(3); }));
+    pad.appendChild(arcBotonPad('▶', 'Caminar a la derecha', function(){ arcJuego.tecla(1); }, function(){ arcJuego.soltarTecla(1); }));
   } else {
     pad.appendChild(arcBotonPad('🔄 CAMBIAR', 'Cambiar de bola', function(){ if (arcJuego && arcJuego.cambiar) arcJuego.cambiar(); }, null));
     pad.appendChild(arcBotonPad('⚡ FUEGO', 'Disparar', function(){ arcSfx.despertar(); arcJuego.disparar(); }, null, 'btnPadFuego'));
   }
   arcLienzo = $('arcCanvas');
   arcLienzo.style.touchAction = 'none';
+  arcLienzo.style.display = ''; /* v54: por si el juego anterior fue en línea */
+  $('arcStats').style.display = '';
+  $('arcPad').style.display = '';
+  $('btnArcWebReload').classList.add('oculto');
   arcCtx = null;
   $('overlayArcade').classList.remove('oculto');
   arcJugarPadOn();
@@ -5901,9 +5987,55 @@ function arcBotonPad(txt, titulo, alPresionar, alSoltar, clase){
   }
   return b;
 }
+/* --- v54: 🌐 ARCADE EN LÍNEA — el juego real corre en un iframe adentro de la mesa ---
+   Se abren con la misma ficha del arcade (▶ JUGAR inserta el iframe), con ⛶ pantalla
+   entera, 🔄 Reiniciar por si se cuelga y 🚪 Salir que lo desarma todo. */
+var arcWebIframe = null;
+function abrirWebArc(k){
+  if (arcWebIframe) { arcWebIframe.remove(); arcWebIframe = null; }
+  arcClave = k; arcJuego = null; arcTeclas = {};
+  var info = ARCADE[k];
+  $('arcTitulo').innerHTML = info.emo + ' ' + info.nom + ' · 🕹️ ARCADE EN LÍNEA';
+  $('arcHints').textContent = '🎮 El juego corre adentro con SUS propios controles · ⛶ pantalla entera · 🔄 Reiniciar si se cuelga · 🚪 Salir para volver';
+  $('arcPad').innerHTML = '';
+  $('arcPad').style.display = 'none';
+  var cv = $('arcCanvas');
+  cv.style.display = 'none';
+  arcLienzo = cv; arcCtx = null;
+  var st = $('arcStats');
+  st.style.display = 'none'; st.innerHTML = '';
+  $('btnArcWebReload').classList.remove('oculto');
+  $('overlayArcade').classList.remove('oculto');
+  arcFicha('idle');
+  if (arcBucleId) { cancelAnimationFrame(arcBucleId); arcBucleId = 0; }
+  if (arcFSen()) arcFSAplicar();
+}
+function arcWebJugar(){
+  var info = ARCADE[arcClave];
+  if (!info || !info.web) return;
+  arcSfx.despertar();
+  if (arcWebIframe) { arcWebIframe.remove(); arcWebIframe = null; }
+  var f = document.createElement('iframe');
+  f.className = 'arcIframe';
+  f.setAttribute('allow', 'fullscreen; gamepad; autoplay; encrypted-media; clipboard-write');
+  f.setAttribute('allowfullscreen', 'true');
+  f.setAttribute('scrolling', 'no');
+  var url = info.web;
+  if (info.referrer) url += (url.indexOf('?') >= 0 ? '&' : '?') + 'gd_sdk_referrer_url=' + encodeURIComponent(location.origin + location.pathname);
+  f.src = url;
+  $('arcMesa').appendChild(f);
+  arcWebIframe = f;
+  arcFicha('jugando');
+  toast('⏳ Cargando ' + info.nom + ' — la primera vez puede tardar unos segundos', 3800);
+}
 function cerrarArcade(){
   if (arcBucleId) { cancelAnimationFrame(arcBucleId); arcBucleId = 0; }
   arcJugarPadOff();
+  /* v54: desarmar el juego en línea si había */
+  if (arcWebIframe) { arcWebIframe.remove(); arcWebIframe = null; }
+  $('arcCanvas').style.display = '';
+  $('arcStats').style.display = '';
+  $('btnArcWebReload').classList.add('oculto');
   arcJuego = null; arcClave = null; arcTeclas = {};
   $('overlayArcade').classList.add('oculto');
   var docFS = document.fullscreenElement || document.webkitFullscreenElement;
@@ -5959,7 +6091,7 @@ function arcFicha(estado){
     acc += '<button class="btnPrincipal" id="btnArcPlay" type="button">▶ JUGAR</button>';
     c.innerHTML = '<h3>' + info.emo + ' ' + info.nom + '</h3>'
       + '<p>' + info.lineas.join('</p><p>') + '</p>'
-      + '<p>🥇 Récord de este celu: <b>' + rec + '</b></p>' + acc + '</div>';
+      + (info.web ? '<p>🌐 Este jueguito corre EN LÍNEA (necesita internet) — adentro usa sus propios controles.</p>' : '<p>🥇 Récord de este celu: <b>' + rec + '</b></p>') + acc + '</div>';
   } else if (estado === 'pausa') {
     acc += '<button class="btnPrincipal" id="btnArcPlay" type="button">▶ CONTINUAR</button>';
     acc += '<button class="btnDibujoGhost" id="btnArcSalir2" type="button">🚪 SALIR</button>';
@@ -5968,11 +6100,12 @@ function arcFicha(estado){
     var j = arcJuego;
     var nuevo = j.puntos > 0 && j.puntos >= rec && j.puntos > (j.hsViejo || 0);
     var prog = arcClave === 'galaxy' ? 'Oleada alcanzada: ' + j.oleada
-      : (arcClave === 'digger' ? 'Sala alcanzada: ' + j.nivel : 'Nivel alcanzado: ' + j.nivel);
+      : (arcClave === 'digger' ? 'Sala alcanzada: ' + j.nivel
+      : (arcClave === 'cuphead' ? (j.gano ? '🏆 ¡Jefe vencido!' : 'El diablito quedó en ' + Math.max(0, Math.ceil(j.jefe.hp / 3)) + '%') : 'Nivel alcanzado: ' + j.nivel));
     acc += '<button class="btnPrincipal" id="btnArcPlay" type="button">🔄 REINTENTAR</button>';
     acc += '<button class="btnDibujo" id="btnArcShare" type="button">📤 COMPARTIR</button>';
     acc += '<button class="btnDibujoGhost" id="btnArcSalir2" type="button">🚪 SALIR</button>';
-    c.innerHTML = '<h3>💀 FIN DE PARTIDA</h3>'
+    c.innerHTML = '<h3>' + (j.gano ? '🏆 ¡GANASTE!' : '💀 FIN DE PARTIDA') + '</h3>'
       + '<p>Puntuación: <b>' + j.puntos + '</b>' + (nuevo ? ' — ⭐ ¡NUEVO RÉCORD!' : '') + '</p>'
       + '<p>Récord de este celu: <b>' + Math.max(rec, j.puntos) + '</b></p>'
       + '<p>' + prog + '</p>' + acc + '</div>';
@@ -5983,6 +6116,8 @@ function arcFicha(estado){
     if (estado === 'pausa') { /* CONTINUAR sigue donde estaba, no reinicia */
       arcJuego.estado = 'playing';
       arcFicha('jugando');
+    } else if (!arcJuego) {
+      arcWebJugar(); /* v54: juegos en línea — el ▶ JUGAR inserta el iframe */
     } else {
       arcJuego.empezar();
       arcFicha('jugando');
@@ -5995,8 +6130,11 @@ function arcFicha(estado){
 }
 function arcCompartir(){
   if (!arcJuego) return;
-  var nom = arcClave === 'galaxy' ? '👾 GALAXY' : (arcClave === 'digger' ? '⛏️ DIGGER' : '🐸 ZUMA MÍSTICO');
-  var extra = arcClave === 'galaxy' ? '(oleada ' + arcJuego.oleada + ')' : '(' + (arcClave === 'digger' ? 'sala ' : 'nivel ') + arcJuego.nivel + ')';
+  var nombresArc = { galaxy: '👾 GALAXY', digger: '⛏️ DIGGER', zuma: '🐸 ZUMA MÍSTICO', cuphead: '☕ CUPHEAD', popeye: '🥬 POPEYE' };
+  var nom = nombresArc[arcClave] || '🕹️ ARCADE';
+  var extra = arcClave === 'galaxy' ? '(oleada ' + arcJuego.oleada + ')'
+    : (arcClave === 'cuphead' ? (arcJuego.gano ? '(¡KNOCKOUT!)' : '(el diablito resistió)')
+    : '(' + (arcClave === 'digger' ? 'sala ' : 'nivel ') + arcJuego.nivel + ')');
   var txt = nom + ': hice ' + arcJuego.puntos + ' puntos ' + extra + ' 🕹️ ¿alguien me supera?';
   mandarMsj({
     de: miId,
@@ -6025,6 +6163,12 @@ function arcPunteroApuntar(e, soloMover){
   if (!arcJuego || !arcLienzo) return;
   var p = arcPuntoLogico(e);
   if (!p) return;
+  if (arcClave === 'cuphead') {
+    /* v54: el avioncito sigue al dedo/mouse (dispara si es toque directo) */
+    arcJuego.tx = p.x; arcJuego.ty = p.y;
+    if (!soloMover) arcJuego.disparando = true;
+    return;
+  }
   if (arcClave === 'galaxy') {
     arcJuego.apuntado = p.x;
     if (!soloMover) arcJuego.disparando = true;
@@ -6041,11 +6185,14 @@ function arcTecla(e){
   arcTeclas[k] = true;
   if (k === ' ') { e.preventDefault(); if (arcJuego.estado === 'playing') { arcSfx.despertar(); if (arcClave === 'zuma') arcJuego.disparar(); else if (arcClave === 'galaxy') arcJuego.dispararAhora(); } }
   if (k === 'x' || k === 'X' || k === 'ArrowUp') { if (arcClave === 'zuma') arcJuego.cambiar(); }
-  /* v52: DIGGER — flechas/WASD cavan; si te atraparon, cualquier tecla sigue */
-  if (arcClave === 'digger') {
+  /* v54: ☕ CUPHEAD — la bomba ✨ con E */
+  if ((k === 'e' || k === 'E') && arcClave === 'cuphead') { if (arcJuego.bomba) arcJuego.bomba(); }
+  /* v52: DIGGER — flechas/WASD cavan; si te atraparon, cualquier tecla sigue · v54: POPEYE usa el mismo mapa */
+  if (arcClave === 'digger' || arcClave === 'popeye') {
     var mapaD = { ArrowLeft: 0, a: 0, A: 0, ArrowRight: 1, d: 1, D: 1, ArrowUp: 2, w: 2, W: 2, ArrowDown: 3, s: 3, S: 3 };
-    if (k in mapaD) { if (arcJuego.esperandoVida()) arcJuego.revivir(); else arcJuego.tecla(mapaD[k]); }
-    else if (k === ' ' && arcJuego.esperandoVida()) arcJuego.revivir();
+    var espera = arcJuego.esperandoVida && arcJuego.esperandoVida();
+    if (k in mapaD) { if (espera) arcJuego.revivir(); else arcJuego.tecla(mapaD[k]); }
+    else if (k === ' ' && arcClave === 'digger' && espera) arcJuego.revivir();
   }
   if (k === 'p' || k === 'P' || k === 'Escape') {
     if (arcJuego.estado === 'playing') { arcJuego.estado = 'paused'; arcFicha('pausa'); }
@@ -6054,8 +6201,8 @@ function arcTecla(e){
 }
 function arcTeclaSuelta(e){
   arcTeclas[e.key] = false;
-  /* v52: DIGGER suelta la dirección (con el mismo retardo de 1 tic del original) */
-  if (arcJuego && arcClave === 'digger') {
+  /* v52: DIGGER suelta la dirección (con el mismo retardo de 1 tic del original) · v54: POPEYE igual */
+  if (arcJuego && (arcClave === 'digger' || arcClave === 'popeye')) {
     var mapaD = { ArrowLeft: 0, a: 0, A: 0, ArrowRight: 1, d: 1, D: 1, ArrowUp: 2, w: 2, W: 2, ArrowDown: 3, s: 3, S: 3 };
     if (e.key in mapaD) arcJuego.soltarTecla(mapaD[e.key]);
   }
@@ -6094,11 +6241,12 @@ function arcAlTocar(e){
     arcSfx.despertar();
     return;
   }
-  if (arcClave === 'digger') {
-    /* v52: ancla del gesto (el desliz se procesa en arcAlMover) + un toque revive */
+  if (arcClave === 'digger' || arcClave === 'popeye') {
+    /* v52: ancla del gesto (el desliz se procesa en arcAlMover) + un toque revive (DIGGER)
+       v54: POPEYE usa el mismo gesto — deslizá hacia donde querés caminar o escalar */
     arcTactilD.activo = true; arcTactilD.x = e.clientX; arcTactilD.y = e.clientY;
     arcSfx.despertar();
-    if (arcJuego.esperandoVida()) arcJuego.revivir();
+    if (arcJuego.esperandoVida && arcJuego.esperandoVida()) arcJuego.revivir();
     return;
   }
   arcPunteroApuntar(e, false);
@@ -6119,10 +6267,11 @@ function arcAlMover(e){
     arcTactil.giro += Math.abs(delta);
     return;
   }
-  if (arcClave === 'digger') {
+  if (arcClave === 'digger' || arcClave === 'popeye') {
     /* v52: el gesto del DIGGER original — cada 24 px que movés el dedo
        cavás una casilla en esa dirección (y las demás direcciones se sueltan);
-       con el MOUSE el minero no se mueve (nada que apuntar: el original solo enfoca) */
+       v54: en POPEYE el mismo gesto te camina/escala paso a paso;
+       con el MOUSE el minero/Pepe no se mueve (nada que apuntar) */
     if (e.pointerType !== 'mouse' && arcTactilD.activo) {
       var um = 24, dxT = e.clientX - arcTactilD.x, dyT = e.clientY - arcTactilD.y;
       if (dxT < -um) { arcJuego.deslizar(0); arcTactilD.x = e.clientX; arcTactilD.y = e.clientY; }
@@ -6143,8 +6292,8 @@ function arcAlSoltar(e){
     if (arcTactil.giro < 0.07 && Date.now() - arcTactil.t0 < 350) arcPunteroApuntar(e, false);
     return;
   }
-  if (arcClave === 'digger' && arcTactilD.activo) { arcTactilD.activo = false; arcJuego.soltarTodo(); return; }
-  if (arcJuego && arcClave === 'galaxy') arcJuego.disparando = false;
+  if ((arcClave === 'digger' || arcClave === 'popeye') && arcTactilD.activo) { arcTactilD.activo = false; if (arcJuego.soltarTodo) arcJuego.soltarTodo(); return; }
+  if (arcJuego && (arcClave === 'galaxy' || arcClave === 'cuphead')) arcJuego.disparando = false;
 }
 function arcOculto(){
   if (document.hidden && arcJuego && arcJuego.estado === 'playing') {
@@ -6163,6 +6312,10 @@ $('btnArcSonido').onclick = function(){
 $('btnArcSonido').textContent = arcSonidoOn ? '🔊 Sonido' : '🔇 Mudo';
 $('btnArcPantalla').onclick = function(){ arcSfx.despertar(); arcFSToggle(); };
 $('btnArcFs').onclick = function(){ arcSfx.despertar(); arcFSToggle(); };
+/* v54: 🔄 Reiniciar para los juegos en línea — recarga el iframe */
+$('btnArcWebReload').onclick = function(){
+  if (arcClave && ARCADE[arcClave] && ARCADE[arcClave].web) { toast('🔄 Reiniciando ' + ARCADE[arcClave].nom + '…', 2600); arcWebJugar(); }
+};
 /* --- v50: PANTALLA ENTERA DE VERDAD (PC, TV y celu) ---
    El overlay entero entra en fullscreen, la clase .arcLleno reacomoda TODO (lienzo al
    máximo, puntos arriba, botones abajo, translúcidos) y en el celu se pide modo
@@ -6186,7 +6339,7 @@ function arcFSAplicar(){
   var chip = $('btnArcFs');
   if (chip) chip.title = llena ? '⤡ Volver a la ventana' : '⛶ Pantalla entera (PC y TV) — el juego ocupa todo';
   try {
-    if (llena && (arcClave === 'zuma' || arcClave === 'digger') && screen.orientation && screen.orientation.lock) screen.orientation.lock('landscape').catch(function(){});
+    if (llena && arcClave && (arcClave === 'zuma' || arcClave === 'digger' || (ARCADE[arcClave] && ARCADE[arcClave].web)) && screen.orientation && screen.orientation.lock) screen.orientation.lock('landscape').catch(function(){});
     else if (!llena && screen.orientation && screen.orientation.unlock) screen.orientation.unlock();
   } catch (e) {}
   setTimeout(arcAjustar, 60);
@@ -6951,8 +7104,8 @@ function medirPapel(){
   ponerFijo(); posicionarPre(); /* v48: al 100% papel CLAVADO; la vista previa sigue a la hoja */
 }
 /* v46 · CARTELITO DE ESTADO: herramienta + tamaño + color en una pastilla */
-var NOMBRE_HERR = { lapiz:'Lápiz', pincel:'Pincel', brocha:'Brocha', difum:'Aerógrafo', difumar:'Difuminar', dedo:'Licuar', bote:'Bote', goma:'Goma', texto:'Texto', mano:'Mover', movercapa:'M. Capa', formas:'Formas', gota:'Cuentagotas', malla:'Malla' };
-var EMOJI_HERR = { lapiz:'✏️', pincel:'🖌️', brocha:'🖍️', difum:'💨', difumar:'🌫️', dedo:'👆', bote:'🪣', goma:'🧽', texto:'🔤', mano:'✋', movercapa:'📦', formas:'⬟', gota:'💧', malla:'🕸️' };
+var NOMBRE_HERR = { lapiz:'Lápiz', pincel:'Pincel', brocha:'Brocha', difum:'Aerógrafo', difumar:'Difuminar', dedo:'Licuar', bote:'Bote', goma:'Goma', texto:'Texto', mano:'Mover', movercapa:'M. Capa', formas:'Formas', gota:'Cuentagotas', malla:'Malla', seleccion:'Seleccionar' };
+var EMOJI_HERR = { lapiz:'✏️', pincel:'🖌️', brocha:'🖍️', difum:'💨', difumar:'🌫️', dedo:'👆', bote:'🪣', goma:'🧽', texto:'🔤', mano:'✋', movercapa:'📦', formas:'⬟', gota:'💧', malla:'🕸️', seleccion:'🔲' };
 function pintarEstado(){
   var e = $('epEmoji'), nn = $('epNombre'), tt = $('epTrazo'), bb = $('epBola');
   if (!e) return;
@@ -6962,6 +7115,7 @@ function pintarEstado(){
     : (herrAct === 'difumar') ? ('Nivel ' + fuerzaDedo + '%') /* v48: cuánto desenfoca */
     : (herrAct === 'formas') ? (NOMBRE_FORMA[formaAct] + (formaRelleno ? ' + relleno' : '')) /* v48 */
     : (herrAct === 'gota') ? 'tocá un color' /* v48 */
+    : (herrAct === 'seleccion') ? 'marcá un pedazo' /* v54 */
     : ('Trazo ' + grosorAct);
   bb.style.background = colorAct;
 }
@@ -7095,13 +7249,14 @@ function pintarCapas(){
         pintarCapas(); repintar();
       };
       f.appendChild(o);
-      f.onclick = function(){ if (mallaEd.activo) mallaOcultar(); capaAct = idx; pintarCapas(); };
+      f.onclick = function(){ if (mallaEd.activo) mallaOcultar(); if (selEd.flotante) selEstampar(true); /* v54: se estampa antes de cambiar de capa */ capaAct = idx; pintarCapas(); };
       lc.appendChild(f);
     })(i);
   }
 }
 $('btnCapaNueva').onclick = function(){
   if (mallaEd.activo) mallaOcultar(); /* v51 */
+  if (selEd.flotante) selEstampar(true); /* v54 */
   if (capas.length >= 6) { toast('😳 Hasta 6 capas — con eso alcanza para dibujo detallado'); return; }
   capas.push(nuevaCapa('Capa ' + (capas.length + 1)));
   capaAct = capas.length - 1;
@@ -7110,6 +7265,7 @@ $('btnCapaNueva').onclick = function(){
 };
 $('btnCapaBorrar').onclick = function(){
   if (mallaEd.activo) mallaOcultar(); /* v51 */
+  if (selEd.flotante) selEstampar(true); /* v54 */
   if (capas.length <= 1) {
     guardarUndo();
     capas[0].ctx.clearRect(0, 0, lienzo.width, lienzo.height);
@@ -7384,6 +7540,7 @@ mallaCV.addEventListener('pointercancel', mallaSuelta);
 /* --- abrir / cerrar / aplicar --- */
 function mallaAbrir(herrAnterior){
   if (mallaEd.activo) return;
+  if (selEd.flotante) selEstampar(true); /* v54: la malla lee la capa — primero se estampa la selección */
   mallaEd.prev = herrAnterior || 'lapiz';
   var L = capas[capaAct];
   var b = mallaBBox(L.cv);
@@ -7437,6 +7594,234 @@ $('btnMallaReset').onclick = function(ev){
   mallaPintar();
 };
 $('mallaDens').onchange = function(){ mallaArmar(); mallaPintar(); };
+
+/* ============================================================
+   v54 · ⬚ SELECCIÓN DE OBJETOS — marcás un pedazo del dibujo y queda
+   FLOTANDO: lo movés con el dedo, lo agrandás con las esquinas y lo
+   girás con la bola amarilla de arriba. ✔ Estampar lo deja pintado
+   (↩️ lo deshace), 🗑️ Quitar lo saca del papel y ✖ lo devuelve a su
+   lugar. Levanta los píxeles de la CAPA ELEGIDA (servir para texto
+   ya estampado, formas, fotos, figuritas… lo que sea) y si cambiás
+   de herramienta o de capa con algo flotando, se estampa SOLO para
+   que nunca se pierda. Igual que la malla: un lienzo flotante encima
+   del papel que sigue al zoom.
+   ============================================================ */
+var selCV = $('lienzoSel');
+var selCX = null;
+function selCtx(){ if (!selCX) selCX = selCV.getContext('2d'); return selCX; }
+var selEd = { activo:false, flotante:false, dibujando:false, arrastre:null, capa:-1, m0:null, m1:null,
+              img:null, undoImg:null, ox:0, oy:0, w:0, h:0, cx:0, cy:0, rot:0, esc:1, dedo:null, avisado:false };
+function selPunto(e){ /* puntero → coordenadas internas (960×720) */
+  var r = selCV.getBoundingClientRect();
+  if (!r.width || !r.height) return null;
+  return { x: (e.clientX - r.left) / r.width * selCV.width, y: (e.clientY - r.top) / r.height * selCV.height };
+}
+function selPosicionar(){ /* el lienzo de la selección sigue al papel (zoom, ⤢, girar el cel) */
+  if (!selCV || !lienzo.style.width) return;
+  selCV.style.left = lienzo.offsetLeft + 'px';
+  selCV.style.top = lienzo.offsetTop + 'px';
+  selCV.style.width = lienzo.style.width;
+  selCV.style.height = Math.round(parseFloat(lienzo.style.width) * 3 / 4) + 'px';
+  var caja = $('cajaSel');
+  caja.style.left = lienzo.offsetLeft + 'px';
+  caja.style.top = (lienzo.offsetTop + 8) + 'px';
+}
+function selAbrir(){ /* la herramienta Seleccionar activa el editor */
+  selEd.activo = true;
+  selCV.classList.add('activo');
+  selPosicionar();
+  if (!selEd.avisado) { toast('🔲 Arrastrá sobre el papel para marcar un pedazo — después lo movés, lo agrandás con las esquinas y lo girás con la bola de arriba', 5600); selEd.avisado = true; }
+}
+function selTomar(){ /* levanta el pedazo marcado de la capa elegida */
+  var x0 = Math.max(0, Math.round(Math.min(selEd.m0.x, selEd.m1.x)));
+  var y0 = Math.max(0, Math.round(Math.min(selEd.m0.y, selEd.m1.y)));
+  var x1 = Math.min(selCV.width, Math.round(Math.max(selEd.m0.x, selEd.m1.x)));
+  var y1 = Math.min(selCV.height, Math.round(Math.max(selEd.m0.y, selEd.m1.y)));
+  var w = x1 - x0, h = y1 - y0;
+  if (w < 14 || h < 14) { selEd.m0 = selEd.m1 = null; selPintar(); return; } /* toque accidental: nada */
+  var L = capas[capaAct];
+  if (!L) return;
+  var img = document.createElement('canvas');
+  img.width = w; img.height = h;
+  img.getContext('2d').drawImage(L.cv, x0, y0, w, h, 0, 0, w, h);
+  try { selEd.undoImg = L.ctx.getImageData(0, 0, lienzo.width, lienzo.height); } catch (err) { selEd.undoImg = null; }
+  L.ctx.clearRect(x0, y0, w, h); /* el pedazo SALTA del papel y queda flotando */
+  repintar();
+  selEd.capa = capaAct; selEd.img = img; selEd.w = w; selEd.h = h;
+  selEd.ox = x0; selEd.oy = y0;
+  selEd.cx = x0 + w / 2; selEd.cy = y0 + h / 2;
+  selEd.rot = 0; selEd.esc = 1;
+  selEd.flotante = true;
+  $('cajaSel').classList.add('ver');
+  selPintar();
+}
+function selEsquinas(){ /* las 4 esquinas del pedazo ya giradas y escaladas */
+  var hw = selEd.w * selEd.esc / 2, hh = selEd.h * selEd.esc / 2;
+  var cs = Math.cos(selEd.rot), sn = Math.sin(selEd.rot);
+  var loc = [[-1, -1], [1, -1], [1, 1], [-1, 1]], pts = [];
+  for (var i = 0; i < 4; i++) {
+    var lx = loc[i][0] * hw, ly = loc[i][1] * hh;
+    pts.push({ x: selEd.cx + lx * cs - ly * sn, y: selEd.cy + lx * sn + ly * cs });
+  }
+  return pts;
+}
+function selManijaGiro(){ /* la bola de girar, saliendo del medio de la cara de arriba */
+  var hh = selEd.h * selEd.esc / 2;
+  var cs = Math.cos(selEd.rot), sn = Math.sin(selEd.rot);
+  var lx = 0, ly = -hh - 30;
+  return { x: selEd.cx + lx * cs - ly * sn, y: selEd.cy + lx * sn + ly * cs,
+           base: { x: selEd.cx + hh * sn, y: selEd.cy - hh * cs } };
+}
+function selPintar(){ /* el pedazo flotante + caja punteada + manijas (o la marca punteada) */
+  var g = selCtx(); if (!g) return;
+  g.setTransform(1, 0, 0, 1, 0, 0);
+  g.clearRect(0, 0, selCV.width, selCV.height);
+  if (selEd.flotante && selEd.img) {
+    g.save();
+    g.translate(selEd.cx, selEd.cy); g.rotate(selEd.rot); g.scale(selEd.esc, selEd.esc);
+    g.imageSmoothingEnabled = true;
+    g.drawImage(selEd.img, -selEd.w / 2, -selEd.h / 2);
+    g.restore();
+    var es = selEsquinas(), mg = selManijaGiro(), i;
+    g.beginPath(); g.moveTo(mg.base.x, mg.base.y); g.lineTo(mg.x, mg.y); /* tallito del giro */
+    g.strokeStyle = 'rgba(0,0,0,.55)'; g.lineWidth = 4.5; g.stroke();
+    g.strokeStyle = '#f59d3d'; g.lineWidth = 2; g.stroke();
+    g.beginPath();
+    g.moveTo(es[0].x, es[0].y); for (i = 1; i < 4; i++) g.lineTo(es[i].x, es[i].y); g.closePath();
+    g.setLineDash([9, 7]);
+    g.strokeStyle = 'rgba(0,0,0,.55)'; g.lineWidth = 4.5; g.stroke();
+    g.strokeStyle = '#f59d3d'; g.lineWidth = 2; g.stroke();
+    g.setLineDash([]);
+    for (i = 0; i < 4; i++) { /* manijas de las esquinas: agrandar / achicar */
+      g.beginPath(); g.rect(es[i].x - 9, es[i].y - 9, 18, 18);
+      g.fillStyle = '#ffffff'; g.fill();
+      g.lineWidth = 3; g.strokeStyle = '#f59d3d'; g.stroke();
+    }
+    g.beginPath(); g.arc(mg.x, mg.y, 11, 0, 6.283); /* la bola de girar */
+    g.fillStyle = '#ffd23f'; g.fill();
+    g.lineWidth = 3; g.strokeStyle = '#ffffff'; g.stroke();
+  } else if (selEd.m0 && selEd.m1) {
+    var x0 = Math.min(selEd.m0.x, selEd.m1.x), y0 = Math.min(selEd.m0.y, selEd.m1.y);
+    var w0 = Math.abs(selEd.m1.x - selEd.m0.x), h0 = Math.abs(selEd.m1.y - selEd.m0.y);
+    g.beginPath(); g.rect(x0, y0, w0, h0);
+    g.fillStyle = 'rgba(245,157,61,.12)'; g.fill();
+    g.setLineDash([9, 7]);
+    g.strokeStyle = 'rgba(0,0,0,.5)'; g.lineWidth = 4; g.stroke();
+    g.strokeStyle = '#f59d3d'; g.lineWidth = 1.8; g.stroke();
+    g.setLineDash([]);
+  }
+}
+function selCerca(p, q, rad){ var dx = p.x - q.x, dy = p.y - q.y; return dx * dx + dy * dy <= rad * rad; }
+function selAgarrado(p){ /* ¿qué agarré? la bola de girar, una esquina, adentro (mover) o nada */
+  var mg = selManijaGiro();
+  if (selCerca(p, mg, 28)) return { t: 'girar', a0: Math.atan2(p.y - selEd.cy, p.x - selEd.cx), r0: selEd.rot };
+  var es = selEsquinas();
+  for (var i = 0; i < 4; i++) {
+    if (selCerca(p, es[i], 28)) {
+      var ddx = p.x - selEd.cx, ddy = p.y - selEd.cy;
+      return { t: 'escala', d0: Math.sqrt(ddx * ddx + ddy * ddy) || 1, e0: selEd.esc };
+    }
+  }
+  var lx =  (p.x - selEd.cx) * Math.cos(selEd.rot) + (p.y - selEd.cy) * Math.sin(selEd.rot);
+  var ly = -(p.x - selEd.cx) * Math.sin(selEd.rot) + (p.y - selEd.cy) * Math.cos(selEd.rot);
+  var hw = selEd.w * selEd.esc / 2, hh = selEd.h * selEd.esc / 2;
+  if (lx >= -hw && lx <= hw && ly >= -hh && ly <= hh) return { t: 'mover', px: p.x, py: p.y, cx0: selEd.cx, cy0: selEd.cy };
+  return null;
+}
+selCV.addEventListener('pointerdown', function(e){
+  if (!selEd.activo) return;
+  e.preventDefault(); e.stopPropagation();
+  try { selCV.setPointerCapture(e.pointerId); } catch (err) {}
+  var p = selPunto(e); if (!p) return;
+  selEd.dedo = e.pointerId;
+  if (selEd.flotante) {
+    var g = selAgarrado(p);
+    if (g) { selEd.arrastre = g; selEd.dibujando = false; return; }
+    selEstampar(true); /* tocó afuera: queda lo que había y arranca una marca nueva */
+  }
+  selEd.m0 = p; selEd.m1 = p; selEd.dibujando = true;
+  selPintar();
+});
+selCV.addEventListener('pointermove', function(e){
+  if (!selEd.activo || e.pointerId !== selEd.dedo) return;
+  e.preventDefault();
+  var p = selPunto(e); if (!p) return;
+  if (selEd.dibujando) { selEd.m1 = p; selPintar(); return; }
+  var a = selEd.arrastre; if (!a) return;
+  if (a.t === 'mover') {
+    selEd.cx = Math.max(-selEd.w / 2, Math.min(selCV.width + selEd.w / 2, a.cx0 + (p.x - a.px)));
+    selEd.cy = Math.max(-selEd.h / 2, Math.min(selCV.height + selEd.h / 2, a.cy0 + (p.y - a.py)));
+  } else if (a.t === 'escala') {
+    var ddx = p.x - selEd.cx, ddy = p.y - selEd.cy;
+    var d = Math.sqrt(ddx * ddx + ddy * ddy);
+    selEd.esc = Math.max(0.08, Math.min(14, a.e0 * d / a.d0));
+  } else if (a.t === 'girar') {
+    var ang = Math.atan2(p.y - selEd.cy, p.x - selEd.cx);
+    selEd.rot = a.r0 + (ang - a.a0);
+    var paso = Math.PI / 12, casi = Math.round(selEd.rot / paso) * paso;
+    if (Math.abs(selEd.rot - casi) < 0.06) selEd.rot = casi; /* se endereza cerca de 0°, 15°, 90°… */
+  }
+  selPintar();
+});
+function selSuelta(e){
+  if (selEd.dedo !== (e ? e.pointerId : selEd.dedo)) return;
+  selEd.dedo = null;
+  if (selEd.dibujando) { selEd.dibujando = false; selEd.arrastre = null; selTomar(); return; }
+  selEd.arrastre = null;
+}
+selCV.addEventListener('pointerup', selSuelta);
+selCV.addEventListener('pointercancel', selSuelta);
+function selOcultarUI(){
+  selEd.flotante = false; selEd.dibujando = false; selEd.arrastre = null; selEd.dedo = null;
+  selEd.img = null; selEd.undoImg = null; selEd.m0 = selEd.m1 = null;
+  var c = $('cajaSel'); if (c) c.classList.remove('ver');
+  var g = selCtx(); if (g) g.clearRect(0, 0, selCV.width, selCV.height);
+}
+function selGuardarUndo(){ /* el ↩️ devuelve la capa tal como estaba ANTES de levantar el pedazo */
+  if (!selEd.undoImg) return;
+  if (pilaUndo.length >= 10) pilaUndo.shift();
+  pilaUndo.push({ i: selEd.capa, img: selEd.undoImg });
+  selEd.undoImg = null;
+}
+function selEstampar(silencioso){ /* lo deja pintado donde quedó (movido, agrandado y girado) */
+  if (!selEd.flotante || !selEd.img) { selOcultarUI(); return; }
+  var L = capas[selEd.capa];
+  if (!L) { selOcultarUI(); return; }
+  selGuardarUndo();
+  L.ctx.save();
+  L.ctx.translate(selEd.cx, selEd.cy); L.ctx.rotate(selEd.rot); L.ctx.scale(selEd.esc, selEd.esc);
+  L.ctx.imageSmoothingEnabled = true;
+  L.ctx.drawImage(selEd.img, -selEd.w / 2, -selEd.h / 2);
+  L.ctx.restore();
+  repintar(); pintarCapas();
+  selOcultarUI();
+  if (!silencioso) toast('✔ ¡Listo! Si no te gustó, ↩️ lo deshace');
+}
+function selQuitar(){ /* 🗑️ saca el pedazo: la capa queda sin eso (↩️ lo devuelve) */
+  if (!selEd.flotante) return;
+  selGuardarUndo();
+  selOcultarUI();
+  toast('🗑️ Pedazo quitado — ↩️ lo devuelve si te arrepentís');
+}
+function selCancelar(){ /* ✖ lo devuelve a su lugar exacto: no cambió nada */
+  if (!selEd.flotante) { selOcultarUI(); return; }
+  var L = capas[selEd.capa];
+  if (L && selEd.undoImg) { try { L.ctx.putImageData(selEd.undoImg, 0, 0); } catch (err) {} }
+  else if (L && selEd.img) { L.ctx.drawImage(selEd.img, selEd.ox, selEd.oy); } /* sin foto de respaldo, lo pego donde estaba */
+  repintar(); pintarCapas();
+  selOcultarUI();
+}
+function selCerrar(conEstampado){ /* cambio de herramienta / cierre de la pizarra */
+  if (!selEd.activo) return;
+  if (selEd.flotante) { if (conEstampado) selEstampar(true); else selCancelar(); }
+  selEd.activo = false;
+  selCV.classList.remove('activo');
+  selOcultarUI();
+}
+/* los botones de la cajita flotante (v54) */
+$('btnSelOk').onclick = function(ev){ ev.stopPropagation(); selEstampar(false); };
+$('btnSelBorrar').onclick = function(ev){ ev.stopPropagation(); selQuitar(); };
+$('btnSelNo').onclick = function(ev){ ev.stopPropagation(); selCancelar(); };
 
 /* v40: UNA sola función para elegir color — la usan las bolitas del riel Y las del
    panel de fuentes (así las dos paletas y el HSV quedan siempre sincronizados) */
@@ -7559,6 +7944,7 @@ function marcarColoresTxt(){
 /* v31: Limpiar vacía SOLO la capa elegida (con capas no conviene borrar todo de golpe) */
 function prepararLienzo(){
   mallaOcultar(); /* v51: si estaba la malla abierta, se cierra antes de vaciar */
+  if (selEd.flotante) selEstampar(true); /* v54: primero queda lo flotante, después se vacía */
   guardarUndo();
   capas[capaAct].ctx.clearRect(0, 0, lienzo.width, lienzo.height);
   repintar();
@@ -7585,6 +7971,10 @@ function elegirHerr(h){
   /* v51: la MALLA abre su editor de anclajes apenas la elegís (y si la capa está vacía te devuelve la herramienta de antes) */
   if (h !== 'malla' && mallaEd.activo) mallaOcultar(); /* cambiaste de herramienta → la malla se recoge */
   if (h === 'malla') mallaAbrir(prev);
+  /* v54: la SELECCIÓN se activa con su herramienta; si cambiás de herramienta con algo
+     flotando, se estampa SOLO para que el pedazo no se pierda nunca */
+  if (h !== 'seleccion' && selEd.activo) selCerrar(true);
+  if (h === 'seleccion') selAbrir();
   /* v48: el selector de FORMAS solo acompaña a su herramienta */
   if (h !== 'formas') { var pf = $('popFormas'); if (pf) pf.classList.add('oculto'); }
   /* v48: con la mano al 100% no hay nada que mover — se avisa una vez */
@@ -7596,6 +7986,7 @@ function abrirDibujo(){
   pintarChipReto(); /* v44: el chip del reto vuelve con la pizarra */
   pilaUndo = [];
   mallaOcultar(); /* v51: pizarra nueva = sin malla de la sesión anterior */
+  selEd.activo = false; selOcultarUI(); selCV.classList.remove('activo'); /* v54: pizarra nueva = sin selección */
   capas = [nuevaCapa('Capa 1'), nuevaCapa('Capa 2')]; /* v31: arranca con 2 capas como la imagen */
   capaAct = 1; /* dibujás en la de arriba (Capa 2) */
   pintarCapas(); repintar();
@@ -7618,6 +8009,7 @@ function cerrarDibujo(){
   $('overlayDibujo').classList.add('oculto');
   $('msjFlotante').classList.remove('ver'); /* v44: si quedaba el flotante de un mensaje, se va con la pizarra */
   mallaOcultar(); /* v51: la malla también se recoge */
+  selCerrar(true); /* v54: si había un pedazo flotando, se estampa antes de cerrar */
   cerrarTexto(); cerrarPops();
   if (fsElemento()) salirPantallaCompleta(); /* v33: si estaba en pantalla completa, sale */
 }
@@ -7627,6 +8019,7 @@ $('btnCancelarDibujo').onclick = cerrarDibujo;
 $('btnCerrarAbajo').onclick = cerrarDibujo; /* v36: Cerrar también abajo, al lado de ENVIAR */
 $('btnLimpiarDibujo').onclick = prepararLienzo;
 $('btnDeshacer').onclick = function(){
+  if (selEd.flotante) { selCancelar(); return; } /* v54: ↩️ con algo flotando = lo devuelve a su lugar */
   if (mallaEd.activo) mallaOcultar(); /* v51: deshacer con la malla abierta se hace lío */
   deshacer();
 };
@@ -7665,6 +8058,7 @@ function posicionarPre(){
   p.style.width = lienzo.style.width;
   p.style.height = Math.round(parseFloat(lienzo.style.width) * 3 / 4) + 'px';
   mallaPosicionar(); /* v51: la malla sigue al papel igual que la vista previa */
+  selPosicionar(); /* v54: la selección también */
 }
 function limpiarPre(){
   var p = $('lienzoPre');
@@ -8569,6 +8963,7 @@ $('inputFotoDibujo').addEventListener('change', function(e){
   var f = e.target.files && e.target.files[0];
   if (!f) return;
   mallaOcultar(); /* v51 */
+  if (selEd.flotante) selEstampar(true); /* v54 */
   var fr = new FileReader();
   fr.onload = function(){
     var im = new Image();
